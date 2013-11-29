@@ -1,11 +1,11 @@
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='login_error'%>
 <%@ include file="header.jsp"%>
 
 <h1>Login failed</h1>
-Your login attempt failed. Please try again, or contact
-Login submission URL B
-Always-resident login form C
-www.it-ebooks.info
-Implementing an always-resident login form 187
-technical support for further assistance.
-
+        <login_error:if test="${'fail' eq param.auth}">
+                <div style="color:red">
+                Login Failed!!!<br />
+                Reason : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+         		</div>
+        </login_error:if>
 <%@ include file="footer.jsp"%>

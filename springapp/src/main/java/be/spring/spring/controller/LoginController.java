@@ -19,12 +19,14 @@ public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@RequestMapping(value="/welcome", method = RequestMethod.GET)
-	public String printWelcome(ModelMap model, Principal principal ) {
+	public void printWelcome(ModelMap model, Principal principal ) {
  
 		String name = principal.getName();
 		model.addAttribute("username", name);
 		model.addAttribute("message", "Spring Security Custom Form example");
-		return "hello";
+		
+		logger.info("User {} logged in", name);
+
  
 	}
  

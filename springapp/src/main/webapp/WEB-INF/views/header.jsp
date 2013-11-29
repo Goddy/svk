@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -24,8 +24,8 @@
     
     <div class="login">
     <security:authorize access="isAuthenticated()">
-    <div class="loggedin">';
-        Logged in as <security:authentication property="principal.username" />. <a href="../login/logout.php">Logout</a>
+    <div class="loggedin">
+        Ingelogd als <security:authentication property="principal.username" />. <a href="<c:url value="j_spring_security_logout" />" > Uitloggen</a>
     </div>
     </security:authorize>
     

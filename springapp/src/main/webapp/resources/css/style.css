@@ -62,7 +62,7 @@ body
     
 }
 .loggedin{
-    top: 115px;
+    top: 100px;
     right: 0;
     position: absolute;
     min-width: 200px;
@@ -74,13 +74,15 @@ body
     text-align: center;
 }
 
-
 .login{
+    padding-top: 20px; 
     margin-left: 15px;
     right: 0;
     text-align: right;
     color: #41afc1;
     float: right;
+    padding-top: 20px;
+    position: absolute;
     font-size: 12px;
 }
 .headerimage {
@@ -124,7 +126,7 @@ legend {
     position: absolute;
     top:150px;
     min-height: 250px;
-    width: inherit;
+    min-width: 960px;
     background-color: #fffefe;
     border-radius: 16px; 
     -moz-border-radius: 16px; 
@@ -135,6 +137,7 @@ legend {
 }
 
 .wrapper{  
+   position:relative;
    width:960px;
    margin: 0 auto;  
    text-align:left;
