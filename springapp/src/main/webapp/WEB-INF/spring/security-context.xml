@@ -17,11 +17,11 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 <authentication-provider>
 <jdbc-user-service data-source-ref="dataSource"
 users-by-username-query=
-"select username, password, activation
-from members where username = ?"
+"select email, password, activation
+from account where email = ?"
 authorities-by-username-query=
-"select username, role
-from members where username = ?" />
+"select email, role
+from account where email = ?" />
 </authentication-provider>
 </authentication-manager>
 </beans:beans>

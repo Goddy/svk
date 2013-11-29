@@ -27,7 +27,7 @@
     <div class="login">
     <security:authorize access="isAuthenticated()">
     <div class="loggedin">
-        Ingelogd als <security:authentication property="principal.username" />. <a href="<c:url value="j_spring_security_logout" />" > Uitloggen</a>
+        <spring:message code="text.loggedin" /> <security:authentication property="principal.username" />. <a href="<c:url value="j_spring_security_logout" />" > <spring:message code="text.logout" /> </a>
     </div>
     </security:authorize>
     

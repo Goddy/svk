@@ -1,6 +1,4 @@
-package form;
-
-import java.util.Locale;
+package be.spring.spring.form;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;

@@ -1,5 +1,6 @@
 package be.spring.spring.controller;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -14,11 +15,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import form.registrationForm;
+import be.spring.spring.form.registrationForm;
+import be.spring.spring.model.Account;
+import be.spring.spring.persistence.AccountService;
+
 @Controller
 @RequestMapping("/register")
 public class AccountController {
 	private static final Logger log = LoggerFactory.getLogger(AccountController.class);
+	@Inject
+	private AccountService accountService;
 	private static final String VN_REG_FORM = "forms/registrationForm";
 	private static final String VN_REG_OK = "redirect:registration_ok";
 	
@@ -32,8 +38,18 @@ public class AccountController {
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String postRegistrationForm(@ModelAttribute("Account") @Valid registrationForm form, BindingResult result) {
 		log.info("Posted registrationForm: {}", form);
+		accountService.registerAccount(
+				toAccount(form), form.getPassword(), result);
 		convertPasswordError(result);
 		return (result.hasErrors() ? VN_REG_FORM : VN_REG_OK);
+	}
+	
+	private static Account toAccount(registrationForm form) {
+		Account account = new Account();
+		account.setFirstName(form.getFirstName());
+		account.setLastName(form.getLastName());
+		account.setEmail(form.getEmail());
+		return account;
 	}
 	
 	@InitBinder
