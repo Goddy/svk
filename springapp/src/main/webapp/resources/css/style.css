@@ -75,13 +75,11 @@ body
 }
 
 .login{
-    padding-top: 20px; 
     margin-left: 15px;
     right: 0;
     text-align: right;
     color: #41afc1;
     float: right;
-    padding-top: 20px;
     position: absolute;
     font-size: 12px;
 }
