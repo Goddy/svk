@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 
 public abstract class AbstractHbnDao<T extends Object>
