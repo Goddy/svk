@@ -54,7 +54,7 @@ public class NewsController {
     private int[] getPages(int requestedPage, int count) {
         int totalPages = count;
         int[] pages = new int[2];
-        pages[0] = (requestedPage + Constants.MINUS_TEN < 1) ? 1 : requestedPage + Constants.MINUS_TEN;
+        pages[0] = (requestedPage + Constants.MINUS_TEN < Constants.ONE) ? Constants.ONE : requestedPage + Constants.MINUS_TEN;
         pages[1] = (requestedPage + Constants.TEN > totalPages) ? floor(totalPages) : requestedPage + Constants.TEN;
         return pages;
     }

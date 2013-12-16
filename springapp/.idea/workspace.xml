@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a0575f8-5ab2-4b1c-a179-47e948df9033" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/root-context.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AbstractHbnDao.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AbstractHbnDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/utils/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/utils/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnNewsDao.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnNewsDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/News.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/News.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/NewsController.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/NewsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/NewsDao.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/NewsDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/NewsService.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/NewsService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/NewsServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/NewsServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/news.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/news.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="spring.iws" />
@@ -142,7 +132,7 @@
       <file leaf-file-name="NewsController.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/NewsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="55" selection-start="2575" selection-end="2575" vertical-scroll-proportion="1.6506329" vertical-offset="68" max-vertical-offset="900">
+            <state line="56" column="88" selection-start="2421" selection-end="2421" vertical-scroll-proportion="1.8062828" vertical-offset="0" max-vertical-offset="900">
               <folding />
             </state>
           </provider>
@@ -1298,12 +1288,17 @@
       <workItem from="1386154919810" duration="3880000" />
       <workItem from="1386160378083" duration="23937000" />
       <workItem from="1386605527812" duration="45691000" />
-      <workItem from="1387215003056" duration="8709000" />
+      <workItem from="1387215003056" duration="9485000" />
     </task>
+    <task id="LOCAL-00001" summary="- Added newspage paging">
+      <created>1387226006575</created>
+      <updated>1387226006575</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82217000" />
+    <option name="totallyTimeSpent" value="82993000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="24" width="1682" height="906" extended-state="6" />
@@ -1333,7 +1328,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18571429" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3276923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2470238" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4511743" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4511743" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1354,6 +1349,8 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="- Added newspage paging" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added newspage paging" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1728,7 +1725,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/NewsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="55" selection-start="2575" selection-end="2575" vertical-scroll-proportion="1.6506329" vertical-offset="68" max-vertical-offset="900">
+        <state line="56" column="88" selection-start="2421" selection-end="2421" vertical-scroll-proportion="1.8062828" vertical-offset="0" max-vertical-offset="900">
           <folding />
         </state>
       </provider>
