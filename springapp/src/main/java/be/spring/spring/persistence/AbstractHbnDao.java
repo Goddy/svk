@@ -1,26 +1,26 @@
 package be.spring.spring.persistence;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.util.Date;
-import java.util.List;
-import javax.inject.Inject;
-
 import be.spring.spring.interfaces.Dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.util.ReflectionUtils;
 
+import javax.inject.Inject;
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.util.Date;
+import java.util.List;
+
 public abstract class AbstractHbnDao<T extends Object>
 implements Dao<T> {
 
-@Inject private SessionFactory sessionFactory;
+@Inject
+private SessionFactory sessionFactory;
 private Class<T> domainClass;
 
 protected Session getSession() {
-
-return sessionFactory.getCurrentSession();
+    return sessionFactory.getCurrentSession();
 }
 
 @SuppressWarnings("unchecked")

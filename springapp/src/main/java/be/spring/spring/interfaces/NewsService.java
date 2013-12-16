@@ -17,4 +17,5 @@ public interface NewsService {
     News getNewsItem(Long id);
     List getAll();
     List<News> getPagedNews(int start);
+    public int getNewsCount();
 }

@@ -1,16 +1,10 @@
 package be.spring.spring.model;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 /**
  * User: Tom De Dobbeleer
@@ -18,10 +12,8 @@ import java.util.GregorianCalendar;
  * Time: 7:42 PM
  * Remarks: Base class for news items.
  */
-
 @NamedQueries({
-        @NamedQuery(name = "findNewsById", query = "from News where id = :id"),
-        @NamedQuery(name = "getPagedNews", query = "from News order by postdate desc limit :start, 10")
+        @NamedQuery(name = "findNewsById", query = "from News where id = :id")
 })
 @Entity
 @Table(name = "news")

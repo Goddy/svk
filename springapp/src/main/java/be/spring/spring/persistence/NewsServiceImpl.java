@@ -44,15 +44,18 @@ public class NewsServiceImpl implements NewsService {
         return null;
     }
 
-    @Transactional
     @Override
     public List getAll() {
          return newsDao.getAll();
     }
 
     @Override
-    @Transactional
     public List<News> getPagedNews(int start) {
         return newsDao.getPagedNews(start);
+    }
+
+    @Override
+    public int getNewsCount() {
+        return (int)newsDao.count();
     }
 }

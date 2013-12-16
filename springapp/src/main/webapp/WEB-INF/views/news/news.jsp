@@ -13,5 +13,5 @@
         </c:forEach>
     </c:otherwise>
 </c:choose>
-<p style="text-align:center"><a href="<c:out value="${previous}" />" ><spring:message code="text.previous" /></a> | <a href="<c:out value="${next}" />"><spring:message code="text.next" /></a></p>
+<p style="text-align:center"><a href="<c:out value="${first}" />" > << <spring:message code="text.first" /></a> | <a href="<c:out value="${previous}" />" ><spring:message code="text.previous" /></a> | <a href="<c:out value="${next}" />"><spring:message code="text.next" /></a> | <a href="<c:out value="${last}" />" ><spring:message code="text.last" /> >> </a> </p>
 <%@ include file="../footer.jsp"%>

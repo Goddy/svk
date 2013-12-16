@@ -17,6 +17,8 @@ import java.util.List;
 @Repository
 public class HbnNewsDao extends AbstractHbnDao<News> implements NewsDao{
 
+    private static final int MAX_RESULTS = 10;
+
     @Override
     public void create(News news) {
         create(news);
@@ -37,9 +39,11 @@ public class HbnNewsDao extends AbstractHbnDao<News> implements NewsDao{
 
     @Override
     public List<News> getPagedNews(int start) {
-        Session session = getSession();
-        Query q = getSession().getNamedQuery("getPagedNews");
-        q.setParameter("start", start);
-        return (List<News>) q;
+        //List<News> newsList  = (List<News>) getSession().createQuery("from News order by postdate desc limit "+ start +", 10").list();
+        Query q = getSession().createQuery("from News order by postdate desc");
+        q.setFirstResult(start);
+        q.setMaxResults(MAX_RESULTS);
+
+        return (List<News>) q.list();
     }
 }

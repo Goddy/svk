@@ -14,5 +14,5 @@ public interface NewsDao extends Dao<News> {
     void create(News news);
     void update(News news);
     News findByUsername(Long id);
-    public List<News> getPagedNews(int start);
+    List<News> getPagedNews(int start);
 }

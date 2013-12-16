@@ -8,6 +8,10 @@ package be.spring.spring.utils;
  */
 public class Constants {
     public static final String PASSWORD_REGEX = "(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[^a-zA-Z]).{8,}";
+    public static final int MINUS_TEN = -10;
+    public static final int TEN = 10;
+    public static final int ONE = 1;
+    public static final int ZERO = 0;
 
     private Constants() {}
 }
