@@ -1,11 +1,15 @@
 package be.spring.spring.controller;
 
-import javax.inject.Inject;
-import javax.validation.Valid;
-
 import be.spring.spring.form.accountDetailsForm;
+import be.spring.spring.form.changePwdForm;
+import be.spring.spring.form.registrationForm;
+import be.spring.spring.interfaces.AccountService;
+import be.spring.spring.model.Account;
+import be.spring.spring.persistence.UserDetailsAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,9 +20,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import be.spring.spring.form.registrationForm;
-import be.spring.spring.model.Account;
-import be.spring.spring.interfaces.AccountService;
+import javax.inject.Inject;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/account")
@@ -29,6 +32,7 @@ public class AccountController {
 	private static final String VN_REG_FORM = "forms/registrationForm";
     private static final String VN_DET_FORM = "forms/accountDetailsForm";
 	private static final String VN_REG_OK = "redirect:registration_ok";
+    private static final String VN_REDIRECT_NOT_LOGGED_IN = "redirect:notloggedin.html";
 	
 	@RequestMapping(value = "register", method = RequestMethod.GET)
 	public String getRegistrationForm(Model model) {
@@ -45,19 +49,26 @@ public class AccountController {
 		convertPasswordError(result);
 		return (result.hasErrors() ? VN_REG_FORM : VN_REG_OK);
 	}
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public String getAccountDetails(Model model) {
-        model.addAttribute("Account", new accountDetailsForm());
+        Account activeAccount = getAccountFromSecurity();
+
+        accountDetailsForm accountDetailsForm = new accountDetailsForm();
+        accountDetailsForm.setFirstName(activeAccount.getFirstName());
+        accountDetailsForm.setEmail(activeAccount.getUsername());
+        accountDetailsForm.setLastName(activeAccount.getLastName());
+
+        model.addAttribute("Account", activeAccount);
+        model.addAttribute("Password", new changePwdForm());
         log.info("Created accountDetailsForm");
         return VN_DET_FORM;
     }
 
-    @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public String getAccountDetails(@ModelAttribute("Account") @Valid registrationForm form, BindingResult result) {
+    @RequestMapping(value = "change_details", method = RequestMethod.POST)
+    public String getAccountDetails(@ModelAttribute("Account") @Valid accountDetailsForm form, BindingResult result) {
         log.info("Posted registrationForm: {}", form);
-        accountService.registerAccount(
-                toAccount(form), form.getPassword(), result);
-        convertPasswordError(result);
+        accountService.updateAccount(toAccount(form), result);
         return (result.hasErrors() ? VN_REG_FORM : VN_REG_OK);
     }
 	
@@ -68,6 +79,19 @@ public class AccountController {
 		account.setUsername(form.getEmail());
 		return account;
 	}
+
+    private static Account toAccount(accountDetailsForm form) {
+        Account account = getAccountFromSecurity();
+        account.setFirstName(form.getFirstName());
+        account.setLastName(form.getLastName());
+        account.setUsername(form.getEmail());
+        return account;
+    }
+    private static Account getAccountFromSecurity()
+    {
+        UserDetailsAdapter details = (UserDetailsAdapter)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return details.getAccount();
+    }
 	
 	@InitBinder
 	/** Sets allowed fields that can be submitted
@@ -75,7 +99,7 @@ public class AccountController {
 	 */
 	public void initBinder(WebDataBinder binder) {
 	binder.setAllowedFields(new String[] {
-	"password", "confirmPassword", "firstName",
+	"oldPassword", "newPassword", "password", "confirmPassword", "firstName",
 	"lastName", "email" });
 	}
 	

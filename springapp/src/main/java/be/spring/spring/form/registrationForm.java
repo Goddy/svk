@@ -1,16 +1,20 @@
 package be.spring.spring.form;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import be.spring.spring.utils.Constants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.ScriptAssert;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
+@ScriptAssert(
+        lang = "javascript",
+        script = "_this.confirmPassword.equals(_this.password)",
+        message = "account.password.mismatch.message")
 public class registrationForm {
 
     protected String firstName,lastName, email, password, confirmPassword;

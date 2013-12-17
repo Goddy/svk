@@ -3,6 +3,7 @@ package be.spring.spring.form;
 import be.spring.spring.utils.Constants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.validator.constraints.ScriptAssert;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -13,17 +14,23 @@ import javax.validation.constraints.Pattern;
  * Time: 2:53 PM
  * Remarks: none
  */
-public class pwdForm {
-    protected String password, confirmPassword;
+@ScriptAssert(
+        lang = "javascript",
+        script = "_this.confirmPassword.equals(_this.newPassword)",
+        message = "account.password.mismatch.message")
+public class changePwdForm {
+    private String oldPassword;
+    protected String newPassword;
+    protected String confirmPassword;
 
     @NotNull
     @Pattern(regexp = Constants.PASSWORD_REGEX, message = "{validation.complexity.password.message}")
-    public String getPassword() {
-        return password;
+    public String getNewPassword() {
+        return newPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     public String getConfirmPassword() {
@@ -34,13 +41,22 @@ public class pwdForm {
         this.confirmPassword = confirmPassword;
     }
 
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
 
     public String toString() {
 
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("password", password)
+                .append("newPassword", newPassword)
                 .append("confirmPassword", confirmPassword)
+                .append("oldPassword", getOldPassword())
                 .toString();
     }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
 
 }

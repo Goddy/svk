@@ -2,7 +2,7 @@
 <%@ include file="../header.jsp"%>
 <h1><p><spring:message code="text.news" /></h1>
 <c:choose>
-    <c:when test="${empty newsList}"><p>None</p></c:when>
+    <c:when test="${empty newsList}"><p><spring:message code="text.nomessages" /></p></c:when>
     <c:otherwise>
         <c:forEach var="newsItem" items="${newsList}">
             <div>
