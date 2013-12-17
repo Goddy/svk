@@ -1,37 +1,23 @@
 package be.spring.spring.form;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import be.spring.spring.utils.Constants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
-public class registrationForm {
-
-    protected String firstName,lastName, email, password, confirmPassword;
-
-    @NotNull
-    @Pattern(regexp = Constants.PASSWORD_REGEX, message = "{validation.complexity.password.message}")
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
+/**
+ * User: Tom De Dobbeleer
+ * Date: 12/13/13
+ * Time: 2:52 PM
+ * Remarks: none
+ */
+public class accountDetailsForm {
+    protected String firstName,lastName, email;
 
     @NotNull
     @NotEmpty(message = "{validation.notempty.message}")
@@ -73,10 +59,7 @@ public class registrationForm {
                 .append("firstName", firstName)
                 .append("lastName", lastName)
                 .append("email", email)
-                .append("password", password)
-                .append("confirmPassword", confirmPassword)
                 .toString();
     }
-
-
 }
+

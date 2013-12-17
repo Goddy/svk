@@ -1,32 +1,28 @@
 package be.spring.spring.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@NamedQuery(
-name = "findAccountByEmail",
-query = "from Account where email = :email")
+@NamedQueries({
+        @NamedQuery(name = "findAccountByUsername", query = "from Account where username = :username"),
+        @NamedQuery(name = "findAccountByUsernameExcludeCurrentId", query = "from Account where username = :username AND id != :id")
+})
 @Entity
 @Table(name = "account")
 public class Account {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private String email;
+	private String username;
+    private String role;
+    private static final String ROLE_USER = "user";
 	
-	public Account() { }
-	public Account(String firstName, String lastName, String email) {
+	public Account() {}
+	public Account(String firstName, String lastName, String username) {
 	this.firstName = firstName;
 	this.lastName = lastName;
-	this.email = email;
+	this.username = username;
 	}
 	
 	@Id
@@ -42,13 +38,13 @@ public class Account {
 	
 	@NotNull
 	@Size(min = 1, max = 50)
-	@Column(name = "email")
-	public String getEmail() {
-		return this.email;
+	@Column(name = "username")
+	public String getUsername() {
+		return this.username;
 	}
 	
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	@NotNull
@@ -64,7 +60,7 @@ public class Account {
 	}
 	
 	@Transient
-	private String getFullName() {
+	public String getFullName() {
 		return firstName + " " + lastName;
 	}
 
@@ -73,4 +69,16 @@ public class Account {
 	public String toString() {
 	return firstName + " " + lastName;
 	}
+
+    @Column(name = "role")
+    public String getRole() {
+        if(role == null)
+            return ROLE_USER;
+        else
+            return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

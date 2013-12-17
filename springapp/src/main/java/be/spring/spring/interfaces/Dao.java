@@ -1,4 +1,4 @@
-package be.spring.spring.persistence;
+package be.spring.spring.interfaces;
 
 import java.io.Serializable;
 import java.util.List;

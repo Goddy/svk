@@ -2,30 +2,57 @@ package be.spring.spring.persistence;
 
 import javax.inject.Inject;
 
+import be.spring.spring.interfaces.AccountDao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.security.authentication.dao.SaltSource;
 import be.spring.spring.model.Account;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository
 public class HbnAccountDao extends AbstractHbnDao<Account> implements AccountDao {
 
 	private static final String UPDATE_PASSWORD_SQL = "update account set password = ? where id = ?";
-	@Inject 
-	private JdbcTemplate jdbcTemplate;
+	@Inject	private JdbcTemplate jdbcTemplate;
+    @Inject private PasswordEncoder passwordEncoder;
+    @Inject private SaltSource saltSource;
 
 	public void create(Account account, String password) {
 		create(account);
-		jdbcTemplate.update(UPDATE_PASSWORD_SQL, password, account.getId());
+        String encPassword = passwordEncoder.encode(password);
+		jdbcTemplate.update(UPDATE_PASSWORD_SQL, encPassword, account.getId());
 	}
-	public Account findByEmail(String email) {
+
+
+    public void update(Account account) {
+        update(account);
+    }
+
+    @Override
+	public Account findByUsername(String username) {
         Session session = getSession();
-		Query q = getSession().getNamedQuery("findAccountByEmail");
-		q.setParameter("email", email);
+		Query q = getSession().getNamedQuery("findAccountByUsername");
+		q.setParameter("username", username);
 		return (Account) q.uniqueResult();
 	}
+
+    @Override
+    public Account findByEmailExcludeCurrentId(String username, Long id) {
+        Session session = getSession();
+        Query q = getSession().getNamedQuery("findAccountByUsernameExcludeCurrentId");
+        q.setParameter("username", username);
+        q.setParameter("id", id);
+        return (Account) q.uniqueResult();
+    }
+
+    @Override
+    public Account findById(Long id) {
+        Session session = getSession();
+        Query q = getSession().getNamedQuery("findAccountById");
+        q.setParameter("id", id);
+        return (Account) q.uniqueResult();
+    }
 }
