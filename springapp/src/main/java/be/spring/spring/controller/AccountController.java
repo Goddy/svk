@@ -33,7 +33,12 @@ public class AccountController {
     private static final String VN_DET_FORM = "forms/accountDetailsForm";
 	private static final String VN_REG_OK = "redirect:registration_ok";
     private static final String VN_REDIRECT_NOT_LOGGED_IN = "redirect:notloggedin.html";
-	
+
+    @RequestMapping(value = "notloggedin", method = RequestMethod.GET)
+    public String notLoggedIn() {
+        return "notloggedin";
+    }
+
 	@RequestMapping(value = "register", method = RequestMethod.GET)
 	public String getRegistrationForm(Model model) {
 		model.addAttribute("Account", new registrationForm());
