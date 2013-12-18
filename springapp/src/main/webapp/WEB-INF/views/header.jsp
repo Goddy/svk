@@ -35,7 +35,7 @@
     <form action="<c:url value='j_spring_security_check' />" method="post" name="login_form">
     <table>
     	<tr><td><p><spring:message code="label.email" /></p></td><td><input type="text" name="j_username" value="test@example.com"/></td></tr>
-        <tr><td><p><spring:message code="label.password" /></p></td><td><input type="password" name="j_password" id="j_password" value="p@ssword"/></td>        </tr>
+        <tr><td><p><spring:message code="label.password" /></p></td><td><input type="password" name="j_password" id="j_password" value="P@ssword"/></td>        </tr>
         <tr><td colspan="2"><input type="submit" name="submit_login" value="<spring:message code="button.login" />" /></td></tr>
         <tr><td colspan="2"><p>Not registered? Register <a href="<c:url value='/account/register.html' />">here</a></td></tr>
         </table>

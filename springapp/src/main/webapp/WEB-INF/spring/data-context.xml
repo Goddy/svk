@@ -24,7 +24,8 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
     <property name="password" value="java" />
 </bean>
 
-<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean" p:dataSource-ref="dataSource" p:packagesToScan="be.spring.spring.model" p:hibernateProperties-ref="hibernateProperties" />
+<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean" p:dataSource-ref="dataSource" p:packagesToScan="be.spring.spring.model" p:hibernateProperties-ref="hibernateProperties" >
+</bean>
 <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory" />
 
 <bean class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource" />
@@ -32,7 +33,6 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
 <prop key="hibernate.show_sql">false</prop>
 </util:properties>
-
 
 
 </beans>

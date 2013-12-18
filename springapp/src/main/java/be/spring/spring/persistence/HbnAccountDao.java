@@ -6,9 +6,8 @@ import be.spring.spring.interfaces.AccountDao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
-import org.springframework.security.authentication.dao.SaltSource;
 import be.spring.spring.model.Account;
 
 
@@ -17,8 +16,7 @@ public class HbnAccountDao extends AbstractHbnDao<Account> implements AccountDao
 
 	private static final String UPDATE_PASSWORD_SQL = "update account set password = ? where id = ?";
 	@Inject	private JdbcTemplate jdbcTemplate;
-    @Inject private PasswordEncoder passwordEncoder;
-    @Inject private SaltSource saltSource;
+    @Inject private BCryptPasswordEncoder passwordEncoder;
 
 	public void create(Account account, String password) {
 		create(account);
