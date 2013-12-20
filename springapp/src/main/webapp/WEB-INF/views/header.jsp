@@ -16,6 +16,7 @@
    <div class="divmenu">
     <ul id="menu">
     	<li><a href="/home.html">Home</a></li>
+        <li><a href="/news/news.html">Nieuws</a></li>
     	<li><a href="/account/edit.html">Profiel</a></li>
     </ul>    
    </div>

@@ -87,83 +87,48 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="LoginController.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/LoginController.java">
+      <file leaf-file-name="AccountController.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/AccountController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="75" selection-start="743" selection-end="743" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="825">
+            <state line="60" column="72" selection-start="2602" selection-end="2602" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="1200">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.jsp">
+      <file leaf-file-name="HomeController.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/HomeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="165">
+            <state line="37" column="56" selection-start="1090" selection-end="1090" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="540">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HbnAccountDao.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnAccountDao.java">
+      <file leaf-file-name="NewsController.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/NewsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="37" selection-start="1561" selection-end="1561" vertical-scroll-proportion="0.0" vertical-offset="484" max-vertical-offset="930">
+            <state line="22" column="54" selection-start="681" selection-end="681" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="555">
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1387391364000" expanded="true" signature="536:580" placeholder="update accou..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="security-context.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/security-context.xml">
+      <file leaf-file-name="news.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/news.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="38" selection-start="713" selection-end="713" vertical-scroll-proportion="-4.56" vertical-offset="66" max-vertical-offset="420">
-              <folding>
-                <marker date="1387391396000" expanded="true" signature="106:1142" placeholder="..." />
-                <marker date="1387391396000" expanded="true" signature="888:906" placeholder="..." />
-              </folding>
+            <state line="4" column="64" selection-start="187" selection-end="187" vertical-scroll-proportion="-1.7916666" vertical-offset="17" max-vertical-offset="300">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="News.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/News.java">
+      <file leaf-file-name="AccountService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/AccountService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="56" selection-start="1657" selection-end="1657" vertical-scroll-proportion="0.42825112" vertical-offset="859" max-vertical-offset="1335">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#909#910#0" expanded="true" />
-                <element signature="e#934#935#0" expanded="true" />
-                <element signature="e#968#969#0" expanded="true" />
-                <element signature="e#996#997#0" expanded="true" />
-                <element signature="e#1128#1129#0" expanded="true" />
-                <element signature="e#1159#1160#0" expanded="true" />
-                <element signature="e#1209#1210#0" expanded="true" />
-                <element signature="e#1249#1250#0" expanded="true" />
-                <element signature="e#1343#1344#0" expanded="true" />
-                <element signature="e#1372#1373#0" expanded="true" />
-                <element signature="e#1416#1417#0" expanded="true" />
-                <element signature="e#1452#1453#0" expanded="true" />
-                <element signature="e#1548#1549#0" expanded="true" />
-                <element signature="e#1578#1579#0" expanded="true" />
-                <element signature="e#1624#1625#0" expanded="true" />
-                <element signature="e#1662#1663#0" expanded="true" />
-                <element signature="e#1697#1698#0" expanded="true" />
-                <element signature="e#1727#1728#0" expanded="true" />
-                <element signature="e#1800#1801#0" expanded="true" />
-                <element signature="e#1838#1839#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AccountServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AccountServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="69" selection-start="864" selection-end="864" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="780">
+            <state line="7" column="16" selection-start="159" selection-end="292" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
               <folding />
             </state>
           </provider>
@@ -172,37 +137,51 @@
       <file leaf-file-name="Account.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Account.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="23" selection-start="964" selection-end="964" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="1170">
+            <state line="16" column="47" selection-start="557" selection-end="557" vertical-scroll-proportion="0.0" vertical-offset="43" max-vertical-offset="1170">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#984#1011#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="root-context.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/root-context.xml">
+      <file leaf-file-name="AccountServiceImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AccountServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="210">
+            <state line="47" column="49" selection-start="1840" selection-end="1840" vertical-scroll-proportion="0.0" vertical-offset="113" max-vertical-offset="780">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractHbnDao.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AbstractHbnDao.java">
+      <file leaf-file-name="NewsServiceImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/NewsServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="42" selection-start="610" selection-end="610" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="1155">
-              <folding />
+            <state line="47" column="18" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="885">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="data-context.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/data-context.xml">
+      <file leaf-file-name="News.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/News.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="230" selection-start="1534" selection-end="1534" vertical-scroll-proportion="-7.92" vertical-offset="192" max-vertical-offset="660">
+            <state line="30" column="66" selection-start="829" selection-end="829" vertical-scroll-proportion="-1.1498371" vertical-offset="803" max-vertical-offset="1245">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2160#2161#0" expanded="true" />
+                <element signature="e#2198#2199#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReportItem.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/ReportItem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="13" selection-start="132" selection-end="132" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
               <folding />
             </state>
           </provider>
@@ -252,11 +231,20 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/forms/registrationForm.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/AccountController.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AccountServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/header.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnAccountDao.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/security-context.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/data-context.xml" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Account.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/NewsItem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/ReportItem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HgnNewsDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/NewsDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnNewsDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/NewsService.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/header.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/NewsController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/news.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/NewsServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/News.java" />
       </list>
     </option>
@@ -374,8 +362,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-1" />
     <option name="y" value="24" />
-    <option name="width" value="1922" />
-    <option name="height" value="935" />
+    <option name="width" value="1602" />
+    <option name="height" value="796" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -525,7 +513,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="forms" />
+              <option name="myItemId" value="news" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1297,15 +1285,15 @@
       <updated>1386154914549</updated>
       <workItem from="1386154919810" duration="3880000" />
       <workItem from="1386160378083" duration="23937000" />
-      <workItem from="1386605527812" duration="32940000" />
+      <workItem from="1386605527812" duration="45691000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60757000" />
+    <option name="totallyTimeSpent" value="73508000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="24" width="1922" height="935" extended-state="6" />
+    <frame x="-1" y="24" width="1602" height="796" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1320,8 +1308,8 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3276923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20500532" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37262356" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24711168" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4523077" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3276923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1332,7 +1320,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32676518" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2496871" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1544196" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18613607" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1362,83 +1350,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar!/org/hibernate/engine/query/QueryPlanCache.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="51" selection-start="762" selection-end="762" vertical-scroll-proportion="-3.52" vertical-offset="137" max-vertical-offset="1005">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar!/org/hibernate/impl/SessionFactoryImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="38" selection-start="6156" selection-end="6156" vertical-scroll-proportion="-4.16" vertical-offset="1216" max-vertical-offset="3735">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar!/org/hibernate/cfg/Settings.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="56" selection-start="3920" selection-end="3920" vertical-scroll-proportion="-4.16" vertical-offset="1201" max-vertical-offset="3810">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar!/org/hibernate/transaction/JDBCTransaction.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="19" selection-start="1678" selection-end="1678" vertical-scroll-proportion="-4.16" vertical-offset="466" max-vertical-offset="795">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/3.2.5.RELEASE/spring-orm-3.2.5.RELEASE-sources.jar!/org/springframework/orm/hibernate3/SpringTransactionFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="0" selection-start="2517" selection-end="2517" vertical-scroll-proportion="0.0" vertical-offset="529" max-vertical-offset="855">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar!/org/hibernate/event/FlushEvent.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="11" selection-start="228" selection-end="228" vertical-scroll-proportion="-3.6" vertical-offset="0" max-vertical-offset="195">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar!/org/hibernate/event/EventListeners.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="56" selection-start="4500" selection-end="4500" vertical-scroll-proportion="-4.16" vertical-offset="871" max-vertical-offset="3030">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar!/org/hibernate/event/AbstractEvent.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="49" selection-start="418" selection-end="418" vertical-scroll-proportion="-6.0" vertical-offset="0" max-vertical-offset="255">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar!/org/hibernate/impl/AbstractSessionImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="19" selection-start="564" selection-end="564" vertical-scroll-proportion="-3.88" vertical-offset="98" max-vertical-offset="630">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar!/org/hibernate/jdbc/JDBCContext.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="19" selection-start="1976" selection-end="1976" vertical-scroll-proportion="-3.52" vertical-offset="497" max-vertical-offset="1140">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar!/org/hibernate/FlushMode.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="26" selection-start="894" selection-end="894" vertical-scroll-proportion="-5.56" vertical-offset="221" max-vertical-offset="525">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar!/org/hibernate/event/def/DefaultAutoFlushEventListener.class">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="16" selection-start="446" selection-end="446" vertical-scroll-proportion="-4.04" vertical-offset="49" max-vertical-offset="315">
@@ -1579,29 +1490,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JdbcUserDetailsDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="67" selection-start="603" selection-end="603" vertical-scroll-proportion="0.0" vertical-offset="59" max-vertical-offset="405">
-          <folding>
-            <marker date="1387312580000" expanded="true" signature="-1:-1" placeholder="select passw..account..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/AccountController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="61" selection-start="1757" selection-end="1757" vertical-scroll-proportion="0.0" vertical-offset="928" max-vertical-offset="1200">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/AccountDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="17" selection-start="135" selection-end="135" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/registrationForm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="13" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="900">
@@ -1619,20 +1507,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/accountDetailsForm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="13" selection-start="521" selection-end="521" vertical-scroll-proportion="0.0" vertical-offset="69" max-vertical-offset="765">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/header.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="73" selection-start="1451" selection-end="1451" vertical-scroll-proportion="-5.0" vertical-offset="405" max-vertical-offset="795">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/HomeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="64" selection-start="822" selection-end="822" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="540">
           <folding />
         </state>
       </provider>
@@ -1656,13 +1530,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="75" selection-start="743" selection-end="743" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="825">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="222">
@@ -1681,78 +1548,180 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="38" selection-start="713" selection-end="713" vertical-scroll-proportion="-4.56" vertical-offset="66" max-vertical-offset="420">
           <folding>
-            <marker date="1387391396000" expanded="true" signature="106:1142" placeholder="..." />
-            <marker date="1387391396000" expanded="true" signature="888:906" placeholder="..." />
+            <marker date="1387391396000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1387391396000" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/AccountDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="17" selection-start="135" selection-end="135" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="31" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="210">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/Dao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="17" selection-start="108" selection-end="108" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/NewsDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="31" selection-start="261" selection-end="261" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AbstractHbnDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="42" selection-start="610" selection-end="610" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="1155">
+        <state line="60" column="13" selection-start="1517" selection-end="1517" vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="1155">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AccountServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="69" selection-start="864" selection-end="864" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="780">
+        <state line="24" column="75" selection-start="743" selection-end="743" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="825">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JdbcUserDetailsDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="67" selection-start="603" selection-end="603" vertical-scroll-proportion="0.0" vertical-offset="59" max-vertical-offset="405">
+          <folding>
+            <marker date="1387312580000" expanded="true" signature="-1:-1" placeholder="select passw..account..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/NewsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="407" selection-end="407" vertical-scroll-proportion="0.0" vertical-offset="38" max-vertical-offset="375">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnAccountDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="37" selection-start="1561" selection-end="1561" vertical-scroll-proportion="0.0" vertical-offset="484" max-vertical-offset="930">
+        <state line="46" column="63" selection-start="1572" selection-end="1572" vertical-scroll-proportion="0.0" vertical-offset="645" max-vertical-offset="930">
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1387391364000" expanded="true" signature="536:580" placeholder="update accou..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/data-context.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="230" selection-start="1534" selection-end="1534" vertical-scroll-proportion="-7.92" vertical-offset="192" max-vertical-offset="660">
+        <state line="20" column="42" selection-start="1107" selection-end="1107" vertical-scroll-proportion="-12.0" vertical-offset="0" max-vertical-offset="660">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/header.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="62" selection-start="679" selection-end="679" vertical-scroll-proportion="-6.25" vertical-offset="75" max-vertical-offset="810">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnNewsDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="50" selection-start="478" selection-end="478" vertical-scroll-proportion="0.0" vertical-offset="173" max-vertical-offset="615">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/HomeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="56" selection-start="1090" selection-end="1090" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="540">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/AccountController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="72" selection-start="2602" selection-end="2602" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1200">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/NewsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="54" selection-start="681" selection-end="681" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="555">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/news.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="64" selection-start="187" selection-end="187" vertical-scroll-proportion="-1.7916666" vertical-offset="17" max-vertical-offset="300">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/AccountService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="16" selection-start="159" selection-end="292" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AccountServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="49" selection-start="1840" selection-end="1840" vertical-scroll-proportion="0.0" vertical-offset="113" max-vertical-offset="780">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/NewsServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="18" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="885">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/ReportItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="132" selection-end="132" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Account.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="23" selection-start="964" selection-end="964" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="1170">
+        <state line="16" column="47" selection-start="557" selection-end="557" vertical-scroll-proportion="0.0" vertical-offset="43" max-vertical-offset="1170">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#984#1011#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/News.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="56" selection-start="1657" selection-end="1657" vertical-scroll-proportion="0.42825112" vertical-offset="859" max-vertical-offset="1335">
+        <state line="30" column="66" selection-start="829" selection-end="829" vertical-scroll-proportion="-1.1498371" vertical-offset="803" max-vertical-offset="1245">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#909#910#0" expanded="true" />
-            <element signature="e#934#935#0" expanded="true" />
-            <element signature="e#968#969#0" expanded="true" />
-            <element signature="e#996#997#0" expanded="true" />
-            <element signature="e#1128#1129#0" expanded="true" />
-            <element signature="e#1159#1160#0" expanded="true" />
-            <element signature="e#1209#1210#0" expanded="true" />
-            <element signature="e#1249#1250#0" expanded="true" />
-            <element signature="e#1343#1344#0" expanded="true" />
-            <element signature="e#1372#1373#0" expanded="true" />
-            <element signature="e#1416#1417#0" expanded="true" />
-            <element signature="e#1452#1453#0" expanded="true" />
-            <element signature="e#1548#1549#0" expanded="true" />
-            <element signature="e#1578#1579#0" expanded="true" />
-            <element signature="e#1624#1625#0" expanded="true" />
-            <element signature="e#1662#1663#0" expanded="true" />
-            <element signature="e#1697#1698#0" expanded="true" />
-            <element signature="e#1727#1728#0" expanded="true" />
-            <element signature="e#1800#1801#0" expanded="true" />
-            <element signature="e#1838#1839#0" expanded="true" />
+            <element signature="e#2160#2161#0" expanded="true" />
+            <element signature="e#2198#2199#0" expanded="true" />
           </folding>
         </state>
       </provider>
