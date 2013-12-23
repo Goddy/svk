@@ -19,8 +19,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class NewsServiceImpl implements NewsService {
-    @Autowired
-    private NewsDao newsDao;
+    @Autowired private NewsDao newsDao;
 
     @Override
     @Transactional(readOnly = false)
@@ -49,5 +48,11 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List getAll() {
          return newsDao.getAll();
+    }
+
+    @Override
+    @Transactional
+    public List<News> getPagedNews(int start) {
+        return newsDao.getPagedNews(start);
     }
 }

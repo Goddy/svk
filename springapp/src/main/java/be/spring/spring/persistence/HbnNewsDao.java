@@ -6,6 +6,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * User: Tom De Dobbeleer
  * Date: 12/20/13
@@ -31,5 +33,13 @@ public class HbnNewsDao extends AbstractHbnDao<News> implements NewsDao{
         Query q = getSession().getNamedQuery("findNewsById");
         q.setParameter("id", id);
         return (News) q.uniqueResult();
+    }
+
+    @Override
+    public List<News> getPagedNews(int start) {
+        Session session = getSession();
+        Query q = getSession().getNamedQuery("getPagedNews");
+        q.setParameter("start", start);
+        return (List<News>) q;
     }
 }

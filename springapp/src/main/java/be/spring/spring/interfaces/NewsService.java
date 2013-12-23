@@ -16,4 +16,5 @@ public interface NewsService {
     boolean updateNews(News news, Errors errors);
     News getNewsItem(Long id);
     List getAll();
+    List<News> getPagedNews(int start);
 }

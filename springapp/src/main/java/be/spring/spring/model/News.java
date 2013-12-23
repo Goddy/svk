@@ -20,7 +20,8 @@ import java.util.GregorianCalendar;
  */
 
 @NamedQueries({
-        @NamedQuery(name = "findNewsById", query = "from News where id = :id")
+        @NamedQuery(name = "findNewsById", query = "from News where id = :id"),
+        @NamedQuery(name = "getPagedNews", query = "from News order by postdate desc limit :start, 10")
 })
 @Entity
 @Table(name = "news")

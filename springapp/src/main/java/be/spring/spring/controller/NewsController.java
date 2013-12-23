@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -25,7 +26,18 @@ public class NewsController {
 
     @RequestMapping(value = "news", method = RequestMethod.GET)
     public String getNews(Model model) {
-        model.addAttribute(newsService.getAll());
+        model.addAttribute("newsList", newsService.getPagedNews(1));
+        model.addAttribute("previous", String.format("%s/%s", VN_NEWS_PAGE , 1));
+        model.addAttribute("next", String.format("%s/%s", VN_NEWS_PAGE ,10));
+        return VN_NEWS_PAGE;
+    }
+
+    @RequestMapping(value = "/news/{page}", method = RequestMethod.GET)
+    public String getPagedNews(Model model, @PathVariable int page)
+    {
+        model.addAttribute("newsList", newsService.getPagedNews(page));
+        model.addAttribute("previous", String.format("%s/%s", VN_NEWS_PAGE , page-10));
+        model.addAttribute("next", String.format("%s/%s", VN_NEWS_PAGE , page+10));
         return VN_NEWS_PAGE;
     }
 }
