@@ -15,10 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -31,8 +28,9 @@ public class AccountController {
 	private AccountService accountService;
 	private static final String VN_REG_FORM = "forms/registrationForm";
     private static final String VN_DET_FORM = "forms/accountDetailsForm";
+    private static final String VN_DET = "redirect:/account/edit";
 	private static final String VN_REG_OK = "redirect:registration_ok";
-    private static final String VN_REDIRECT_NOT_LOGGED_IN = "redirect:notloggedin.html";
+    private static final String VN_DET_OK = "redirect:/account/update_ok";
 
     @RequestMapping(value = "notloggedin", method = RequestMethod.GET)
     public String notLoggedIn() {
@@ -54,6 +52,17 @@ public class AccountController {
 		convertPasswordError(result);
 		return (result.hasErrors() ? VN_REG_FORM : VN_REG_OK);
 	}
+
+    @PreAuthorize("hasRole('USER')")
+    @RequestMapping(value = "update_details", method = RequestMethod.POST)
+    public String updateAccountDetails(@ModelAttribute("Account")  @Valid accountDetailsForm form, BindingResult result) {
+        Account account = toAccount(form);
+        accountService.updateAccount(account, result);
+        log.info(String.format("Updated account %s", account.getUsername()));
+        return (result.hasErrors() ? VN_DET_FORM: VN_DET_OK);
+
+    }
+
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public String getAccountDetails(Model model) {
@@ -61,27 +70,21 @@ public class AccountController {
 
         accountDetailsForm accountDetailsForm = new accountDetailsForm();
         accountDetailsForm.setFirstName(activeAccount.getFirstName());
-        accountDetailsForm.setEmail(activeAccount.getUsername());
+        accountDetailsForm.setUsername(activeAccount.getUsername());
         accountDetailsForm.setLastName(activeAccount.getLastName());
 
-        model.addAttribute("Account", activeAccount);
-        model.addAttribute("Password", new changePwdForm());
+        model.addAttribute("Account", accountDetailsForm);
+        //model.addAttribute("Password", new changePwdForm());
+
         log.info("Created accountDetailsForm");
         return VN_DET_FORM;
     }
 
-    @RequestMapping(value = "change_details", method = RequestMethod.POST)
-    public String getAccountDetails(@ModelAttribute("Account") @Valid accountDetailsForm form, BindingResult result) {
-        log.info("Posted registrationForm: {}", form);
-        accountService.updateAccount(toAccount(form), result);
-        return (result.hasErrors() ? VN_REG_FORM : VN_REG_OK);
-    }
-	
 	private static Account toAccount(registrationForm form) {
 		Account account = new Account();
 		account.setFirstName(form.getFirstName());
 		account.setLastName(form.getLastName());
-		account.setUsername(form.getEmail());
+		account.setUsername(form.getUsername());
 		return account;
 	}
 
@@ -89,7 +92,7 @@ public class AccountController {
         Account account = getAccountFromSecurity();
         account.setFirstName(form.getFirstName());
         account.setLastName(form.getLastName());
-        account.setUsername(form.getEmail());
+        account.setUsername(form.getUsername());
         return account;
     }
     private static Account getAccountFromSecurity()
@@ -105,7 +108,7 @@ public class AccountController {
 	public void initBinder(WebDataBinder binder) {
 	binder.setAllowedFields(new String[] {
 	"oldPassword", "newPassword", "password", "confirmPassword", "firstName",
-	"lastName", "email" });
+	"lastName", "username" });
 	}
 	
 	private static void convertPasswordError(BindingResult result) {

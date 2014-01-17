@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional (readOnly = true)
     public void validateUsername(String username, Errors errors) {
         if (accountDao.findByUsername(username) != null) {
-            errors.rejectValue("email", "error.duplicate.account.email",
+            errors.rejectValue("username", "error.duplicate.account.email",
                     new String[] { username }, null);
         }
     }
@@ -41,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional (readOnly = true)
     public void validateUsernameExcludeCurrentId(String username, Long id, Errors errors) {
         if (accountDao.findByEmailExcludeCurrentId(username, id) != null) {
-            errors.rejectValue("email", "error.duplicate.account.email",
+            errors.rejectValue("username", "error.duplicate.account.email",
                     new String[] { username }, null);
         }
     }

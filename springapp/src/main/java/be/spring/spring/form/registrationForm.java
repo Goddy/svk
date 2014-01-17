@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
         message = "account.password.mismatch.message")
 public class registrationForm {
 
-    protected String firstName,lastName, email, password, confirmPassword;
+    protected String firstName,lastName, username, password, confirmPassword;
 
     @NotNull
     @Pattern(regexp = Constants.PASSWORD_REGEX, message = "{validation.complexity.password.message}")
@@ -62,12 +62,12 @@ public class registrationForm {
     @Email
     @NotEmpty(message = "{validation.notempty.message}")
     @NotNull
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 
@@ -76,7 +76,7 @@ public class registrationForm {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append("firstName", firstName)
                 .append("lastName", lastName)
-                .append("email", email)
+                .append("username", username)
                 .append("password", password)
                 .append("confirmPassword", confirmPassword)
                 .toString();

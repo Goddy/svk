@@ -13,5 +13,9 @@ public class Constants {
     public static final int ONE = 1;
     public static final int ZERO = 0;
 
+    public static final String DEFAULT_ROLE = "USER";
+    public static final String SUCCESS = "success";
+    public static final String FAILURE = "failure";
+
     private Constants() {}
 }

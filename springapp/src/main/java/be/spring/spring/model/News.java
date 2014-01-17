@@ -13,7 +13,8 @@ import java.util.Date;
  * Remarks: Base class for news items.
  */
 @NamedQueries({
-        @NamedQuery(name = "findNewsById", query = "from News where id = :id")
+        @NamedQuery(name = "findNewsById", query = "from News where id = :id"),
+        @NamedQuery(name = "searchNews", query = "from News WHERE MATCH(header, content) AGAINST (:term)")
 })
 @Entity
 @Table(name = "news")

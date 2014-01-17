@@ -1,13 +1,11 @@
 package be.spring.spring.form;
 
-import be.spring.spring.utils.Constants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -17,7 +15,7 @@ import javax.validation.constraints.Size;
  * Remarks: none
  */
 public class accountDetailsForm {
-    protected String firstName,lastName, email;
+    protected String firstName,lastName, username;
 
     @NotNull
     @NotEmpty(message = "{validation.notempty.message}")
@@ -44,12 +42,12 @@ public class accountDetailsForm {
     @Email
     @NotEmpty(message = "{validation.notempty.message}")
     @NotNull
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 
@@ -58,7 +56,7 @@ public class accountDetailsForm {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append("firstName", firstName)
                 .append("lastName", lastName)
-                .append("email", email)
+                .append("username", username)
                 .toString();
     }
 }

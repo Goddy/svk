@@ -32,7 +32,7 @@ public class UserDetailsServiceAdapter implements UserDetailsService {
                 accountService.getAccountByEmail(username);
         if (account == null) {
             throw new UsernameNotFoundException(
-                    "No user with email "+ username);
+                    "No user with username "+ username);
         } else if (account.getRole().isEmpty()) {
             throw new UsernameNotFoundException(
                     "User " + account.getUsername() + " has no authorities");

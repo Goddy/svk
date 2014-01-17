@@ -26,7 +26,7 @@ public class HbnAccountDao extends AbstractHbnDao<Account> implements AccountDao
 
 
     public void update(Account account) {
-        update(account);
+        super.update(account);
     }
 
     @Override

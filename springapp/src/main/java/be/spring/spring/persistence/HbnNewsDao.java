@@ -2,6 +2,7 @@ package be.spring.spring.persistence;
 
 import be.spring.spring.interfaces.NewsDao;
 import be.spring.spring.model.News;
+import be.spring.spring.utils.Constants;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
@@ -45,5 +46,15 @@ public class HbnNewsDao extends AbstractHbnDao<News> implements NewsDao{
         q.setMaxResults(MAX_RESULTS);
 
         return (List<News>) q.list();
+    }
+
+    @Override
+    public List<News> getSearch(String term) {
+        Query q = getSession().getNamedQuery("searchNews");
+        q.setParameter("term", term);
+        q.setMaxResults(Constants.TEN);
+
+        return (List<News>) q.list();
+
     }
 }

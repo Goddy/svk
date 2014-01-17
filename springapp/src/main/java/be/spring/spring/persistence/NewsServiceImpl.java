@@ -58,4 +58,9 @@ public class NewsServiceImpl implements NewsService {
     public int getNewsCount() {
         return (int)newsDao.count();
     }
+
+    @Override
+    public List<News> getSearch(String term) {
+        return newsDao.getSearch(term);
+    }
 }

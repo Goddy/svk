@@ -1,5 +1,6 @@
 package be.spring.spring.model;
 
+import be.spring.spring.utils.Constants;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -18,7 +19,6 @@ public class Account {
 	private String lastName;
 	private String username;
     private String role;
-    private static final String ROLE_USER = "user";
 	
 	public Account() {}
 	public Account(String firstName, String lastName, String username) {
@@ -75,7 +75,7 @@ public class Account {
     @Column(name = "role")
     public String getRole() {
         if(role == null)
-            return ROLE_USER;
+            return Constants.DEFAULT_ROLE;
         else
             return role;
     }
