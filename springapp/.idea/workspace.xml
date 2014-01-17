@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a0575f8-5ab2-4b1c-a179-47e948df9033" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Address.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Match.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Season.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Team.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.metadata/.plugins/org.eclipse.rse.core/profiles/PRF.ubuntu_0/H.local_16/node.properties" afterPath="$PROJECT_DIR$/.metadata/.plugins/org.eclipse.rse.core/profiles/PRF.ubuntu_0/H.local_16/node.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="spring.iws" />
@@ -303,7 +298,7 @@
       <file leaf-file-name="Season.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Season.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="63" selection-start="191" selection-end="191" vertical-scroll-proportion="0.4" vertical-offset="0" max-vertical-offset="735">
+            <state line="10" column="63" selection-start="191" selection-end="191" vertical-scroll-proportion="0.3529412" vertical-offset="0" max-vertical-offset="735">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#519#520#0" expanded="true" />
@@ -1452,7 +1447,7 @@
       <workItem from="1387814873715" duration="15213000" />
       <workItem from="1389974025070" duration="12017000" />
       <workItem from="1389986303332" duration="2525000" />
-      <workItem from="1389990844389" duration="4449000" />
+      <workItem from="1389990844389" duration="4477000" />
     </task>
     <task id="LOCAL-00001" summary="- Added newspage paging">
       <created>1387226006575</created>
@@ -1474,11 +1469,15 @@
       <created>1389988162134</created>
       <updated>1389988162134</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="- Added match classes&#10;">
+      <created>1389997172894</created>
+      <updated>1389997172894</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127558000" />
+    <option name="totallyTimeSpent" value="127586000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1502,22 +1501,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="24" width="1602" height="853" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32956153" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3281471" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4002829" sideWeight="0.16238767" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32956153" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956153" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3276923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24518614" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4002829" sideWeight="0.83761233" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4002829" sideWeight="0.83761233" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32673267" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1553,7 +1552,8 @@
     <MESSAGE value="- Added registration details form&#10;" />
     <MESSAGE value="- Added news search&#10;" />
     <MESSAGE value="- Added news search/json&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added news search/json&#10;" />
+    <MESSAGE value="- Added match classes&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added match classes&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1941,7 +1941,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Season.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="63" selection-start="191" selection-end="191" vertical-scroll-proportion="0.4" vertical-offset="0" max-vertical-offset="735">
+        <state line="10" column="63" selection-start="191" selection-end="191" vertical-scroll-proportion="0.3529412" vertical-offset="0" max-vertical-offset="735">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#519#520#0" expanded="true" />
