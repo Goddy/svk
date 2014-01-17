@@ -51,7 +51,7 @@ public class HbnNewsDao extends AbstractHbnDao<News> implements NewsDao{
     @Override
     public List<News> getSearch(String term) {
         Query q = getSession().getNamedQuery("searchNews");
-        q.setParameter("term", term);
+        q.setParameter("term", "%" + term + "%");
         q.setMaxResults(Constants.TEN);
 
         return (List<News>) q.list();

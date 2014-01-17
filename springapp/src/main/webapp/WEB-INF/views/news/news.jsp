@@ -3,7 +3,7 @@
 <h1><p><spring:message code="text.news" /></h1>
 <table>
     <tr>
-        <form action="search" method="post" name="search_form">
+        <form action="/news/search.html" method="post" name="search_form">
         <td><spring:message code="label.search" /></td>
         <td><input id="search" name="search" type="text"/></td>
         <td><input type="submit" name="submit_search" value="<spring:message code="button.search" />" /></td>
@@ -28,7 +28,8 @@
 <c:choose>
 <c:when test="${not single}"></c:when>
     <c:otherwise>
-    <p style="text-align:center"><a href="<c:out value="${first}" />" > << <spring:message code="text.first" /></a> | <a href="<c:out value="${previous}" />" ><spring:message code="text.previous" /></a> | <a href="<c:out value="${next}" />"><spring:message code="text.next" /></a> | <a href="<c:out value="${last}" />" ><spring:message code="text.last" /> >> </a> </p>
+
     </c:otherwise>
 </c:choose>
+<p style="text-align:center"><a href="<c:out value="${first}" />" > << <spring:message code="text.first" /></a> | <a href="<c:out value="${previous}" />" ><spring:message code="text.previous" /></a> | <a href="<c:out value="${next}" />"><spring:message code="text.next" /></a> | <a href="<c:out value="${last}" />" ><spring:message code="text.last" /> >> </a> </p>
 <%@ include file="../footer.jsp"%>

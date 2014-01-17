@@ -3,6 +3,7 @@ package be.spring.spring.controller;
 import be.spring.spring.interfaces.NewsService;
 import be.spring.spring.model.News;
 import be.spring.spring.utils.Constants;
+import be.spring.spring.utils.PageObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -31,11 +32,9 @@ public class NewsController {
     @RequestMapping(value = "news", method = RequestMethod.GET)
     public String get(Model model) {
         int newsCount = newsService.getNewsCount();
-        model.addAttribute("first", String.format("%s/%s", VN_NEWS_PAGE , Constants.ONE));
-        model.addAttribute("last", String.format("%s/%s", VN_NEWS_PAGE , floor(newsCount)));
+        PageObject pageObject = new PageObject(model, newsCount, Constants.ONE,VN_NEWS_PAGE);
+        pageObject.addAttributes();
         model.addAttribute("newsList", newsService.getPagedNews(Constants.ONE));
-        model.addAttribute("previous", String.format("%s/%s", VN_NEWS_PAGE , Constants.ONE));
-        model.addAttribute("next", String.format("%s/%s", VN_NEWS_PAGE ,Constants.TEN));
         return VN_NEWS_PAGE;
     }
 
@@ -43,12 +42,10 @@ public class NewsController {
     public String getPaged(Model model, @PathVariable int page)
     {
         int newsCount = newsService.getNewsCount();
-        int[] pages = getPages(page, newsCount);
+        PageObject pageObject = new PageObject(model, newsCount,page,VN_NEWS_PAGE);
+        pageObject.addAttributes();
         model.addAttribute("newsList", newsService.getPagedNews(page));
-        model.addAttribute("first", String.format("%s/%s", VN_NEWS_PAGE , Constants.TEN));
-        model.addAttribute("last", String.format("%s/%s", VN_NEWS_PAGE, floor(newsCount)));
-        model.addAttribute("previous", String.format("%s/%s", VN_NEWS_PAGE , pages[Constants.ZERO]));
-        model.addAttribute("next", String.format("%s/%s", VN_NEWS_PAGE , pages[Constants.ONE]));
+
         return VN_NEWS_PAGE;
     }
 
@@ -64,21 +61,8 @@ public class NewsController {
         return VN_SEARCH_PAGE;
     }
 
-    @RequestMapping(value = "getNewsSearch", method = RequestMethod.GET)
+    @RequestMapping(value = "getNewsSearch.json", method = RequestMethod.GET)
     public @ResponseBody List<News> getNews(@RequestParam(value="search", required=false) String searchTerm) {
         return newsService.getSearch(searchTerm);
     }
-
-    private int[] getPages(int requestedPage, int count) {
-        int totalPages = count;
-        int[] pages = new int[2];
-        pages[0] = (requestedPage + Constants.MINUS_TEN < Constants.ONE) ? Constants.ONE : requestedPage + Constants.MINUS_TEN;
-        pages[1] = (requestedPage + Constants.TEN > totalPages) ? floor(totalPages) : requestedPage + Constants.TEN;
-        return pages;
-    }
-     private int floor(int number) {
-        return (int)(Math.floor((double)(number/ Constants.TEN))* Constants.TEN);
-    }
-
-
 }

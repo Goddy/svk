@@ -10,7 +10,11 @@
         </form>
     </tr>
 </table>
-<table id="searchTable" class="border" style="display: none;"></table>
+<div id="message"></div>
+<table id="searchTable" class="border" style="display: none;">
+    <tbody>
+    </tbody>
+</table>
 <%@ include file="../footer.jsp"%>
 
 <script type="text/javascript">
@@ -42,16 +46,17 @@
                         $.each(json, function(i, newsItem) {
                             var content = newsItem.content.substring(0,100) + " ..."
                             tableContent += "<tr><td>"
-                                + "<h2/>< a href=\news\news.html?newsItem=" + newsItem.id +"</a></h2></td></tr>"
-                                + "<tr><td>" + newsItem. + " </td></tr>"
-                                + "<td>" + account.givenName + " </td>"
+                                + "<h2/><a href=\"\\news\\news.html?newsItem=" + newsItem.id +"\">"+newsItem.header+"</a></h2>"
+                                + "</td></tr>"
+                                + "<tr>"
+                                + "<td>" + content + " </td>"
                                 + "</tr>";
                         });
 
                         $("#searchTable tbody").html(tableContent);
                         $("#searchTable").show();
                     } else {
-                        if (search && search.length > 2) {
+                        if (search.length > 0) {
                             message = "<spring:message code='text.noResults'/>";
                         }
                         $("#searchTable").hide();

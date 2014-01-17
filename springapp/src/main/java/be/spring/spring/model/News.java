@@ -14,7 +14,7 @@ import java.util.Date;
  */
 @NamedQueries({
         @NamedQuery(name = "findNewsById", query = "from News where id = :id"),
-        @NamedQuery(name = "searchNews", query = "from News WHERE MATCH(header, content) AGAINST (:term)")
+        @NamedQuery(name = "searchNews", query = "from News WHERE header like :term")
 })
 @Entity
 @Table(name = "news")
