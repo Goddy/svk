@@ -6,6 +6,7 @@ import be.spring.spring.form.registrationForm;
 import be.spring.spring.interfaces.AccountService;
 import be.spring.spring.model.Account;
 import be.spring.spring.persistence.UserDetailsAdapter;
+import be.spring.spring.utils.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +23,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/account")
-public class AccountController {
+public class AccountController extends AbstractController {
 	private static final Logger log = LoggerFactory.getLogger(AccountController.class);
 	@Inject
 	private AccountService accountService;
@@ -88,17 +89,12 @@ public class AccountController {
 		return account;
 	}
 
-    private static Account toAccount(accountDetailsForm form) {
+    private Account toAccount(accountDetailsForm form) {
         Account account = getAccountFromSecurity();
         account.setFirstName(form.getFirstName());
         account.setLastName(form.getLastName());
         account.setUsername(form.getUsername());
         return account;
-    }
-    private static Account getAccountFromSecurity()
-    {
-        UserDetailsAdapter details = (UserDetailsAdapter)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return details.getAccount();
     }
 	
 	@InitBinder
