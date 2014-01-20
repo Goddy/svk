@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/news")
-public class NewsController {
+public class NewsController extends AbstractController {
     private static final Logger log = LoggerFactory.getLogger(AccountController.class);
     private static final String VN_NEWS_PAGE = "/news/news";
     private static final String VN_SEARCH_PAGE = "/news/search";

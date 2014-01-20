@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Handles requests for the application home page.
  */
 @Controller
-public class LoginController {
+public class LoginController extends AbstractController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
