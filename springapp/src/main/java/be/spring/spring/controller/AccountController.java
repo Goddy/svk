@@ -7,8 +7,10 @@ import be.spring.spring.interfaces.AccountService;
 import be.spring.spring.model.Account;
 import be.spring.spring.persistence.UserDetailsAdapter;
 import be.spring.spring.utils.SecurityUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,11 +27,10 @@ import javax.validation.Valid;
 @RequestMapping("/account")
 public class AccountController extends AbstractController {
 	private static final Logger log = LoggerFactory.getLogger(AccountController.class);
-	@Inject
+	@Autowired
 	private AccountService accountService;
 	private static final String VN_REG_FORM = "forms/registrationForm";
     private static final String VN_DET_FORM = "forms/accountDetailsForm";
-    private static final String VN_DET = "redirect:/account/edit";
 	private static final String VN_REG_OK = "redirect:registration_ok";
     private static final String VN_DET_OK = "redirect:/account/update_ok";
 

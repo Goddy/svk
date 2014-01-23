@@ -4,13 +4,16 @@ import be.spring.spring.interfaces.NewsService;
 import be.spring.spring.model.News;
 import be.spring.spring.utils.Constants;
 import be.spring.spring.utils.PageObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+
 import java.util.List;
 
 /**
@@ -27,7 +30,8 @@ public class NewsController extends AbstractController {
     private static final String VN_SEARCH_PAGE = "/news/search";
 
 
-    @Inject NewsService newsService;
+    @Autowired
+    NewsService newsService;
 
     @RequestMapping(value = "news", method = RequestMethod.GET)
     public String get(Model model) {

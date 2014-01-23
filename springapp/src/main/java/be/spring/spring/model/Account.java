@@ -1,7 +1,6 @@
 package be.spring.spring.model;
 
 import be.spring.spring.utils.Constants;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

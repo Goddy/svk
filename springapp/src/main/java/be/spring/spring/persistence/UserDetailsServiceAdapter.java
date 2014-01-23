@@ -5,6 +5,8 @@ import javax.inject.Inject;
 import be.spring.spring.interfaces.AccountService;
 import be.spring.spring.interfaces.UserDetailsDao;
 import be.spring.spring.model.Account;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,8 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("userDetailsService")
 @Transactional(readOnly = true)
 public class UserDetailsServiceAdapter implements UserDetailsService {
-    @Inject AccountService accountService;
-    @Inject UserDetailsDao userDetailsDao;
+    @Autowired AccountService accountService;
+    @Autowired UserDetailsDao userDetailsDao;
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
         Account account =

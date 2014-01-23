@@ -14,7 +14,6 @@
 
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven/>
-    <sec:global-method-security pre-post-annotations="enabled" />
     <context:component-scan base-package="be.spring.spring.controller"/>
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
@@ -26,12 +25,11 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <import resource="controllers.xml"/>
-
     <bean id="messageSource"
                 class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
                 p:basename="classpath:messages"/>
 
+	<!--Enables JSON integration-->
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
     <property name="mediaTypes">

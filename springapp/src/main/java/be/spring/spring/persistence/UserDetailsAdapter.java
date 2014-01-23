@@ -16,7 +16,11 @@ import java.util.Set;
  * Remarks: none
  */
 public class UserDetailsAdapter implements UserDetails {
-    private Account account;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Account account;
     private String password;
     public UserDetailsAdapter(Account account) {
         this.account = account;

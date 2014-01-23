@@ -45,7 +45,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List getAll() {
+    public List<News> getAll() {
          return newsDao.getAll();
     }
 

@@ -33,7 +33,7 @@ public class Team {
     }
 
     @NotNull
-    @Column(name = "name")
+    @Column(name = "description")
     public String getName() {
         return name;
     }
