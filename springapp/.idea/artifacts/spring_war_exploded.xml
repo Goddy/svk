@@ -18,12 +18,13 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-web:3.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.2.5.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:3.1.4.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:3.1.4.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:3.1.4.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:3.1.4.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:3.1.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:3.2.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:3.2.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:3.2.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:3.2.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:3.2.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:3.2.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.hsqldb:hsqldb:2.0.0" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.9" />
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:3.6.10.Final" />
           <element id="library" level="project" name="Maven: antlr:antlr:2.7.6" />

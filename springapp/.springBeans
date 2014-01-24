@@ -7,9 +7,11 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
-		<config>src/main/webapp/WEB-INF/spring/data-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/mvc-context.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/security-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/application-config.xml</config>
+		<config>src/main/resources/META-INF/data-context.xml</config>
+		<config>src/main/resources/META-INF/security-context.xml</config>
+		<config>src/main/resources/META-INF/data-source.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

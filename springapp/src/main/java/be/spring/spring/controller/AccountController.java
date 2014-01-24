@@ -1,18 +1,14 @@
 package be.spring.spring.controller;
 
 import be.spring.spring.form.accountDetailsForm;
-import be.spring.spring.form.changePwdForm;
 import be.spring.spring.form.registrationForm;
 import be.spring.spring.interfaces.AccountService;
 import be.spring.spring.model.Account;
-import be.spring.spring.persistence.UserDetailsAdapter;
-import be.spring.spring.utils.SecurityUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +16,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.inject.Inject;
 import javax.validation.Valid;
 
 @Controller

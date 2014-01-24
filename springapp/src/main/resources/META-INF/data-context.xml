@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+<import resource="data-source.xml"/>
+<tx:annotation-driven/>
+<!-- Scan persistence package for annotations -->
+
+<context:component-scan base-package="be.spring.spring.persistence"/>
+
+<!-- Hibernate session factory -->
+<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean" p:dataSource-ref="dataSource" p:packagesToScan="be.spring.spring.model"  p:hibernateProperties-ref="hibernateProperties" >
+</bean>
+
+<!-- Hibernate transactionmanager -->
+<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory" />
+
+<!-- JdbcTemplate -->
+ <beans profile="quality">
+<bean class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource" />
+<util:properties id="hibernateProperties">
+<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+<prop key="hibernate.show_sql">false</prop>
+</util:properties>
+</beans>
+
+<beans profile="test">
+    <bean class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource" />
+    <util:properties id="hibernateProperties">
+        <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+        <prop key="hibernate.show_sql">false</prop>
+    </util:properties>
+</beans>
+
+
+</beans>
