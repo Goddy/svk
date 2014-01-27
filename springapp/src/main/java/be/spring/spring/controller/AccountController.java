@@ -60,9 +60,10 @@ public class AccountController extends AbstractController {
 
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public String getAccountDetails(Model model) {
+        log.info("Method edit called");
         Account activeAccount = getAccountFromSecurity();
 
         accountDetailsForm accountDetailsForm = new accountDetailsForm();
