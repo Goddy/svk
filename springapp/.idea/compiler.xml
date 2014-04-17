@@ -25,8 +25,8 @@
         <module name="spring" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="spring" target="1.6" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="spring" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

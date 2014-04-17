@@ -1,4 +1,4 @@
-package be.spring.spring.persistence;
+package be.spring.spring.service;
 
 import be.spring.spring.interfaces.NewsDao;
 import be.spring.spring.interfaces.NewsService;

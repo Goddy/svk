@@ -3,19 +3,11 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:sec="http://www.springframework.org/schema/security"
        xsi:schemaLocation= "http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans.xsd
-                            http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
-                            http://www.springframework.org/schema/security      http://www.springframework.org/schema/security/spring-security.xsd
                             http://www.springframework.org/schema/mvc           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-
-    <!-- Enables the Spring MVC @Controller programming model -->
-    <mvc:annotation-driven/>
-    <sec:global-method-security pre-post-annotations="enabled"/>
-    <context:component-scan base-package="be.spring.spring.controller"/>
+    <import resource="data-context.xml"/>
+    <import resource="security-context.xml"/>
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
@@ -27,17 +19,17 @@
     </bean>
 
     <bean id="messageSource"
-                class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
-                p:basename="classpath:messages"/>
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+          p:basename="classpath:messages"/>
 
-	<!--Enables JSON integration-->
+    <!--Enables JSON integration-->
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-    <property name="mediaTypes">
-        <map>
-            <entry key="html" value="text/html" />
-            <entry key="json" value="application/json" />
-        </map>
-    </property>
+        <property name="mediaTypes">
+            <map>
+                <entry key="html" value="text/html" />
+                <entry key="json" value="application/json" />
+            </map>
+        </property>
     </bean>
-    </beans>
+</beans>

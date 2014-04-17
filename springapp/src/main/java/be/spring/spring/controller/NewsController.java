@@ -27,7 +27,6 @@ public class NewsController extends AbstractController {
     private static final String VN_NEWS_PAGE = "/news/news";
     private static final String VN_SEARCH_PAGE = "/news/search";
 
-
     @Autowired
     NewsService newsService;
 
