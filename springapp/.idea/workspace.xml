@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3a0575f8-5ab2-4b1c-a179-47e948df9033" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/footer.jspf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/style-bs.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnNewsDao.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnNewsDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.jsp" />
+    <list default="true" id="3a0575f8-5ab2-4b1c-a179-47e948df9033" name="Default" comment="- changed style to BS&#10;">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/resources/images/ajax-loader.gif" afterPath="$PROJECT_DIR$/src/main/webapp/resources/images/ajax-loader.gif" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/news.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/news.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/welcome.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/welcome.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/style-bs.css" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/style-bs.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="spring.iws" />
@@ -89,17 +83,11 @@
       <file leaf-file-name="header.jspf" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="130" selection-start="2234" selection-end="2281" vertical-scroll-proportion="-17.25926" vertical-offset="308" max-vertical-offset="1332">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NewsController.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/NewsController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="57" selection-start="1269" selection-end="1269" vertical-scroll-proportion="0.0" vertical-offset="139" max-vertical-offset="1134">
-              <folding />
+            <state line="46" column="73" selection-start="2297" selection-end="2376" vertical-scroll-proportion="-17.25926" vertical-offset="362" max-vertical-offset="1458">
+              <folding>
+                <marker date="1398936271462" expanded="true" signature="2752:3358" placeholder="..." />
+                <marker date="1398936271462" expanded="true" signature="3422:3643" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -116,8 +104,10 @@
       <file leaf-file-name="style-bs.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/css/style-bs.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="0" selection-start="508" selection-end="508" vertical-scroll-proportion="0.0" vertical-offset="199" max-vertical-offset="1134">
-              <folding />
+            <state line="29" column="52" selection-start="542" selection-end="542" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1170">
+              <folding>
+                <marker date="1398937396802" expanded="true" signature="488:547" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -126,7 +116,9 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/NewsService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="18" column="20" selection-start="433" selection-end="433" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -134,7 +126,16 @@
       <file leaf-file-name="news.jsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/news.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="6" selection-start="408" selection-end="408" vertical-scroll-proportion="0.28371277" vertical-offset="0" max-vertical-offset="882">
+            <state line="85" column="29" selection-start="3516" selection-end="3516" vertical-scroll-proportion="1.7468355" vertical-offset="702" max-vertical-offset="2826">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="search.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/search.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="0" selection-start="572" selection-end="668" vertical-scroll-proportion="-6.4814816" vertical-offset="59" max-vertical-offset="2052">
               <folding />
             </state>
           </provider>
@@ -143,7 +144,7 @@
       <file leaf-file-name="messages.properties" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/messages.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="5" selection-start="826" selection-end="826" vertical-scroll-proportion="-12.766666" vertical-offset="247" max-vertical-offset="828">
+            <state line="35" column="19" selection-start="840" selection-end="840" vertical-scroll-proportion="-12.766666" vertical-offset="247" max-vertical-offset="828">
               <folding />
             </state>
           </provider>
@@ -153,7 +154,9 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/NewsServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="53" column="30" selection-start="1367" selection-end="1367" vertical-scroll-proportion="0.0" vertical-offset="304" max-vertical-offset="1152">
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -170,7 +173,7 @@
       <file leaf-file-name="data-context.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="11" selection-start="1745" selection-end="1745" vertical-scroll-proportion="-6.04" vertical-offset="299" max-vertical-offset="1116">
+            <state line="22" column="11" selection-start="1426" selection-end="1426" vertical-scroll-proportion="-6.04" vertical-offset="245" max-vertical-offset="1062">
               <folding />
             </state>
           </provider>
@@ -242,8 +245,8 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/welcome.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnNewsDao.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/resources/css/style-bs.css" />
         <option value="$PROJECT_DIR$/src/main/resources/messages.properties" />
+        <option value="$PROJECT_DIR$/src/main/webapp/resources/css/style-bs.css" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/news.jsp" />
       </list>
     </option>
@@ -318,7 +321,7 @@
     <option name="x" value="64" />
     <option name="y" value="-4" />
     <option name="width" value="1617" />
-    <option name="height" value="1055" />
+    <option name="height" value="958" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -1363,7 +1366,7 @@
       <workItem from="1397761246630" duration="115000" />
       <workItem from="1397761447419" duration="1430000" />
       <workItem from="1398501962756" duration="3610000" />
-      <workItem from="1398928833733" duration="7355000" />
+      <workItem from="1398928833733" duration="11130000" />
     </task>
     <task id="LOCAL-00001" summary="- Added newspage paging">
       <created>1387226006575</created>
@@ -1405,11 +1408,15 @@
       <created>1390524958462</created>
       <updated>1390524958462</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="- changed style to BS&#10;">
+      <created>1398936277978</created>
+      <updated>1398936277978</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="165296000" />
+    <option name="totallyTimeSpent" value="169071000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1432,11 +1439,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-4" width="1617" height="1055" extended-state="6" />
-    <editor active="false" />
+    <frame x="64" y="-4" width="1617" height="958" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26245847" sideWeight="0.49968132" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29404467" sideWeight="0.49968132" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1459,7 +1466,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17973231" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32668883" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2319949" sideWeight="0.49917626" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="true" weight="0.39756367" sideWeight="0.8371517" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.39756367" sideWeight="0.8371517" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1488,7 +1495,10 @@
     <MESSAGE value="- Added securityUtils&#10;" />
     <MESSAGE value="- Added securityUtils, abstract controller&#10;" />
     <MESSAGE value="- added hsqldb" />
-    <option name="LAST_COMMIT_MESSAGE" value="- added hsqldb" />
+    <MESSAGE value="- changed style to BS&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="- changed style to BS&#10;" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1737,13 +1747,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/search.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="46" selection-start="1793" selection-end="1793" vertical-scroll-proportion="-32.666668" vertical-offset="0" max-vertical-offset="2052">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="34" selection-start="151" selection-end="151" vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="252">
@@ -1796,14 +1799,18 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/NewsService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="20" selection-start="433" selection-end="433" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/NewsServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="53" column="30" selection-start="1367" selection-end="1367" vertical-scroll-proportion="0.0" vertical-offset="304" max-vertical-offset="1152">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1816,14 +1823,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="11" selection-start="1745" selection-end="1745" vertical-scroll-proportion="-6.04" vertical-offset="299" max-vertical-offset="1116">
+        <state line="22" column="11" selection-start="1426" selection-end="1426" vertical-scroll-proportion="-6.04" vertical-offset="245" max-vertical-offset="1062">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="130" selection-start="2234" selection-end="2281" vertical-scroll-proportion="-17.25926" vertical-offset="308" max-vertical-offset="1332">
+        <state line="46" column="73" selection-start="2297" selection-end="2376" vertical-scroll-proportion="-17.25926" vertical-offset="362" max-vertical-offset="1458">
+          <folding>
+            <marker date="1398936271462" expanded="true" signature="2752:3358" placeholder="..." />
+            <marker date="1398936271462" expanded="true" signature="3422:3643" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/messages.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="19" selection-start="840" selection-end="840" vertical-scroll-proportion="-12.766666" vertical-offset="247" max-vertical-offset="828">
           <folding />
         </state>
       </provider>
@@ -1837,21 +1854,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/css/style-bs.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="508" selection-end="508" vertical-scroll-proportion="0.0" vertical-offset="199" max-vertical-offset="1134">
-          <folding />
+        <state line="29" column="52" selection-start="542" selection-end="542" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1170">
+          <folding>
+            <marker date="1398937396802" expanded="true" signature="488:547" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/messages.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/search.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="5" selection-start="826" selection-end="826" vertical-scroll-proportion="-12.766666" vertical-offset="247" max-vertical-offset="828">
+        <state line="13" column="0" selection-start="572" selection-end="668" vertical-scroll-proportion="-6.4814816" vertical-offset="59" max-vertical-offset="2052">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/news/news.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="6" selection-start="408" selection-end="408" vertical-scroll-proportion="0.28371277" vertical-offset="0" max-vertical-offset="882">
+        <state line="85" column="29" selection-start="3516" selection-end="3516" vertical-scroll-proportion="1.7468355" vertical-offset="702" max-vertical-offset="2826">
           <folding />
         </state>
       </provider>

@@ -1,52 +1,152 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../jspf/header.jspf" %>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
         <div class="input-group">
-            <span class="input-group-addon glyphicon glyphicon-search blue"></span>
-            <input type="text" class="form-control" placeholder="<spring:message code="label.search" />">
+            <span class="input-group-addon">
+  				<span class="glyphicon glyphicon-search blue"></span>
+  			</span>
+            <input id="search" type="text" class="form-control" placeholder="<spring:message code="label.search" />">
         </div>
     </div>
 </div>
 <h1><p><spring:message code="text.news" /></h1>
-<c:choose>
-    <c:when test="${empty newsList}"><p><spring:message code="text.nomessages" /></p></c:when>
-    <c:otherwise>
-        <c:forEach var="newsItem" items="${newsList}">
-            <div class="panel panel-info">
-                <div class="panel-heading"><c:out value="${newsItem.header}"/></div>
-                <div class="panel-body">
-                    <p align="left"><c:out value="${newsItem.content}"/></p>
+<div id="default">
+    <c:choose>
+        <c:when test="${empty newsList}"><p><spring:message code="text.nomessages"/></p></c:when>
+        <c:otherwise>
+            <c:forEach var="newsItem" items="${newsList}">
+                <div class="panel panel-info">
+                    <div class="panel-heading"><c:out value="${newsItem.header}"/></div>
+                    <div class="panel-body">
+                        <p align="left"><c:out value="${newsItem.content}"/></p>
 
-                    <p align="right"><spring:message code="text.postedby"/> <c:out
-                            value="${newsItem.account.getFullName()}"/> <spring:message code="text.on"/> <fmt:formatDate
-                            value="${newsItem.postDate}"/> | <a class="tooltip"
-                                                                href="/news/edit.html?newsid=<c:out value="${newsItem.getId()}" />'"><img
-                            src="<c:url value='/resources/images/pencil.png'/>"/><span><spring:message
-                            code="text.edit"/></span></a> | <a class="tooltip"
-                                                               href="/news/delete.html?newsid=<c:out value="${newsItem.getId()}" />"><img
-                            src="<c:url value='/resources/images/cancel.png'/>"/><span><spring:message
-                            code="text.remove"/></span></a></p>
+                        <p align="right"><spring:message code="text.postedby"/> <c:out
+                                value="${newsItem.account.getFullName()}"/> <spring:message code="text.on"/>
+                            <fmt:formatDate
+                                    value="${newsItem.postDate}"/> | <a class="tooltip"
+                                                                        href="/news/edit.html?newsid=<c:out value="${newsItem.getId()}" />'"><img
+                                    src="<c:url value='/resources/images/pencil.png'/>"/><span><spring:message
+                                    code="text.edit"/></span></a> | <a class="tooltip"
+                                                                       href="/news/delete.html?newsid=<c:out value="${newsItem.getId()}" />"><img
+                                    src="<c:url value='/resources/images/cancel.png'/>"/><span><spring:message
+                                    code="text.remove"/></span></a></p>
+                    </div>
                 </div>
-            </div>
-        </c:forEach>
-    </c:otherwise>
-</c:choose>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
 
-<c:choose>
-<c:when test="${not single}"></c:when>
-    <c:otherwise>
+    <c:choose>
+        <c:when test="${not single}"></c:when>
+        <c:otherwise>
 
-    </c:otherwise>
-</c:choose>
-<div class="text-center">
-    <ul class="pagination blue">
-        <li><a href="<c:out value="${first}" />">&laquo;&nbsp;<spring:message code="text.first"/></a></li>
-        <li><a href="<c:out value="${previous}" />"><spring:message code="text.previous"/></a></li>
-        <li><a href="<c:out value="${next}" />"><spring:message code="text.next"/></a></li>
-        <li><a href="<c:out value="${last}" />"><spring:message code="text.last"/>&nbsp;&raquo;</a></li>
-    </ul>
+        </c:otherwise>
+    </c:choose>
+    <div class="text-center">
+        <ul class="pagination blue">
+            <li><a href="<c:out value="${first}" />">&laquo;&nbsp;<spring:message code="text.first"/></a></li>
+            <li><a href="<c:out value="${previous}" />"><spring:message code="text.previous"/></a></li>
+            <li><a href="<c:out value="${next}" />"><spring:message code="text.next"/></a></li>
+            <li><a href="<c:out value="${last}" />"><spring:message code="text.last"/>&nbsp;&raquo;</a></li>
+        </ul>
+    </div>
 </div>
-
+<div id="loader" class="text-center"></div>
+<table id="searchResult" style="display: none;">
+    <tbody>
+    </tbody>
+</table>
 <%@ include file="../footer.jsp"%>
+
+<script type="text/javascript">
+
+    var lastSearchTerm; // Keeps track of last search string to avoid redundant searches.
+    var to; // timeoutId
+    var loader = $('#loader');
+    var searchResult = $('#searchResult');
+    var defaultDiv = $('#default');
+
+    function isSearchChanged(search) {
+        return lastSearchTerm != search;
+
+    }
+
+    function doSearch(search) {
+        //console.log("doSearch " + search);
+        loader.show();
+        defaultDiv.hide();
+
+        $.ajax({
+            url: 'getNewsSearch.json',
+            data: {search: search},
+            dataType: 'json',
+            cache: false,
+            success: function (json) {
+                var divContent = "";
+                var message = "";
+                if (json != null) {
+                    if (json.length > 0) {
+                        $.each(json, function (i, newsItem) {
+                            var content = newsItem.content.substring(0, 100) + " ..."
+
+                            divContent += '<div class="panel panel-info">' +
+                                    '<div class="panel-heading"><a href=\"\\news\\news.html?newsItem=" + newsItem.id +"\">' + newsItem.header + '</a></div>' +
+                                    '<div class="panel-body">' +
+                                    '<p align="left">' + content + ' </p>' +
+                                    '</div></div>';
+                        });
+
+
+                    } else {
+                        if (search.length > 0) {
+                            divContent = "<spring:message code='text.noResults'/>";
+                        }
+                    }
+                } else {
+                    divContent = "<spring:message code='text.noResults'/>";
+                }
+                searchResult.html(divContent);
+                searchResult.show();
+                loader.hide();
+            }
+
+        });
+    }
+
+    // Delays searching for an amount of time.
+    function delayedSearch(name) {
+        //console.log("delayedSearch " + name);
+        to = setTimeout(function () {
+            doSearch(name);
+        }, 500);
+    }
+
+    // Cancels the delayed search.
+    function cancelSearch() {
+        //console.log("cancelSearch");
+        clearTimeout(to);
+    }
+
+    $(document).ready(function () {
+        $("#search").keyup(function () {
+            var filter = $(this).val();
+            if (filter) {
+                if (isSearchChanged(filter)) {
+                    cancelSearch();
+                    delayedSearch(filter);
+                }
+            }
+            else {
+                defaultDiv.show();
+                searchResult.hide();
+            }
+        });
+    });
+
+</script>
 
