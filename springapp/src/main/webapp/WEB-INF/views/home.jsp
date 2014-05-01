@@ -1,8 +1,8 @@
-<%@ include file="header.jsp"%>
+<%@ include file="jspf/header.jspf" %>
 <h1>
-	Hello world!  
+    Hello world!
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
-<%@ include file="footer.jsp"%>
+<P> The time on the server is ${serverTime}. </P>
+<%@ include file="jspf/footer.jspf" %>
 

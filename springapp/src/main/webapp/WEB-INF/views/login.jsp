@@ -1,6 +1,6 @@
-<%@ include file="header.jsp"%>
+<%@ include file="jspf/header.jspf" %>
 <html>
 
 </body>
 </html>
-<%@ include file="footer.jsp"%>
+<%@ include file="jspf/footer.jspf" %>

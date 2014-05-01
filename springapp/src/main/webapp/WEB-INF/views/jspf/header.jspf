@@ -1,0 +1,75 @@
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<html>
+<head>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/style-bs.css'/>"/>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<header class="hidden-xs">
+    <div class="content-heading clearfix media">
+        <h3><spring:message code="title.svk"/> &nbsp </h3>
+    </div>
+</header>
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand visible-xs" href="#"><spring:message code="title.svk"/></a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/home.html">Home</a></li>
+                <li><a href="/news/news.html">Nieuws</a></li>
+                <li><a href="/account/edit.html">Profiel</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <c:set var="currentLang" scope="session"
+                               value="${(pageContext.response.locale == 'en' ? 'EN' : 'NL')}"/>
+                        <c:set var="otherLang" scope="session"
+                               value="${(pageContext.response.locale == 'en' ? 'NL' : 'EN')}"/>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                                class="glyphicon glyphicon-globe"></span>&nbsp;<c:out value="${currentLang}"/><b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a id="lnkSwitchToLanguage" href="#"><c:out value="${otherLang}"/></a></li>
+                        </ul>
+                    </li>
+                    <security:authorize access="isAuthenticated()">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                                    class="glyphicon glyphicon-user"></span>&nbsp;<security:authentication
+                                    property="principal.firstName"/><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/logout.html"><spring:message code="text.logout"/></a></li>
+                            </ul>
+                        </li>
+                    </security:authorize>
+                    <security:authorize access="isAnonymous()">
+                        <li><a href="/login.html"><span class="glyphicon glyphicon-user"></span>&nbsp;<spring:message
+                                code="text.login"/></a></li>
+                    </security:authorize>
+                </ul>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<div id="content">
+
+

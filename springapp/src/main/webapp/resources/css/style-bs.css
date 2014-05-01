@@ -1,0 +1,56 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+#content {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.blue {
+    color: #41afc1;
+}
+
+/*
+-------------------------------------------------- */
+
+header {
+    background-image: url('../images/header.gif');
+    background-size: 100%;
+    padding: 5px;
+}
+
+header h3 {
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.row-margin-bottom {
+    margin-bottom: 15px;
+}
+
+/* the text optional should not be bold and start on a new line*/
+.optional-label {
+    font-weight: normal;
+    display: block;
+}
