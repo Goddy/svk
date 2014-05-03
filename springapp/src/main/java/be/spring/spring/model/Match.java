@@ -23,6 +23,9 @@ public class Match {
     private Season season;
     private Team homeTeam;
     private Team awayTeam;
+    private int atGoals;
+    private int htGoals;
+    private Goals goals;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -76,5 +79,34 @@ public class Match {
 
     public void setAwayTeam(Team awayTeam) {
         this.awayTeam = awayTeam;
+    }
+
+    @Column(name = "atGoals")
+    public int getAtGoals() {
+        return atGoals;
+    }
+
+    public void setAtGoals(int atGoals) {
+        this.atGoals = atGoals;
+    }
+
+    @Column(name = "htGoals")
+    public int getHtGoals() {
+        return htGoals;
+    }
+
+    public void setHtGoals(int htGoals) {
+        this.htGoals = htGoals;
+    }
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "goals", joinColumns = @JoinColumn(name = "match_id"))
+    @OrderColumn
+    public Goals getGoals() {
+        return goals;
+    }
+
+    public void setGoals(Goals goals) {
+        this.goals = goals;
     }
 }
