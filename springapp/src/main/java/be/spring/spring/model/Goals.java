@@ -12,7 +12,7 @@ public class Goals {
     private Account player;
 
 
-    @Column(name = "order")
+    @Column(name = "goal_order")
     public int getOrder() {
         return order;
     }

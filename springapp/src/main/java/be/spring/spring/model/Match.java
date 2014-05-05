@@ -3,6 +3,7 @@ package be.spring.spring.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * User: Tom De Dobbeleer
@@ -10,11 +11,12 @@ import java.util.Date;
  * Time: 9:36 PM
  * Remarks: none
  */
-/**
+
 @NamedQueries({
-        @NamedQuery(name = "findMatchById", query = "from News where id = :id")
+        @NamedQuery(name = "findMatchById", query = "from Match where id = :id"),
+        @NamedQuery(name = "getMatchesForSeason", query = "from Match where season = :season order by date desc")
 })
-**/
+
 @Entity
 @Table(name = "matches")
 public class Match {
@@ -25,7 +27,7 @@ public class Match {
     private Team awayTeam;
     private int atGoals;
     private int htGoals;
-    private Goals goals;
+    private Set<Goals> goals;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -102,11 +104,11 @@ public class Match {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "goals", joinColumns = @JoinColumn(name = "match_id"))
     @OrderColumn
-    public Goals getGoals() {
+    public Set<Goals> getGoals() {
         return goals;
     }
 
-    public void setGoals(Goals goals) {
+    public void setGoals(Set<Goals> goals) {
         this.goals = goals;
     }
 }

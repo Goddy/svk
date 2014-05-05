@@ -8,13 +8,11 @@ package be.spring.spring.persistence;
  */
 
 import be.spring.spring.interfaces.Dao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -25,9 +23,8 @@ import java.util.Map;
 @Repository
 public abstract class AbstractJpaDao<T>
         implements Dao<T> {
-    @Autowired
-    @Qualifier("emf")
-    private EntityManagerFactory entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
     private Class<T> domainClass;
 
 
@@ -62,7 +59,7 @@ public abstract class AbstractJpaDao<T>
 
 
     public EntityManager getEntityManager() {
-        return entityManager.createEntityManager();
+        return entityManager;
     }
 
     @SuppressWarnings("unchecked")
@@ -86,17 +83,7 @@ public abstract class AbstractJpaDao<T>
         }
     }
     public void create(T t) {
-        try {
-            getEntityManager().getTransaction().begin();
-            getEntityManager().persist(t);
-            getEntityManager().getTransaction().commit();
-        }
-        catch (Exception e) {
-            if (getEntityManager().getTransaction().isActive()) {
-                getEntityManager().getTransaction().rollback();
-            }
-            throw e;
-        }
+        getEntityManager().persist(t);
     }
 
     @SuppressWarnings("unchecked")
@@ -105,59 +92,39 @@ public abstract class AbstractJpaDao<T>
     }
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
-        try {
-            getEntityManager().getTransaction().begin();
-            List <T> list = getEntityManager()
-                    .createQuery("select x from " + getDomainClassName() + " x")
-                    .getResultList();
-            getEntityManager().getTransaction().commit();
-            return list;
-        }
-        catch (Exception e) {
-            if (getEntityManager().getTransaction().isActive()) {
-                getEntityManager().getTransaction().rollback();
-            }
-            throw e;
-        }
+        List<T> list = getEntityManager()
+                .createQuery("select x from " + getDomainClassName() + " x")
+                .getResultList();
+        getEntityManager().getTransaction().commit();
+        return list;
     }
 
     public void delete(T t) {
-        try {
-            getEntityManager().getTransaction().begin();
-            getEntityManager().remove(t);
-            getEntityManager().getTransaction().commit();
-        }
-        catch (Exception e) {
-            if (getEntityManager().getTransaction().isActive()) {
-                getEntityManager().getTransaction().rollback();
-            }
-            throw e;
-        }
+        getEntityManager().remove(t);
     }
     public void deleteById(Serializable id) {
         delete(get(id));
     }
     public void deleteAll() {
-        try {
-            getEntityManager().getTransaction().begin();
-            getEntityManager()
-                    .createQuery("delete from " + getDomainClassName() + " x")
-                    .executeUpdate();
-            getEntityManager().getTransaction().commit();
-        }
-        catch (Exception e) {
-            if (getEntityManager().getTransaction().isActive()) {
-                getEntityManager().getTransaction().rollback();
-            }
-            throw e;
-        }
-
+        getEntityManager()
+                .createQuery("delete from " + getDomainClassName() + " x")
+                .executeUpdate();
     }
     public long count() {
         return (Long) getEntityManager()
                 .createQuery("select count(*) from " + getDomainClassName())
                 .getSingleResult();
     }
+
+    @SuppressWarnings("unchecked")
+    public T load(Serializable id) {
+        return null;
+    }
+
+    public void update(T t) {
+        getEntityManager().persist(t);
+    }
+
     public boolean exists(Serializable id) { return (get(id) != null); }
     public Map<String, Object> getParameterMap(String key, Object value) {
         Map<String, Object> result = new HashMap<>();
