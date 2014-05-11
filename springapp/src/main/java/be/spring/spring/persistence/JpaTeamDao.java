@@ -9,4 +9,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class JpaTeamDao extends AbstractJpaDao<Team> implements TeamDao {
+    @Override
+    public Team getTeamByName(String name) {
+        return getSingleResultQuery("findTeamByName", getParameterMap("name", name));
+    }
 }

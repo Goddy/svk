@@ -1,10 +1,5 @@
 package be.spring.spring.form;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.NumberFormat;
-
-import javax.validation.constraints.NotNull;
-
 /**
  * Created by u0090265 on 5/11/14.
  */
@@ -16,8 +11,6 @@ public class CreateTeamForm {
     private String googleLink;
     private boolean useLink = false;
 
-    @NotNull
-    @NumberFormat
     public int getPostalCode() {
         return postalCode;
     }
@@ -26,8 +19,6 @@ public class CreateTeamForm {
         this.postalCode = postalCode;
     }
 
-    @NotNull
-    @NotEmpty
     public String getAddress() {
         return address;
     }
@@ -36,8 +27,6 @@ public class CreateTeamForm {
         this.address = address;
     }
 
-    @NotNull
-    @NotEmpty
     public String getCity() {
         return city;
     }
@@ -46,8 +35,6 @@ public class CreateTeamForm {
         this.city = city;
     }
 
-    @NotNull
-    @NotEmpty
     public String getGoogleLink() {
         if (!useLink) return null;
         return googleLink;
@@ -57,8 +44,6 @@ public class CreateTeamForm {
         this.googleLink = googleLink;
     }
 
-    @NotNull
-    @NotEmpty
     public String getTeamName() {
         return teamName;
     }
@@ -74,4 +59,5 @@ public class CreateTeamForm {
     public void setUseLink(boolean useLink) {
         this.useLink = useLink;
     }
+
 }

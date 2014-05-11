@@ -101,9 +101,8 @@ public class AccountController extends AbstractController {
      * @param binder
      */
     public void initBinder(WebDataBinder binder) {
-        binder.setAllowedFields(new String[]{
-                "oldPassword", "newPassword", "password", "confirmPassword", "firstName",
-                "lastName", "username"});
+        binder.setAllowedFields("oldPassword", "newPassword", "password", "confirmPassword", "firstName",
+                "lastName", "username");
     }
 
     private static void convertPasswordError(BindingResult result) {

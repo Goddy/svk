@@ -26,6 +26,11 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    public boolean teamExists(String name) {
+        return teamDao.getTeamByName(name) != null;
+    }
+
+    @Override
     public Team createTeam(CreateTeamForm form) {
         Team team = new Team();
         team.setAddress(getAddress(form));

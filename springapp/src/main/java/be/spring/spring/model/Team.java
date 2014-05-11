@@ -10,11 +10,11 @@ import javax.validation.constraints.NotNull;
  * Remarks: none
  */
 
-/**
- * @NamedQueries({
- * @NamedQuery(name = "findTeamById", query = "from teams where id = :id"),
- * })
- */
+
+@NamedQueries({
+        @NamedQuery(name = "findTeamByName", query = "select t from Team t where t.name = :name")
+})
+
 @Entity
 @Table(name = "teams")
 public class Team {

@@ -11,5 +11,7 @@ import java.util.List;
 public interface TeamService {
     List<Team> getAll();
 
+    boolean teamExists(String name);
+
     Team createTeam(CreateTeamForm form);
 }

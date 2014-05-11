@@ -9,4 +9,8 @@ import be.spring.spring.model.Team;
 
 public class HbnTeamDao extends AbstractHbnDao<Team> implements TeamDao {
 
+    @Override
+    public Team getTeamByName(String name) {
+        return null;
+    }
 }
