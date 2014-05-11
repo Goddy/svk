@@ -7,6 +7,7 @@ import be.spring.spring.model.Address;
 import be.spring.spring.model.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * Created by u0090265 on 5/10/14.
  */
 @Service
+@Transactional
 public class TeamServiceImpl implements TeamService {
     @Autowired
     private TeamDao teamDao;
