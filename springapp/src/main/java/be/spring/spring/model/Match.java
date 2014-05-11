@@ -56,7 +56,7 @@ public class Match {
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "season_id", insertable = true, updatable = true, nullable = false, unique = true)
+    @JoinColumn(name = "season_id")
     public Season getSeason() {
         return season;
     }
@@ -67,7 +67,7 @@ public class Match {
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "hometeam_id", insertable = true, updatable = true, nullable = false, unique = true)
+    @JoinColumn(name = "hometeam_id", insertable = true, updatable = true, nullable = false)
     public Team getHomeTeam() {
         return homeTeam;
     }
@@ -78,7 +78,7 @@ public class Match {
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "awayteam_id", insertable = true, updatable = true, nullable = false, unique = true)
+    @JoinColumn(name = "awayteam_id", insertable = true, updatable = true, nullable = false)
     public Team getAwayTeam() {
         return awayTeam;
     }
@@ -116,9 +116,8 @@ public class Match {
         this.goals = goals;
     }
 
-    @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "news_id", insertable = true, updatable = true, nullable = false, unique = true)
+    @JoinColumn(name = "news_id", insertable = true, updatable = true, nullable = true)
     public News getNews() {
         return news;
     }

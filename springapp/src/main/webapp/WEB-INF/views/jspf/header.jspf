@@ -41,6 +41,7 @@
                             class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/matches/createMatch.html"><spring:message code="nav.createMatch"/></a></li>
+                        <li><a href="/teams/createTeam.html"><spring:message code="nav.createTeam"/></a></li>
                     </ul>
                 </li>
             </ul>

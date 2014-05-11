@@ -16,6 +16,7 @@
 
     <context:component-scan base-package="be.spring.spring.persistence"/>
     <context:component-scan base-package="be.spring.spring.service"/>
+    <tx:annotation-driven transaction-manager="jpaTxManager"/>
 
     <!-- Hibernate session factory -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
@@ -31,7 +32,7 @@
     <util:properties id="hibernateProperties">
         <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
         <prop key="hibernate.show_sql">true</prop>
-        <prop key="hibernate.hbm2ddl.auto">update</prop>
+        <prop key="hibernate.hbm2ddl.auto">create</prop>
     </util:properties>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
@@ -42,10 +43,9 @@
         </property>
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.dialect">
-                    org.hibernate.dialect.MySQL5Dialect
-                </prop>
-                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
     </bean>

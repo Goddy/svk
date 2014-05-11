@@ -48,7 +48,7 @@ public class Team {
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "adrress_id", insertable = true, updatable = true, nullable = false, unique = true)
+    @JoinColumn(name = "adrress_id", insertable = true, updatable = true, nullable = false)
     public Address getAddress() {
         return address;
     }
