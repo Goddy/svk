@@ -14,6 +14,6 @@ import java.util.List;
 public class JpaMatchesDao extends AbstractJpaDao<Match> implements MatchesDao {
     @Override
     public List<Match> getMatchForSeason(Season season) {
-        return getMultipleResultQuery("select m from Match m where season=:season", getParameterMap("season", season));
+        return getMultipleResultQuery("getMatchesForSeason", getParameterMap("season", season));
     }
 }

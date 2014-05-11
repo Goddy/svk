@@ -19,7 +19,7 @@ public class SeasonServiceImpl implements SeasonService {
     SeasonDao seasonDao;
 
     @Override
-    public List<Season> getAllSeasons() {
-        return seasonDao.getAll();
+    public List<Season> getSeasons() {
+        return seasonDao.getAllSeasons();
     }
 }

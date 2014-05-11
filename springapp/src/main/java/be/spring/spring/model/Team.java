@@ -1,5 +1,7 @@
 package be.spring.spring.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -46,6 +48,7 @@ public class Team {
         this.name = name;
     }
 
+    @JsonIgnore
     @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "adrress_id", insertable = true, updatable = true, nullable = false)

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @NamedQueries({
         @NamedQuery(name = "findSeasonById", query = "from Season where id = :id"),
-        @NamedQuery(name = "getLastSeasons", query = "from Season order by description desc")
+        @NamedQuery(name = "getAllSeasons", query = "select s from Season s order by s.description desc")
 })
 @Entity
 @Table(name = "season")

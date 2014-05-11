@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by u0090265 on 5/3/14.
@@ -47,14 +46,6 @@ public class MatchesController extends AbstractController {
     private static final String LANDING_MACTHES_PAGE = "/matches/matches";
     private static final String LANDING_MACTHES_CREATE = "/matches/createMatch";
 
-    @RequestMapping(value = "matchesPerSeason.json", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Map<Integer, List<Match>> getAllMatches() {
-        log.debug("Getting all matches");
-        return matchesService.getMatchesForLastSeasons();
-    }
-
     @RequestMapping(value = "createMatch", method = RequestMethod.GET)
     public String newMatch(ModelMap model, @ModelAttribute("form") CreateMatchForm form) {
         populateForm(model);
@@ -78,14 +69,21 @@ public class MatchesController extends AbstractController {
 
     @RequestMapping(value = "matches", method = RequestMethod.GET)
     public String getMatchesPage(ModelMap model) {
-        model.addAttribute("seasons", seasonService.getAllSeasons());
+        model.addAttribute("seasons", seasonService.getSeasons());
         return LANDING_MACTHES_PAGE;
 
     }
 
+    @RequestMapping(value = "matchesForSeason", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Match> getMatchesForSeason(@RequestParam String seasonId) {
+        return matchesService.getMatchesForSeason(Long.parseLong(seasonId));
+    }
+
     private void populateForm(ModelMap model) {
         model.addAttribute("teams", teamService.getAll());
-        model.addAttribute("seasons", matchesService.getSeasons());
+        model.addAttribute("seasons", seasonService.getSeasons());
     }
 
 }

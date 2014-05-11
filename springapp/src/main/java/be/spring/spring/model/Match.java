@@ -1,5 +1,9 @@
 package be.spring.spring.model;
 
+import be.spring.spring.utils.JsonDateSerializer;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -44,6 +48,7 @@ public class Match {
         this.id = id;
     }
 
+    @JsonSerialize(using = JsonDateSerializer.class)
     @NotNull
     @Column(name = "date")
     public Date getDate() {
@@ -54,6 +59,7 @@ public class Match {
         this.date = date;
     }
 
+    @JsonIgnore
     @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "season_id")

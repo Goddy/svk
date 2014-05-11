@@ -53,8 +53,9 @@ public class MatchesServiceImpl implements MatchesService {
     }
 
     @Override
-    public List<Season> getSeasons() {
-        return seasonDao.getAllSeasons();
+    public List<Match> getMatchesForSeason(long seasonId) {
+        Season season = seasonDao.get(seasonId);
+        return matchesDao.getMatchForSeason(season);
     }
 
     @Override

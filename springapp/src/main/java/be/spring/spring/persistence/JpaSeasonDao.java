@@ -18,6 +18,6 @@ public class JpaSeasonDao extends AbstractJpaDao<Season> implements SeasonDao {
 
     @Override
     public List<Season> getAllSeasons() {
-        return super.getAll();
+        return getMultipleResultQuery("getAllSeasons", null);
     }
 }
