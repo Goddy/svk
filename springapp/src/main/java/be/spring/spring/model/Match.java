@@ -25,6 +25,7 @@ public class Match {
     private Season season;
     private Team homeTeam;
     private Team awayTeam;
+    private News news;
     private int atGoals;
     private int htGoals;
     private Set<Goals> goals;
@@ -51,8 +52,8 @@ public class Match {
     }
 
     @NotNull
-    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinColumn(name="season_id",insertable=true, updatable=true, nullable=false,unique=true)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "season_id", insertable = true, updatable = true, nullable = false, unique = true)
     public Season getSeason() {
         return season;
     }
@@ -62,8 +63,8 @@ public class Match {
     }
 
     @NotNull
-    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinColumn(name="hometeam_id",insertable=true, updatable=true, nullable=false,unique=true)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "hometeam_id", insertable = true, updatable = true, nullable = false, unique = true)
     public Team getHomeTeam() {
         return homeTeam;
     }
@@ -73,8 +74,8 @@ public class Match {
     }
 
     @NotNull
-    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinColumn(name="awayteam_id",insertable=true, updatable=true, nullable=false,unique=true)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "awayteam_id", insertable = true, updatable = true, nullable = false, unique = true)
     public Team getAwayTeam() {
         return awayTeam;
     }
@@ -110,5 +111,16 @@ public class Match {
 
     public void setGoals(Set<Goals> goals) {
         this.goals = goals;
+    }
+
+    @NotNull
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "news_id", insertable = true, updatable = true, nullable = false, unique = true)
+    public News getNews() {
+        return news;
+    }
+
+    public void setNews(News news) {
+        this.news = news;
     }
 }

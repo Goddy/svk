@@ -3,9 +3,9 @@ package be.spring.spring.persistence;
 import be.spring.spring.interfaces.Dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ReflectionUtils;
 
-import javax.inject.Inject;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -15,8 +15,8 @@ import java.util.List;
 public abstract class AbstractHbnDao<T extends Object>
 implements Dao<T> {
 
-@Inject
-private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 private Class<T> domainClass;
 
 protected Session getSession() {

@@ -19,4 +19,10 @@ public class HbnSeasonDao extends AbstractHbnDao<Season> implements SeasonDao {
         q.setMaxResults(max);
         return (List<Season>) q.list();
     }
+
+    @Override
+    public List<Season> getAllSeasons() {
+        Query q = getSession().getNamedQuery("getLastSeasons");
+        return (List<Season>) q.list();
+    }
 }

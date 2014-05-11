@@ -13,10 +13,12 @@
 
     <import resource="data-source.xml"/>
     <tx:annotation-driven/>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
     <!-- Scan persistence package for annotations -->
 
     <context:component-scan base-package="be.spring.spring.persistence"/>
     <context:component-scan base-package="be.spring.spring.service"/>
+
 
     <!-- Hibernate session factory -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean" p:dataSource-ref="dataSource" p:packagesToScan="be.spring.spring.model"  p:hibernateProperties-ref="hibernateProperties" >

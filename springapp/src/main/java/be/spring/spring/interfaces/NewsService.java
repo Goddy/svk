@@ -13,10 +13,16 @@ import java.util.List;
  */
 public interface NewsService {
     boolean createNews(News news, Errors errors);
+
     boolean updateNews(News news, Errors errors);
+
     News getNewsItem(Long id);
-    List getAll();
+
+    List<News> getAll();
+
     List<News> getPagedNews(int start);
+
     List<News> getSearch(String term);
+
     public int getNewsCount();
 }

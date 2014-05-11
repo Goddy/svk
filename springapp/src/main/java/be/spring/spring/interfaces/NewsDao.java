@@ -11,9 +11,9 @@ import java.util.List;
  * Remarks: none
  */
 public interface NewsDao extends Dao<News> {
-    void create(News news);
-    void update(News news);
     News findByUsername(Long id);
+
     List<News> getPagedNews(int start);
+
     List<News> getSearch(String term);
 }

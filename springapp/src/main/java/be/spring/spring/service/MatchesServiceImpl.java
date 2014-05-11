@@ -39,4 +39,9 @@ public class MatchesServiceImpl implements MatchesService {
         }
         return resultMap;
     }
+
+    @Override
+    public List<Season> getSeasons() {
+        return seasonDao.getAllSeasons();
+    }
 }

@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface SeasonDao extends Dao<Season> {
     List<Season> getLastSeasons(int max);
+
+    List<Season> getAllSeasons();
 }

@@ -1,6 +1,7 @@
 package be.spring.spring.interfaces;
 
 import be.spring.spring.model.Match;
+import be.spring.spring.model.Season;
 
 import java.util.List;
 import java.util.Map;
@@ -10,4 +11,6 @@ import java.util.Map;
  */
 public interface MatchesService {
     Map<Integer, List<Match>> getMatchesForLastSeasons();
+
+    List<Season> getSeasons();
 }
