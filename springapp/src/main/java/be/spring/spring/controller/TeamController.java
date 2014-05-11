@@ -42,7 +42,7 @@ public class TeamController {
 
 
     @RequestMapping(value = "createTeam", method = RequestMethod.GET)
-    public String getCreateMatch(ModelMap model, @ModelAttribute("form") CreateTeamForm form) {
+    public String getCreateMatchPage(ModelMap model, @ModelAttribute("form") CreateTeamForm form) {
         return LANDING_CREATE_TEAM;
 
     }

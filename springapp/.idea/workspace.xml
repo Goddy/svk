@@ -1,35 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3a0575f8-5ab2-4b1c-a179-47e948df9033" name="Default" comment="- &#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/validators/CreateTeamValidator.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_3_2_5_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_3_2_5_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_3_2_5_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_3_2_5_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_3_2_5_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_3_2_5_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_3_2_5_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_3_2_5_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_3_2_5_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_3_2_5_RELEASE.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/AccountController.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/AccountController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/form/CreateTeamForm.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/form/CreateTeamForm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnTeamDao.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnTeamDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaTeamDao.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaTeamDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Team.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Team.java" />
+    <list default="true" id="3a0575f8-5ab2-4b1c-a179-47e948df9033" name="Default" comment="- transition to Spring4 and 1.8, corrected createTeamForm&#10;">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/SeasonService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/service/SeasonServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/teams.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/TeamController.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/TeamController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/TeamDao.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/TeamDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/TeamService.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/TeamService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/service/TeamServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/service/TeamServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/log4j.xml" afterPath="$PROJECT_DIR$/src/main/resources/log4j.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/log4j.xml" afterPath="$PROJECT_DIR$/src/test/resources/log4j.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spring.iml" afterPath="$PROJECT_DIR$/spring.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/spring_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/spring_war_exploded.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="spring.iws" />
@@ -92,7 +70,7 @@
     </breakpoint_any>
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" line="63" class="be.spring.spring.controller.MatchesController" package="be.spring.spring.controller">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" line="67" class="be.spring.spring.controller.MatchesController" package="be.spring.spring.controller">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -137,7 +115,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/TeamController.java" line="67" class="be.spring.spring.controller.TeamController" package="be.spring.spring.controller">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/TeamController.java" line="66" class="be.spring.spring.controller.TeamController" package="be.spring.spring.controller">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -152,7 +130,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/be/spring/spring/validators/CreateTeamValidator.java" line="21" class="be.spring.spring.validators.CreateTeamValidator" package="be.spring.spring.validators">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/be/spring/spring/validators/CreateTeamValidator.java" line="20" class="be.spring.spring.validators.CreateTeamValidator" package="be.spring.spring.validators">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -196,91 +174,93 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="header.jspf" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="57" selection-start="1815" selection-end="1815" vertical-scroll-proportion="0.90909094" vertical-offset="216" max-vertical-offset="1638">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="TeamController.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/TeamController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="0" selection-start="2260" selection-end="2260" vertical-scroll-proportion="0.0" vertical-offset="531" max-vertical-offset="1026">
+            <state line="31" column="28" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1008">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TeamService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/TeamService.java">
+      <file leaf-file-name="Season.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Season.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="24" selection-start="271" selection-end="271" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+            <state line="20" column="24" selection-start="489" selection-end="489" vertical-scroll-proportion="0.0" vertical-offset="129" max-vertical-offset="774">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TeamServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/TeamServiceImpl.java">
+      <file leaf-file-name="SeasonServiceImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/SeasonServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="47" selection-start="625" selection-end="636" vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="846">
-              <folding />
+            <state line="20" column="7" selection-start="464" selection-end="464" vertical-scroll-proportion="0.0" vertical-offset="7" max-vertical-offset="558">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InvocableHandlerMethod.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.4.RELEASE/spring-web-4.0.4.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="29" selection-start="2403" selection-end="2403" vertical-scroll-proportion="-11.88" vertical-offset="279" max-vertical-offset="774">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MatchesServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/MatchesServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="13" selection-start="854" selection-end="854" vertical-scroll-proportion="0.0" vertical-offset="547" max-vertical-offset="1080">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AccountServiceImpl.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="AccountServiceImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/AccountServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="13" selection-start="448" selection-end="448" vertical-scroll-proportion="-0.5065666" vertical-offset="378" max-vertical-offset="1026">
+            <state line="12" column="13" selection-start="448" selection-end="448" vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="1026">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="log4j.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.xml">
+      <file leaf-file-name="createMatch.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/createMatch.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="27" selection-start="547" selection-end="547" vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="846">
+            <state line="7" column="103" selection-start="409" selection-end="447" vertical-scroll-proportion="-4.6666665" vertical-offset="0" max-vertical-offset="1494">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NewsServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/NewsServiceImpl.java">
+      <file leaf-file-name="MatchesController.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="21" selection-start="861" selection-end="861" vertical-scroll-proportion="0.0" vertical-offset="525" max-vertical-offset="1152">
+            <state line="79" column="28" selection-start="2682" selection-end="2682" vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="1422">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CreateTeamForm.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/CreateTeamForm.java">
+      <file leaf-file-name="teams.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/teams.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="27" selection-start="359" selection-end="359" vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="882">
+            <state line="10" column="80" selection-start="525" selection-end="525" vertical-scroll-proportion="-6.6666665" vertical-offset="0" max-vertical-offset="558">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TeamDao.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/TeamDao.java">
+      <file leaf-file-name="matches.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/matches.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="1" selection-start="208" selection-end="208" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="918">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="createTeam.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/createTeam.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="0" selection-start="1607" selection-end="1648" vertical-scroll-proportion="-4.0" vertical-offset="396" max-vertical-offset="1350">
               <folding />
             </state>
           </provider>
@@ -304,8 +284,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/matches.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/service/AccountServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/MatchesDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/SeasonDao.java" />
@@ -332,13 +310,11 @@
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Match.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/teams/create_team.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/button.tag.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/button.tag" />
         <option value="$PROJECT_DIR$/src/main/webapp/resources/js/svk-1.0.0.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/formField.tag" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/createTeam.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/utils/Constants.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/resources/log4j.xml" />
@@ -350,11 +326,15 @@
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AbstractJpaDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaTeamDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Team.java" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/TeamController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/messages.properties" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/validators/CreateTeamValidator.java" />
         <option value="$PROJECT_DIR$/src/main/resources/log4j.xml" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/form/CreateTeamForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/service/SeasonServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/teams.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/TeamController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf" />
       </list>
     </option>
   </component>
@@ -1570,7 +1550,7 @@
       <workItem from="1399797812157" duration="19195000" />
       <workItem from="1399820650133" duration="154000" />
       <workItem from="1399820805879" duration="382000" />
-      <workItem from="1399821191195" duration="4280000" />
+      <workItem from="1399821191195" duration="6347000" />
     </task>
     <task id="LOCAL-00001" summary="- Added newspage paging">
       <created>1387226006575</created>
@@ -1632,11 +1612,15 @@
       <created>1399819689642</created>
       <updated>1399819689642</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="- transition to Spring4 and 1.8, corrected createTeamForm&#10;">
+      <created>1399825512356</created>
+      <updated>1399825512356</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="219166000" />
+    <option name="totallyTimeSpent" value="221233000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1672,13 +1656,13 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32845744" sideWeight="0.49968132" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47606382" sideWeight="0.49966422" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3211517" sideWeight="0.49904397" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31893688" sideWeight="0.6188655" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32536522" sideWeight="0.5003358" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32802126" sideWeight="0.49966422" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3211517" sideWeight="0.500956" order="14" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31893688" sideWeight="0.38113448" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2842575" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32802126" sideWeight="0.49966422" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1720,7 +1704,8 @@
     <MESSAGE value="- added teamController, corrected DAO&#10;" />
     <MESSAGE value="- added createTeam&#10;" />
     <MESSAGE value="- corrected createTeam controller&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="- corrected createTeam controller&#10;" />
+    <MESSAGE value="- transition to Spring4 and 1.8, corrected createTeamForm&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="- transition to Spring4 and 1.8, corrected createTeamForm&#10;" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1736,62 +1721,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/validators/CreateMatchValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="1" selection-start="444" selection-end="1194" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="576">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/createTeam.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="35" selection-start="892" selection-end="902" vertical-scroll-proportion="-5.3333335" vertical-offset="72" max-vertical-offset="1350">
-          <folding>
-            <marker date="1399818363228" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1399818363228" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1399818363228" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1399818363228" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1399818363228" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1399818363228" expanded="true" signature="-1:-1" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/createMatch.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="43" selection-start="3013" selection-end="3013" vertical-scroll-proportion="-46.666668" vertical-offset="0" max-vertical-offset="1494">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="0" selection-start="1070" selection-end="1193" vertical-scroll-proportion="0.0" vertical-offset="182" max-vertical-offset="1242">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.0.4.RELEASE/spring-webmvc-4.0.4.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="22" selection-start="1035" selection-end="1035" vertical-scroll-proportion="-6.6" vertical-offset="159" max-vertical-offset="774">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.0.4.RELEASE/spring-webmvc-4.0.4.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="57" selection-start="8642" selection-end="8642" vertical-scroll-proportion="-5.92" vertical-offset="1814" max-vertical-offset="2340">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.0.4.RELEASE/spring-webmvc-4.0.4.RELEASE.jar!/org/springframework/web/servlet/mvc/method/AbstractHandlerMethodAdapter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="62" selection-start="845" selection-end="845" vertical-scroll-proportion="-9.44" vertical-offset="88" max-vertical-offset="558">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.0.4.RELEASE/spring-webmvc-4.0.4.RELEASE.jar!/org/springframework/web/servlet/DispatcherServlet.class">
       <provider selected="true" editor-type-id="text-editor">
         <state line="107" column="19" selection-start="7377" selection-end="7377" vertical-scroll-proportion="-5.92" vertical-offset="1760" max-vertical-offset="2358">
@@ -1967,13 +1896,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Season.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="13" selection-start="435" selection-end="435" vertical-scroll-proportion="0.0" vertical-offset="129" max-vertical-offset="774">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnTeamDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="8" selection-start="306" selection-end="318" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
@@ -2027,15 +1949,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="0" selection-start="627" selection-end="627" vertical-scroll-proportion="0.0" vertical-offset="79" max-vertical-offset="612">
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/TeamController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="0" selection-start="2260" selection-end="2260" vertical-scroll-proportion="0.0" vertical-offset="531" max-vertical-offset="1026">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2048,7 +1963,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="27" selection-start="547" selection-end="547" vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="846">
+        <state line="14" column="27" selection-start="553" selection-end="553" vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="846">
           <folding />
         </state>
       </provider>
@@ -2062,22 +1977,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/TeamService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="24" selection-start="271" selection-end="271" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-          <folding />
+        <state line="11" column="24" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/CreateTeamForm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="27" selection-start="359" selection-end="359" vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="882">
-          <folding />
+        <state line="7" column="27" selection-start="161" selection-end="161" vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="846">
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/TeamServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="47" selection-start="625" selection-end="636" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="846">
-          <folding />
+        <state line="18" column="47" selection-start="554" selection-end="565" vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="846">
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2097,7 +2018,72 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/AccountServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="448" selection-end="448" vertical-scroll-proportion="-0.5065666" vertical-offset="378" max-vertical-offset="1026">
+        <state line="12" column="13" selection-start="448" selection-end="448" vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="1026">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/createTeam.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="0" selection-start="1607" selection-end="1648" vertical-scroll-proportion="-4.0" vertical-offset="396" max-vertical-offset="1350">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/matches.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/createMatch.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="103" selection-start="409" selection-end="447" vertical-scroll-proportion="-4.6666665" vertical-offset="0" max-vertical-offset="1494">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/SeasonServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="7" selection-start="464" selection-end="464" vertical-scroll-proportion="0.0" vertical-offset="7" max-vertical-offset="558">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Season.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="24" selection-start="489" selection-end="489" vertical-scroll-proportion="0.0" vertical-offset="129" max-vertical-offset="774">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/teams.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="80" selection-start="525" selection-end="525" vertical-scroll-proportion="-6.6666665" vertical-offset="0" max-vertical-offset="558">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/TeamController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="28" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1008">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="28" selection-start="2682" selection-end="2682" vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="1422">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="57" selection-start="1815" selection-end="1815" vertical-scroll-proportion="0.90909094" vertical-offset="216" max-vertical-offset="1638">
           <folding />
         </state>
       </provider>

@@ -2,6 +2,7 @@ package be.spring.spring.controller;
 
 import be.spring.spring.form.CreateMatchForm;
 import be.spring.spring.interfaces.MatchesService;
+import be.spring.spring.interfaces.SeasonService;
 import be.spring.spring.interfaces.TeamService;
 import be.spring.spring.model.Match;
 import be.spring.spring.validators.CreateMatchValidator;
@@ -29,7 +30,10 @@ public class MatchesController extends AbstractController {
     private MatchesService matchesService;
 
     @Autowired
-    private TeamService teamServiceImpl;
+    private TeamService teamService;
+
+    @Autowired
+    SeasonService seasonService;
 
     @Autowired
     private CreateMatchValidator validator;
@@ -72,8 +76,15 @@ public class MatchesController extends AbstractController {
         }
     }
 
+    @RequestMapping(value = "matches", method = RequestMethod.GET)
+    public String getMatchesPage(ModelMap model) {
+        model.addAttribute("seasons", seasonService.getAllSeasons());
+        return LANDING_MACTHES_PAGE;
+
+    }
+
     private void populateForm(ModelMap model) {
-        model.addAttribute("teams", teamServiceImpl.getAll());
+        model.addAttribute("teams", teamService.getAll());
         model.addAttribute("seasons", matchesService.getSeasons());
     }
 
