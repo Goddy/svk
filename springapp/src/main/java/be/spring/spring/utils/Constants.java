@@ -18,6 +18,7 @@ public class Constants {
     public static final String FAILURE = "failure";
 
     public static final String LANDING_CREATE_TEAM = "/teams/createTeam";
+    public static final String LANDING_TEAMS = "/teams/teams";
 
     private Constants() {}
 }

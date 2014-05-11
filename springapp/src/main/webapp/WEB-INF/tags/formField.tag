@@ -5,6 +5,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@attribute name="path" required="true" type="java.lang.String" %>
+<%@attribute name="cssClass" required="false" type="java.lang.String" %>
 <%@attribute name="label" required="true" type="java.lang.String" %>
 <%@attribute name="title" required="true" type="java.lang.String" %>
 <%@attribute name="type" required="true" type="java.lang.String" %>
@@ -18,8 +19,8 @@
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                         <label>
-                            <form:checkbox path="${path}"/> <spring:message code="${label}"/>
-                                <%--YAGNI For the moment it does not make sense to add support for error messages--%>
+                            <form:checkbox path="${path}" cssClass="${cssClass}"/> <spring:message code="${label}"/>
+                        <%--YAGNI For the moment it does not make sense to add support for error messages--%>
                         </label>
                     </div>
                 </div>
@@ -37,11 +38,16 @@
                 <div class="col-sm-10">
                     <c:choose>
                         <c:when test="${type=='textarea'}">
-                            <form:textarea cssClass="form-control" path="${path}" placeholder="${placeholder}"/>
+                            <form:textarea cssClass="form-control ${cssClass}" path="${path}"
+                                           placeholder="${placeholder}"/>
+                        </c:when>
+                        <c:when test="${type=='checkbox'}">
+                            <form:checkbox cssClass="form-control ${cssClass}" path="${path}"/>
                         </c:when>
                         <c:otherwise>
-                            <form:input cssClass="form-control" path="${path}"/>
+                            <form:input cssClass="form-control ${cssClass}" path="${path}"/>
                         </c:otherwise>
+
                     </c:choose>
                     <c:if test="${status.error}">
                         <span class="help-block">${status.errorMessage}</span>

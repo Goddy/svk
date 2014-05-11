@@ -13,10 +13,10 @@ public class CreateTeamForm {
     private int postalCode;
     private String address;
     private String city;
-    private String getGoogleLink;
+    private String googleLink;
+    private boolean useLink = false;
 
     @NotNull
-    @NotEmpty
     @NumberFormat
     public int getPostalCode() {
         return postalCode;
@@ -48,12 +48,13 @@ public class CreateTeamForm {
 
     @NotNull
     @NotEmpty
-    public String getGetGoogleLink() {
-        return getGoogleLink;
+    public String getGoogleLink() {
+        if (!useLink) return null;
+        return googleLink;
     }
 
-    public void setGetGoogleLink(String getGoogleLink) {
-        this.getGoogleLink = getGoogleLink;
+    public void setGoogleLink(String googleLink) {
+        this.googleLink = googleLink;
     }
 
     @NotNull
@@ -64,5 +65,13 @@ public class CreateTeamForm {
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+    public boolean isUseLink() {
+        return useLink;
+    }
+
+    public void setUseLink(boolean useLink) {
+        this.useLink = useLink;
     }
 }
