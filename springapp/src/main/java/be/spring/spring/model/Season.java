@@ -20,6 +20,9 @@ public class Season {
     private long id;
     private String description;
 
+    public Season() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

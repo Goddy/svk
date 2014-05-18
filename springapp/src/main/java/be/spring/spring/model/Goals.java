@@ -11,6 +11,8 @@ public class Goals {
     private int order;
     private Account player;
 
+    public Goals() {
+    }
 
     @Column(name = "goal_order")
     public int getOrder() {

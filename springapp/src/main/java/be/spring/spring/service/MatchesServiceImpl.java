@@ -1,14 +1,18 @@
 package be.spring.spring.service;
 
+import be.spring.spring.form.CreateMatchForm;
+import be.spring.spring.interfaces.MatchesDao;
 import be.spring.spring.interfaces.MatchesService;
+import be.spring.spring.interfaces.SeasonDao;
+import be.spring.spring.interfaces.TeamDao;
 import be.spring.spring.model.Match;
 import be.spring.spring.model.Season;
-import be.spring.spring.persistence.HbnMatchesDao;
-import be.spring.spring.persistence.HbnSeasonDao;
+import be.spring.spring.utils.ValidationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +28,13 @@ public class MatchesServiceImpl implements MatchesService {
     private int maxSeasons;
 
     @Autowired
-    private HbnSeasonDao seasonDao;
+    private SeasonDao seasonDao;
 
     @Autowired
-    private HbnMatchesDao matchesDao;
+    private TeamDao teamDao;
+
+    @Autowired
+    private MatchesDao matchesDao;
 
     @Override
     public Map<Integer, List<Match>> getMatchesForLastSeasons() {
@@ -43,5 +50,16 @@ public class MatchesServiceImpl implements MatchesService {
     @Override
     public List<Season> getSeasons() {
         return seasonDao.getAllSeasons();
+    }
+
+    @Override
+    public boolean createMatch(CreateMatchForm form) throws ParseException {
+        Match m = new Match();
+        m.setSeason(seasonDao.get((long) form.getSeason()));
+        m.setDate(ValidationHelper.returnDate(form.getDate()));
+        m.setHomeTeam(teamDao.get((long) form.getHomeTeam()));
+        m.setAwayTeam(teamDao.get((long) form.getAwayTeam()));
+        matchesDao.create(m);
+        return true;
     }
 }

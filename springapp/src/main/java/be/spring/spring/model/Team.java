@@ -9,17 +9,21 @@ import javax.validation.constraints.NotNull;
  * Time: 9:43 PM
  * Remarks: none
  */
+
 /**
-@NamedQueries({
-        @NamedQuery(name = "findTeamById", query = "from teams where id = :id"),
-})
-**/
+ * @NamedQueries({
+ * @NamedQuery(name = "findTeamById", query = "from teams where id = :id"),
+ * })
+ */
 @Entity
 @Table(name = "teams")
 public class Team {
     private long id;
     private String name;
     private Address address;
+
+    public Team() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,8 +47,8 @@ public class Team {
     }
 
     @NotNull
-    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinColumn(name="adrress_id",insertable=true, updatable=true, nullable=false,unique=true)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "adrress_id", insertable = true, updatable = true, nullable = false, unique = true)
     public Address getAddress() {
         return address;
     }

@@ -1,41 +1,21 @@
 package be.spring.spring.form;
 
-import be.spring.spring.utils.Constants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.ScriptAssert;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-@ScriptAssert(
-        lang = "javascript",
-        script = "_this.confirmPassword.equals(_this.password)",
-        message = "account.password.mismatch.message")
-public class registrationForm {
-
-    protected String firstName,lastName, username, password, confirmPassword;
-
-    @NotNull
-    @Pattern(regexp = Constants.PASSWORD_REGEX, message = "{validation.complexity.password.message}")
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
+/**
+ * User: Tom De Dobbeleer
+ * Date: 12/13/13
+ * Time: 2:52 PM
+ * Remarks: none
+ */
+public class AccountDetailsForm {
+    protected String firstName, lastName, username;
 
     @NotNull
     @NotEmpty(message = "{validation.notempty.message}")
@@ -77,10 +57,7 @@ public class registrationForm {
                 .append("firstName", firstName)
                 .append("lastName", lastName)
                 .append("username", username)
-                .append("password", password)
-                .append("confirmPassword", confirmPassword)
                 .toString();
     }
-
-
 }
+

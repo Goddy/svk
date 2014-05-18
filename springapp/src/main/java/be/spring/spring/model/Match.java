@@ -30,6 +30,9 @@ public class Match {
     private int htGoals;
     private Set<Goals> goals;
 
+    public Match() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

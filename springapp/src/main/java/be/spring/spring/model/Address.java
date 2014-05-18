@@ -9,11 +9,12 @@ import javax.validation.constraints.NotNull;
  * Time: 9:47 PM
  * Remarks: none
  */
+
 /**
-@NamedQueries({
-        @NamedQuery(name = "findAddressById", query = "from address where id = :id")
-})
-**/
+ * @NamedQueries({
+ * @NamedQuery(name = "findAddressById", query = "from address where id = :id")
+ * })
+ */
 @Entity
 @Table(name = "address")
 public class Address {
@@ -23,8 +24,11 @@ public class Address {
     private String city;
     private String googleLink;
 
-    public Address (int postalCode, String address, String city, String googleLink) {
+    public Address(int postalCode, String address, String city, String googleLink) {
         this.setPostalCode(postalCode);
+    }
+
+    public Address() {
     }
 
     @Id

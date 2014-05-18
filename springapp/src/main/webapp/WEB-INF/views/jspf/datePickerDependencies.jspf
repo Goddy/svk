@@ -1,0 +1,14 @@
+<!-- Needed to work with datepicker -->
+<script src="/resources/js/bootstrap-datetimepicker.min.js"></script>
+
+<script type="text/javascript">
+    (function ($) {
+        $(document).ready(function () {
+            $("[class*='date']").datetimepicker({
+                pickTime: false,
+                useCurrent: true
+            });
+        })
+    })(jQuery);
+
+</script>

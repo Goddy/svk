@@ -32,7 +32,7 @@ public abstract class AbstractJpaDao<T>
     public List<T> getMultipleResultQuery(String query, Map<String, ? extends Object> parameterMap) {
         Query q = getEntityManager().createNamedQuery(query, getDomainClass());
         setParameters(q, parameterMap);
-        return (List<T>)q.getResultList();
+        return (List<T>) q.getResultList();
     }
 
 
@@ -41,9 +41,8 @@ public abstract class AbstractJpaDao<T>
         try {
             Query q = getEntityManager().createNamedQuery(query, getDomainClass());
             setParameters(q, parameterMap);
-            return (T)q.getSingleResult();
-        }
-        catch (NoResultException e) {
+            return (T) q.getSingleResult();
+        } catch (NoResultException e) {
             return null;
         }
 
@@ -78,10 +77,11 @@ public abstract class AbstractJpaDao<T>
     }
 
     public void createAll(List<T> tList) {
-        for (T t: tList) {
+        for (T t : tList) {
             create(t);
         }
     }
+
     public void create(T t) {
         getEntityManager().persist(t);
     }
@@ -90,26 +90,29 @@ public abstract class AbstractJpaDao<T>
     public T get(Serializable id) {
         return getEntityManager().find(getDomainClass(), id);
     }
+
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
         List<T> list = getEntityManager()
                 .createQuery("select x from " + getDomainClassName() + " x")
                 .getResultList();
-        getEntityManager().getTransaction().commit();
         return list;
     }
 
     public void delete(T t) {
         getEntityManager().remove(t);
     }
+
     public void deleteById(Serializable id) {
         delete(get(id));
     }
+
     public void deleteAll() {
         getEntityManager()
                 .createQuery("delete from " + getDomainClassName() + " x")
                 .executeUpdate();
     }
+
     public long count() {
         return (Long) getEntityManager()
                 .createQuery("select count(*) from " + getDomainClassName())
@@ -125,7 +128,10 @@ public abstract class AbstractJpaDao<T>
         getEntityManager().persist(t);
     }
 
-    public boolean exists(Serializable id) { return (get(id) != null); }
+    public boolean exists(Serializable id) {
+        return (get(id) != null);
+    }
+
     public Map<String, Object> getParameterMap(String key, Object value) {
         Map<String, Object> result = new HashMap<>();
         result.put(key, value);

@@ -4,7 +4,7 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:sec="http://www.springframework.org/schema/security"
-       xsi:schemaLocation= "http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans.xsd
                             http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
                             http://www.springframework.org/schema/security      http://www.springframework.org/schema/security/spring-security.xsd
                             http://www.springframework.org/schema/mvc           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
@@ -12,7 +12,7 @@
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven/>
     <sec:global-method-security pre-post-annotations="enabled"/>
-
+    <context:component-scan base-package="be.spring.spring.validators"/>
     <context:component-scan base-package="be.spring.spring.controller"/>
 
 </beans>

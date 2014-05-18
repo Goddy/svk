@@ -18,7 +18,7 @@ import javax.validation.constraints.Pattern;
         lang = "javascript",
         script = "_this.confirmPassword.equals(_this.newPassword)",
         message = "account.password.mismatch.message")
-public class changePwdForm {
+public class ChangePwdForm {
     private String oldPassword;
     protected String newPassword;
     protected String confirmPassword;
