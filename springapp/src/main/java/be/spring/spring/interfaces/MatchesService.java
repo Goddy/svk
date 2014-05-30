@@ -15,5 +15,7 @@ public interface MatchesService {
 
     List<Match> getMatchesForSeason(long seasonId);
 
+    Match getMatch(Long id);
+
     boolean createMatch(CreateMatchForm form) throws ParseException;
 }

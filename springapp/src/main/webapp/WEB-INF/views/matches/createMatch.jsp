@@ -9,7 +9,7 @@
 
             <div class="col-sm-10">
                 <form:select id="homeTeam" path="homeTeam" cssClass="form-control">
-                <c:forEach items="${teams}" var="team">
+                    <c:forEach items="${teams}" var="team">
                         <form:option value="${team.id}" label="${team.name}"/>
                     </c:forEach>
                 </form:select>
@@ -23,7 +23,7 @@
 
             <div class="col-sm-10">
                 <form:select id="awayTeam" path="awayTeam" cssClass="form-control">
-                <c:forEach items="${teams}" var="team">
+                    <c:forEach items="${teams}" var="team">
                         <form:option value="${team.id}" label="${team.name}"/>
                     </c:forEach>
                 </form:select>
@@ -37,7 +37,7 @@
 
             <div class="col-sm-10">
                 <form:select id="season" path="season" cssClass="form-control">
-                <c:forEach items="${seasons}" var="season">
+                    <c:forEach items="${seasons}" var="season">
                         <form:option value="${season.id}" label="${season.description}"/>
                     </c:forEach>
                 </form:select>
@@ -56,7 +56,6 @@
                 <div class="col-sm-10">
                     <div id="trDate" class="input-group">
                         <span class="input-group-addon">
-
                         </span>
                         <input id="date" value="" name="date" data-date-format="DD/MM/YYYY" class="form-control date"
                                placeholder="DD/MM/JJJJ" type="text">
@@ -68,7 +67,7 @@
     </div>
 
     <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
+        <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-default"><spring:message code="button.add"/></button>
         </div>
     </div>

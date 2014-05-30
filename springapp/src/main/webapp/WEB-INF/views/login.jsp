@@ -1,6 +1,84 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ include file="jspf/header.jspf" %>
-<html>
+<div class="page-header">
+    <h1><spring:message code="title.login"/></h1>
+</div>
+<!--
+If the user is anonymous (not logged in), show the login form
+and social sign in buttons.
+-->
+<sec:authorize access="isAnonymous()">
+    <!-- Login form -->
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h2><spring:message code="title.login"/></h2>
+            <!--
+                Error message is shown if login fails.
+            -->
+            <c:if test="${param.error eq 'bad_credentials'}">
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <spring:message code="text.login.failed"/>
+                </div>
+            </c:if>
+            <!-- Specifies action and HTTP method -->
+            <form action="/login/authenticate" method="POST" role="form">
+                <!-- Add CSRF token -->
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-</body>
-</html>
+                <div class="row">
+                    <div id="form-group-email" class="form-group col-lg-4">
+                        <label class="control-label" for="user-email"><spring:message code="label.email"/>:</label>
+                        <!-- Add username field to the login form -->
+                        <input id="user-email" name="username" type="text" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div id="form-group-password" class="form-group col-lg-4">
+                        <label class="control-label" for="user-password"><spring:message
+                                code="label.password"/>:</label>
+                        <!-- Add password field to the login form -->
+                        <input id="user-password" name="password" type="password" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <!-- Add submit button -->
+                        <button type="submit" class="btn btn-default"><spring:message code="button.login"/></button>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <!-- Add create user account link -->
+                    <a href="/user/register"><spring:message code="button.update"/></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Social Sign In Buttons -->
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h2><spring:message code="label.social.sign.in"/></h2>
+
+            <div class="row social-button-row">
+                <div class="col-lg-4">
+                    <!-- Add Facebook sign in button -->
+                    <a href="<c:url value="/auth/facebook"/>">
+                        <button class="btn btn-facebook"><i class="icon-facebook"></i> | <spring:message
+                                code="label.social.sign.in"/></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</sec:authorize>
+<!--
+If the user is already authenticated, show a help message instead
+of the login form and social sign in buttons.
+-->
+<sec:authorize access="isAuthenticated()">
+    <p><spring:message code="text.loggedin"/></p>
+</sec:authorize>
 <%@ include file="jspf/footer.jspf" %>

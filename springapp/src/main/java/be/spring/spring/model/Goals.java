@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Embeddable
 public class Goals {
     private int order;
-    private Account player;
+    private Account scorer;
+    private Account assist;
 
     public Goals() {
     }
@@ -24,12 +25,22 @@ public class Goals {
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "player", insertable = true, updatable = true, nullable = false, unique = true)
-    public Account getPlayer() {
-        return player;
+    @JoinColumn(name = "scorer", nullable = false)
+    public Account getScorer() {
+        return scorer;
     }
 
-    public void setPlayer(Account player) {
-        this.player = player;
+    public void setScorer(Account scorer) {
+        this.scorer = scorer;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "assist", nullable = true)
+    public Account getAssist() {
+        return assist;
+    }
+
+    public void setAssist(Account assist) {
+        this.assist = assist;
     }
 }

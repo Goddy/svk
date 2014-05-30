@@ -20,7 +20,7 @@
                     <div class="checkbox">
                         <label>
                             <form:checkbox path="${path}" cssClass="${cssClass}"/> <spring:message code="${label}"/>
-                        <%--YAGNI For the moment it does not make sense to add support for error messages--%>
+                                <%--YAGNI For the moment it does not make sense to add support for error messages--%>
                         </label>
                     </div>
                 </div>
@@ -43,6 +43,9 @@
                         </c:when>
                         <c:when test="${type=='checkbox'}">
                             <form:checkbox cssClass="form-control ${cssClass}" path="${path}"/>
+                        </c:when>
+                        <c:when test="${type=='empty'}">
+                            <jsp:doBody/>
                         </c:when>
                         <c:otherwise>
                             <form:input cssClass="form-control ${cssClass}" path="${path}"/>

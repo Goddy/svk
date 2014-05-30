@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 public class AccountServiceImpl implements AccountService {
@@ -48,6 +50,12 @@ public class AccountServiceImpl implements AccountService {
             errors.rejectValue("username", "error.duplicate.account.email",
                     new String[]{username}, null);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Account> getAll() {
+        return accountDao.getAll();
     }
 
     @Override

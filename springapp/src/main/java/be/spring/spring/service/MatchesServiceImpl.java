@@ -59,6 +59,11 @@ public class MatchesServiceImpl implements MatchesService {
     }
 
     @Override
+    public Match getMatch(Long id) {
+        return matchesDao.get(id);
+    }
+
+    @Override
     @Transactional(readOnly = false)
     public boolean createMatch(CreateMatchForm form) throws ParseException {
         Match m = new Match();

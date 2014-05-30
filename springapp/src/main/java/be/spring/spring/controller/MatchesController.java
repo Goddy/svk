@@ -1,6 +1,7 @@
 package be.spring.spring.controller;
 
 import be.spring.spring.form.CreateMatchForm;
+import be.spring.spring.interfaces.AccountService;
 import be.spring.spring.interfaces.MatchesService;
 import be.spring.spring.interfaces.SeasonService;
 import be.spring.spring.interfaces.TeamService;
@@ -35,6 +36,9 @@ public class MatchesController extends AbstractController {
     SeasonService seasonService;
 
     @Autowired
+    AccountService accountService;
+
+    @Autowired
     private CreateMatchValidator validator;
 
     @InitBinder("form")
@@ -42,35 +46,38 @@ public class MatchesController extends AbstractController {
         binder.setValidator(validator);
     }
 
+
     private static final Logger log = LoggerFactory.getLogger(MatchesController.class);
-    private static final String LANDING_MACTHES_PAGE = "/matches/matches";
-    private static final String LANDING_MACTHES_CREATE = "/matches/createMatch";
+    private static final String LANDING_MATCHES_PAGE = "/matches/matches";
+    private static final String LANDING_MATCHES_CREATE = "/matches/createMatch";
+
 
     @RequestMapping(value = "createMatch", method = RequestMethod.GET)
     public String newMatch(ModelMap model, @ModelAttribute("form") CreateMatchForm form) {
-        populateForm(model);
-        return LANDING_MACTHES_CREATE;
+        populateCreateMatch(model);
+        return LANDING_MATCHES_CREATE;
     }
 
     @RequestMapping(value = "createMatch", method = RequestMethod.POST)
     public String createMatch(@ModelAttribute("form") @Valid CreateMatchForm form, BindingResult result, ModelMap model) {
         try {
             if (result.hasErrors()) {
-                populateForm(model);
-                return LANDING_MACTHES_CREATE;
+                populateCreateMatch(model);
+                return LANDING_MATCHES_CREATE;
             }
             matchesService.createMatch(form);
-            return LANDING_MACTHES_PAGE;
+            return LANDING_MATCHES_PAGE;
         } catch (ParseException e) {
             log.debug(e.getMessage());
             return null;
         }
     }
 
+
     @RequestMapping(value = "matches", method = RequestMethod.GET)
     public String getMatchesPage(ModelMap model) {
         model.addAttribute("seasons", seasonService.getSeasons());
-        return LANDING_MACTHES_PAGE;
+        return LANDING_MATCHES_PAGE;
 
     }
 
@@ -81,7 +88,7 @@ public class MatchesController extends AbstractController {
         return matchesService.getMatchesForSeason(Long.parseLong(seasonId));
     }
 
-    private void populateForm(ModelMap model) {
+    private void populateCreateMatch(ModelMap model) {
         model.addAttribute("teams", teamService.getAll());
         model.addAttribute("seasons", seasonService.getSeasons());
     }

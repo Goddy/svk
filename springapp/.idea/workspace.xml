@@ -4,22 +4,31 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/matches.jsp" line="46" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a0575f8-5ab2-4b1c-a179-47e948df9033" name="Default" comment="- added matches page&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/utils/JsonDateSerializer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaMatchesDao.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaMatchesDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaSeasonDao.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaSeasonDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Match.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Match.java" />
+    <list default="true" id="3a0575f8-5ab2-4b1c-a179-47e948df9033" name="Default" comment="- added getMatches page&#10;">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/form/ChangeResultForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchResultController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/social/SimpleSocialUserDetailsService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/social/SocialContext.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/data/SocialMediaEnum.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/changeMatchResult.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Account.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Account.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/AccountService.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/AccountService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/service/AccountServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/service/AccountServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Goals.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Goals.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/MatchesService.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/MatchesService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/service/MatchesServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/service/MatchesServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Season.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Season.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/SeasonService.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/SeasonService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/service/SeasonServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/service/SeasonServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Team.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Team.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/UserDetailsAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/UserDetailsAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/createMatch.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/createMatch.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/formField.tag" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/formField.tag" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/matches.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/matches.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spring.iml" afterPath="$PROJECT_DIR$/spring.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/spring_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/spring_war_exploded.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="spring.iws" />
@@ -82,7 +91,7 @@
     </breakpoint_any>
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" line="60" class="be.spring.spring.controller.MatchesController" package="be.spring.spring.controller">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" line="65" class="be.spring.spring.controller.MatchesController" package="be.spring.spring.controller">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -97,7 +106,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/MatchesServiceImpl.java" line="63" class="be.spring.spring.service.MatchesServiceImpl" package="be.spring.spring.service">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/MatchesServiceImpl.java" line="68" class="be.spring.spring.service.MatchesServiceImpl" package="be.spring.spring.service">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -157,7 +166,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" line="73" class="be.spring.spring.controller.MatchesController" package="be.spring.spring.controller">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchResultController.java" line="34" class="be.spring.spring.controller.MatchResultController" package="be.spring.spring.controller">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -186,66 +195,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AbstractJpaDao.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AbstractJpaDao.java">
+      <file leaf-file-name="UserDetailsServiceAdapter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/UserDetailsServiceAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="90" column="0" selection-start="2521" selection-end="2521" vertical-scroll-proportion="0.0" vertical-offset="1242" max-vertical-offset="2394">
+            <state line="22" column="16" selection-start="740" selection-end="740" vertical-scroll-proportion="0.0" vertical-offset="109" max-vertical-offset="756">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MatchesServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/MatchesServiceImpl.java">
+      <file leaf-file-name="security-context.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/security-context.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="5" selection-start="1743" selection-end="1743" vertical-scroll-proportion="0.0" vertical-offset="553" max-vertical-offset="1098">
+            <state line="20" column="64" selection-start="1387" selection-end="1387" vertical-scroll-proportion="-6.5454545" vertical-offset="0" max-vertical-offset="540">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MatchesService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/MatchesService.java">
+      <file leaf-file-name="application.properties" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="51" selection-start="425" selection-end="425" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Season.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Season.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="103" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="774">
+            <state line="2" column="0" selection-start="15" selection-end="109" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MatchesController.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java">
+      <file leaf-file-name="data-context.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="55" selection-start="2533" selection-end="2533" vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="1368">
+            <state line="30" column="26" selection-start="1693" selection-end="1705" vertical-scroll-proportion="-8.64" vertical-offset="324" max-vertical-offset="1134">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="messages.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/messages.properties">
+      <file leaf-file-name="SocialContext.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/social/SocialContext.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="99" selection-start="754" selection-end="754" vertical-scroll-proportion="0.0" vertical-offset="264" max-vertical-offset="1404">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SeasonServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/SeasonServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="46" selection-start="403" selection-end="403" vertical-scroll-proportion="0.0" vertical-offset="111" max-vertical-offset="558">
+            <state line="26" column="0" selection-start="1188" selection-end="1188" vertical-scroll-proportion="0.0" vertical-offset="212" max-vertical-offset="1062">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -253,28 +242,48 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SeasonService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/SeasonService.java">
+      <file leaf-file-name="SimpleSocialUserDetailsService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/social/SimpleSocialUserDetailsService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="32" selection-start="176" selection-end="176" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
+            <state line="27" column="64" selection-start="1143" selection-end="1143" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="666">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="messages.properties" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/messages.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="31" selection-start="733" selection-end="733" vertical-scroll-proportion="0.0" vertical-offset="441" max-vertical-offset="1566">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="matches.jsp" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/matches.jsp">
+      <file leaf-file-name="UserDetailsAdapter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/UserDetailsAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="53" selection-start="1767" selection-end="1767" vertical-scroll-proportion="0.6904177" vertical-offset="547" max-vertical-offset="1728">
+            <state line="57" column="5" selection-start="1845" selection-end="1845" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="972">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="formField.tag" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/formField.tag">
+      <file leaf-file-name="AccountServiceImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/AccountServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="2.0" vertical-offset="54" max-vertical-offset="1242">
+            <state line="54" column="10" selection-start="1908" selection-end="1908" vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="1134">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MatchesServiceImpl.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/MatchesServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="60" column="9" selection-start="1754" selection-end="1754" vertical-scroll-proportion="0.32394367" vertical-offset="549" max-vertical-offset="1188">
               <folding />
             </state>
           </provider>
@@ -298,29 +307,8 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/applicationContext.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaNewsDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnSeasonDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnMatchesDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Goals.java" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Address.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/datePickerDependencies.jspf" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/createMatch.jsp" />
-        <option value="$PROJECT_DIR$/src/main/resources/ValidationMessages.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/utils/ValidationHelper.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-servlet.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/validators/CreateMatchValidator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/Dao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AbstractHbnDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/form/CreateMatchForm.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/teams/create_team.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/button.tag.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/button.tag" />
-        <option value="$PROJECT_DIR$/src/main/webapp/resources/js/svk-1.0.0.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/formField.tag" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/createTeam.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/utils/Constants.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/resources/log4j.xml" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/AccountController.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/TeamDao.java" />
@@ -334,21 +322,42 @@
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/form/CreateTeamForm.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/teams.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/TeamController.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaMatchesDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Team.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/utils/JsonDateSerializer.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Match.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaSeasonDao.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Season.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/MatchesService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/service/MatchesServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/service/SeasonServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/SeasonService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/messages.properties" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/matches.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Goals.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/form/CreateMatchResultForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/service/MatchesServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/createOrChangeMatchResult.xhtml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/matchresult.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/matchResult.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/service/AccountServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/formField.tag" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/createMatch.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/form/ChangeResultForm.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/changeMatchResult.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchResultController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/data/SocialMediaEnum.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/model/Account.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/UserDetailsAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/service/SimpleSocialUserDetailsService.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/social/SocialContext.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/messages.properties" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/UserDetailsServiceAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/security-context.xml" />
       </list>
     </option>
   </component>
@@ -437,7 +446,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="2" />
+    <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -570,206 +579,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="teams" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="springapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="news" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="springapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="matches" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="springapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jspf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="springapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="forms" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="springapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="springapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -853,6 +662,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="springapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="social" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1032,6 +871,36 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="springapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -1066,8 +935,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1406,6 +1275,7 @@
       <method />
     </configuration>
     <configuration default="false" name="Test Server" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.52" ALTERNATIVE_JRE_ENABLED="false" ALTERNATIVE_JRE_PATH="">
+      <option name="OPEN_IN_BROWSER" value="false" />
       <option name="BROWSER_ID" value="Firefox" />
       <option name="UPDATING_POLICY" value="redeploy-artifacts" />
       <deployment>
@@ -1478,15 +1348,15 @@
       </ConfigurationWrapper>
       <method>
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="spring:war" />
+          <artifact name="spring:war exploded" />
         </option>
         <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="package" />
       </method>
     </configuration>
     <list size="3">
-      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.Test Server" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.All in spring" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.All in spring (1)" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.All in spring" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.All in spring (1)" />
+      <item index="2" class="java.lang.String" itemvalue="Tomcat Server.Test Server" />
     </list>
     <recent_temporary>
       <list size="2">
@@ -1564,7 +1434,8 @@
       <workItem from="1399797812157" duration="19195000" />
       <workItem from="1399820650133" duration="154000" />
       <workItem from="1399820805879" duration="382000" />
-      <workItem from="1399821191195" duration="14326000" />
+      <workItem from="1399821191195" duration="38515000" />
+      <workItem from="1401441667069" duration="17907000" />
     </task>
     <task id="LOCAL-00001" summary="- Added newspage paging">
       <created>1387226006575</created>
@@ -1634,11 +1505,15 @@
       <created>1399827562045</created>
       <updated>1399827562045</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="- added getMatches page&#10;">
+      <created>1399835552351</created>
+      <updated>1399835552351</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="229212000" />
+    <option name="totallyTimeSpent" value="271308000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1662,7 +1537,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-4" width="1617" height="1055" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14608234" sideWeight="0.49968132" order="7" side_tool="false" content_ui="tabs" />
@@ -1677,18 +1552,18 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32802126" sideWeight="0.49966422" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3257979" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2842575" sideWeight="0.49799198" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="true" weight="0.39756367" sideWeight="0.8371517" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.39756367" sideWeight="0.8371517" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26135105" sideWeight="0.49904397" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44850498" sideWeight="0.56660295" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41638982" sideWeight="0.49904397" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20376523" sideWeight="0.54939455" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33554816" sideWeight="0.53537285" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41638982" sideWeight="0.500956" order="14" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20376523" sideWeight="0.45060548" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2842575" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17399618" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.066284254" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1724,15 +1599,23 @@
     <MESSAGE value="- corrected createTeam controller&#10;" />
     <MESSAGE value="- transition to Spring4 and 1.8, corrected createTeamForm&#10;" />
     <MESSAGE value="- added matches page&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="- added matches page&#10;" />
+    <MESSAGE value="- added getMatches page&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="- added getMatches page&#10;" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/changeMatchResult.jsp</url>
+          <line>75</line>
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
+      <option name="time" value="1" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1740,250 +1623,16 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/3.2.0.RELEASE/spring-security-web-3.2.0.RELEASE.jar!/org/springframework/security/web/context/request/async/WebAsyncManagerIntegrationFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="19" selection-start="457" selection-end="457" vertical-scroll-proportion="-7.2" vertical-offset="0" max-vertical-offset="306">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.4.RELEASE/spring-web-4.0.4.RELEASE.jar!/org/springframework/web/filter/OncePerRequestFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="22" selection-start="424" selection-end="424" vertical-scroll-proportion="-6.24" vertical-offset="24" max-vertical-offset="594">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/3.2.0.RELEASE/spring-security-web-3.2.0.RELEASE.jar!/org/springframework/security/web/context/SecurityContextPersistenceFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="16" selection-start="722" selection-end="722" vertical-scroll-proportion="-7.0" vertical-offset="77" max-vertical-offset="522">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/3.2.0.RELEASE/spring-security-web-3.2.0.RELEASE.jar!/org/springframework/security/web/FilterChainProxy.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="17" selection-start="1254" selection-end="1254" vertical-scroll-proportion="-5.6" vertical-offset="256" max-vertical-offset="1350">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.4.RELEASE/spring-web-4.0.4.RELEASE.jar!/org/springframework/web/filter/DelegatingFilterProxy.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="16" selection-start="1597" selection-end="1597" vertical-scroll-proportion="-6.56" vertical-offset="466" max-vertical-offset="936">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ValidationMessages.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="245" selection-end="303" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/RegistrationForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="13" selection-start="656" selection-end="656" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1134">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/CreateMatchForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="88" selection-end="88" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="594">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/ChangePwdForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="13" selection-start="600" selection-end="600" vertical-scroll-proportion="0.0" vertical-offset="87" max-vertical-offset="900">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/AccountDetailsForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="13" selection-start="435" selection-end="435" vertical-scroll-proportion="0.0" vertical-offset="181" max-vertical-offset="918">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.4.RELEASE/spring-web-4.0.4.RELEASE.jar!/org/springframework/web/method/support/HandlerMethodArgumentResolverComposite.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="28" selection-start="1005" selection-end="1005" vertical-scroll-proportion="-11.44" vertical-offset="2" max-vertical-offset="522">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnTeamDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="8" selection-start="306" selection-end="318" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaTeamDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="51" selection-start="409" selection-end="409" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.4.RELEASE/spring-web-4.0.4.RELEASE.jar!/org/springframework/web/method/annotation/ModelAttributeMethodProcessor.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="19" selection-start="1574" selection-end="1574" vertical-scroll-proportion="-11.44" vertical-offset="56" max-vertical-offset="576">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/4.0.4.RELEASE/spring-context-4.0.4.RELEASE.jar!/org/springframework/validation/DataBinder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="16" selection-start="6715" selection-end="6715" vertical-scroll-proportion="-13.32" vertical-offset="1935" max-vertical-offset="2430">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/4.0.4.RELEASE/spring-aop-4.0.4.RELEASE.jar!/org/springframework/aop/framework/JdkDynamicAopProxy.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="28" selection-start="1066" selection-end="1066" vertical-scroll-proportion="-11.88" vertical-offset="63" max-vertical-offset="558">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/validators/CreateTeamValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="627" selection-end="627" vertical-scroll-proportion="0.0" vertical-offset="79" max-vertical-offset="612">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.4.RELEASE/spring-web-4.0.4.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="29" selection-start="2403" selection-end="2403" vertical-scroll-proportion="-11.88" vertical-offset="279" max-vertical-offset="774">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="27" selection-start="553" selection-end="553" vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="846">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/TeamDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="1" selection-start="208" selection-end="208" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/TeamService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="24" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/CreateTeamForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="27" selection-start="161" selection-end="161" vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="846">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/TeamServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="47" selection-start="554" selection-end="565" vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="846">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/NewsServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="21" selection-start="861" selection-end="861" vertical-scroll-proportion="0.0" vertical-offset="525" max-vertical-offset="1152">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/AccountServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Match.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="448" selection-end="448" vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="1026">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/createTeam.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="1607" selection-end="1648" vertical-scroll-proportion="-4.0" vertical-offset="396" max-vertical-offset="1350">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/TeamController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="28" selection-start="1102" selection-end="1102" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1008">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/data-source.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="547">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="49" selection-start="1999" selection-end="1999" vertical-scroll-proportion="-24.48" vertical-offset="0" max-vertical-offset="1134">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/teams.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="989" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="558">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/createMatch.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="103" selection-start="409" selection-end="447" vertical-scroll-proportion="-0.6666667" vertical-offset="108" max-vertical-offset="1494">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/NewsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="11" selection-start="2329" selection-end="2342" vertical-scroll-proportion="0.0" vertical-offset="498" max-vertical-offset="1134">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnMatchesDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="270" selection-end="270" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="414">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaMatchesDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="58" selection-start="501" selection-end="501" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+        <state line="114" column="32" selection-start="2680" selection-end="2680" vertical-scroll-proportion="0.0" vertical-offset="1062" max-vertical-offset="1746">
           <folding />
         </state>
       </provider>
@@ -1995,122 +1644,406 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/utils/JsonDateSerializer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/AccountService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="31" selection-start="433" selection-end="451" vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="630">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Match.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="45" selection-start="1340" selection-end="1340" vertical-scroll-proportion="0.0" vertical-offset="649" max-vertical-offset="1944">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/SeasonDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="17" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="324">
+        <state line="9" column="17" selection-start="231" selection-end="231" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="396">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/HbnSeasonDao.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.0.4.RELEASE/spring-webmvc-4.0.4.RELEASE.jar!/META-INF/spring-form.tld">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="231" selection-end="231" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="37" selection-start="1795" selection-end="1795" vertical-scroll-proportion="-8.666667" vertical-offset="432" max-vertical-offset="1638">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JpaSeasonDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="31" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Season.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="103" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="774">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/AbstractJpaDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="0" selection-start="2521" selection-end="2521" vertical-scroll-proportion="0.0" vertical-offset="1242" max-vertical-offset="2394">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/MatchesService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="51" selection-start="425" selection-end="425" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/MatchesServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="5" selection-start="1743" selection-end="1743" vertical-scroll-proportion="0.0" vertical-offset="553" max-vertical-offset="1098">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/SeasonServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="46" selection-start="403" selection-end="403" vertical-scroll-proportion="0.0" vertical-offset="111" max-vertical-offset="558">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/interfaces/SeasonService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="32" selection-start="176" selection-end="176" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="55" selection-start="2533" selection-end="2533" vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="1368">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/formField.tag">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="2.0" vertical-offset="54" max-vertical-offset="1242">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/messages.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="99" selection-start="754" selection-end="754" vertical-scroll-proportion="0.0" vertical-offset="264" max-vertical-offset="1404">
+        <state line="201" column="4" selection-start="6563" selection-end="6563" vertical-scroll-proportion="0.0" vertical-offset="3528" max-vertical-offset="43614">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/matches.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="53" selection-start="1767" selection-end="1767" vertical-scroll-proportion="0.6904177" vertical-offset="547" max-vertical-offset="1728">
+        <state line="13" column="42" selection-start="732" selection-end="732" vertical-scroll-proportion="0.0" vertical-offset="1026" max-vertical-offset="1728">
+          <folding>
+            <marker date="1399835547000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399835547000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399835547000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399835547000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399835547000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399835547000" expanded="true" signature="-1:-1" placeholder="{&quot;url&quot;: '/matches/matchesForSeason.json'...}" />
+            <marker date="1399835547000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399835547000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399835547000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399835547000" expanded="true" signature="-1:-1" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/formField.tag">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="26" selection-start="985" selection-end="1486" vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="1296">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teams/createTeam.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="66" selection-end="114" vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="1350">
+          <folding>
+            <marker date="1399818363228" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399818363228" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399818363228" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399818363228" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399818363228" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1399818363228" expanded="true" signature="-1:-1" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/E4X.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="220" column="14" selection-start="3864" selection-end="3864" vertical-scroll-proportion="0.33206108" vertical-offset="3786" max-vertical-offset="5688" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Goals.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="0" selection-start="588" selection-end="588" vertical-scroll-proportion="0.0" vertical-offset="196" max-vertical-offset="720">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jspf/header.jspf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="21" selection-start="344" selection-end="344" vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="1674">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/CreateMatchForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="88" selection-end="88" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="594">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/CreateTeamForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="27" selection-start="161" selection-end="161" vertical-scroll-proportion="0.0" vertical-offset="326" max-vertical-offset="846">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/RegistrationForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="656" selection-end="656" vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="1134">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/ChangePwdForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="13" selection-start="600" selection-end="600" vertical-scroll-proportion="0.0" vertical-offset="83" max-vertical-offset="900">
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#871#872#0" expanded="false" />
+            <element signature="e#905#906#0" expanded="false" />
+            <element signature="e#959#960#0" expanded="false" />
+            <element signature="e#1005#1006#0" expanded="false" />
+            <element signature="e#1047#1048#0" expanded="false" />
+            <element signature="e#1085#1086#0" expanded="false" />
+            <element signature="e#1147#1148#0" expanded="false" />
+            <element signature="e#1201#1202#0" expanded="false" />
+            <element signature="e#1255#1256#0" expanded="false" />
+            <element signature="e#1301#1302#0" expanded="false" />
+            <element signature="e#1651#1652#0" expanded="false" />
+            <element signature="e#1685#1686#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/AccountDetailsForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="13" selection-start="435" selection-end="435" vertical-scroll-proportion="0.0" vertical-offset="7" max-vertical-offset="918">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/AccountController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="13" selection-start="984" selection-end="984" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1908">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/NewsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="30" selection-start="2232" selection-end="2232" vertical-scroll-proportion="0.0" vertical-offset="606" max-vertical-offset="1134">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.4.RELEASE/spring-web-4.0.4.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="34" selection-start="1453" selection-end="1453" vertical-scroll-proportion="-6.08" vertical-offset="244" max-vertical-offset="774">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/AbstractController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="22" selection-start="230" selection-end="230" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/form/ChangeResultForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="25" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="1116">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#345#346#0" expanded="true" />
+            <element signature="e#376#377#0" expanded="true" />
+            <element signature="e#424#425#0" expanded="true" />
+            <element signature="e#464#465#0" expanded="true" />
+            <element signature="e#499#500#0" expanded="true" />
+            <element signature="e#530#531#0" expanded="true" />
+            <element signature="e#578#579#0" expanded="true" />
+            <element signature="e#618#619#0" expanded="true" />
+            <element signature="e#652#653#0" expanded="true" />
+            <element signature="e#682#683#0" expanded="true" />
+            <element signature="e#728#729#0" expanded="true" />
+            <element signature="e#766#767#0" expanded="true" />
+            <element signature="e#800#801#0" expanded="true" />
+            <element signature="e#830#831#0" expanded="true" />
+            <element signature="e#876#877#0" expanded="true" />
+            <element signature="e#914#915#0" expanded="true" />
+            <element signature="e#950#951#0" expanded="true" />
+            <element signature="e#978#979#0" expanded="true" />
+            <element signature="e#1024#1025#0" expanded="true" />
+            <element signature="e#1058#1059#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchesController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="0" selection-start="1181" selection-end="1230" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="1530">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/createMatch.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="84" selection-start="268" selection-end="268" vertical-scroll-proportion="-2.6666667" vertical-offset="0" max-vertical-offset="1476">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/matches/changeMatchResult.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="18" selection-start="596" selection-end="596" vertical-scroll-proportion="-8.666667" vertical-offset="0" max-vertical-offset="3258">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/model/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="17" selection-start="663" selection-end="663" vertical-scroll-proportion="0.0" vertical-offset="1005" max-vertical-offset="1512">
+          <folding>
+            <element signature="e#1027#1028#0" expanded="false" />
+            <element signature="e#1064#1065#0" expanded="false" />
+            <element signature="e#1133#1134#0" expanded="false" />
+            <element signature="e#1185#1186#0" expanded="false" />
+            <element signature="e#1305#1332#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/JdbcUserDetailsDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="332" selection-end="332" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="486">
+          <folding>
+            <marker date="1393928953798" expanded="true" signature="-1:-1" placeholder="select passw..account..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/utils/SecurityUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="13" selection-start="300" selection-end="300" vertical-scroll-proportion="0.0" vertical-offset="11" max-vertical-offset="576">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/3.2.0.RELEASE/spring-security-core-3.2.0.RELEASE.jar!/org/springframework/security/core/userdetails/UserDetails.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="17" selection-start="192" selection-end="192" vertical-scroll-proportion="0.186722" vertical-offset="0" max-vertical-offset="482">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/data/SocialMediaEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="11" selection-start="130" selection-end="130" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/controller/MatchResultController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="19" selection-start="1301" selection-end="1301" vertical-scroll-proportion="0.0" vertical-offset="452" max-vertical-offset="1026">
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="153" column="21" selection-start="5873" selection-end="5873" vertical-scroll-proportion="-9.8" vertical-offset="2460" max-vertical-offset="5562">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/applicationContext.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="169" selection-start="3199" selection-end="3199" vertical-scroll-proportion="-9.333333" vertical-offset="900" max-vertical-offset="1494">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/social/spring-social-core/1.1.0.RELEASE/spring-social-core-1.1.0.RELEASE.jar!/org/springframework/social/connect/ConnectionFactoryLocator.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="17" selection-start="181" selection-end="181" vertical-scroll-proportion="0.22900763" vertical-offset="0" max-vertical-offset="393">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/social/spring-social-security/1.1.0.RELEASE/spring-social-security-1.1.0.RELEASE.jar!/org/springframework/social/security/SocialAuthenticationServiceLocator.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="51" selection-start="182" selection-end="216" vertical-scroll-proportion="-3.6" vertical-offset="0" max-vertical-offset="270">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/social/spring-social-core/1.1.0.RELEASE/spring-social-core-1.1.0.RELEASE.jar!/org/springframework/social/connect/jdbc/JdbcUsersConnectionRepository.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="13" selection-start="182" selection-end="182" vertical-scroll-proportion="0.22959183" vertical-offset="0" max-vertical-offset="522">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/data-source.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="21" selection-start="355" selection-end="355" vertical-scroll-proportion="-5.76" vertical-offset="0" max-vertical-offset="432">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/3.2.0.RELEASE/spring-security-core-3.2.0.RELEASE.jar!/org/springframework/security/crypto/encrypt/HexEncodingTextEncryptor.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="69" selection-start="350" selection-end="350" vertical-scroll-proportion="-4.32" vertical-offset="0" max-vertical-offset="342">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/3.2.0.RELEASE/spring-security-core-3.2.0.RELEASE.jar!/org/springframework/security/crypto/encrypt/BytesEncryptor.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="27" selection-start="200" selection-end="200" vertical-scroll-proportion="-3.6" vertical-offset="0" max-vertical-offset="270">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/3.2.0.RELEASE/spring-security-core-3.2.0.RELEASE.jar!/org/springframework/security/crypto/encrypt/AesBytesEncryptor.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="66" selection-start="771" selection-end="771" vertical-scroll-proportion="-9.36" vertical-offset="0" max-vertical-offset="540">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/social/spring-social-security/1.1.0.RELEASE/spring-social-security-1.1.0.RELEASE.jar!/org/springframework/social/security/SocialAuthenticationFilter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="39" selection-start="178" selection-end="204" vertical-scroll-proportion="-2.8" vertical-offset="20" max-vertical-offset="1224">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/messages.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="31" selection-start="733" selection-end="733" vertical-scroll-proportion="0.0" vertical-offset="441" max-vertical-offset="1566">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/social/SocialContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="0" selection-start="1188" selection-end="1188" vertical-scroll-proportion="0.0" vertical-offset="632" max-vertical-offset="1062">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/social/SimpleSocialUserDetailsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="64" selection-start="1143" selection-end="1143" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="666">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="15" selection-end="109" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/data-context.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="26" selection-start="1693" selection-end="1705" vertical-scroll-proportion="-8.64" vertical-offset="324" max-vertical-offset="1134">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/security-context.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="64" selection-start="1387" selection-end="1387" vertical-scroll-proportion="-6.5454545" vertical-offset="0" max-vertical-offset="540">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/UserDetailsServiceAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="16" selection-start="740" selection-end="740" vertical-scroll-proportion="0.0" vertical-offset="109" max-vertical-offset="756">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/persistence/UserDetailsAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="5" selection-start="1845" selection-end="1845" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="972">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/AccountServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="10" selection-start="1908" selection-end="1908" vertical-scroll-proportion="0.0" vertical-offset="648" max-vertical-offset="1134">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/be/spring/spring/service/MatchesServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="9" selection-start="1754" selection-end="1754" vertical-scroll-proportion="0.32394367" vertical-offset="549" max-vertical-offset="1188">
           <folding />
         </state>
       </provider>
@@ -2174,7 +2107,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
