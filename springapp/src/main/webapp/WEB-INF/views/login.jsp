@@ -1,13 +1,12 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="login_error" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="jspf/header.jspf" %>
-<div class="page-header">
-    <h1><spring:message code="title.login"/></h1>
-</div>
 <!--
 If the user is anonymous (not logged in), show the login form
 and social sign in buttons.
 -->
 <sec:authorize access="isAnonymous()">
+
     <!-- Login form -->
     <div class="panel panel-default">
         <div class="panel-body">
@@ -22,24 +21,22 @@ and social sign in buttons.
                 </div>
             </c:if>
             <!-- Specifies action and HTTP method -->
-            <form action="/login/authenticate" method="POST" role="form">
+            <form action="<c:url value='j_spring_security_check' />" method="post" name="login_form">
                 <!-- Add CSRF token -->
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <div class="row">
                     <div id="form-group-email" class="form-group col-lg-4">
-                        <label class="control-label" for="user-email"><spring:message code="label.email"/>:</label>
+                        <label class="control-label" for="j_username"><spring:message code="label.email"/>:</label>
                         <!-- Add username field to the login form -->
-                        <input id="user-email" name="username" type="text" class="form-control"/>
+                        <input type="text" name="j_username" id="j_username" value="tompels@gmail.com" class="form-control"/>
                     </div>
                 </div>
 
                 <div class="row">
                     <div id="form-group-password" class="form-group col-lg-4">
-                        <label class="control-label" for="user-password"><spring:message
-                                code="label.password"/>:</label>
+                        <label class="control-label" for="j_password"><spring:message                              code="label.password"/>:</label>
                         <!-- Add password field to the login form -->
-                        <input id="user-password" name="password" type="password" class="form-control"/>
+                        <input type="password" name="j_password" id="j_password" value="P@ssword" class="form-control"/>
                     </div>
                 </div>
                 <div class="row">
@@ -51,24 +48,17 @@ and social sign in buttons.
             </form>
             <div class="row">
                 <div class="form-group col-lg-4">
-                    <!-- Add create user account link -->
-                    <a href="/user/register"><spring:message code="button.update"/></a>
+                <login_error:if test="${'fail' eq param.auth}">
+                    <div style="color:red">
+                            ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+                    </div>
+                </login_error:if>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Social Sign In Buttons -->
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h2><spring:message code="label.social.sign.in"/></h2>
-
-            <div class="row social-button-row">
-                <div class="col-lg-4">
-                    <!-- Add Facebook sign in button -->
-                    <a href="<c:url value="/auth/facebook"/>">
-                        <button class="btn btn-facebook"><i class="icon-facebook"></i> | <spring:message
-                                code="label.social.sign.in"/></button>
-                    </a>
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <!-- Add create user account link -->
+                    <a href="/account/register"><spring:message code="button.register"/></a>
                 </div>
             </div>
         </div>

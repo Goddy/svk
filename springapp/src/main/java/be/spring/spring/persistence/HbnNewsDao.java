@@ -15,7 +15,7 @@ import java.util.List;
  * Time: 8:59 AM
  * Remarks: none
  */
-@Repository
+
 public class HbnNewsDao extends AbstractHbnDao<News> implements NewsDao{
 
     private static final int MAX_RESULTS = 10;

@@ -1,8 +1,11 @@
 package be.spring.spring.service;
 
+import be.spring.spring.form.NewsForm;
 import be.spring.spring.interfaces.NewsDao;
 import be.spring.spring.interfaces.NewsService;
+import be.spring.spring.model.Account;
 import be.spring.spring.model.News;
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,20 +26,23 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional(readOnly = false)
-    public boolean createNews(News news, Errors errors) {
-        boolean valid = !errors.hasErrors();
-        if (valid )
-            newsDao.create(news);
-        return valid;
+    public News createNews(NewsForm form, Account account) {
+            News n = updateNews(new News(), form, account);
+            newsDao.create(n);
+            return n;
     }
 
     @Override
     @Transactional(readOnly = false)
-    public boolean updateNews(News news, Errors errors) {
-        boolean valid = !errors.hasErrors();
-        if (valid )
-            newsDao.update(news);
-        return valid;
+    public void updateNews(NewsForm form, Account account) {
+        News n = newsDao.get(Long.parseLong(form.getId()));
+        if (n != null) {
+            updateNews(n, form, account);
+            newsDao.update(n);
+        }
+        else {
+            //Todo: exception
+        }
     }
 
     @Override
@@ -62,5 +68,13 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<News> getSearch(String term) {
         return newsDao.getSearch(term);
+    }
+
+    private News updateNews(News n, NewsForm f, Account a) {
+        n.setHeader(f.getTitle());
+        n.setContent(f.getBody());
+        n.setId(Strings.isNullOrEmpty(f.getId()) ? null : Long.parseLong(f.getId()));
+        n.setAccount(a);
+        return n;
     }
 }

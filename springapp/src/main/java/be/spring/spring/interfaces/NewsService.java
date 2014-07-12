@@ -1,5 +1,7 @@
 package be.spring.spring.interfaces;
 
+import be.spring.spring.form.NewsForm;
+import be.spring.spring.model.Account;
 import be.spring.spring.model.News;
 import org.springframework.validation.Errors;
 
@@ -12,9 +14,9 @@ import java.util.List;
  * Remarks: none
  */
 public interface NewsService {
-    boolean createNews(News news, Errors errors);
+    News createNews(NewsForm form, Account account);
 
-    boolean updateNews(News news, Errors errors);
+    void updateNews(NewsForm form, Account account);
 
     News getNewsItem(Long id);
 

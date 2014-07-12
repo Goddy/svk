@@ -13,8 +13,8 @@ import java.util.Date;
  * Remarks: Base class for news items.
  */
 @NamedQueries({
-        @NamedQuery(name = "findNewsById", query = "from News where id = :id"),
-        @NamedQuery(name = "searchNews", query = "from News WHERE header like :term")
+        @NamedQuery(name = "findNewsById", query = "select n from News n where n.id = :id"),
+        @NamedQuery(name = "searchNews", query = "select n from News n where n.header like :term")
 })
 @Entity
 @Table(name = "news")
@@ -78,7 +78,7 @@ public class News {
     }
 
     @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinColumn(name="posted_by",insertable=true, updatable=true, nullable=false,unique=true)
+    @JoinColumn(name="posted_by")
     public Account getAccount() {
         return account;
     }

@@ -8,8 +8,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @NamedQueries({
-        @NamedQuery(name = "findAccountByUsername", query = "from Account where username = :username"),
-        @NamedQuery(name = "findAccountByUsernameExcludeCurrentId", query = "from Account where username = :username AND id != :id")
+        @NamedQuery(name = "findAccountByUsername", query = "select a from Account a where a.username = :username"),
+        @NamedQuery(name = "findAccountByUsernameExcludeCurrentId", query = "select a from Account a where a.username = :username AND a.id != :id")
 })
 @Entity
 @Table(name = "account")
