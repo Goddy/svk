@@ -4,6 +4,7 @@ import be.spring.spring.interfaces.NewsDao;
 import be.spring.spring.model.News;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -19,11 +20,14 @@ public class JpaNewsDao extends AbstractJpaDao<News> implements NewsDao {
 
     @Override
     public List<News> getPagedNews(int start) {
-        return null;
+        Query q = getEntityManager().createQuery("select n from News n order by n.postDate desc");
+        q.setMaxResults(10);
+        q.setFirstResult(start);
+        return (List<News>) q.getResultList();
     }
 
     @Override
     public List<News> getSearch(String term) {
-        return null;
+        return getMultipleResultQuery("searchNews", getParameterMap("term", "%" + term + "%"));
     }
 }

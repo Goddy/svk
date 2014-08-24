@@ -39,9 +39,10 @@ public class NewsController extends AbstractController {
     @RequestMapping(value = "news", method = RequestMethod.GET)
     public String get(Model model) {
         int newsCount = newsService.getNewsCount();
-        PageObject pageObject = new PageObject(model, newsCount, Constants.ONE,VN_NEWS_PAGE);
+        PageObject pageObject = new PageObject(model, newsCount, Constants.ZERO,VN_NEWS_PAGE);
         pageObject.addAttributes();
-        model.addAttribute("newsList", newsService.getPagedNews(Constants.ONE));
+        List<News> newsList = newsService.getPagedNews(Constants.ZERO);
+        model.addAttribute("newsList", newsList);
         return VN_NEWS_PAGE;
     }
 
@@ -95,7 +96,7 @@ public class NewsController extends AbstractController {
             return VN_ADD_NEWS_PAGE;
         }
         newsService.createNews(form, a);
-        return VN_NEWS_PAGE;
+        return "redirect:" + VN_NEWS_PAGE;
     }
 
     @RequestMapping(value = "updateNews", method = RequestMethod.POST)

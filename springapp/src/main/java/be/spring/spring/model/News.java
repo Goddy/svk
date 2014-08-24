@@ -77,8 +77,8 @@ public class News {
         this.content = content;
     }
 
-    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinColumn(name="posted_by")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "posted_by", nullable = false)
     public Account getAccount() {
         return account;
     }
