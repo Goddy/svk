@@ -53,6 +53,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(readOnly = false)
+    public void setPasswordFor(Account account, String password) {
+        accountDao.update(account, password);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Account> getAll() {
         return accountDao.getAll();

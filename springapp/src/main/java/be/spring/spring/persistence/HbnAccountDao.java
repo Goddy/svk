@@ -10,8 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import be.spring.spring.model.Account;
 
-
-@Repository
 public class HbnAccountDao extends AbstractHbnDao<Account> implements AccountDao {
 
 	private static final String UPDATE_PASSWORD_SQL = "update account set password = ? where id = ?";
@@ -23,6 +21,11 @@ public class HbnAccountDao extends AbstractHbnDao<Account> implements AccountDao
         String encPassword = passwordEncoder.encode(password);
 		jdbcTemplate.update(UPDATE_PASSWORD_SQL, encPassword, account.getId());
 	}
+
+    @Override
+    public void update(Account account, String password) {
+
+    }
 
 
     public void update(Account account) {

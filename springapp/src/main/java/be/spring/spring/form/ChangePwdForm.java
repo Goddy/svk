@@ -19,7 +19,6 @@ import javax.validation.constraints.Pattern;
         script = "_this.confirmPassword.equals(_this.newPassword)",
         message = "account.password.mismatch.message")
 public class ChangePwdForm {
-    private String oldPassword;
     protected String newPassword;
     protected String confirmPassword;
 
@@ -40,23 +39,4 @@ public class ChangePwdForm {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
-
-    public String toString() {
-
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("newPassword", newPassword)
-                .append("confirmPassword", confirmPassword)
-                .append("oldPassword", getOldPassword())
-                .toString();
-    }
-
-    public String getOldPassword() {
-        return oldPassword;
-    }
-
-
 }

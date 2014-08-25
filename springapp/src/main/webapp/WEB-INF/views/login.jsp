@@ -21,7 +21,7 @@ and social sign in buttons.
                 </div>
             </c:if>
             <!-- Specifies action and HTTP method -->
-            <form action="<c:url value='j_spring_security_check' />" method="post" name="login_form">
+            <form action="<c:url value='/j_spring_security_check' />" method="post" name="login_form">
                 <!-- Add CSRF token -->
 
                 <div class="row">

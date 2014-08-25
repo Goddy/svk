@@ -15,6 +15,9 @@ public interface AccountService {
 
     void validateUsernameExcludeCurrentId(String email, Long id, Errors errors);
 
+    @Transactional(readOnly = false)
+    void setPasswordFor(Account account, String password);
+
     @Transactional(readOnly = true)
     List<Account> getAll();
 

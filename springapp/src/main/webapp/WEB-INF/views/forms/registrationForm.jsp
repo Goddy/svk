@@ -1,20 +1,20 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="../header.jsp"%>
+<%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ include file="../jspf/header.jspf"%>
 
-<form:errors path="*" cssClass="result">
-    <div><spring:message code="error.global" /></div>
-</form:errors>
+<form:form action="register" modelAttribute="Account" cssClass="form-horizontal">
+    <tag:formField path="username" label="label.email" title="label.email" type="input" optional="false"/>
+    <tag:formField path="firstName" label="label.firstName" title="label.firstName" type="input" optional="false"/>
+    <tag:formField path="lastName" label="label.lastName" title="label.lastName" type="input" optional="false"/>
+    <tag:formField path="password" label="label.password" title="label.password" type="password" optional="false"/>
+    <tag:formField path="confirmPassword" label="label.confirmPassword" title="label.confirmPassword" type="password" optional="false"/>
 
-<form:form action="register" modelAttribute="Account" class="default_form">
-    <table>
-        <tr><td><spring:message code="label.email" /></td><td><form:input path="username" cssErrorClass="error"/><form:errors path="username" htmlEscape="false"/></td></tr>
-        <tr><td><spring:message code="label.firstName" /></td><td><form:input path="firstName" cssErrorClass="error"/><form:errors path="firstName" htmlEscape="false" /></td></tr>
-        <tr><td><spring:message code="label.lastName" /></td><td><form:input path="lastName" cssErrorClass="error"/><form:errors path="lastName" htmlEscape="false" /></td></tr>
-        <tr><td><spring:message code="label.password" /></td><td><form:password path="password" cssErrorClass="error"/><form:errors path="password" htmlEscape="false" /></td></tr>
-        <tr><td><spring:message code="label.confirmPassword" /></td><td><form:password path="confirmPassword" cssErrorClass="error"/><form:errors path="confirmPassword" htmlEscape="false" /></td></tr>
-
-        <tr><td colspan="2"><input type="submit" value='<spring:message code="button.submit"/>' /></td></tr>
-    </table>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="btnSubmit" type="submit" class="btn btn-primary"><spring:message code='button.submit'/></button>
+            <button id="btnReset" type="reset" class="btn btn-info"><spring:message code='button.reset'/></button>
+        </div>
+    </div>
 </form:form>
 
-<%@ include file="../footer.jsp"%>
+<%@ include file="../jspf/footer.jspf"%>

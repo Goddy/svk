@@ -106,7 +106,7 @@ public class NewsController extends AbstractController {
             return VN_ADD_NEWS_PAGE;
         }
         newsService.updateNews(form, a);
-        return VN_NEWS_PAGE;
+        return "redirect:" + VN_NEWS_PAGE;
     }
 
 

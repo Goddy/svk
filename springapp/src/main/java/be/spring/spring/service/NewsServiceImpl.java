@@ -47,7 +47,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News getNewsItem(Long id) {
-        return null;
+        return newsDao.get(id);
     }
 
     @Override

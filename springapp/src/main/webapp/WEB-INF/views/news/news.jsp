@@ -27,14 +27,7 @@
 
                         <p align="right"><spring:message code="text.postedby"/> <c:out
                                 value="${newsItem.account.getFullName()}"/> <spring:message code="text.on"/>
-                            <fmt:formatDate
-                                    value="${newsItem.postDate}"/> | <a class="tooltip"
-                                                                        href="/news/edit.html?newsid=<c:out value="${newsItem.getId()}" />'"><img
-                                    src="<c:url value='/resources/images/pencil.png'/>"/><span><spring:message
-                                    code="text.edit"/></span></a> | <a class="tooltip"
-                                                                       href="/news/delete.html?newsid=<c:out value="${newsItem.getId()}" />"><img
-                                    src="<c:url value='/resources/images/cancel.png'/>"/><span><spring:message
-                                    code="text.remove"/></span></a></p>
+                            <fmt:formatDate value="${newsItem.postDate}"/> |<a href="/news/editNews.html?id=${newsItem.id}" class="btn"><span class="glyphicon glyphicon-pencil"></span></a> | <a href="/news/deleteNews.html?id=${newsItem.id}" class="btn"><span class="glyphicon glyphicon-trash"></span></a></p>
                     </div>
                 </div>
             </c:forEach>
