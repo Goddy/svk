@@ -1,0 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:if test="${not empty resultMessage}">
+    <div class="${divClass}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <c:out value="${resultMessage}" escapeXml="false"/>
+    </div>
+</c:if>

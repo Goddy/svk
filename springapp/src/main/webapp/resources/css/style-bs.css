@@ -30,6 +30,10 @@ body {
     background-image: url('../images/ajax-loader.gif');
 }
 
+.space-bottom {
+    padding-bottom: 10px;
+}
+
 .blue {
     color: #41afc1;
 }
@@ -72,3 +76,4 @@ header h3 {
 .wmd-prompt-dialog>div{font-size:0.8em;font-family:arial,helvetica,sans-serif;}
 .wmd-prompt-dialog>form>input[type="text"]{border:1px solid #999999;color:black;}
 .wmd-prompt-dialog>form>input[type="button"]{border:1px solid #888888;font-family:trebuchet MS,helvetica,sans-serif;font-size:0.8em;font-weight:bold;}
+

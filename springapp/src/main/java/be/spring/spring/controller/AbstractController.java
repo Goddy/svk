@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Locale;
 
@@ -18,13 +21,17 @@ import java.util.Locale;
  */
 public abstract class AbstractController {
 
+    private static final String DIV_CLASS_SUCCESS = "alert alert-success";
     @Autowired
     private MessageSource messageSource;
+
+    @Autowired
+    private SecurityUtils securityUtils;
 
     private static final Logger log = LoggerFactory.getLogger(AbstractController.class);
 
     public Account getAccountFromSecurity() {
-        return SecurityUtils.getAccountFromSecurity();
+        return securityUtils.getAccountFromSecurity();
     }
 
     /**
@@ -42,6 +49,15 @@ public abstract class AbstractController {
         catch (NoSuchMessageException e) {
             log.debug("messageSourceError - {}", e.getMessage());
             return null;
+        }
+    }
+
+    public void setSuccessMessage(ModelMap model, Locale locale, String code, Object[] args) {
+        try {
+            model.addAttribute("resultMessage", messageSource.getMessage(code, args, locale));
+            model.addAttribute("divClass", DIV_CLASS_SUCCESS);
+        } catch (NoSuchMessageException e) {
+            log.debug("messageSourceError for success message - {}", e.getMessage());
         }
     }
 }

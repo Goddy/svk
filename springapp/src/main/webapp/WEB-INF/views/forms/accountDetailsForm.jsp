@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf"%>
+<%@ include file="../jspf/resultMessage.jspf"%>
 
 <h2><spring:message code="text.userdetails"/></h2>
 <div class="panel panel-default">
@@ -19,6 +20,9 @@
 </div>
 
 <h2><spring:message code="text.changepassword"/></h2>
+<div id="pwdResult">
+
+</div>
 <div class="panel panel-default">
     <div class="panel-body">
         <form:form id="changePassword" modelAttribute="changePassword" cssClass="form-horizontal">
@@ -45,7 +49,7 @@
             var unknownError = '<spring:message code="error.unknown"/>';
             $( "#btnSubmitPwd" ).click(function(e) {
                 e.preventDefault();
-                pwd.changePassword($("#changePassword"), [noMatch, unknownError], $("#pwdError"))
+                pwd.changePassword($("#changePassword"), [noMatch, unknownError], $("#pwdResult"))
             });
         });
     })(jQuery, svk.updatePassword);

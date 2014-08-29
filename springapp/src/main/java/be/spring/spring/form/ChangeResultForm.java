@@ -1,56 +1,66 @@
 package be.spring.spring.form;
 
-import be.spring.spring.model.Goals;
+import be.spring.spring.model.Goal;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by u0090265 on 5/30/14.
  */
 public class ChangeResultForm {
-    private String awayTeam;
-    private String homeTeam;
-    private String htGoals;
-    private String atGoals;
-    private Set<Goals> goals;
+    public static class FormGoal {
+        private int scorer, assist, order;
 
-    public String getAwayTeam() {
-        return awayTeam;
+        public int getOrder() {
+            return order;
+        }
+
+        public void setOrder(int order) {
+            this.order = order;
+        }
+
+        public int getAssist() {
+            return assist;
+        }
+
+        public void setAssist(int assist) {
+            this.assist = assist;
+        }
+
+        public void setScorer(int scorer) {
+            this.scorer = scorer;
+        }
+
+        public int getScorer() {
+            return scorer;
+        }
     }
 
-    public void setAwayTeam(String awayTeam) {
-        this.awayTeam = awayTeam;
-    }
+    private int htGoals;
+    private int atGoals;
+    private List<FormGoal> goals;
 
-    public String getHomeTeam() {
-        return homeTeam;
-    }
-
-    public void setHomeTeam(String homeTeam) {
-        this.homeTeam = homeTeam;
-    }
-
-    public String getHtGoals() {
+    public int getHtGoals() {
         return htGoals;
     }
 
-    public void setHtGoals(String htGoals) {
+    public void setHtGoals(int htGoals) {
         this.htGoals = htGoals;
     }
 
-    public String getAtGoals() {
+    public int getAtGoals() {
         return atGoals;
     }
 
-    public void setAtGoals(String atGoals) {
+    public void setAtGoals(int atGoals) {
         this.atGoals = atGoals;
     }
 
-    public Set<Goals> getGoals() {
+    public List<FormGoal> getGoals() {
         return goals;
     }
 
-    public void setGoals(Set<Goals> goals) {
+    public void setGoals(List<FormGoal> goals) {
         this.goals = goals;
     }
 }

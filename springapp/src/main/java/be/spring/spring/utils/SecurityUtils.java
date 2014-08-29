@@ -1,8 +1,11 @@
 package be.spring.spring.utils;
 
+import be.spring.spring.interfaces.AccountDao;
 import be.spring.spring.model.Account;
 import be.spring.spring.persistence.UserDetailsAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 /**
  * User: Tom De Dobbeleer
@@ -10,9 +13,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * Time: 12:28 PM
  * Remarks: none
  */
+@Component
 public class SecurityUtils {
 
-    public static Account getAccountFromSecurity()
+    public Account getAccountFromSecurity()
     {
         UserDetailsAdapter details;
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetailsAdapter) {

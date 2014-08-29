@@ -3,7 +3,21 @@
  */
 
 var svk = svk || {};
-
+svk.utils = {
+    postForm : function(url, data, func) {
+        $.ajax({
+            type: "POST",
+            url: url,
+            data:  data,
+            success: func,
+            error: function(xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                console.log(err.Message);
+            },
+            dataType: "text"
+        });
+    }
+}
 svk.updatePassword = (function($){
     function checkPassword(newPwd, repeatPwd) {
         return newPwd.val() === repeatPwd.val();
@@ -21,15 +35,27 @@ svk.updatePassword = (function($){
             cache: false,
             dataType: "text",
             success: function(data) {
-                resultDiv.html(data);
-                resultDiv.show();
+                showSuccessBox(resultDiv, data);
             },
             error: function(err) {
                 console.log(err);
-                resultDiv.html(msg[1]);
-                resultDiv.show();
+                showErrorBox(resultDiv, msg[1]);
             }
         });
+    }
+
+    function showSuccessBox(div, txt) {
+        $(div).removeAttr('class');
+        div.html(txt);
+        $(div).addClass('alert alert-success');
+        div.show();
+    }
+
+    function showErrorBox(div, txt) {
+        div.removeAttr('class');
+        div.html(txt);
+        div.addClass('alert alert-danger');
+        div.show();
     }
 
     return {
@@ -39,8 +65,7 @@ svk.updatePassword = (function($){
             var confirmPassword = getFormElement(form, "confirmPassword");
 
             if (!checkPassword(newPassword, confirmPassword)) {
-                resultDiv.html(msg[0]);
-                resultDiv.show();
+                showErrorBox(resultDiv, msg[0]);
             }
             else {
                 sendPassword(form, msg, resultDiv);

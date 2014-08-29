@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
@@ -29,7 +31,6 @@ public class AccountController extends AbstractController {
     private static final String VN_REG_FORM = "forms/registrationForm";
     private static final String VN_DET_FORM = "forms/accountDetailsForm";
     private static final String VN_REG_OK = "redirect:registration_ok";
-    private static final String VN_DET_OK = "redirect:/account/update_ok";
 
     @RequestMapping(value = "notloggedin", method = RequestMethod.GET)
     public String notLoggedIn() {
@@ -54,13 +55,16 @@ public class AccountController extends AbstractController {
 
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "update_details", method = RequestMethod.POST)
-    public String updateAccountDetails(@ModelAttribute("Account") @Valid AccountDetailsForm form, BindingResult result, Model model) {
-        Account account = toAccount(form);
-        accountService.updateAccount(account, result);
-        log.info(String.format("Updated account %s", account.getUsername()));
+    @Transactional
+    public String updateAccountDetails(@ModelAttribute("Account") @Valid AccountDetailsForm form, BindingResult result, ModelMap model, Locale locale) {
+        Account a = getAccountFromSecurity();
+        accountService.updateAccount(a, result, form);
+        log.info(String.format("Updated account %s", a.getUsername()));
         model.addAttribute("changePassword", new ChangePwdForm());
-        return (result.hasErrors() ? VN_DET_FORM : VN_DET_OK);
-
+        if (!result.hasErrors()) {
+            setSuccessMessage(model, locale, "success.changedDetails", null);
+        }
+        return VN_DET_FORM;
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -101,14 +105,6 @@ public class AccountController extends AbstractController {
 
     private static Account toAccount(RegistrationForm form) {
         Account account = new Account();
-        account.setFirstName(form.getFirstName());
-        account.setLastName(form.getLastName());
-        account.setUsername(form.getUsername());
-        return account;
-    }
-
-    private Account toAccount(AccountDetailsForm form) {
-        Account account = getAccountFromSecurity();
         account.setFirstName(form.getFirstName());
         account.setLastName(form.getLastName());
         account.setUsername(form.getUsername());

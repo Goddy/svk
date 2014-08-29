@@ -7,7 +7,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * User: Tom De Dobbeleer
@@ -32,7 +32,7 @@ public class Match {
     private News news;
     private int atGoals;
     private int htGoals;
-    private Set<Goals> goals;
+    private List<Goal> goals;
 
     public Match() {
     }
@@ -111,14 +111,13 @@ public class Match {
         this.htGoals = htGoals;
     }
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "goals", joinColumns = @JoinColumn(name = "match_id"))
-    @OrderColumn
-    public Set<Goals> getGoals() {
+    @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @JoinColumn(name = "goal_id", referencedColumnName = "id")
+    public List<Goal> getGoals() {
         return goals;
     }
 
-    public void setGoals(Set<Goals> goals) {
+    public void setGoals(List<Goal> goals) {
         this.goals = goals;
     }
 

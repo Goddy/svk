@@ -45,7 +45,6 @@
                             <form:checkbox cssClass="form-control ${cssClass}" path="${path}"/>
                         </c:when>
                         <c:when test="${type=='empty'}">
-                            <jsp:doBody/>
                         </c:when>
                         <c:when test="${type=='password'}">
                             <form:password cssClass="form-control ${cssClass}" path="${path}"/>

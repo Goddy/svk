@@ -3,78 +3,43 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf" %>
 
-
-<form:form method="post" action="changeMatchResult.html" cssClass="form-horizontal">
-    <div class="form-group col-sm-10" title="">
-        <div class="alert alert-info"><spring:message code="text.matchResult.result"/></div>
-        <div class="form-group row">
-            <div class="col-md-2">
-                <form:input path="htGoals"/>
-
-            </div>
-            <div class="col-md-1">
-                versus
-            </div>
-
-            <div class="col-md-2">
-                <input type="text" name="atGoals" id="atGoals" class="form-control"
-                       placeholder="${match.awayTeam.name}">
-            </div>
-            <div class="col-md-2">
-                <button type="button" onclick="nextClick();" id="next" class="btn btn-default"><spring:message
-                        code="button.next"/></button>
-            </div>
-        </div>
-
-    </div>
-
-    <div id="goalsDiv">
-        <div class="form-group">
-            <div class="col-sm-10 ">
-                <div class="form-group row" id="goalsForm">
+<form:form id="form" modelAttribute="form" action="changeMatchResult.html" cssClass="form-horizontal">
+        <tag:formField path="htGoals" label="text.htGoals" title="text.htGoals" type="input" optional="false"/>
+        <tag:formField path="atGoals" label="text.atGoals" title="text.atGoals" type="input" optional="false"/>
+        <div id="goalsDiv">
+        <tag:formField path="goals" label="text.goals" title="text.goals" type="empty" optional="false">
+            <div class="form-inline" id="goalsForm">
                     <c:choose>
                         <c:when test="${not empty match.goals}">
                             <c:forEach items="${match.goals}" var="goal">
-                                <input name="goals[${goal.order}]" style="display: none" value="${goal.order}"/>
-
-                                <div class="col-md-4">
-                                    <label class="col-md-2 control-label"><spring:message code="text.scorer"/></label>
-                                    <select class="form-control" name="goals[${goal.order}].scorer">
-                                        <c:forEach items="${players}" var="player">
-                                            <option value="${player.id}" ${goal.scorer.id==player.id?'selected':''}>${player.fullName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <label class="col-md-1 control-label"><spring:message code="text.assist"/></label>
-
-                                <div class="col-md-4">
-                                    <select class="form-control" name="goals[${goal.order}].assist">
-                                        <c:forEach items="${players}" var="player">
-                                            <option value="${player.id}" ${goal.assist.id==player.id?'selected':''}>${player.fullName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-
+                                <span class="row">
+                                <input name="goals[${goal.order}].order" style="display: none" value="${goal.order}"/>
+                                <select class="form-control" name="goals[${goal.order}].scorer">
+                                    <c:forEach items="${players}" var="player">
+                                        <option value="${player.id}" ${goal.scorer.id==player.id?'selected':''}>${player.fullName}</option>
+                                    </c:forEach>
+                                </select>
+                                <select class="form-control" name="goals[${goal.order}].assist">
+                                    <c:forEach items="${players}" var="player">
+                                        <option value="${player.id}" ${goal.assist.id==player.id?'selected':''}>${player.fullName}</option>
+                                    </c:forEach>
+                                </select>
+                                </span>
                             </c:forEach>
                         </c:when>
                     </c:choose>
                 </div>
-            </div>
+        </tag:formField>
         </div>
-
-        <div class="form-group" id="buttons">
-            <div class="col-sm-offset-4 col-sm-10">
-                <button type="button" onclick="backClick()" class="btn btn-danger"><spring:message
-                        code="button.back"/></button>
-                <button type="submit" class="btn btn-default"><spring:message code="button.add"/></button>
+            <div class="form-group" id="buttons">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button id="submit" type="submit" class="btn btn-default"><spring:message code="button.add"/></button>
+                </div>
             </div>
-        </div>
-    </div>
 </form:form>
-
-<%@ include file="../jspf/footer.jspf" %>
-
+<script src="<c:url value='/resources/js/svk-1.0.0.js'/>"></script>
 <script type="text/javascript">
+    (function($, utils){
     var isUpdate = "${update}";
     var homeTeam = "${match.homeTeam.name}";
     var defaultTeam = "${defaultTeam}";
@@ -85,20 +50,21 @@
     var next = $('#next');
 
     function getRow(content, order) {
-        content += '<div class="form-group row"><input name="goal[' + order + '].order" class="goal-order" value="' + order + '" style="display: none"/>' +
-                '<label class="col-md-2 control-label"><spring:message code="text.scorer"/></label>' +
-                '<div class="col-md-4">';
+        content += '<span class="row"><input name="goals[' + order + '].order" class="goal-order" value="' + order + '" style="display: none"/>';
         content = getPlayerSelect(content, order, 'scorer');
-        content += '</div>' +
-                '<label class="col-md-1 control-label"><spring:message code="text.assist"/></label>' +
-                '<div class="col-md-4">';
         content = getPlayerSelect(content, order, 'assist');
-        content += '</div></div>';
+        content += '</span>';
         return content;
     }
 
     function getPlayerSelect(content, order, type) {
-        content += '<select class="form-control" name="goal[' + order + '].' + type + '">';
+        content += '<select class="form-control" name="goals[' + order + '].' + type + '">';
+        if (type === 'assist') {
+            content += '<option value=""><spring:message code="text.assist"/></option>';
+        }
+        else {
+            content += '<option value=""><spring:message code="text.scorer"/></option>';
+        }
         <c:forEach items="${players}" var="player">
         content += '<option value="${player.id}">${player.fullName}</option>';
         </c:forEach>
@@ -107,36 +73,14 @@
     }
 
     function updateRows(scorer, assist, orderInput, order) {
-        scorer.attr('name', 'goals[' + order + '].scorer');
-        assist.attr('name', 'goals[' + order + '].assist');
-        orderInput.attr('name', 'goals[' + order + ']');
+        scorer.attr('name', 'goals.formGoal[' + order + '].scorer');
+        assist.attr('name', 'goals.formGoal[' + order + '].assist');
+        orderInput.attr('name', 'goals.formGoal[' + order + '].order');
         orderInput.val(order);
-    }
-
-    function backClick() {
-        enableInputs();
-        hide(goals);
-        show(next);
-    }
-    function nextClick() {
-        if (!checkInput()) {
-            update();
-            show(goals);
-            hide(next);
-            disableInputs();
-        }
     }
 
     function checkInput() {
         return (htGoals.val() == "" || atGoals.val() == "")
-    }
-
-    function show(element) {
-        element.show();
-    }
-
-    function hide(element) {
-        element.hide();
     }
 
     function disableInputs() {
@@ -149,12 +93,12 @@
         htGoals.prop('disabled', false);
     }
 
-    function update() {
+    function update(field) {
         var goalsForm = $("#goalsForm");
         goalsForm.empty();
         var content = '';
         var goalsNr;
-        goalsNr = homeTeam == defaultTeam ? $('#htGoals').val() : $('#atGoals').val();
+        goalsNr = field.val();
         for (var i = 0; i < goalsNr; i++) {
             content = getRow(content, i);
         }
@@ -162,17 +106,28 @@
     }
 
     $(document).ready(function () {
-        if (update === true) {
+        var elementToCheck = homeTeam === defaultTeam ? htGoals : atGoals;
+        if (isUpdate === "true") {
             disableInputs();
-            show(goals);
+            goals.show();
         }
         else {
             enableInputs();
-            hide(goals);
+            goals.hide();
         }
 
 
+
+        $('#submit').click(function(e) {
+            e.preventDefault();
+            var form = $('#form').serialize();
+            utils.postForm("changeMatchResult.json", form, function(data) {
+               console.log(data);
+            });
+        }) ;
+
     });
+    })(jQuery, svk.utils)
 
 
 </script>

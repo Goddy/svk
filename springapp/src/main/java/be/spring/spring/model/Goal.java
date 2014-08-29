@@ -6,13 +6,15 @@ import javax.persistence.*;
  * Created by u0090265 on 5/3/14.
  */
 
-@Embeddable
-public class Goals {
+@Entity
+@Table(name = "goals")
+public class Goal {
+    private Long id;
     private int order;
     private Account scorer;
     private Account assist;
 
-    public Goals() {
+    public Goal() {
     }
 
     @Column(name = "goal_order")
@@ -24,7 +26,7 @@ public class Goals {
         this.order = order;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "scorer", nullable = false)
     public Account getScorer() {
         return scorer;
@@ -34,13 +36,24 @@ public class Goals {
         this.scorer = scorer;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "assist", nullable = true)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "assist", nullable = false)
     public Account getAssist() {
         return assist;
     }
 
     public void setAssist(Account assist) {
         this.assist = assist;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

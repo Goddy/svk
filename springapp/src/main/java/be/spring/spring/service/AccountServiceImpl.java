@@ -1,5 +1,6 @@
 package be.spring.spring.service;
 
+import be.spring.spring.form.AccountDetailsForm;
 import be.spring.spring.interfaces.AccountDao;
 import be.spring.spring.interfaces.AccountService;
 import be.spring.spring.model.Account;
@@ -27,16 +28,17 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Transactional(readOnly = false)
-    public boolean updateAccount(Account account, Errors errors) {
-        validateUsernameExcludeCurrentId(account.getUsername(), account.getId(), errors);
+    public boolean updateAccount(Account account, Errors errors, AccountDetailsForm form) {
+        //To do: why is object detached when coming from security?
+        Account newAccount = getUpdatedAccount(account, form);
+        validateUsernameExcludeCurrentId(newAccount.getUsername(), newAccount.getId(), errors);
         boolean valid = !errors.hasErrors();
         if (valid) {
-            accountDao.update(account);
+            accountDao.update(newAccount);
         }
         return valid;
     }
 
-    @Transactional(readOnly = true)
     public void validateUsername(String username, Errors errors) {
         if (accountDao.findByUsername(username) != null) {
             errors.rejectValue("username", "error.duplicate.account.email",
@@ -44,7 +46,6 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-    @Transactional(readOnly = true)
     public void validateUsernameExcludeCurrentId(String username, Long id, Errors errors) {
         if (accountDao.findByEmailExcludeCurrentId(username, id) != null) {
             errors.rejectValue("username", "error.duplicate.account.email",
@@ -53,13 +54,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    @Transactional(readOnly = false)
     public void setPasswordFor(Account account, String password) {
         accountDao.update(account, password);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Account> getAll() {
         return accountDao.getAll();
     }
@@ -67,5 +66,13 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account getAccountByEmail(String email) {
         return accountDao.findByUsername(email);
+    }
+
+    private Account getUpdatedAccount(Account account, AccountDetailsForm form) {
+        Account newAccount = accountDao.get(account.getId());
+        newAccount.setFirstName(form.getFirstName());
+        newAccount.setLastName(form.getLastName());
+        newAccount.setUsername(form.getUsername());
+        return newAccount;
     }
 }
