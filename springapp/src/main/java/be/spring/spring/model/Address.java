@@ -80,4 +80,9 @@ public class Address {
     public void setGoogleLink(String googleLink) {
         this.googleLink = googleLink;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s\n%s %s", address, postalCode, city);
+    }
 }

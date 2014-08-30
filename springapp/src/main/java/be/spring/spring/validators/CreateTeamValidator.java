@@ -1,6 +1,7 @@
 package be.spring.spring.validators;
 
 import be.spring.spring.form.CreateTeamForm;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -23,5 +24,7 @@ public class CreateTeamValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "address", "validation.notempty.message");
         ValidationUtils.rejectIfEmpty(errors, "postalCode", "validation.notempty.message");
         ValidationUtils.rejectIfEmpty(errors, "city", "validation.notempty.message");
+
+        if (!StringUtils.isNumeric(form.getPostalCode())) errors.rejectValue("postalCode","validation.number.postalCode");
     }
 }

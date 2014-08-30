@@ -25,7 +25,6 @@
                     </div>
                 </div>
                 </div>
-            </div>
         </c:when>
         <c:otherwise>
             <div data-toggle="tooltip" class="form-group ${status.error ? 'has-error has-feedback' : '' }"
@@ -44,6 +43,9 @@
                         </c:when>
                         <c:when test="${type=='checkbox'}">
                             <form:checkbox cssClass="form-control ${cssClass}" path="${path}"/>
+                        </c:when>
+                        <c:when test="${type=='number'}">
+                            <input class="form-control ${cssClass}" type="number" name="${path}"/>
                         </c:when>
                         <c:when test="${type=='empty'}">
                         </c:when>

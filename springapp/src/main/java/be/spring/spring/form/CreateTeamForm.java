@@ -5,17 +5,17 @@ package be.spring.spring.form;
  */
 public class CreateTeamForm {
     private String teamName;
-    private int postalCode;
+    private String postalCode;
     private String address;
     private String city;
     private String googleLink;
     private boolean useLink = false;
 
-    public int getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(int postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 

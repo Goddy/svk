@@ -28,6 +28,20 @@ svk.utils = {
         });
     }
 }
+svk.deleteDialogs = (function($){
+    return {
+        showDeleteDialog : function(dialog, message, title, href) {
+            $("#delete-modal-title").html(title);
+            $("#delete-modal-body").html(message);
+            $("#delete-modal-btn").click(function() {
+                window.location.href = href;
+            });
+            dialog.modal();
+        }
+    }
+
+})(jQuery);
+
 svk.updatePassword = (function($){
     function checkPassword(newPwd, repeatPwd) {
         return newPwd.val() === repeatPwd.val();

@@ -111,8 +111,8 @@ public abstract class AbstractJpaDao<T>
         getEntityManager().remove(t);
     }
 
-    public void deleteById(Serializable id) {
-        //delete(get(id));
+    public void delete(String id) {
+        delete(get(id));
     }
 
     public void deleteAll() {

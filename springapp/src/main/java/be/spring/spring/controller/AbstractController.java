@@ -1,5 +1,6 @@
 package be.spring.spring.controller;
 
+import be.spring.spring.controller.exceptions.ObjectNotFoundException;
 import be.spring.spring.model.Account;
 import be.spring.spring.utils.SecurityUtils;
 import org.slf4j.Logger;
@@ -7,10 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 /**
@@ -22,11 +24,19 @@ import java.util.Locale;
 public abstract class AbstractController {
 
     private static final String DIV_CLASS_SUCCESS = "alert alert-success";
+    private static final String DIV_CLASS_ERROR = "alert alert-danger";
     @Autowired
     private MessageSource messageSource;
 
     @Autowired
     private SecurityUtils securityUtils;
+
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public String handleException(Exception e, HttpServletRequest request) {
+        log.error(e.getMessage());
+        request.setAttribute("message", "error.object.unknown");
+        return "error";
+    }
 
     private static final Logger log = LoggerFactory.getLogger(AbstractController.class);
 
@@ -56,6 +66,15 @@ public abstract class AbstractController {
         try {
             model.addAttribute("resultMessage", messageSource.getMessage(code, args, locale));
             model.addAttribute("divClass", DIV_CLASS_SUCCESS);
+        } catch (NoSuchMessageException e) {
+            log.debug("messageSourceError for success message - {}", e.getMessage());
+        }
+    }
+
+    public void setErrorMessage(ModelMap model, Locale locale, String code, Object[] args) {
+        try {
+            model.addAttribute("resultMessage", messageSource.getMessage(code, args, locale));
+            model.addAttribute("divClass", DIV_CLASS_ERROR);
         } catch (NoSuchMessageException e) {
             log.debug("messageSourceError for success message - {}", e.getMessage());
         }

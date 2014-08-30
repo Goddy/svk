@@ -1,9 +1,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf" %>
 
-<h2><spring:message code="title.createTeam"/> </h2>
+<h2><spring:message code="title.createTeam" arguments="${match.description}"/> </h2>
+<%@ include file="../jspf/resultMessage.jspf" %>
+<div class="panel panel-default">
+    <div class="panel-body">
         <form:form action="createTeam.html" cssClass="form-horizontal" role="form" modelAttribute="form">
             <tag:formField path="teamName" title="label.teamName" label="label.teamName" optional="false" type="input"/>
             <tag:formField cssClass="address" path="address" title="label.street" label="label.street" optional="false"
@@ -26,6 +29,8 @@
                 </div>
             </div>
         </form:form>
+    </div>
+</div>
 
 <%@ include file="../jspf/footer.jspf" %>
 <script type="text/javascript">

@@ -12,6 +12,7 @@ import be.spring.spring.validators.CreateMatchValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -76,12 +77,14 @@ public class MatchesController extends AbstractController {
     private static final String LANDING_MATCHES_CREATE = "/matches/createMatch";
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createMatch", method = RequestMethod.GET)
     public String newMatch(ModelMap model, @ModelAttribute("form") CreateMatchForm form) {
         populateCreateMatch(model);
         return LANDING_MATCHES_CREATE;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createMatch", method = RequestMethod.POST)
     public String createMatch(@ModelAttribute("form") @Valid CreateMatchForm form, BindingResult result, ModelMap model) {
         try {

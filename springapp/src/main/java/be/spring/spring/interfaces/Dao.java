@@ -10,7 +10,7 @@ public interface Dao<T extends Object> {
 	List<T> getAll();
 	void update(T t);
 	void delete(T t);
-	void deleteById(Serializable id);
+    void delete(String id);
 	void deleteAll();
 	long count();
 }
