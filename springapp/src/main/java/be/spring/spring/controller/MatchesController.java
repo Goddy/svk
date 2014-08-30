@@ -1,5 +1,6 @@
 package be.spring.spring.controller;
 
+import be.spring.spring.controller.exceptions.ObjectNotFoundException;
 import be.spring.spring.form.CreateMatchForm;
 import be.spring.spring.interfaces.AccountService;
 import be.spring.spring.interfaces.MatchesService;
@@ -18,6 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.text.ParseException;
@@ -92,8 +94,9 @@ public class MatchesController extends AbstractController {
                 populateCreateMatch(model);
                 return LANDING_MATCHES_CREATE;
             }
-            matchesService.createMatch(form);
-            return "redirect:" + LANDING_MATCHES_PAGE;
+            Match m = matchesService.createMatch(form);
+            log.info(String.format("Match id %s created by user %s", m.getId(), getAccountFromSecurity().getUsername()));
+            return getRedirect(LANDING_MATCHES_PAGE);
         } catch (ParseException e) {
             log.debug(e.getMessage());
             return null;
@@ -106,6 +109,16 @@ public class MatchesController extends AbstractController {
         model.addAttribute("seasons", seasonService.getSeasons());
         return LANDING_MATCHES_PAGE;
 
+    }
+
+    @RequestMapping(value = "deleteMatch", method = RequestMethod.GET)
+    public String deleteMatchPage(@RequestParam String matchId, RedirectAttributes redirectAttributes, Locale locale) {
+        Match m = matchesService.getMatch(matchId);
+        if (m == null) throw new ObjectNotFoundException(String.format("Match id %s not found", matchId));
+        matchesService.deleteMatch(matchId);
+        setSuccessMessage(redirectAttributes, locale, "text.delete.match.success", null);
+        log.info(String.format("Match id %s deleted by user %s", matchId, getAccountFromSecurity().getUsername()));
+        return getRedirect(LANDING_MATCHES_PAGE);
     }
 
     @RequestMapping(value = "matchesForSeason.json", method = RequestMethod.GET)

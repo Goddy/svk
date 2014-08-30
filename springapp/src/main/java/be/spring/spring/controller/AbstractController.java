@@ -88,4 +88,8 @@ public abstract class AbstractController {
             log.debug("messageSourceError for success message - {}", e.getMessage());
         }
     }
+
+    public String getRedirect(String landing) {
+        return "redirect:" + landing + ".html";
+    }
 }

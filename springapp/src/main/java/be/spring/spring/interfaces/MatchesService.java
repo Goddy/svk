@@ -1,5 +1,6 @@
 package be.spring.spring.interfaces;
 
+import be.spring.spring.controller.exceptions.ObjectNotFoundException;
 import be.spring.spring.form.ChangeResultForm;
 import be.spring.spring.form.CreateMatchForm;
 import be.spring.spring.model.Account;
@@ -19,9 +20,11 @@ public interface MatchesService {
 
     List<ActionWrapper<Match>> getMatchesForSeason(String seasonId, Account account, Locale locale);
 
-    Match getMatch(Long id);
+    Match getMatch(String id);
 
-    boolean createMatch(CreateMatchForm form) throws ParseException;
+    Match createMatch(CreateMatchForm form) throws ParseException;
 
     Match updateMatchResult(ChangeResultForm form);
+
+    void deleteMatch(String id) throws ObjectNotFoundException;
 }

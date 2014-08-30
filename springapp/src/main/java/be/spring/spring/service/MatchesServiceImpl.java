@@ -1,12 +1,12 @@
 package be.spring.spring.service;
 
+import be.spring.spring.controller.exceptions.ObjectNotFoundException;
 import be.spring.spring.form.ChangeResultForm;
 import be.spring.spring.form.CreateMatchForm;
 import be.spring.spring.interfaces.*;
 import be.spring.spring.model.*;
 import be.spring.spring.utils.HtmlHelper;
 import be.spring.spring.utils.SecurityUtils;
-import be.spring.spring.utils.ValidationHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.HTML;
 import java.text.ParseException;
 import java.util.*;
-import java.util.function.Consumer;
 
 /**
  * Created by u0090265 on 5/3/14.
@@ -72,13 +70,14 @@ public class MatchesServiceImpl implements MatchesService {
     }
 
     @Override
-    public Match getMatch(Long id) {
+    @Transactional(readOnly = false)
+    public Match getMatch(String id) {
         return matchesDao.get(id);
     }
 
     @Override
     @Transactional(readOnly = false)
-    public boolean createMatch(CreateMatchForm form) throws ParseException {
+    public Match createMatch(CreateMatchForm form) throws ParseException {
         Match m = new Match();
         m.setSeason(seasonDao.get(form.getSeason()));
         m.setDate(form.getDate());
@@ -86,7 +85,7 @@ public class MatchesServiceImpl implements MatchesService {
         m.setAwayTeam(teamDao.get(form.getAwayTeam()));
         matchesDao.create(m);
         log.debug("Match {} created.", m);
-        return true;
+        return m;
     }
 
     @Override
@@ -98,6 +97,14 @@ public class MatchesServiceImpl implements MatchesService {
         m.setHtGoals(form.getHtGoals());
         matchesDao.update(m);
         return m;
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void deleteMatch(String id) throws ObjectNotFoundException {
+        Match m = matchesDao.get(id);
+        if (m == null) throw new ObjectNotFoundException(String.format("Match with id %s not found", id));
+        matchesDao.delete(id);
     }
 
     private List<Goal> transFormGoals(ChangeResultForm form) {

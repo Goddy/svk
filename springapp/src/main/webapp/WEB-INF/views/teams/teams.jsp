@@ -23,13 +23,13 @@
     </table>
 </div>
 <%@ include file="../jspf/footer.jspf" %>
-<tag:deleteDialog dialogId="delete-match-modal"/>
+<tag:deleteDialog dialogId="delete-team-modal"/>
 <script src="<c:url value='/resources/js/svk-1.0.0.js'/>"></script>
 <script type="text/javascript">
     (function($, dd){
         var deleteMsg = "<spring:message code="text.delete.team"/>";
         var deleteTitle = "<spring:message code="title.delete.team"/>";
-        var deleteMatchModal = $("#delete-match-modal");
+        var deleteMatchModal = $("#delete-team-modal");
         $(document).ready(function() {
             $(document).on('click', 'a[class*="delete"]', function (e) {
                 console.log("Clicked delete");

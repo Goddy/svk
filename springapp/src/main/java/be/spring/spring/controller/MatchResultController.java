@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.rmi.AccessException;
@@ -67,8 +66,8 @@ public class MatchResultController extends AbstractController{
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "changeMatchResult", method = RequestMethod.GET)
-    public ModelAndView newMatchResult(ModelMap model, @RequestParam String id, @ModelAttribute("form") ChangeResultForm form) {
-        Match match = matchesService.getMatch(Long.parseLong(id));
+    public ModelAndView newMatchResult(ModelMap model, @RequestParam String matchId, @ModelAttribute("form") ChangeResultForm form) {
+        Match match = matchesService.getMatch(matchId);
         model.addAttribute("match", match);
 
         if (match != null) {

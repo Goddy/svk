@@ -24,8 +24,8 @@ public class HtmlHelper {
     public String getMatchesButtons(Match match, boolean isAdmin, Locale locale) {
         if (isAdmin) {
             String btns = new StringBuilder()
-                    .append(getBtn(EMPTY, EDIT, String.format("changeMatchResult.html?id=%s", match.getId())))
-                    .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteMatch.html?id=%s", match.getId())))
+                    .append(getBtn(EMPTY, EDIT, String.format("changeMatchResult.html?matchId=%s", match.getId())))
+                    .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteMatch.html?matchId=%s", match.getId())))
                     .toString();
             return wrapIntoBtnGroup(btns);
         }
