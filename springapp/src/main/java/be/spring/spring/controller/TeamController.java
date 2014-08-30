@@ -1,7 +1,8 @@
 package be.spring.spring.controller;
 
 import be.spring.spring.controller.exceptions.ObjectNotFoundException;
-import be.spring.spring.form.CreateTeamForm;
+import be.spring.spring.form.CreateAndUpdateTeamForm;
+import be.spring.spring.form.CreateAndUpdateTeamForm;
 import be.spring.spring.interfaces.TeamService;
 import be.spring.spring.model.ActionWrapper;
 import be.spring.spring.model.Match;
@@ -17,6 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -39,6 +41,8 @@ public class TeamController extends AbstractController {
     private CreateTeamValidator validator;
 
     private static final Logger log = LoggerFactory.getLogger(TeamController.class);
+    private static final String EDIT_TEAM = "editTeam";
+    private static final String CREATE_TEAM = "createTeam";
 
     @InitBinder("form")
     protected void initBinder(WebDataBinder binder) {
@@ -48,17 +52,17 @@ public class TeamController extends AbstractController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createTeam", method = RequestMethod.GET)
-    public String getCreateTeamPage(ModelMap model, @ModelAttribute("form") CreateTeamForm form) {
-        model.addAttribute("form", new CreateTeamForm());
-        return LANDING_CREATE_TEAM;
-
+    public String getCreateTeamPage(ModelMap model, @ModelAttribute("form") CreateAndUpdateTeamForm form, Locale locale) {
+        model.addAttribute("form", new CreateAndUpdateTeamForm());
+        return createTeam(model, locale);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "editTeam", method = RequestMethod.GET)
-    public String getEditTeamPage(@ModelAttribute("form") CreateTeamForm form, @RequestParam String teamId) {
+    public String getEditTeamPage(@ModelAttribute("form") CreateAndUpdateTeamForm form, @RequestParam String teamId, ModelMap model, Locale locale) {
         Team team = teamService.getTeam(teamId);
         if (team == null) throw new ObjectNotFoundException(String.format("Team with id %s not found", teamId));
+        form.setId(team.getId());
         form.setTeamName(team.getName());
         form.setCity(team.getAddress().getCity());
         form.setAddress(team.getAddress().getAddress());
@@ -67,12 +71,12 @@ public class TeamController extends AbstractController {
             form.setGoogleLink(team.getAddress().getGoogleLink());
             form.setUseLink(true);
         }
-        return LANDING_CREATE_TEAM;
+        return editTeam(model, locale);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createTeam", method = RequestMethod.POST)
-    public String createMatch(@ModelAttribute("form") @Valid CreateTeamForm form, BindingResult result, ModelMap model) {
+    public String postCreateTeam(@ModelAttribute("form") @Valid CreateAndUpdateTeamForm form, BindingResult result, ModelMap model) {
         try {
             if (teamService.teamExists(form.getTeamName())) {
                 result.rejectValue("teamName", "validation.teamExists.message");
@@ -90,6 +94,36 @@ public class TeamController extends AbstractController {
         }
 
 
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "editTeam", method = RequestMethod.POST)
+    public String postGetTeam(@ModelAttribute("form") @Valid CreateAndUpdateTeamForm form, BindingResult result, ModelMap model) {
+        try {
+            if (result.hasErrors()) {
+                model.addAttribute("form", form);
+                return LANDING_CREATE_TEAM;
+            }
+            Team team = teamService.updateTeam(form);
+            log.debug("Created team: {}", team);
+            return "redirect:" + LANDING_TEAMS + ".html";
+        } finally {
+            log.info("Finally of createTeam");
+        }
+
+
+    }
+
+    private String editTeam(ModelMap model, Locale locale) {
+        model.addAttribute("title", getMessage("title.editTeam", null, locale));
+        model.addAttribute("action", EDIT_TEAM);
+        return LANDING_CREATE_TEAM;
+    }
+
+    private String createTeam(ModelMap model, Locale locale) {
+        model.addAttribute("title", getMessage("title.createTeam", null, locale));
+        model.addAttribute("action", CREATE_TEAM);
+        return LANDING_CREATE_TEAM;
     }
 
     @RequestMapping(value = "teams", method = RequestMethod.GET)

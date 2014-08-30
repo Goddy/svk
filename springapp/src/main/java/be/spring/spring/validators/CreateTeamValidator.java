@@ -1,6 +1,7 @@
 package be.spring.spring.validators;
 
-import be.spring.spring.form.CreateTeamForm;
+import be.spring.spring.form.CreateAndUpdateTeamForm;
+import be.spring.spring.form.CreateAndUpdateTeamForm;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -14,12 +15,12 @@ import org.springframework.validation.Validator;
 public class CreateTeamValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
-        return CreateTeamForm.class.equals(aClass);
+        return CreateAndUpdateTeamForm.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        CreateTeamForm form = (CreateTeamForm) o;
+        CreateAndUpdateTeamForm form = (CreateAndUpdateTeamForm) o;
         ValidationUtils.rejectIfEmpty(errors, "teamName", "validation.notempty.message");
         ValidationUtils.rejectIfEmpty(errors, "address", "validation.notempty.message");
         ValidationUtils.rejectIfEmpty(errors, "postalCode", "validation.notempty.message");

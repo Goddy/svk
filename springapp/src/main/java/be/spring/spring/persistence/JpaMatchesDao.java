@@ -3,6 +3,7 @@ package be.spring.spring.persistence;
 import be.spring.spring.interfaces.MatchesDao;
 import be.spring.spring.model.Match;
 import be.spring.spring.model.Season;
+import be.spring.spring.model.Team;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,5 +16,10 @@ public class JpaMatchesDao extends AbstractJpaDao<Match> implements MatchesDao {
     @Override
     public List<Match> getMatchForSeason(Season season) {
         return getMultipleResultQuery("getMatchesForSeason", getParameterMap("season", season));
+    }
+
+    @Override
+    public boolean isTeamInUse(Team team) {
+        return !getMultipleResultQuery("getMatchesForTeam", getParameterMap("team", team)).isEmpty();
     }
 }

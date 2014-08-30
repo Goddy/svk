@@ -1,6 +1,7 @@
 package be.spring.spring.interfaces;
 
-import be.spring.spring.form.CreateTeamForm;
+import be.spring.spring.form.CreateAndUpdateTeamForm;
+import be.spring.spring.form.CreateAndUpdateTeamForm;
 import be.spring.spring.model.Account;
 import be.spring.spring.model.ActionWrapper;
 import be.spring.spring.model.Team;
@@ -18,7 +19,9 @@ public interface TeamService {
 
     Team getTeam(String id);
 
-    Team createTeam(CreateTeamForm form);
+    Team createTeam(CreateAndUpdateTeamForm form);
+
+    Team updateTeam(CreateAndUpdateTeamForm form);
 
     List<ActionWrapper<Team>> getTeams(Account account, Locale locale);
 

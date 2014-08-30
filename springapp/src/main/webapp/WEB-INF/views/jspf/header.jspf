@@ -32,10 +32,11 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/home.html">Home</a></li>
-                <li><a href="/news/news.html">Nieuws</a></li>
-                <li><a href="/matches/matches.html">Matchen</a></li>
-                <li><a href="/account/edit.html">Profiel</a></li>
+                <li><a href="/home.html"><spring:message code="nav.news"/></a></li>
+                <li><a href="/news/news.html"><spring:message code="nav.news"/></a></li>
+                <li><a href="/matches/matches.html"><spring:message code="nav.matches"/></a></li>
+                <li><a href="/teams/teams.html"><spring:message code="nav.teams"/></a></li>
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="nav.admin"/> <b
                             class="caret"></b></a>
@@ -66,6 +67,7 @@
                                     class="glyphicon glyphicon-user"></span>&nbsp;<security:authentication
                                     property="principal.firstName"/><b class="caret"></b></a>
                             <ul class="dropdown-menu">
+                                <li><a href="/account/edit.html"><spring:message code="nav.profile"/></a></li>
                                 <li><a href="<c:url value="j_spring_security_logout" />"><spring:message code="text.logout"/></a></li>
                             </ul>
                         </li>

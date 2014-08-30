@@ -19,7 +19,8 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = "findMatchById", query = "from Match where id = :id"),
-        @NamedQuery(name = "getMatchesForSeason", query = "from Match where season = :season order by date desc")
+        @NamedQuery(name = "getMatchesForSeason", query = "from Match where season = :season order by date desc"),
+        @NamedQuery(name = "getMatchesForTeam", query = "from Match where homeTeam = :team OR awayTeam = :team order by date desc")
 })
 
 @Entity

@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @Service("userDetailsService")
-@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 public class UserDetailsServiceAdapter implements UserDetailsService {
     @Autowired AccountService accountService;
     @Autowired UserDetailsDao userDetailsDao;

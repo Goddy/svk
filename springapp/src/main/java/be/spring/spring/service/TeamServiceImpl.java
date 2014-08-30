@@ -1,6 +1,7 @@
 package be.spring.spring.service;
 
-import be.spring.spring.form.CreateTeamForm;
+import be.spring.spring.form.CreateAndUpdateTeamForm;
+import be.spring.spring.interfaces.MatchesDao;
 import be.spring.spring.interfaces.TeamDao;
 import be.spring.spring.interfaces.TeamService;
 import be.spring.spring.model.Account;
@@ -36,6 +37,9 @@ public class TeamServiceImpl implements TeamService {
     @Autowired
     private SecurityUtils securityUtils;
 
+    @Autowired
+    private MatchesDao matchesDao;
+
     @Override
     public List<Team> getAll() {
         return teamDao.getAll();
@@ -51,17 +55,31 @@ public class TeamServiceImpl implements TeamService {
         return teamDao.get(id);
     }
 
+    @Transactional(readOnly = false)
     @Override
-    public Team createTeam(CreateTeamForm form) {
+    public Team createTeam(CreateAndUpdateTeamForm form) {
         Team team = new Team();
-        team.setAddress(getAddress(form));
-        team.setName(form.getTeamName());
+        updateTeamFromForm(form, team);
         teamDao.create(team);
         return team;
     }
 
-    private Address getAddress(CreateTeamForm form) {
-        Address address = new Address();
+    @Transactional(readOnly = false)
+    @Override
+    public Team updateTeam(CreateAndUpdateTeamForm form) {
+        Team team = teamDao.get(form.getId());
+        updateTeamFromForm(form, team);
+        teamDao.update(team);
+        return team;
+    }
+
+    private void updateTeamFromForm(CreateAndUpdateTeamForm form, Team team) {
+        team.setAddress(getAddress(form));
+        team.setName(form.getTeamName());
+    }
+
+    private Address getAddress(CreateAndUpdateTeamForm form) {
+            Address address = new Address();
         address.setAddress(form.getAddress());
         address.setCity(form.getCity());
         address.setPostalCode(Integer.parseInt(form.getPostalCode()));
@@ -81,20 +99,16 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public boolean deleteTeam(String id, Account a) {
-       try {
-           deleteTeam(id);
-           log.info(String.format("Team %s was deleted by %s", id, a));
-           return true;
-       }
-       catch (Exception e) {
-           log.error(String.format("Team %s could not be deleted by %s: %s", id, a, e.getMessage()));
-           return false;
-       }
-    }
-
-    @Transactional
-    private void deleteTeam(String id) {
-        teamDao.delete(id);
+        Team team = teamDao.get(id);
+        if (team == null) return true;
+        if (matchesDao.isTeamInUse(team)) {
+            return false;
+        }
+        else {
+            teamDao.delete(team);
+            return true;
+        }
     }
 }

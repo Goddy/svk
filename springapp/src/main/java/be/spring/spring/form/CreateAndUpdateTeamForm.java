@@ -3,7 +3,8 @@ package be.spring.spring.form;
 /**
  * Created by u0090265 on 5/11/14.
  */
-public class CreateTeamForm {
+public class CreateAndUpdateTeamForm {
+    private long id;
     private String teamName;
     private String postalCode;
     private String address;
@@ -60,4 +61,11 @@ public class CreateTeamForm {
         this.useLink = useLink;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

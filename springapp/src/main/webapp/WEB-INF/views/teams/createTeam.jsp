@@ -3,11 +3,12 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf" %>
 
-<h2><spring:message code="title.createTeam" arguments="${match.description}"/> </h2>
+<h2>${title}</h2>
 <%@ include file="../jspf/resultMessage.jspf" %>
 <div class="panel panel-default">
     <div class="panel-body">
-        <form:form action="createTeam.html" cssClass="form-horizontal" role="form" modelAttribute="form">
+        <form:form action="${action}.html" cssClass="form-horizontal" role="form" modelAttribute="form">
+            <form:hidden path="id"/>
             <tag:formField path="teamName" title="label.teamName" label="label.teamName" optional="false" type="input"/>
             <tag:formField cssClass="address" path="address" title="label.street" label="label.street" optional="false"
                            type="input"/>
@@ -25,7 +26,15 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default"><spring:message code="button.add"/></button>
+                    <c:choose>
+                        <c:when test="${action == 'createTeam'}">
+                            <button type="submit" class="btn btn-default"><spring:message code="button.add"/></button>
+                        </c:when>
+                        <c:otherwise>
+                            <button type="submit" class="btn btn-default"><spring:message code="button.update"/></button>
+                        </c:otherwise>
+                    </c:choose>
+
                 </div>
             </div>
         </form:form>

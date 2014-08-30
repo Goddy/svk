@@ -2,7 +2,7 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../jspf/header.jspf" %>
-
+<div class="alert alert-info"><spring:message code="info.teams"/></div>
 <%@ include file="../jspf/resultMessage.jspf" %>
 <div class="panel-group" id="accordion">
     <table class="table table-hover">

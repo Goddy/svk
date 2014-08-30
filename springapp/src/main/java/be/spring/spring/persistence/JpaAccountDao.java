@@ -18,6 +18,7 @@ import java.util.Map;
 @Repository
 public class JpaAccountDao extends AbstractJpaDao<Account> implements AccountDao {
     private static final String UPDATE_PASSWORD_SQL = "update account set password = ? where id = ?";
+    private static final String INSERT_ACCOUNT = "insert into account (email, account set password = ? where id = ?";
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
