@@ -61,14 +61,14 @@
                                     + '<td><spring:message code='text.result'/></td>'
                                     + '<td><spring:message code='text.actions'/></td></tr>';
 
-                            $.each(json, function (i, match) {
+                            $.each(json, function (i, o) {
 
                                 divContent +=
-                                        '<tr><td>' + match.date + '</td>' +
-                                                '<td>' + match.homeTeam.name + '</td>' +
-                                                '<td>' + match.awayTeam.name + '</td>' +
-                                                '<td>' + match.htGoals + ' - ' + match.atGoals + '</td>' +
-                                                '<td>Nog geen acties</td></tr>'
+                                        '<tr><td>' + o.object.date.dayOfMonth + '/' + o.object.date.monthOfYear + '/' + o.object.date.year  + '</td>' +
+                                                '<td>' + o.object.homeTeam.name + '</td>' +
+                                                '<td>' + o.object.awayTeam.name + '</td>' +
+                                                '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>' +
+                                                '<td>' + o.htmlActions + ' </td></tr>';
                             });
                             divContent += '</table>';
 

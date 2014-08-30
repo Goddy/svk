@@ -8,9 +8,9 @@ and social sign in buttons.
 <sec:authorize access="isAnonymous()">
 
     <!-- Login form -->
+    <h2><spring:message code="title.login"/></h2>
     <div class="panel panel-default">
         <div class="panel-body">
-            <h2><spring:message code="title.login"/></h2>
             <!--
                 Error message is shown if login fails.
             -->

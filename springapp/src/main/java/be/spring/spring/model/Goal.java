@@ -27,7 +27,7 @@ public class Goal {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "scorer", nullable = false)
+    @JoinColumn(name = "scorer", nullable = true)
     public Account getScorer() {
         return scorer;
     }
@@ -37,7 +37,7 @@ public class Goal {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "assist", nullable = false)
+    @JoinColumn(name = "assist", nullable = true)
     public Account getAssist() {
         return assist;
     }

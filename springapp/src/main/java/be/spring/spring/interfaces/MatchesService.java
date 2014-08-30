@@ -1,10 +1,14 @@
 package be.spring.spring.interfaces;
 
+import be.spring.spring.form.ChangeResultForm;
 import be.spring.spring.form.CreateMatchForm;
+import be.spring.spring.model.Account;
+import be.spring.spring.model.ActionWrapper;
 import be.spring.spring.model.Match;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -13,9 +17,11 @@ import java.util.Map;
 public interface MatchesService {
     Map<Integer, List<Match>> getMatchesForLastSeasons();
 
-    List<Match> getMatchesForSeason(long seasonId);
+    List<ActionWrapper<Match>> getMatchesForSeason(String seasonId, Account account, Locale locale);
 
     Match getMatch(Long id);
 
     boolean createMatch(CreateMatchForm form) throws ParseException;
+
+    Match updateMatchResult(ChangeResultForm form);
 }

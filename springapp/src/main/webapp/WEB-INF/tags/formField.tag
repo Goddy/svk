@@ -15,7 +15,7 @@
 <spring:bind path="${path}">
     <c:choose>
         <c:when test="${type=='checkbox'}">
-            <div class="form-group" title="${title}">
+            <div class="form-group" data-toggle="tooltip" title="${title}">
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                         <label>
@@ -24,10 +24,11 @@
                         </label>
                     </div>
                 </div>
+                </div>
             </div>
         </c:when>
         <c:otherwise>
-            <div class="form-group ${status.error ? 'has-error has-feedback' : '' }"
+            <div data-toggle="tooltip" class="form-group ${status.error ? 'has-error has-feedback' : '' }"
                  title="<spring:message code='${title}'/>">
                 <label class="col-sm-2 col-sm-2 control-label" for="${path}">
                     <spring:message code="${label}"/><c:if test="${optional}">

@@ -86,7 +86,7 @@ public class UserDetailsAdapter implements UserDetails {
         Set<GrantedAuthority> authorities =
                 new HashSet<GrantedAuthority>();
 
-        authorities.add(new GrantedAuthorityImpl(account.getRole()));
+        authorities.add(new GrantedAuthorityImpl(account.getRole().name()));
 
         return authorities;
     }

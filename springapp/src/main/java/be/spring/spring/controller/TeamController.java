@@ -7,6 +7,7 @@ import be.spring.spring.validators.CreateTeamValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -41,12 +42,14 @@ public class TeamController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createTeam", method = RequestMethod.GET)
     public String getCreateMatchPage(ModelMap model, @ModelAttribute("form") CreateTeamForm form) {
         return LANDING_CREATE_TEAM;
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createTeam", method = RequestMethod.POST)
     public String createMatch(@ModelAttribute("form") @Valid CreateTeamForm form, BindingResult result, ModelMap model) {
         try {

@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 
 @NamedQueries({
         @NamedQuery(name = "findAccountByUsername", query = "select a from Account a where a.username = :username"),
+        @NamedQuery(name = "findAccountById", query = "select a from Account a where a.id = :id"),
         @NamedQuery(name = "findAccountByUsernameExcludeCurrentId", query = "select a from Account a where a.username = :username AND a.id != :id")
 })
 @Entity
@@ -18,7 +19,7 @@ public class Account {
     private String firstName;
     private String lastName;
     private String username;
-    private String role;
+    private Role role;
     private SocialMediaEnum signInProvider;
 
     public Account() {
@@ -94,14 +95,15 @@ public class Account {
     }
 
     @Column(name = "role")
-    public String getRole() {
+    @Enumerated(EnumType.STRING)
+    public Role getRole() {
         if (role == null)
-            return Constants.DEFAULT_ROLE;
+            return Role.USER;
         else
             return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

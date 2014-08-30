@@ -60,4 +60,13 @@ public abstract class AbstractController {
             log.debug("messageSourceError for success message - {}", e.getMessage());
         }
     }
+
+    public void setSuccessMessage(RedirectAttributes redirectAttributes, Locale locale, String code, Object[] args) {
+        try {
+            redirectAttributes.addAttribute("resultMessage", messageSource.getMessage(code, args, locale));
+            redirectAttributes.addAttribute("divClass", DIV_CLASS_SUCCESS);
+        } catch (NoSuchMessageException e) {
+            log.debug("messageSourceError for success message - {}", e.getMessage());
+        }
+    }
 }

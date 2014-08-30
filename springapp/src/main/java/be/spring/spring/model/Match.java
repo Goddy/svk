@@ -3,6 +3,7 @@ package be.spring.spring.model;
 import be.spring.spring.utils.JsonDateSerializer;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,7 +26,7 @@ import java.util.List;
 @Table(name = "matches")
 public class Match {
     private long id;
-    private Date date;
+    private DateTime date;
     private Season season;
     private Team homeTeam;
     private Team awayTeam;
@@ -48,14 +49,14 @@ public class Match {
         this.id = id;
     }
 
-    @JsonSerialize(using = JsonDateSerializer.class)
     @NotNull
     @Column(name = "date")
-    public Date getDate() {
+    @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    public DateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(DateTime date) {
         this.date = date;
     }
 
@@ -129,5 +130,10 @@ public class Match {
 
     public void setNews(News news) {
         this.news = news;
+    }
+
+    @Transient
+    public String getDescription() {
+        return String.format("%s - %s", homeTeam.getName(), awayTeam.getName());
     }
 }

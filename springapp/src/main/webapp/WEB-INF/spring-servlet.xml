@@ -15,4 +15,15 @@
     <context:component-scan base-package="be.spring.spring.validators"/>
     <context:component-scan base-package="be.spring.spring.controller"/>
 
+    <!--Enables JSON integration-->
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <map>
+                <entry key="html" value="text/html"/>
+                <entry key="json" value="application/json"/>
+            </map>
+        </property>
+    </bean>
+
 </beans>

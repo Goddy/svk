@@ -35,9 +35,6 @@ public class UserDetailsServiceAdapter implements UserDetailsService {
         if (account == null) {
             throw new UsernameNotFoundException(
                     "No user with username "+ username);
-        } else if (account.getRole().isEmpty()) {
-            throw new UsernameNotFoundException(
-                    "User " + account.getUsername() + " has no authorities");
         }
         UserDetailsAdapter user = new UserDetailsAdapter(account);
         user.setPassword(

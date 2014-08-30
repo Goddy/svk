@@ -5,6 +5,8 @@ import be.spring.spring.interfaces.AccountService;
 import be.spring.spring.interfaces.MatchesService;
 import be.spring.spring.interfaces.SeasonService;
 import be.spring.spring.interfaces.TeamService;
+import be.spring.spring.model.Account;
+import be.spring.spring.model.ActionWrapper;
 import be.spring.spring.model.Match;
 import be.spring.spring.validators.CreateMatchValidator;
 import org.slf4j.Logger;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by u0090265 on 5/3/14.
@@ -26,6 +29,27 @@ import java.util.List;
 @Controller
 @RequestMapping("/matches")
 public class MatchesController extends AbstractController {
+    private static class MatchActionObject {
+        private Match match;
+        private String actions;
+
+        public Match getMatch() {
+            return match;
+        }
+
+        public void setMatch(Match match) {
+            this.match = match;
+        }
+
+        public String getActions() {
+            return actions;
+        }
+
+        public void setActions(String actions) {
+            this.actions = actions;
+        }
+    }
+
     @Autowired
     private MatchesService matchesService;
 
@@ -66,7 +90,7 @@ public class MatchesController extends AbstractController {
                 return LANDING_MATCHES_CREATE;
             }
             matchesService.createMatch(form);
-            return LANDING_MATCHES_PAGE;
+            return "redirect:" + LANDING_MATCHES_PAGE;
         } catch (ParseException e) {
             log.debug(e.getMessage());
             return null;
@@ -81,11 +105,12 @@ public class MatchesController extends AbstractController {
 
     }
 
-    @RequestMapping(value = "matchesForSeason", method = RequestMethod.GET)
+    @RequestMapping(value = "matchesForSeason.json", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<Match> getMatchesForSeason(@RequestParam String seasonId) {
-        return matchesService.getMatchesForSeason(Long.parseLong(seasonId));
+    List<ActionWrapper<Match>> getMatchesForSeason(@RequestParam String seasonId, Locale locale) {
+        Account account = getAccountFromSecurity();
+        return matchesService.getMatchesForSeason(seasonId, account, locale);
     }
 
     private void populateCreateMatch(ModelMap model) {

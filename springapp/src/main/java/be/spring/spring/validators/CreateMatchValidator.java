@@ -24,8 +24,8 @@ public class CreateMatchValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "homeTeam", "validation.notempty.message");
         ValidationUtils.rejectIfEmpty(errors, "awayTeam", "validation.notempty.message");
         ValidationUtils.rejectIfEmpty(errors, "season", "validation.notempty.message");
-        if (!ValidationHelper.isValidDate(((CreateMatchForm) o).getDate())) {
+        /**if (!ValidationHelper.isValidDate(((CreateMatchForm) o).getDate())) {
             errors.rejectValue("date", "validation.date.wrong");
-        }
+        }**/
     }
 }

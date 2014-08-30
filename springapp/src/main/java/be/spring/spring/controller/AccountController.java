@@ -53,7 +53,7 @@ public class AccountController extends AbstractController {
         return (result.hasErrors() ? VN_REG_FORM : VN_REG_OK);
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "update_details", method = RequestMethod.POST)
     @Transactional
     public String updateAccountDetails(@ModelAttribute("Account") @Valid AccountDetailsForm form, BindingResult result, ModelMap model, Locale locale) {

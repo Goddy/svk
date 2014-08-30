@@ -2,6 +2,7 @@ package be.spring.spring.utils;
 
 import be.spring.spring.interfaces.AccountDao;
 import be.spring.spring.model.Account;
+import be.spring.spring.model.Role;
 import be.spring.spring.persistence.UserDetailsAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class SecurityUtils {
-
     public Account getAccountFromSecurity()
     {
         UserDetailsAdapter details;
@@ -29,4 +29,7 @@ public class SecurityUtils {
 
     }
 
+    public boolean isAdmin(Account account) {
+        return account != null && account.getRole() == Role.ADMIN;
+    }
 }

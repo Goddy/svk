@@ -2,14 +2,24 @@ package be.spring.spring.form;
 
 import be.spring.spring.model.Goal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by u0090265 on 5/30/14.
  */
 public class ChangeResultForm {
+    public long getMatchId() {
+        return matchId;
+    }
+
+    public void setMatchId(long matchId) {
+        this.matchId = matchId;
+    }
+
     public static class FormGoal {
-        private int scorer, assist, order;
+        private int order;
+        private String scorer, assist;
 
         public int getOrder() {
             return order;
@@ -19,26 +29,27 @@ public class ChangeResultForm {
             this.order = order;
         }
 
-        public int getAssist() {
+        public String getAssist() {
             return assist;
         }
 
-        public void setAssist(int assist) {
+        public void setAssist(String assist) {
             this.assist = assist;
         }
 
-        public void setScorer(int scorer) {
+        public void setScorer(String scorer) {
             this.scorer = scorer;
         }
 
-        public int getScorer() {
+        public String getScorer() {
             return scorer;
         }
     }
 
     private int htGoals;
     private int atGoals;
-    private List<FormGoal> goals;
+    private long matchId;
+    private List<FormGoal> goals = new ArrayList<>();
 
     public int getHtGoals() {
         return htGoals;

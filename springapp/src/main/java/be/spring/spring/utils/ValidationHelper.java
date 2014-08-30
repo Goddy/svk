@@ -19,7 +19,7 @@ public class ValidationHelper {
     }
 
     public static Date returnDate(String date) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false);
         return sdf.parse(date);
     }

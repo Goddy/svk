@@ -87,8 +87,16 @@ public abstract class AbstractJpaDao<T>
     }
 
     @SuppressWarnings("unchecked")
-    public T get(Serializable id) {
+    public T get(long id) {
         return getEntityManager().find(getDomainClass(), id);
+    }
+
+    @SuppressWarnings("unchecked")
+    public T get(String id) {
+        if (id.isEmpty()) return null;
+        //Convert to long first
+        long cId = Long.parseLong(id);
+        return get(cId);
     }
 
     @SuppressWarnings("unchecked")
@@ -104,7 +112,7 @@ public abstract class AbstractJpaDao<T>
     }
 
     public void deleteById(Serializable id) {
-        delete(get(id));
+        //delete(get(id));
     }
 
     public void deleteAll() {
@@ -119,17 +127,13 @@ public abstract class AbstractJpaDao<T>
                 .getSingleResult();
     }
 
-    @SuppressWarnings("unchecked")
-    public T load(Serializable id) {
-        return null;
-    }
-
     public void update(T t) {
         getEntityManager().persist(t);
     }
 
     public boolean exists(Serializable id) {
-        return (get(id) != null);
+        //Todo: change to long/String
+        return true;
     }
 
     public Map<String, Object> getParameterMap(String key, Object value) {

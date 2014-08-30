@@ -1,25 +1,34 @@
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf" %>
 
+<%@ include file="../jspf/resultMessage.jspf" %>
+<h2><spring:message code="title.goals" arguments="${match.description}"/> </h2>
+<div class="panel panel-default">
+    <div class="panel-body">
 <form:form id="form" modelAttribute="form" action="changeMatchResult.html" cssClass="form-horizontal">
+        <form:hidden path="matchId"/>
         <tag:formField path="htGoals" label="text.htGoals" title="text.htGoals" type="input" optional="false"/>
         <tag:formField path="atGoals" label="text.atGoals" title="text.atGoals" type="input" optional="false"/>
         <div id="goalsDiv">
-        <tag:formField path="goals" label="text.goals" title="text.goals" type="empty" optional="false">
+        <tag:formField path="goals" label="text.goals" title="text.goals.description" type="empty" optional="false">
             <div class="form-inline" id="goalsForm">
                     <c:choose>
-                        <c:when test="${not empty match.goals}">
+                        <c:when test="${not empty match.goals && fn:length(match.goals) gt 0}">
                             <c:forEach items="${match.goals}" var="goal">
-                                <span class="row">
+                                <span class="space-bottom">
                                 <input name="goals[${goal.order}].order" style="display: none" value="${goal.order}"/>
                                 <select class="form-control" name="goals[${goal.order}].scorer">
+                                    <option value=""><spring:message code="text.scorer"/></option></option>
                                     <c:forEach items="${players}" var="player">
                                         <option value="${player.id}" ${goal.scorer.id==player.id?'selected':''}>${player.fullName}</option>
                                     </c:forEach>
                                 </select>
                                 <select class="form-control" name="goals[${goal.order}].assist">
+                                    <option value=""><spring:message code="text.assist"/></option></option>
                                     <c:forEach items="${players}" var="player">
                                         <option value="${player.id}" ${goal.assist.id==player.id?'selected':''}>${player.fullName}</option>
                                     </c:forEach>
@@ -31,12 +40,16 @@
                 </div>
         </tag:formField>
         </div>
-            <div class="form-group" id="buttons">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button id="submit" type="submit" class="btn btn-default"><spring:message code="button.add"/></button>
-                </div>
+        <div class="form-group" id="buttons">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button id="submit" type="submit" class="btn btn-default"><spring:message code="button.add"/></button>
             </div>
+        </div>
 </form:form>
+    </div>
+</div>
+
+<%@ include file="../jspf/footer.jspf" %>
 <script src="<c:url value='/resources/js/svk-1.0.0.js'/>"></script>
 <script type="text/javascript">
     (function($, utils){
@@ -48,9 +61,10 @@
     var goals = $('#goalsDiv');
     var buttons = $('#buttons');
     var next = $('#next');
+    var goalsForm = $("#goalsForm");
 
     function getRow(content, order) {
-        content += '<span class="row"><input name="goals[' + order + '].order" class="goal-order" value="' + order + '" style="display: none"/>';
+        content += '<span class="space-bottom"><input name="goals[' + order + '].order" class="goal-order" value="' + order + '" style="display: none"/>';
         content = getPlayerSelect(content, order, 'scorer');
         content = getPlayerSelect(content, order, 'assist');
         content += '</span>';
@@ -94,7 +108,6 @@
     }
 
     function update(field) {
-        var goalsForm = $("#goalsForm");
         goalsForm.empty();
         var content = '';
         var goalsNr;
@@ -103,12 +116,16 @@
             content = getRow(content, i);
         }
         goalsForm.html(content);
+        checkEmpty();
+    }
+    function checkEmpty() {
+        ($.trim(goalsForm.html()) === "") ? goals.hide() : goals.show();
     }
 
     $(document).ready(function () {
         var elementToCheck = homeTeam === defaultTeam ? htGoals : atGoals;
         if (isUpdate === "true") {
-            disableInputs();
+            //disableInputs();
             goals.show();
         }
         else {
@@ -116,15 +133,11 @@
             goals.hide();
         }
 
+        checkEmpty();
 
-
-        $('#submit').click(function(e) {
-            e.preventDefault();
-            var form = $('#form').serialize();
-            utils.postForm("changeMatchResult.json", form, function(data) {
-               console.log(data);
-            });
-        }) ;
+        utils.setKeyupAndBlur(elementToCheck, function() {
+            update(elementToCheck);
+        });
 
     });
     })(jQuery, svk.utils)

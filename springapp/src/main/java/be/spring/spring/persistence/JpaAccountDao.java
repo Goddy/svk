@@ -47,9 +47,4 @@ public class JpaAccountDao extends AbstractJpaDao<Account> implements AccountDao
         p.putAll(getParameterMap("id", id));
         return getSingleResultQuery("findAccountByUsernameExcludeCurrentId", p);
     }
-
-    @Override
-    public Account findById(Long id) {
-        return getSingleResultQuery("findAccountById", getParameterMap("id", id));
-    }
 }

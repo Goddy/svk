@@ -16,6 +16,16 @@ svk.utils = {
             },
             dataType: "text"
         });
+    },
+    setKeyupAndBlur: function (element, func) {
+        element.on({
+            keyup: function () {
+                func();
+            },
+            blur:  function () {
+                func();
+            }
+        });
     }
 }
 svk.updatePassword = (function($){
