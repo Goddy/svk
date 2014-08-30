@@ -46,7 +46,7 @@
                         $.each(json, function(i, newsItem) {
                             var content = newsItem.content.substring(0,100) + " ..."
                             tableContent += "<tr><td>"
-                                + "<h2/><a href=\"\\news\\news.html?newsItem=" + newsItem.id +"\">"+newsItem.header+"</a></h2>"
+                                + "<h2/><a href=\"\\news\\newsItem.html?newsId=" + newsItem.id +"\">"+newsItem.header+"</a></h2>"
                                 + "</td></tr>"
                                 + "<tr>"
                                 + "<td>" + content + " </td>"

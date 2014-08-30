@@ -1,12 +1,12 @@
 package be.spring.spring.controller;
 
+import be.spring.spring.controller.exceptions.ObjectNotFoundException;
 import be.spring.spring.form.NewsForm;
 import be.spring.spring.interfaces.NewsService;
 import be.spring.spring.model.Account;
 import be.spring.spring.model.News;
 import be.spring.spring.utils.Constants;
 import be.spring.spring.utils.PageObject;
-
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +30,7 @@ import java.util.List;
 @RequestMapping("/news")
 public class NewsController extends AbstractController {
     private static final Logger log = LoggerFactory.getLogger(AccountController.class);
+    private static final String VN_NEWS_ITEM_PAGE = "/news/newsItem";
     private static final String VN_NEWS_PAGE = "/news/news";
     private static final String VN_SEARCH_PAGE = "/news/search";
     private static final String VN_ADD_NEWS_PAGE = "/news/editNews";
@@ -45,6 +46,21 @@ public class NewsController extends AbstractController {
         List<News> newsList = newsService.getPagedNews(Constants.ZERO);
         model.addAttribute("newsList", newsList);
         return VN_NEWS_PAGE;
+    }
+
+    @RequestMapping(value = "newsItem", method = RequestMethod.GET)
+    public String getNewsItem(Model model, @RequestParam String newsId) {
+        News news = newsService.getNewsItem(newsId);
+        model.addAttribute("newsItem", news );
+        return VN_NEWS_ITEM_PAGE;
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "deleteItem", method = RequestMethod.GET)
+    public String deleteNewsItem(Model model, @RequestParam String newsId) {
+        newsService.deleteNews(newsId);
+        log.info(String.format("News item %s was deleted by user %s", newsId, getAccountFromSecurity().getUsername()));
+        return getRedirect(VN_NEWS_PAGE);
     }
 
     @RequestMapping(value = "/news/{page}", method = RequestMethod.GET)
@@ -75,13 +91,14 @@ public class NewsController extends AbstractController {
         return newsService.getSearch(searchTerm);
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "editNews", method = RequestMethod.GET)
-    public String addGet(@ModelAttribute("form") NewsForm form, @RequestParam(required = false) String id, Model model) {
-        if (!Strings.isNullOrEmpty(id)) {
+    public String addGet(@ModelAttribute("form") NewsForm form, @RequestParam(required = false) String newsId, Model model) {
+        if (!Strings.isNullOrEmpty(newsId)) {
             model.addAttribute("command", "updateNews.html");
-            form.setId(id);
-            News n = newsService.getNewsItem(Long.parseLong(id));
+            form.setId(newsId);
+            News n = newsService.getNewsItem(newsId);
+            if (n == null) throw new ObjectNotFoundException(String.format("News item %s not found by user %s", newsId, getAccountFromSecurity().getUsername()));
             form.setTitle(n.getHeader());
             form.setBody(n.getContent());
         }
@@ -91,7 +108,7 @@ public class NewsController extends AbstractController {
         return VN_ADD_NEWS_PAGE;
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createNews", method = RequestMethod.POST)
     public String createNews(@Valid @ModelAttribute("form") NewsForm form, BindingResult result, Model model) {
         Account a = getAccountFromSecurity();
@@ -102,7 +119,7 @@ public class NewsController extends AbstractController {
         return "redirect:" + VN_NEWS_PAGE;
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "updateNews", method = RequestMethod.POST)
     public String updateNews(@Valid @ModelAttribute("form") NewsForm form, BindingResult result, Model model) {
         Account a = getAccountFromSecurity();

@@ -1,5 +1,6 @@
 package be.spring.spring.service;
 
+import be.spring.spring.controller.exceptions.ObjectNotFoundException;
 import be.spring.spring.form.NewsForm;
 import be.spring.spring.interfaces.NewsDao;
 import be.spring.spring.interfaces.NewsService;
@@ -9,7 +10,6 @@ import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Errors;
 
 import java.util.List;
 
@@ -35,18 +35,17 @@ public class NewsServiceImpl implements NewsService {
     @Override
     @Transactional(readOnly = false)
     public void updateNews(NewsForm form, Account account) {
-        News n = newsDao.get(Long.parseLong(form.getId()));
-        if (n != null) {
-            updateNews(n, form, account);
-            newsDao.update(n);
-        }
-        else {
-            //Todo: exception
-        }
+        News n = newsDao.get(form.getId());
+        if (n == null) throw new ObjectNotFoundException(String.format("News item with id %s not found", form.getId()));
+        updateNews(n, form, account);
+        newsDao.update(n);
+
     }
 
     @Override
-    public News getNewsItem(Long id) {
+    public News getNewsItem(String id) {
+        News news = newsDao.get(id);
+        if (news == null) throw new ObjectNotFoundException(String.format("News item with id %s not found", id));
         return newsDao.get(id);
     }
 
@@ -68,6 +67,12 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<News> getSearch(String term) {
         return newsDao.getSearch(term);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void deleteNews(String id) {
+        newsDao.delete(id);
     }
 
     private News updateNews(News n, NewsForm f, Account a) {

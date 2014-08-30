@@ -3,7 +3,6 @@ package be.spring.spring.interfaces;
 import be.spring.spring.form.NewsForm;
 import be.spring.spring.model.Account;
 import be.spring.spring.model.News;
-import org.springframework.validation.Errors;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public interface NewsService {
 
     void updateNews(NewsForm form, Account account);
 
-    News getNewsItem(Long id);
+    News getNewsItem(String id);
 
     List<News> getAll();
 
@@ -27,4 +26,6 @@ public interface NewsService {
     List<News> getSearch(String term);
 
     public int getNewsCount();
+
+    void deleteNews(String id);
 }

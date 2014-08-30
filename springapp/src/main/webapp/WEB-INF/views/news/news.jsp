@@ -1,4 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ include file="../jspf/header.jspf" %>
 <div class="row">
     <div class="col-md-4">
@@ -25,9 +26,16 @@
                     <div class="panel-body">
                         <p align="left"><c:out value="${newsItem.content}"/></p>
 
-                        <p align="right"><spring:message code="text.postedby"/> <c:out
+                        <div style="text-align: right"><spring:message code="text.postedby"/> <c:out
                                 value="${newsItem.account.getFullName()}"/> <spring:message code="text.on"/>
-                            <fmt:formatDate value="${newsItem.postDate}"/> |<a href="/news/editNews.html?id=${newsItem.id}" class="btn"><span class="glyphicon glyphicon-pencil"></span></a> | <a href="/news/deleteNews.html?id=${newsItem.id}" class="btn"><span class="glyphicon glyphicon-trash"></span></a></p>
+                            <fmt:formatDate value="${newsItem.postDate}"/>
+                            <sec:authorize access="hasRole('ADMIN')">
+                            <div class="btn-group">
+                                <a href="/news/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
+                                <a href="/news/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
+                            </div>
+                            </sec:authorize>
+                        </div>
                     </div>
                 </div>
             </c:forEach>
@@ -88,7 +96,7 @@
                             var content = newsItem.content.substring(0, 100) + " ..."
 
                             divContent += '<div class="panel panel-info">' +
-                                    '<div class="panel-heading"><a href=\"\\news\\news.html?newsItem=" + newsItem.id +"\">' + newsItem.header + '</a></div>' +
+                                    '<div class="panel-heading"><a href="newsItem.html?newsId=' + newsItem.id + '"\">' + newsItem.header + '</a></div>' +
                                     '<div class="panel-body">' +
                                     '<p align="left">' + content + ' </p>' +
                                     '</div></div>';
