@@ -378,6 +378,7 @@
                 <properties>
                     <userName>adminymrySPG</userName>
                     <password>lcTqjTpY5xXs</password>
+                    <url>n/a</url>
                 </properties>
                 <build>
                     <finalName>svk</finalName>
