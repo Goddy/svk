@@ -12,8 +12,8 @@
 	
 	<!-- Application Loggers -->
 	<logger name="be.spring.spring">
-		<level value="info" />
-	</logger>
+        <level value="debug"/>
+    </logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
