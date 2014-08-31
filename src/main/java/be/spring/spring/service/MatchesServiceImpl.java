@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * Created by u0090265 on 5/3/14.
@@ -59,10 +60,22 @@ public class MatchesServiceImpl implements MatchesService {
     }
 
     @Override
-    public List<ActionWrapper<Match>> getMatchesForSeason(String seasonId, Account account, Locale locale) {
+    public List<ActionWrapper<Match>> getMatchesForSeason(String seasonId, final Account account, final Locale locale) {
         Season season = seasonDao.get(seasonId);
         List<Match> matches = matchesDao.getMatchForSeason(season);
-        List<ActionWrapper<Match>> actionWrappers = new ArrayList<>();
+        final List<ActionWrapper<Match>> actionWrappers = new ArrayList<>();
+        matches.parallelStream().forEach(new Consumer<Match>() {
+            @Override
+            public void accept(Match match) {
+                actionWrappers.add(new ActionWrapper<>(match));
+            }
+        });
+        actionWrappers.parallelStream().forEach(new Consumer<ActionWrapper<Match>>() {
+            @Override
+            public void accept(ActionWrapper<Match> matchActionWrapper) {
+                matchActionWrapper.setHtmlActions(htmlHelper.getMatchesButtons(matchActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
+            }
+        });
         /**
         matches.parallelStream().forEach(m -> {
             return actionWrappers.add(new ActionWrapper<>(m));

@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
 
 /**
  * Created by u0090265 on 5/10/14.
@@ -88,10 +89,23 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public List<ActionWrapper<Team>> getTeams(Account account, Locale locale) {
+    public List<ActionWrapper<Team>> getTeams(final Account account, final Locale locale) {
         List<Team> teams = teamDao.getAll();
         //Todo: make this OO, put an actionwrapper service in between, with handlers
-        List<ActionWrapper<Team>> actionWrappers = new ArrayList<>();
+        final List<ActionWrapper<Team>> actionWrappers = new ArrayList<>();
+        teams.parallelStream().forEach(new Consumer<Team>() {
+            @Override
+            public void accept(Team team) {
+                actionWrappers.add(new ActionWrapper<>(team));
+            }
+        });
+
+        actionWrappers.parallelStream().forEach(new Consumer<ActionWrapper<Team>>() {
+            @Override
+            public void accept(ActionWrapper<Team> teamActionWrapper) {
+                teamActionWrapper.setHtmlActions(htmlHelper.getTeamButtons(teamActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
+            }
+        });
         /**teams.parallelStream().forEach(m -> actionWrappers.add(new ActionWrapper<>(m)));
         actionWrappers.parallelStream()
                 .forEach(a -> a.setHtmlActions(htmlHelper.getTeamButtons(a.getObject(), securityUtils.isAdmin(account), locale)));**/
