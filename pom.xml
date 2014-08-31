@@ -376,7 +376,6 @@
             <profile>
                 <id>openshift</id>
                 <properties>
-                    <url>jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${$OPENSHIFT_MYSQL_DB_PORT}/test</url>
                     <userName>adminymrySPG</userName>
                     <password>lcTqjTpY5xXs</password>
                 </properties>
