@@ -397,9 +397,9 @@
         <profile>
             <id>test</id>
             <properties>
-                <url>jdbc:mysql://localhost:3306/test</url>
-                <userName>adminauzX3Rc</userName>
-                <password>7EleUTxGcQkV</password>
+                <url>jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${$OPENSHIFT_MYSQL_DB_PORT}/test</url>
+                <userName>adminymrySPG</userName>
+                <password>lcTqjTpY5xXs</password>
             </properties>
         </profile>
         <profile>
