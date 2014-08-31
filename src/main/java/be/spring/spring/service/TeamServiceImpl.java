@@ -79,11 +79,11 @@ public class TeamServiceImpl implements TeamService {
     }
 
     private Address getAddress(CreateAndUpdateTeamForm form) {
-            Address address = new Address();
+        Address address = new Address();
         address.setAddress(form.getAddress());
         address.setCity(form.getCity());
         address.setPostalCode(Integer.parseInt(form.getPostalCode()));
-        address.setGoogleLink(form.getGoogleLink());
+        address.setGoogleLink(form.isUseLink() ? form.getGoogleLink() : null);
         return address;
     }
 

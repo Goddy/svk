@@ -42,6 +42,16 @@ svk.deleteDialogs = (function($){
 
 })(jQuery);
 
+svk.mapDialog = (function($){
+    return {
+        showMapDialog : function(dialog, link) {
+            $("#mapFrame").attr("src", link);
+            dialog.modal();
+        }
+    }
+
+})(jQuery);
+
 svk.updatePassword = (function($){
     function checkPassword(newPwd, repeatPwd) {
         return newPwd.val() === repeatPwd.val();

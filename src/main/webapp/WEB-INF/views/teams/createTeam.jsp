@@ -28,10 +28,10 @@
                 <div class="col-sm-offset-2 col-sm-10">
                     <c:choose>
                         <c:when test="${action == 'createTeam'}">
-                            <button type="submit" class="btn btn-default"><spring:message code="button.add"/></button>
+                            <button id="submit" type="submit" class="btn btn-default"><spring:message code="button.add"/></button>
                         </c:when>
                         <c:otherwise>
-                            <button type="submit" class="btn btn-default"><spring:message code="button.update"/></button>
+                            <button id="submit" type="submit" class="btn btn-default"><spring:message code="button.update"/></button>
                         </c:otherwise>
                     </c:choose>
 
@@ -49,6 +49,7 @@
     var address = $('#address');
     var city = $('#city');
     var postalCode = $('#postalCode');
+    var submit = $("#submit");
 
     $(function () {
         mapDiv.hide();
@@ -57,6 +58,10 @@
 
         $('.address').keyup(function () {
             checkGoogleLinkInput();
+        });
+
+        submit.click(function() {
+            googleLinkInput.prop('disabled', false);
         });
     });
 

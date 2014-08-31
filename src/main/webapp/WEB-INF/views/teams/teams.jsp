@@ -7,6 +7,7 @@
 <div class="panel-group" id="accordion">
     <table class="table table-hover">
         <tr>
+            <th style="display:none;"></th>
             <th><spring:message code="label.id"/> </th>
             <th><spring:message code="label.teamName"/> </th>
             <th><spring:message code="label.address"/> </th>
@@ -14,6 +15,7 @@
         </tr>
     <c:forEach items="${teams}" var="team">
         <tr>
+            <td style="display:none;">${team.object.address.googleLink}</td>
             <td>${team.object.id}</td>
             <td>${team.object.name}</td>
             <td>${team.object.address}</td>
@@ -24,23 +26,31 @@
 </div>
 <%@ include file="../jspf/footer.jspf" %>
 <tag:deleteDialog dialogId="delete-team-modal"/>
+<tag:mapDialog dialogId="map-modal"/>
+
 <script src="<c:url value='/resources/js/svk-1.0.0.js'/>"></script>
 <script type="text/javascript">
-    (function($, dd){
+    (function($, dd, md){
         var deleteMsg = "<spring:message code="text.delete.team"/>";
         var deleteTitle = "<spring:message code="title.delete.team"/>";
         var deleteMatchModal = $("#delete-team-modal");
+        var mapModal = $("#map-modal");
         $(document).ready(function() {
             $(document).on('click', 'a[class*="delete"]', function (e) {
-                console.log("Clicked delete");
                 e.preventDefault();
-                var name = $(this).parents('tr:first').find('td:nth-child(2)').text();
+                var name = $(this).parents('tr:first').find('td:nth-child(3)').text();
                 var href = $(this).attr("href");
                 var msg = deleteMsg + name;
                 dd.showDeleteDialog(deleteMatchModal, msg, deleteTitle, href)
             });
+
+            $(document).on('click', 'a[class*="map"]', function (e) {
+                e.preventDefault();
+                var href = $(this).parents('tr:first').find('td:nth-child(1)').text();
+                md.showMapDialog(mapModal, href)
+            });
         });
-    })(jQuery, svk.deleteDialogs);
+    })(jQuery, svk.deleteDialogs, svk.mapDialog);
 </script>
 
 

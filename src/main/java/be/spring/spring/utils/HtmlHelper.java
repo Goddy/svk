@@ -18,7 +18,9 @@ public class HtmlHelper {
 
     private static String EDIT = "glyphicon glyphicon-edit edit";
     private static String DELETE = "glyphicon glyphicon-trash delete";
+    private static String MAP = "glyphicon glyphicon-map-marker";
     private static String DELETE_CLASS = "delete";
+    private static String MAP_CLASS = "map";
     private static String EMPTY = "";
 
     public String getMatchesButtons(Match match, boolean isAdmin, Locale locale) {
@@ -36,11 +38,12 @@ public class HtmlHelper {
 
     public String getTeamButtons(Team team, boolean isAdmin, Locale locale) {
         if (isAdmin) {
-            String btns = new StringBuilder()
+            StringBuilder btns = new StringBuilder()
                     .append(getBtn(EMPTY, EDIT, String.format("editTeam.html?teamId=%s", team.getId())))
-                    .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteTeam.html?teamId=%s", team.getId())))
-                    .toString();
-            return wrapIntoBtnGroup(btns);
+                    .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteTeam.html?teamId=%s", team.getId())));
+            if (team.getAddress().getGoogleLink() != null) btns.append(getBtn(MAP_CLASS, MAP, "#"));
+
+            return wrapIntoBtnGroup(btns.toString());
         }
         else {
             return messageSource.getMessage("text.noActions", null, locale);
