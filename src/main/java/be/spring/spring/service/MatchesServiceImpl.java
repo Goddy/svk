@@ -63,9 +63,13 @@ public class MatchesServiceImpl implements MatchesService {
         Season season = seasonDao.get(seasonId);
         List<Match> matches = matchesDao.getMatchForSeason(season);
         List<ActionWrapper<Match>> actionWrappers = new ArrayList<>();
-        matches.parallelStream().forEach(m -> actionWrappers.add(new ActionWrapper<>(m)));
+        /**
+        matches.parallelStream().forEach(m -> {
+            return actionWrappers.add(new ActionWrapper<>(m));
+        });
         actionWrappers.parallelStream()
                 .forEach(a -> a.setHtmlActions(htmlHelper.getMatchesButtons(a.getObject(), securityUtils.isAdmin(account), locale)));
+         **/
         return actionWrappers;
     }
 

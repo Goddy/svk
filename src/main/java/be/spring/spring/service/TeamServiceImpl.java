@@ -92,9 +92,9 @@ public class TeamServiceImpl implements TeamService {
         List<Team> teams = teamDao.getAll();
         //Todo: make this OO, put an actionwrapper service in between, with handlers
         List<ActionWrapper<Team>> actionWrappers = new ArrayList<>();
-        teams.parallelStream().forEach(m -> actionWrappers.add(new ActionWrapper<>(m)));
+        /**teams.parallelStream().forEach(m -> actionWrappers.add(new ActionWrapper<>(m)));
         actionWrappers.parallelStream()
-                .forEach(a -> a.setHtmlActions(htmlHelper.getTeamButtons(a.getObject(), securityUtils.isAdmin(account), locale)));
+                .forEach(a -> a.setHtmlActions(htmlHelper.getTeamButtons(a.getObject(), securityUtils.isAdmin(account), locale)));**/
         return actionWrappers;
     }
 
