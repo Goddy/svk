@@ -11,6 +11,7 @@
     <import resource="data-context.xml"/>
     <import resource="security-context.xml"/>
 
+
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
@@ -53,5 +54,5 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <context:property-placeholder location="classpath:application.properties"/>
+    <context:property-placeholder location="${properties.location}"/>
 </beans>

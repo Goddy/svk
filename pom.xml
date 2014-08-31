@@ -321,6 +321,22 @@
                 </configuration>
             </plugin>
             <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <webResources>
+                        <webResource>
+                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+                            <includes>
+                                <include>applicationContext.xml</include>
+                            </includes>
+                            <targetPath>WEB-INF</targetPath>
+                            <filtering>true</filtering>
+                        </webResource>
+                    </webResources>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
@@ -355,8 +371,8 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>*.properties</include>
                     <include>*.xml</include>
+                    <include>*.properties</include>
                 </includes>
             </resource>
         </resources>
@@ -366,11 +382,12 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-        <id>dev</id>
+        <id>local</id>
         <properties>
             <url>jdbc:mysql://localhost:3306/svk</url>
             <userName>root</userName>
             <password>java</password>
+            <properties.location>classpath:local.properties</properties.location>
         </properties>
     </profile>
             <profile>
@@ -379,6 +396,7 @@
                     <userName>adminymrySPG</userName>
                     <password>lcTqjTpY5xXs</password>
                     <url>n/a</url>
+                    <properties.location>classpath:openshift.properties</properties.location>
                 </properties>
                 <build>
                     <finalName>svk</finalName>
@@ -395,19 +413,12 @@
                 </build>
             </profile>
         <profile>
-            <id>test</id>
-            <properties>
-                <url>jdbc:mysql://localhost:3306/test</url>
-                <userName>adminauzX3Rc</userName>
-                <password>7EleUTxGcQkV</password>
-            </properties>
-        </profile>
-        <profile>
             <id>prod</id>
             <properties>
                 <url>jdbc:mysql://localhost:3306/svk</url>
                 <userName>root</userName>
                 <password>java</password>
+                <properties.location>classpath:prod.properties</properties.location>
             </properties>
         </profile>
     </profiles>
