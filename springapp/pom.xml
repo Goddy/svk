@@ -350,5 +350,44 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*.properties</include>
+                    <include>*.xml</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
+    <profiles>
+        <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        <id>dev</id>
+        <properties>
+            <url>jdbc:mysql://localhost:3306/svk</url>
+            <userName>root</userName>
+            <password>java</password>
+        </properties>
+    </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <url>jdbc:mysql://localhost:3306/svk</url>
+                <userName>adminYLgIhYL</userName>
+                <password>bHiF6ellzA7W</password>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <url>jdbc:mysql://localhost:3306/svk</url>
+                <userName>root</userName>
+                <password>java</password>
+            </properties>
+        </profile>
+    </profiles>
 </project>
