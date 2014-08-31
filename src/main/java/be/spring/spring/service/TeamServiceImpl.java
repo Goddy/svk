@@ -93,19 +93,15 @@ public class TeamServiceImpl implements TeamService {
         List<Team> teams = teamDao.getAll();
         //Todo: make this OO, put an actionwrapper service in between, with handlers
         final List<ActionWrapper<Team>> actionWrappers = new ArrayList<>();
-        teams.parallelStream().forEach(new Consumer<Team>() {
-            @Override
-            public void accept(Team team) {
-                actionWrappers.add(new ActionWrapper<>(team));
-            }
-        });
 
-        actionWrappers.parallelStream().forEach(new Consumer<ActionWrapper<Team>>() {
-            @Override
-            public void accept(ActionWrapper<Team> teamActionWrapper) {
-                teamActionWrapper.setHtmlActions(htmlHelper.getTeamButtons(teamActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
-            }
-        });
+        for (Team t : teams) {
+            actionWrappers.add(new ActionWrapper<>(t));
+        }
+
+        for (ActionWrapper<Team> teamActionWrapper : actionWrappers) {
+            teamActionWrapper.setHtmlActions(htmlHelper.getTeamButtons(teamActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
+        }
+
         /**teams.parallelStream().forEach(m -> actionWrappers.add(new ActionWrapper<>(m)));
         actionWrappers.parallelStream()
                 .forEach(a -> a.setHtmlActions(htmlHelper.getTeamButtons(a.getObject(), securityUtils.isAdmin(account), locale)));**/
