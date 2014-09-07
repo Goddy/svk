@@ -29,7 +29,7 @@
                         <div style="text-align: right"><spring:message code="text.postedby"/> <c:out
                                 value="${newsItem.account.getFullName()}"/> <spring:message code="text.on"/>
                             <fmt:formatDate value="${newsItem.postDate}"/>
-                            <sec:authorize access="hasRole('ADMIN')">
+                            <sec:authorize access="isAuthenticated()">
                             <div class="btn-group">
                                 <a href="/news/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
                                 <a href="/news/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
