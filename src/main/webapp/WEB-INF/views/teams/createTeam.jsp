@@ -28,12 +28,14 @@
                 <div class="col-sm-offset-2 col-sm-10">
                     <c:choose>
                         <c:when test="${action == 'createTeam'}">
-                            <button id="submit" type="submit" class="btn btn-default"><spring:message code="button.add"/></button>
+                            <button id="submit" type="submit" class="btn btn-primary"><spring:message code="button.add"/></button>
                         </c:when>
                         <c:otherwise>
-                            <button id="submit" type="submit" class="btn btn-default"><spring:message code="button.update"/></button>
+                            <button id="submit" type="submit" class="btn btn-primary"><spring:message code="button.update"/></button>
                         </c:otherwise>
                     </c:choose>
+
+                    <a id="btnCancel" class="btn btn-default" href="teams.html"><spring:message code='button.cancel'/></a>
 
                 </div>
             </div>

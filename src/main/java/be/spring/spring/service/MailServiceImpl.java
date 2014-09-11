@@ -4,9 +4,12 @@ import be.spring.spring.interfaces.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import javax.mail.internet.MimeMessage;
 
 /**
  * Created by u0090265 on 9/11/14.
@@ -15,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class MailServiceImpl  implements MailService {
 
 @Autowired
-private MailSender mailSender;
+private JavaMailSenderImpl mailSender;
 
 @Autowired
 private SimpleMailMessage preConfiguredMessage;
@@ -25,17 +28,22 @@ private SimpleMailMessage preConfiguredMessage;
      * This method will send compose and send the message
      * */
     @Override
-     public void sendMail(String to, String subject, String body) {
+     public boolean sendMail(String to, String subject, String body) {
         log.debug(String.format("Trying to send message %s to %s", subject, to ));
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
+        final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
+
         try {
-            mailSender.send(message);
+            final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false, "utf-8");
+            mimeMessage.setContent(body, "text/html");
+            message.setTo(to);
+            message.setSubject(subject);
+
+            this.mailSender.send(mimeMessage);
             log.debug(String.format("Sending message to %s succeeded", to));
+            return true;
         } catch (Exception e) {
             log.debug(String.format("Sending message to %s failed", to));
+            return false;
         }
 
     }

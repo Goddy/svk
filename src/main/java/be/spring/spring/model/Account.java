@@ -21,6 +21,7 @@ public class Account {
     private String username;
     private Role role;
     private SocialMediaEnum signInProvider;
+    private String pwdRecovery;
     private boolean active = false;
 
     public Account() {
@@ -116,5 +117,14 @@ public class Account {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    @Column(name = "password_recovery")
+    public String getPwdRecovery() {
+        return pwdRecovery;
+    }
+
+    public void setPwdRecovery(String pwdRecovery) {
+        this.pwdRecovery = pwdRecovery;
     }
 }

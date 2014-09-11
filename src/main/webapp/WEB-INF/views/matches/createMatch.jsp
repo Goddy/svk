@@ -35,7 +35,9 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default"><spring:message code="button.add"/></button>
+            <button type="submit" class="btn btn-primary"><spring:message code="button.add"/></button>
+            <button id="btnReset" type="reset" class="btn btn-info"><spring:message code='button.reset'/></button>
+            <a id="btnCancel" class="btn btn-default" href="matches.html"><spring:message code='button.cancel'/></a>
         </div>
     </div>
 </form:form>

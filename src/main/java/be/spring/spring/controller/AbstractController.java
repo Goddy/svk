@@ -4,7 +4,6 @@ import be.spring.spring.controller.exceptions.ObjectNotFoundException;
 import be.spring.spring.interfaces.MailService;
 import be.spring.spring.model.Account;
 import be.spring.spring.utils.SecurityUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,17 +40,6 @@ public abstract class AbstractController {
         log.error(e.getMessage());
         request.setAttribute("message", "error.object.unknown");
         return "error";
-    }
-
-    @ExceptionHandler(Exception.class)
-    public void mailException(Exception e) {
-        try {
-            mailService.sendPreConfiguredMail(ExceptionUtils.getStackTrace(e));
-        }
-        catch (Exception ex) {
-            //added to avoid exception loops
-            log.error(String.format("Could not send email due to exception %s", ex.getMessage()));
-        }
     }
 
     private static final Logger log = LoggerFactory.getLogger(AbstractController.class);

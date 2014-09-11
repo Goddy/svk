@@ -46,19 +46,27 @@ and social sign in buttons.
                     </div>
                 </div>
             </form>
+
+            <login_error:if test="${'fail' eq param.auth}">
             <div class="row">
                 <div class="form-group col-lg-4">
-                <login_error:if test="${'fail' eq param.auth}">
                     <div style="color:red">
                             ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
                     </div>
-                </login_error:if>
+                </div>
+            </div>
+            </login_error:if>
+
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <!-- Add create user account link -->
+                    <a href="/account/register.html"><spring:message code="button.register"/></a>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-lg-4">
                     <!-- Add create user account link -->
-                    <a href="/account/register"><spring:message code="button.register"/></a>
+                    <a href="/account/getPwdRecoveryCode.html"><spring:message code="button.fogot.password"/></a>
                 </div>
             </div>
         </div>

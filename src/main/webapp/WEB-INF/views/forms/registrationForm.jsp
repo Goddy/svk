@@ -4,6 +4,8 @@
 <div class="alert alert-info">
     <spring:message code="text.register"/>
 </div>
+<div class="panel panel-default">
+    <div class="panel-body">
 <form:form action="register" modelAttribute="Account" cssClass="form-horizontal">
     <tag:formField path="username" label="label.email" title="title.email" type="input" optional="false"/>
     <tag:formField path="firstName" label="label.firstName" title="label.firstName" type="input" optional="false"/>
@@ -18,5 +20,7 @@
         </div>
     </div>
 </form:form>
+        </div>
+    </div>
 
 <%@ include file="../jspf/footer.jspf"%>
