@@ -61,7 +61,7 @@
         <property name="host" value="smtp.gmail.com"/>
         <property name="port" value="587"/>
         <property name="username" value="voetbalsvk@gmail.com"/>
-        <property name="password" value="${gmail.smpt.password}"/>
+        <property name="password" value="${gmail.smtp.password}"/>
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.smtp.timeout">3000</prop>
@@ -74,8 +74,8 @@
 
     <!-- You can have some pre-configured messagess also which are ready to send -->
     <bean id="preConfiguredMessage" class="org.springframework.mail.SimpleMailMessage">
-        <property name="to" value="tdedobbeleer@gmail.com"></property>
-        <property name="from" value="tdedobbeleer@gmail.com"></property>
-        <property name="subject" value="FATAL - Application crash. Save your job !!"/>
+        <property name="to" value="voetbalsvk@gmail.com"></property>
+        <property name="from" value="voetbalsvk@gmail.com"></property>
+        <property name="subject" value="SVK - Exception"/>
     </bean>
 </beans>
