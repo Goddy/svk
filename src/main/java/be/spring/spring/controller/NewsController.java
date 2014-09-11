@@ -91,7 +91,7 @@ public class NewsController extends AbstractController {
         return newsService.getSearch(searchTerm);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "editNews", method = RequestMethod.GET)
     public String addGet(@ModelAttribute("form") NewsForm form, @RequestParam(required = false) String newsId, Model model) {
         if (!Strings.isNullOrEmpty(newsId)) {
@@ -108,7 +108,7 @@ public class NewsController extends AbstractController {
         return VN_ADD_NEWS_PAGE;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "createNews", method = RequestMethod.POST)
     public String createNews(@Valid @ModelAttribute("form") NewsForm form, BindingResult result, Model model) {
         Account a = getAccountFromSecurity();
@@ -119,7 +119,7 @@ public class NewsController extends AbstractController {
         return "redirect:" + VN_NEWS_PAGE;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "updateNews", method = RequestMethod.POST)
     public String updateNews(@Valid @ModelAttribute("form") NewsForm form, BindingResult result, Model model) {
         Account a = getAccountFromSecurity();
