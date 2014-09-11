@@ -2,8 +2,6 @@ package be.spring.spring.persistence;
 
 import be.spring.spring.interfaces.AccountDao;
 import be.spring.spring.model.Account;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,6 +38,14 @@ public class JpaAccountDao extends AbstractJpaDao<Account> implements AccountDao
     @Override
     public Account findByUsername(String username) {
         return getSingleResultQuery("findAccountByUsername", getParameterMap("username", username));
+    }
+
+
+    @Override
+    public Account findByUsernameAndActiveStatus(String username, boolean active) {
+        Map<String, Object> parmetermap = getParameterMap("username", username);
+        parmetermap.putAll(getParameterMap("active", active));
+        return getSingleResultQuery("findAccountByUsernameAndActiveStatus", parmetermap );
     }
 
     @Override

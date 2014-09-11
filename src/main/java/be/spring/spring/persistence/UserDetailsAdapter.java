@@ -2,7 +2,7 @@ package be.spring.spring.persistence;
 
 import be.spring.spring.model.Account;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -83,11 +83,8 @@ public class UserDetailsAdapter implements UserDetails {
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities =
-                new HashSet<GrantedAuthority>();
-
-        authorities.add(new GrantedAuthorityImpl(account.getRole().name()));
-
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority(account.getRole().name()));
         return authorities;
     }
 }

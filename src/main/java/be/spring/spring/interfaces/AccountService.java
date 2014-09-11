@@ -22,6 +22,6 @@ public interface AccountService {
     @Transactional(readOnly = true)
     List<Account> getAll();
 
-    Account getAccountByEmail(String email);
+    Account getActiveAccountByEmail(String email);
 }
 

@@ -107,6 +107,7 @@ public class MatchesServiceImpl implements MatchesService {
         m.setGoals(transFormGoals(form));
         m.setAtGoals(form.getAtGoals());
         m.setHtGoals(form.getHtGoals());
+        m.setPlayed(true);
         matchesDao.update(m);
         return m;
     }

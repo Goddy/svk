@@ -1,11 +1,8 @@
 package be.spring.spring.persistence;
 
-import javax.inject.Inject;
-
 import be.spring.spring.interfaces.AccountService;
 import be.spring.spring.interfaces.UserDetailsDao;
 import be.spring.spring.model.Account;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +28,7 @@ public class UserDetailsServiceAdapter implements UserDetailsService {
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
         Account account =
-                accountService.getAccountByEmail(username);
+                accountService.getActiveAccountByEmail(username);
         if (account == null) {
             throw new UsernameNotFoundException(
                     "No user with username "+ username);

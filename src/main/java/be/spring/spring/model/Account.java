@@ -1,7 +1,6 @@
 package be.spring.spring.model;
 
 import be.spring.spring.data.SocialMediaEnum;
-import be.spring.spring.utils.Constants;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,6 +8,7 @@ import javax.validation.constraints.Size;
 
 @NamedQueries({
         @NamedQuery(name = "findAccountByUsername", query = "select a from Account a where a.username = :username"),
+        @NamedQuery(name = "findAccountByUsernameAndActiveStatus", query = "select a from Account a where a.username = :username AND a.active = :active"),
         @NamedQuery(name = "findAccountById", query = "select a from Account a where a.id = :id"),
         @NamedQuery(name = "findAccountByUsernameExcludeCurrentId", query = "select a from Account a where a.username = :username AND a.id != :id")
 })
@@ -21,6 +21,7 @@ public class Account {
     private String username;
     private Role role;
     private SocialMediaEnum signInProvider;
+    private boolean active = false;
 
     public Account() {
     }
@@ -105,5 +106,15 @@ public class Account {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @NotNull
+    @Column(name = "activated")
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

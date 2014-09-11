@@ -1,13 +1,10 @@
 package be.spring.spring.model;
 
-import be.spring.spring.utils.JsonDateSerializer;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +24,7 @@ import java.util.List;
 @Table(name = "matches")
 public class Match {
     private long id;
+    private boolean played = false;
     private DateTime date;
     private Season season;
     private Team homeTeam;
@@ -136,5 +134,15 @@ public class Match {
     @Transient
     public String getDescription() {
         return String.format("%s - %s", homeTeam.getName(), awayTeam.getName());
+    }
+
+    @NotNull
+    @Column(name = "played")
+    public boolean isPlayed() {
+        return played;
+    }
+
+    public void setPlayed(boolean played) {
+        this.played = played;
     }
 }

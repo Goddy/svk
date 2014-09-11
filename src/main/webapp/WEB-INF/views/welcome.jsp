@@ -1,10 +1,8 @@
 <%@ include file="jspf/header.jspf" %>
 
 
-<h3>Message : ${message}</h3>
+<h2><spring:message code="title.login.welcome" arguments="${username}"/> </h2>
 
-<h3>Username : ${username}</h3>
-
-<a href="<c:url value="/j_spring_security_logout" />"> Logout</a>
+<p><spring:message code="text.login.welcome"/> </p>
 
 <%@ include file="jspf/footer.jspf" %>

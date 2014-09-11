@@ -76,12 +76,14 @@ public abstract class AbstractJpaDao<T>
         return getDomainClass().getName();
     }
 
+    @SuppressWarnings("unchecked")
     public void createAll(List<T> tList) {
         for (T t : tList) {
             create(t);
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void create(T t) {
         getEntityManager().persist(t);
     }
@@ -107,30 +109,36 @@ public abstract class AbstractJpaDao<T>
         return list;
     }
 
+    @SuppressWarnings("unchecked")
     public void delete(T t) {
         getEntityManager().remove(t);
     }
 
+    @SuppressWarnings("unchecked")
     public void delete(String id) {
         delete(get(id));
     }
 
+    @SuppressWarnings("unchecked")
     public void deleteAll() {
         getEntityManager()
                 .createQuery("delete from " + getDomainClassName() + " x")
                 .executeUpdate();
     }
 
+    @SuppressWarnings("unchecked")
     public long count() {
         return (Long) getEntityManager()
                 .createQuery("select count(*) from " + getDomainClassName())
                 .getSingleResult();
     }
 
+    @SuppressWarnings("unchecked")
     public void update(T t) {
         getEntityManager().persist(t);
     }
 
+    @SuppressWarnings("unchecked")
     public boolean exists(Serializable id) {
         //Todo: change to long/String
         return true;

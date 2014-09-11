@@ -1,12 +1,14 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf"%>
-
+<div class="alert alert-info">
+    <spring:message code="text.register"/>
+</div>
 <form:form action="register" modelAttribute="Account" cssClass="form-horizontal">
-    <tag:formField path="username" label="label.email" title="label.email" type="input" optional="false"/>
+    <tag:formField path="username" label="label.email" title="title.email" type="input" optional="false"/>
     <tag:formField path="firstName" label="label.firstName" title="label.firstName" type="input" optional="false"/>
     <tag:formField path="lastName" label="label.lastName" title="label.lastName" type="input" optional="false"/>
-    <tag:formField path="password" label="label.password" title="label.password" type="password" optional="false"/>
+    <tag:formField path="password" label="label.password" title="title.password" type="password" optional="false"/>
     <tag:formField path="confirmPassword" label="label.confirmPassword" title="label.confirmPassword" type="password" optional="false"/>
 
     <div class="form-group">

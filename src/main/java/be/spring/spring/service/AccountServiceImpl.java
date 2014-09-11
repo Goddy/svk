@@ -65,8 +65,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account getAccountByEmail(String email) {
-        return accountDao.findByUsername(email);
+    public Account getActiveAccountByEmail(String email) {
+        //Get account and check if
+        return accountDao.findByUsernameAndActiveStatus(email, true);
     }
 
     private Account getUpdatedAccount(Account account, AccountDetailsForm form) {

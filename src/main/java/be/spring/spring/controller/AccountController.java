@@ -28,9 +28,10 @@ public class AccountController extends AbstractController {
     private static final Logger log = LoggerFactory.getLogger(AccountController.class);
     @Autowired
     private AccountService accountService;
-    private static final String VN_REG_FORM = "forms/registrationForm";
-    private static final String VN_DET_FORM = "forms/accountDetailsForm";
-    private static final String VN_REG_OK = "redirect:registration_ok";
+    private static final String LANDING_REG_FORM = "forms/registrationForm";
+    private static final String LANDING_DET_FORM = "forms/accountDetailsForm";
+    private static final String REDIRECT_REGISTRATION_OK = "redirect:registration_ok.html";
+    private static final String LANDING_REGISTRATION_OK = "/account/registration_ok";
 
     @RequestMapping(value = "notloggedin", method = RequestMethod.GET)
     public String notLoggedIn() {
@@ -41,7 +42,12 @@ public class AccountController extends AbstractController {
     public String getRegistrationForm(Model model) {
         model.addAttribute("Account", new RegistrationForm());
         log.info("Created RegistrationForm");
-        return VN_REG_FORM;
+        return LANDING_REG_FORM;
+    }
+
+    @RequestMapping(value = "registration_ok", method = RequestMethod.GET)
+    public String getRegistrationOk() {
+        return LANDING_REGISTRATION_OK;
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
@@ -50,7 +56,7 @@ public class AccountController extends AbstractController {
         accountService.registerAccount(
                 toAccount(form), form.getPassword(), result);
         convertPasswordError(result);
-        return (result.hasErrors() ? VN_REG_FORM : VN_REG_OK);
+        return (result.hasErrors() ? LANDING_REG_FORM : REDIRECT_REGISTRATION_OK);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -64,7 +70,7 @@ public class AccountController extends AbstractController {
         if (!result.hasErrors()) {
             setSuccessMessage(model, locale, "success.changedDetails", null);
         }
-        return VN_DET_FORM;
+        return LANDING_DET_FORM;
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -83,7 +89,7 @@ public class AccountController extends AbstractController {
         //model.addAttribute("Password", new ChangePwdForm());
 
         log.info("Created AccountDetailsForm");
-        return VN_DET_FORM;
+        return LANDING_DET_FORM;
     }
 
     @PreAuthorize("isAuthenticated()")

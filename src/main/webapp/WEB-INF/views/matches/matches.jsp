@@ -78,12 +78,12 @@
                                         + '<td><spring:message code='text.actions'/></td></tr>';
 
                                 $.each(json, function (i, o) {
-
+                                    var result = o.object.played ? '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>' : '<td><spring:message code='text.notYetPlayed'/></td>';
                                     divContent +=
                                             '<tr><td>' + o.object.date.dayOfMonth + '/' + o.object.date.monthOfYear + '/' + o.object.date.year  + '</td>' +
                                                     '<td>' + o.object.homeTeam.name + '</td>' +
                                                     '<td>' + o.object.awayTeam.name + '</td>' +
-                                                    '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>' +
+                                                    result +
                                                     '<td>' + o.htmlActions + ' </td></tr>';
                                 });
                                 divContent += '</table>';

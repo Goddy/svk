@@ -1,7 +1,5 @@
 package be.spring.spring.controller;
 
-import java.security.Principal;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,15 +17,10 @@ public class LoginController extends AbstractController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@RequestMapping(value="/welcome", method = RequestMethod.GET)
-	public void printWelcome(ModelMap model, Principal principal ) {
- 
-		String name = principal.getName();
+	public void printWelcome(ModelMap model ) {
+		String name = getAccountFromSecurity().getFirstName();
 		model.addAttribute("username", name);
-		model.addAttribute("message", "Spring Security Custom Form example");
-		
 		logger.info("User {} logged in", name);
-
- 
 	}
 
     @RequestMapping(value="/access-denied", method = RequestMethod.GET)
