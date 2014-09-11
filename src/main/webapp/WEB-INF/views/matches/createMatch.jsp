@@ -30,12 +30,12 @@
     </tag:formField>
 
     <tag:formField path="date" label="text.date" title="text.date" type="empty" optional="false">
-        <input id="date" value="" name="date" data-date-format="DD/MM/YYYY" class="form-control date" placeholder="DD/MM/JJJJ" type="text">
+        <input id="date" value="" name="date" class="form-control date" placeholder="DD/MM/JJJJ 00:00" type="text">
     </tag:formField>
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary"><spring:message code="button.add"/></button>
+            <button id="submit" type="submit" class="btn btn-primary"><spring:message code="button.add"/></button>
             <button id="btnReset" type="reset" class="btn btn-info"><spring:message code='button.reset'/></button>
             <a id="btnCancel" class="btn btn-default" href="matches.html"><spring:message code='button.cancel'/></a>
         </div>

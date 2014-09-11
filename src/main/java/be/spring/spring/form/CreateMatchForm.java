@@ -3,15 +3,13 @@ package be.spring.spring.form;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
-
 /**
  * Created by u0090265 on 5/10/14.
  */
 public class CreateMatchForm {
     private int awayTeam;
     private int homeTeam;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private DateTime date;
     private int season;
 

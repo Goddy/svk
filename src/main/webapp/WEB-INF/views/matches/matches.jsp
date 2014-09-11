@@ -72,6 +72,7 @@
                             if (json != null) {
                                 divContent += '<table class="table table-hover">'
                                         + '<tr><td><spring:message code='text.date'/></td>'
+                                        + '<td><spring:message code='text.hour'/></td>'
                                         + '<td><spring:message code='text.homeTeam'/></td>'
                                         + '<td><spring:message code='text.awayTeam'/></td>'
                                         + '<td><spring:message code='text.result'/></td>'
@@ -81,6 +82,7 @@
                                     var result = o.object.played ? '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>' : '<td><spring:message code='text.notYetPlayed'/></td>';
                                     divContent +=
                                             '<tr><td>' + o.object.date.dayOfMonth + '/' + o.object.date.monthOfYear + '/' + o.object.date.year  + '</td>' +
+                                                    '<td>' + o.object.date.hourOfDay + ':' + o.object.date.minuteOfHour + '</td>' +
                                                     '<td>' + o.object.homeTeam.name + '</td>' +
                                                     '<td>' + o.object.awayTeam.name + '</td>' +
                                                     result +

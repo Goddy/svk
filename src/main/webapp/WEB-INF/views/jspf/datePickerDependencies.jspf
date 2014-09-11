@@ -6,9 +6,10 @@
     (function ($) {
         $(document).ready(function () {
             $("[class*='date']").datetimepicker({
-                pickTime: false,
+                pickTime: true,
                 useCurrent: true,
-                format: "DD/MM/YYYY"
+                pick12HourFormat: false,
+                format: "DD/MM/YYYY HH:mm"
             });
         })
     })(jQuery);
