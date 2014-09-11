@@ -54,8 +54,13 @@ private SimpleMailMessage preConfiguredMessage;
 
     @Override
     public void sendPreConfiguredMail(String message) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage(preConfiguredMessage);
-        mailMessage.setText(message);
-        mailSender.send(mailMessage);
+        try {
+            SimpleMailMessage mailMessage = new SimpleMailMessage(preConfiguredMessage);
+            mailMessage.setText(message);
+            mailSender.send(mailMessage);
+        }
+        catch (Exception e) {
+            log.debug(String.format("Sending perconfigured message failed"));
+        }
     }
 }

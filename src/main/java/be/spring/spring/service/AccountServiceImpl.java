@@ -3,6 +3,7 @@ package be.spring.spring.service;
 import be.spring.spring.form.AccountDetailsForm;
 import be.spring.spring.interfaces.AccountDao;
 import be.spring.spring.interfaces.AccountService;
+import be.spring.spring.interfaces.MailService;
 import be.spring.spring.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountDao accountDao;
 
+    @Autowired
+    private MailService mailService;
+
     @Transactional(readOnly = false)
     public boolean registerAccount(Account account, String password, Errors errors) {
         validateUsername(account.getUsername(), errors);
@@ -24,6 +28,8 @@ public class AccountServiceImpl implements AccountService {
         if (valid) {
             accountDao.create(account, password);
         }
+        //send mail
+        mailService.sendPreConfiguredMail(String.format("Account id %s was created", account.getId()));
         return valid;
     }
 

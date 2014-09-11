@@ -28,7 +28,7 @@ and social sign in buttons.
                     <div id="form-group-email" class="form-group col-lg-4">
                         <label class="control-label" for="j_username"><spring:message code="label.email"/>:</label>
                         <!-- Add username field to the login form -->
-                        <input type="text" name="j_username" id="j_username" value="tompels@gmail.com" class="form-control"/>
+                        <input type="text" name="j_username" id="j_username" class="form-control"/>
                     </div>
                 </div>
 
@@ -36,7 +36,7 @@ and social sign in buttons.
                     <div id="form-group-password" class="form-group col-lg-4">
                         <label class="control-label" for="j_password"><spring:message                              code="label.password"/>:</label>
                         <!-- Add password field to the login form -->
-                        <input type="password" name="j_password" id="j_password" value="P@ssword" class="form-control"/>
+                        <input type="password" name="j_password" id="j_password" class="form-control"/>
                     </div>
                 </div>
                 <div class="row">

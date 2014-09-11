@@ -6,7 +6,7 @@
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
-<form:form action="register" modelAttribute="Account" cssClass="form-horizontal">
+<form:form action="register" autocomplete="false" modelAttribute="Account" cssClass="form-horizontal">
     <tag:formField path="username" label="label.email" title="title.email" type="input" optional="false"/>
     <tag:formField path="firstName" label="label.firstName" title="label.firstName" type="input" optional="false"/>
     <tag:formField path="lastName" label="label.lastName" title="label.lastName" type="input" optional="false"/>
