@@ -55,4 +55,28 @@
     </mvc:annotation-driven>
 
     <context:property-placeholder location="${properties.location}"/>
+
+    <!-- SET default mail properties -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="25"/>
+        <property name="username" value="tdedobbeleer@gmail.com"/>
+        <property name="password" value="${gmail.smpt.password}"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.timeout">3000</prop>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- You can have some pre-configured messagess also which are ready to send -->
+    <bean id="preConfiguredMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="to" value="tdedobbeleer@gmail.com"></property>
+        <property name="from" value="tdedobbeleer@gmail.com"></property>
+        <property name="subject" value="FATAL - Application crash. Save your job !!"/>
+    </bean>
 </beans>

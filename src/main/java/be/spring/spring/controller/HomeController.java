@@ -21,5 +21,10 @@ public class HomeController extends AbstractController {
 	public String home() {
 		return "home";
 	}
+
+    @RequestMapping(value = "/testException", method = RequestMethod.GET)
+    public void throwException() {
+        throw new NullPointerException();
+    }
 	
 }

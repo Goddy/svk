@@ -1,6 +1,7 @@
 package be.spring.spring.controller;
 
 import be.spring.spring.controller.exceptions.ObjectNotFoundException;
+import be.spring.spring.interfaces.MailService;
 import be.spring.spring.model.Account;
 import be.spring.spring.utils.SecurityUtils;
 import org.slf4j.Logger;
@@ -26,6 +27,9 @@ public abstract class AbstractController {
     private static final String DIV_CLASS_SUCCESS = "alert alert-success";
     private static final String DIV_CLASS_ERROR = "alert alert-danger";
     @Autowired
+    MailService mailService;
+
+    @Autowired
     private MessageSource messageSource;
 
     @Autowired
@@ -36,6 +40,11 @@ public abstract class AbstractController {
         log.error(e.getMessage());
         request.setAttribute("message", "error.object.unknown");
         return "error";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public void mailException(Exception e) {
+        mailService.sendMail("tompels@gmail.com", "Exception for SVK", e.toString());
     }
 
     private static final Logger log = LoggerFactory.getLogger(AbstractController.class);

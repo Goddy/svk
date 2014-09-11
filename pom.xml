@@ -56,6 +56,13 @@
             <version>0.0.7</version>
         </dependency>
 
+        <!-- Mailing service -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4</version>
+        </dependency>
+
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -68,6 +75,11 @@
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${org.springframework-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -391,6 +403,7 @@
             </activation>
         <id>local</id>
         <properties>
+            <gmail.password>PASSWORD</gmail.password>
             <url>jdbc:mysql://localhost:3306/svk</url>
             <userName>root</userName>
             <password>java</password>
@@ -400,6 +413,7 @@
             <profile>
                 <id>openshift</id>
                 <properties>
+                    <gmail.password>PASSWORD</gmail.password>
                     <userName>adminymrySPG</userName>
                     <password>lcTqjTpY5xXs</password>
                     <url>n/a</url>
@@ -419,14 +433,5 @@
                     </plugins>
                 </build>
             </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <url>jdbc:mysql://localhost:3306/svk</url>
-                <userName>root</userName>
-                <password>java</password>
-                <properties.location>classpath:prod.properties</properties.location>
-            </properties>
-        </profile>
     </profiles>
 </project>
