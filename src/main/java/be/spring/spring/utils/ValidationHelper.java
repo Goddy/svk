@@ -23,4 +23,8 @@ public class ValidationHelper {
         sdf.setLenient(false);
         return sdf.parse(date);
     }
+
+    public static boolean isMatch(String input) {
+        return input != null && input.matches(Constants.PASSWORD_REGEX);
+    }
 }

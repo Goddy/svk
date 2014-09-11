@@ -10,6 +10,17 @@
         <form:form action="${action}.html" cssClass="form-horizontal" role="form" modelAttribute="form">
             <form:hidden path="id"/>
             <tag:formField path="teamName" title="label.teamName" label="label.teamName" optional="false" type="input"/>
+            <tag:formField path="useExistingAddress" label="label.useExistingAddress" title="label.useExistingAddress" type="checkbox" optional="false"/>
+            <div id="existingAddress">
+            <tag:formField path="addressId" label="label.address" title="label.address" type="empty" optional="false">
+                <select class="form-control" name="addressId">
+                    <c:forEach items="${addresses}" var="address">
+                        <option value="${address.id}" ${address.id==selectedAddress ?'selected':''}>${address}</option>
+                    </c:forEach>
+                </select>
+            </tag:formField>
+            </div>
+            <div id="newAddress" style="display: none">
             <tag:formField cssClass="address" path="address" title="label.street" label="label.street" optional="false"
                            type="input"/>
             <tag:formField cssClass="address" path="postalCode" title="label.postalCode" label="label.postalCode"
@@ -17,12 +28,14 @@
             <tag:formField cssClass="address" path="city" title="label.city" label="label.city" optional="false" type="input"/>
             <tag:formField path="googleLink" title="label.googleLink" label="label.googleLink" optional="true" type="input"/>
             <tag:formField path="useLink" label="label.useLink" title="label.useLink" type="checkbox" optional="true"/>
+
             <div id="map" class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <iframe id="mapFrame" width="425" height="350" frameborder="0" scrolling="no" marginheight="0"
                             marginwidth="0" src=""></iframe>
                     <br/>
                 </div>
+            </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
@@ -52,6 +65,8 @@
     var city = $('#city');
     var postalCode = $('#postalCode');
     var submit = $("#submit");
+    var existingAddress = $("#existingAddress");
+    var newAddress = $("#newAddress");
 
     $(function () {
         mapDiv.hide();
@@ -62,10 +77,25 @@
             checkGoogleLinkInput();
         });
 
+        $( "input[name*='useExistingAddress']").change(function () {
+            switchAddress($(this));
+        });
+
         submit.click(function() {
             googleLinkInput.prop('disabled', false);
         });
     });
+
+    function switchAddress(element) {
+        if (element.is(':checked')) {
+            existingAddress.show();
+            newAddress.hide();
+        }
+        else {
+            existingAddress.hide();
+            newAddress.show();
+        }
+    }
 
     function checkGoogleLinkInput() {
         if (address.val() !== "" && postalCode.val() !== "" && city.val() !== "") {

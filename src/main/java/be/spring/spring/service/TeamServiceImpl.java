@@ -1,6 +1,8 @@
 package be.spring.spring.service;
 
+import be.spring.spring.controller.exceptions.ObjectNotFoundException;
 import be.spring.spring.form.CreateAndUpdateTeamForm;
+import be.spring.spring.interfaces.AddressDao;
 import be.spring.spring.interfaces.MatchesDao;
 import be.spring.spring.interfaces.TeamDao;
 import be.spring.spring.interfaces.TeamService;
@@ -40,6 +42,9 @@ public class TeamServiceImpl implements TeamService {
     @Autowired
     private MatchesDao matchesDao;
 
+    @Autowired
+    private AddressDao addressDao;
+
     @Override
     public List<Team> getAll() {
         return teamDao.getAll();
@@ -74,7 +79,14 @@ public class TeamServiceImpl implements TeamService {
     }
 
     private void updateTeamFromForm(CreateAndUpdateTeamForm form, Team team) {
-        team.setAddress(getAddress(form));
+        //If an existing address is chose, get the address, otherwise create a new one.
+        if (form.isUseExistingAddress()) {
+            Address address = addressDao.get(form.getAddressId());
+            if (address == null) throw new ObjectNotFoundException(String.format("Address with id %s not found", form.getAddressId()));
+            team.setAddress(address);
+        } else {
+            team.setAddress(getAddress(form));
+        }
         team.setName(form.getTeamName());
     }
 

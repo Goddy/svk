@@ -2,14 +2,13 @@ package be.spring.spring.controller;
 
 import be.spring.spring.form.PwdRecoveryForm;
 import be.spring.spring.interfaces.PwdRecoveryService;
+import be.spring.spring.validators.PwdRecoveryValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Locale;
@@ -23,7 +22,16 @@ public class PwdRecoveryController extends AbstractController {
     @Autowired
     PwdRecoveryService service;
 
+    @Autowired
+    PwdRecoveryValidator validator;
+
     private final static String GET_PWD_REC_CODE_LANDING = "/account/getPwdRecoveryCode";
+
+    @InitBinder("form")
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(validator);
+    }
+
 
     @RequestMapping(value = "getPwdRecoveryCode", method = RequestMethod.GET)
     public String getPwdRecoveryForm(@ModelAttribute("form") PwdRecoveryForm form, @RequestParam(value = "code", required = false) String code, @RequestParam(value = "email", required = false) String email) {
@@ -41,6 +49,7 @@ public class PwdRecoveryController extends AbstractController {
     }
 
     private String getNewCode(PwdRecoveryForm form, BindingResult result, Locale locale, ModelMap model) {
+        if (result.hasErrors()) return GET_PWD_REC_CODE_LANDING;
         service.setRecoveryCodeAndEmail(form.getEmail(), result, locale);
         if (!result.hasErrors()) {
             setSuccessMessage(model, locale, "success.pwd.recovery.sent", new String[]{form.getEmail()});
@@ -49,6 +58,7 @@ public class PwdRecoveryController extends AbstractController {
     }
 
     private String checkCode(PwdRecoveryForm form, BindingResult result, Locale locale, ModelMap model) {
+        if (result.hasErrors()) return GET_PWD_REC_CODE_LANDING;
         service.checkPwdRecoverCodeAndEmail(form.getNewPassword(), form.getEmail(), form.getCode(), result, locale);
         if (!result.hasErrors()) {
             form.setEmail(null);

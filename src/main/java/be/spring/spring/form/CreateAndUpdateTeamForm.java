@@ -11,6 +11,8 @@ public class CreateAndUpdateTeamForm {
     private String city;
     private String googleLink;
     private boolean useLink = false;
+    private int addressId;
+    private boolean useExistingAddress = true;
 
     public String getPostalCode() {
         return postalCode;
@@ -67,5 +69,21 @@ public class CreateAndUpdateTeamForm {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
+
+    public boolean isUseExistingAddress() {
+        return useExistingAddress;
+    }
+
+    public void setUseExistingAddress(boolean useExistingAddress) {
+        this.useExistingAddress = useExistingAddress;
     }
 }

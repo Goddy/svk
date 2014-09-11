@@ -15,12 +15,11 @@
 <spring:bind path="${path}">
     <c:choose>
         <c:when test="${type=='checkbox'}">
-            <div class="form-group" data-toggle="tooltip" title="${title}">
+            <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                         <label>
                             <form:checkbox path="${path}" cssClass="${cssClass}"/> <spring:message code="${label}"/>
-                                <%--YAGNI For the moment it does not make sense to add support for error messages--%>
                         </label>
                     </div>
                 </div>
@@ -40,9 +39,6 @@
                         <c:when test="${type=='textarea'}">
                             <form:textarea cssClass="form-control ${cssClass}" path="${path}"
                                            placeholder="${placeholder}"/>
-                        </c:when>
-                        <c:when test="${type=='checkbox'}">
-                            <form:checkbox cssClass="form-control ${cssClass}" path="${path}"/>
                         </c:when>
                         <c:when test="${type=='number'}">
                             <input class="form-control ${cssClass}" type="number" name="${path}"/>

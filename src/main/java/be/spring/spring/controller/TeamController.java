@@ -2,10 +2,10 @@ package be.spring.spring.controller;
 
 import be.spring.spring.controller.exceptions.ObjectNotFoundException;
 import be.spring.spring.form.CreateAndUpdateTeamForm;
-import be.spring.spring.form.CreateAndUpdateTeamForm;
+import be.spring.spring.interfaces.AddressService;
 import be.spring.spring.interfaces.TeamService;
 import be.spring.spring.model.ActionWrapper;
-import be.spring.spring.model.Match;
+import be.spring.spring.model.Address;
 import be.spring.spring.model.Team;
 import be.spring.spring.validators.CreateTeamValidator;
 import org.slf4j.Logger;
@@ -13,15 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -38,6 +35,9 @@ public class TeamController extends AbstractController {
     TeamService teamService;
 
     @Autowired
+    AddressService addressService;
+
+    @Autowired
     private CreateTeamValidator validator;
 
     private static final Logger log = LoggerFactory.getLogger(TeamController.class);
@@ -49,6 +49,10 @@ public class TeamController extends AbstractController {
         binder.setValidator(validator);
     }
 
+    @ModelAttribute("addresses")
+    public List<Address> getAddresses() {
+        return addressService.getAllAddresses();
+    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createTeam", method = RequestMethod.GET)
@@ -71,6 +75,8 @@ public class TeamController extends AbstractController {
             form.setGoogleLink(team.getAddress().getGoogleLink());
             form.setUseLink(true);
         }
+        model.addAttribute("selectedAddress", team.getAddress().getId());
+
         return editTeam(model, locale);
     }
 
