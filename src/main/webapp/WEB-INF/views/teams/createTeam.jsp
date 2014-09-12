@@ -30,8 +30,8 @@
             <tag:formField path="useLink" label="label.useLink" title="label.useLink" type="checkbox" optional="true"/>
 
             <div id="map" class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <iframe id="mapFrame" width="425" height="350" frameborder="0" scrolling="no" marginheight="0"
+                <div class="col-sm-offset-2 col-sm-10 google-maps">
+                    <iframe id="mapFrame" frameborder="0" scrolling="no" marginheight="0"
                             marginwidth="0" src=""></iframe>
                     <br/>
                 </div>

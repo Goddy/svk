@@ -10,8 +10,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 id="delete-modal-title" class="modal-title"><spring:message code="title.map"/></h4>
             </div>
-            <div id="delete-modal-body" style="text-align: center" class="modal-body">
-                <iframe id="mapFrame" scrolling="no" marginheight="0" marginwidth="0" src="" frameborder="0" height="350" width="425"></iframe>
+            <div id="delete-modal-body" style="text-align: center" class="modal-body google-maps">
+                <iframe id="mapFrame" scrolling="no" marginheight="0" marginwidth="0" src="" frameborder="0"></iframe>
             </div>
         </div>
     </div>
