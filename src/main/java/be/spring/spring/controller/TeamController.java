@@ -82,7 +82,7 @@ public class TeamController extends AbstractController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createTeam", method = RequestMethod.POST)
-    public String postCreateTeam(@ModelAttribute("form") @Valid CreateAndUpdateTeamForm form, BindingResult result, ModelMap model) {
+    public String postCreateTeam(@ModelAttribute("form") @Valid CreateAndUpdateTeamForm form, BindingResult result, ModelMap model, Locale locale) {
         try {
             if (teamService.teamExists(form.getTeamName())) {
                 result.rejectValue("teamName", "validation.teamExists.message");
@@ -90,7 +90,7 @@ public class TeamController extends AbstractController {
 
             if (result.hasErrors()) {
                 model.addAttribute("form", form);
-                return LANDING_CREATE_TEAM;
+                return createTeam(model,locale);
             }
             Team team = teamService.createTeam(form);
             log.debug("Created team: {}", team);
@@ -104,11 +104,11 @@ public class TeamController extends AbstractController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "editTeam", method = RequestMethod.POST)
-    public String postGetTeam(@ModelAttribute("form") @Valid CreateAndUpdateTeamForm form, BindingResult result, ModelMap model) {
+    public String postEditTeam(@ModelAttribute("form") @Valid CreateAndUpdateTeamForm form, BindingResult result, ModelMap model, Locale locale) {
         try {
             if (result.hasErrors()) {
                 model.addAttribute("form", form);
-                return LANDING_CREATE_TEAM;
+                return editTeam(model,locale);
             }
             Team team = teamService.updateTeam(form);
             log.debug("Created team: {}", team);

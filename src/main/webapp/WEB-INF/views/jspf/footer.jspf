@@ -1,7 +1,8 @@
 </div>
 <div id="footer">
     <div class="container">
-        <p class="text-center">
+        <p style="text-align: right">
+            <spring:message code="text.footer"/>
             <br/>
         </p>
     </div>
