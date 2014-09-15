@@ -24,7 +24,7 @@
                 <div class="panel panel-info">
                     <div class="panel-heading"><c:out value="${newsItem.header}"/></div>
                     <div class="panel-body">
-                        <p align="left"><c:out value="${newsItem.content}"/></p>
+                        <p align="left">${newsItem.content}</p>
 
                         <div style="text-align: right"><spring:message code="text.postedby"/> <c:out
                                 value="${newsItem.account.getFullName()}"/> <spring:message code="text.on"/>

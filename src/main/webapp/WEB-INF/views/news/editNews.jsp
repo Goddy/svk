@@ -41,18 +41,36 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var body  = $("#body");
-        var pageDownInput = $("#wmd-input-0");
+        var body  = $("#body").val();
+        var pageDownMe =  $("textarea#pagedownMe");
 
-        if (body.val() !== '') {
-            var bodyText = toMarkdown(body.val());
-            pageDownInput.val(bodyText);
+        pageDownMe.val('');
+
+        if (body !== '') {
+            var bodyText = toMarkdown(body);
+            pageDownMe.val(bodyText);
         }
 
-        $("textarea#pagedownMe").pagedownBootstrap();
-        pageDownInput.change(function() {
-            var bodyHtml = $("#wmd-preview-0").html();
-            body.val(bodyHtml);
+        pageDownMe.pagedownBootstrap();
+
+        var pageDownInput = $("textarea#wmd-input-0");
+        var preview = $("#wmd-preview-0");
+        var previewHtml = preview.html();
+
+        setWellClass();
+
+        pageDownInput.on("change keyup paste", function() {
+            body.val(previewHtml);
+            setWellClass();
         });
+
+        function setWellClass() {
+            if (previewHtml !== "") {
+                preview.addClass("well");
+            }
+            else {
+                preview.removeClass("well")
+            }
+        }
     });
 </script>

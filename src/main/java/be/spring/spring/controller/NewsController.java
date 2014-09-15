@@ -39,7 +39,7 @@ public class NewsController extends AbstractController {
     NewsService newsService;
 
     @RequestMapping(value = "news", method = RequestMethod.GET)
-    public String get(Model model) {
+    public String getNews(Model model) {
         int newsCount = newsService.getNewsCount();
         PageObject pageObject = new PageObject(model, newsCount, Constants.ZERO,VN_NEWS_PAGE);
         pageObject.addAttributes();

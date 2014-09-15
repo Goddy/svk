@@ -5,8 +5,7 @@ import be.spring.spring.form.ChangeResultForm;
 import be.spring.spring.form.CreateMatchForm;
 import be.spring.spring.interfaces.*;
 import be.spring.spring.model.*;
-import be.spring.spring.utils.HtmlHelper;
-import be.spring.spring.utils.SecurityUtils;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by u0090265 on 5/3/14.
@@ -42,10 +42,7 @@ public class MatchesServiceImpl implements MatchesService {
     private AccountDao accountDao;
 
     @Autowired
-    private HtmlHelper htmlHelper;
-
-    @Autowired
-    private SecurityUtils securityUtils;
+    private ConcurrentDataService concurrentDataService;
 
     @Override
     public Map<Integer, List<Match>> getMatchesForLastSeasons() {
@@ -60,25 +57,12 @@ public class MatchesServiceImpl implements MatchesService {
 
     @Override
     public List<ActionWrapper<Match>> getMatchesForSeason(String seasonId, final Account account, final Locale locale) {
-        Season season = seasonDao.get(seasonId);
-        List<Match> matches = matchesDao.getMatchForSeason(season);
-        final List<ActionWrapper<Match>> actionWrappers = new ArrayList<>();
-
-        for (Match m : matches) {
-            actionWrappers.add(new ActionWrapper<>(m));
+        try {
+            return concurrentDataService.getMatchForSeasonActionWrappers(seasonId, account, locale).get();
+        } catch (InterruptedException | ExecutionException e) {
+            log.error("getMatchesForSeason failed: {}", e.getMessage());
+            return Lists.newArrayList();
         }
-        for (ActionWrapper<Match> matchActionWrapper : actionWrappers) {
-            matchActionWrapper.setHtmlActions(htmlHelper.getMatchesButtons(matchActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
-        }
-
-        /**
-        matches.parallelStream().forEach(m -> {
-            return actionWrappers.add(new ActionWrapper<>(m));
-        });
-        actionWrappers.parallelStream()
-                .forEach(a -> a.setHtmlActions(htmlHelper.getMatchesButtons(a.getObject(), securityUtils.isAdmin(account), locale)));
-         **/
-        return actionWrappers;
     }
 
     @Override

@@ -2,25 +2,21 @@ package be.spring.spring.service;
 
 import be.spring.spring.controller.exceptions.ObjectNotFoundException;
 import be.spring.spring.form.CreateAndUpdateTeamForm;
-import be.spring.spring.interfaces.AddressDao;
-import be.spring.spring.interfaces.MatchesDao;
-import be.spring.spring.interfaces.TeamDao;
-import be.spring.spring.interfaces.TeamService;
+import be.spring.spring.interfaces.*;
 import be.spring.spring.model.Account;
 import be.spring.spring.model.ActionWrapper;
 import be.spring.spring.model.Address;
 import be.spring.spring.model.Team;
-import be.spring.spring.utils.HtmlHelper;
-import be.spring.spring.utils.SecurityUtils;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by u0090265 on 5/10/14.
@@ -34,10 +30,7 @@ public class TeamServiceImpl implements TeamService {
     private TeamDao teamDao;
 
     @Autowired
-    private HtmlHelper htmlHelper;
-
-    @Autowired
-    private SecurityUtils securityUtils;
+    ConcurrentDataService concurrentDataService;
 
     @Autowired
     private MatchesDao matchesDao;
@@ -101,22 +94,12 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public List<ActionWrapper<Team>> getTeams(final Account account, final Locale locale) {
-        List<Team> teams = teamDao.getAll();
-        //Todo: make this OO, put an actionwrapper service in between, with handlers
-        final List<ActionWrapper<Team>> actionWrappers = new ArrayList<>();
-
-        for (Team t : teams) {
-            actionWrappers.add(new ActionWrapper<>(t));
+        try {
+            return concurrentDataService.getTeamsActionWrappers(account, locale).get();
+        } catch (InterruptedException | ExecutionException e) {
+            log.error("getTeams error: {}", e.getMessage());
+            return Lists.newArrayList();
         }
-
-        for (ActionWrapper<Team> teamActionWrapper : actionWrappers) {
-            teamActionWrapper.setHtmlActions(htmlHelper.getTeamButtons(teamActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
-        }
-
-        /**teams.parallelStream().forEach(m -> actionWrappers.add(new ActionWrapper<>(m)));
-        actionWrappers.parallelStream()
-                .forEach(a -> a.setHtmlActions(htmlHelper.getTeamButtons(a.getObject(), securityUtils.isAdmin(account), locale)));**/
-        return actionWrappers;
     }
 
     @Override
