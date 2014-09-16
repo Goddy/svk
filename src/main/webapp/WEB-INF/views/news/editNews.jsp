@@ -6,6 +6,7 @@
 <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 <!-- Le script -->
 <script type="text/javascript" src="/resources/js/jquery.pagedown-bootstrap.combined.min.js"></script>
+<script type="text/javascript" src="/resources/js/he.js"></script>
 <script type="text/javascript" src="/resources/js/to-markdown.js"></script>
 
 <!-- Todo: WYSIWYG editor -->
@@ -55,17 +56,16 @@
 
         var pageDownInput = $("textarea#wmd-input-0");
         var preview = $("#wmd-preview-0");
-        var previewHtml = preview.html();
 
         setWellClass();
 
         pageDownInput.on("change keyup paste", function() {
-            body.val(previewHtml);
+            $("#body").val(preview.html());
             setWellClass();
         });
 
         function setWellClass() {
-            if (previewHtml !== "") {
+            if ($.trim(pageDownInput.val()) !== "") {
                 preview.addClass("well");
             }
             else {
