@@ -9,7 +9,6 @@
 <script type="text/javascript" src="/resources/js/he.js"></script>
 <script type="text/javascript" src="/resources/js/to-markdown.js"></script>
 
-<!-- Todo: WYSIWYG editor -->
 <div class="panel panel-default">
     <div class="panel-body">
         <form:form modelAttribute="form" action="${command}" cssClass="form-horizontal">
