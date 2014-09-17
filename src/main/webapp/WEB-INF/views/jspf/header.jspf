@@ -16,7 +16,7 @@
 <body>
 <header class="hidden-xs">
     <div class="content-heading clearfix media">
-        <h3><spring:message code="title.svk"/> &nbsp </h3>
+        <a rel="nofollow"><img src="http://www.logomaker.com/logo-images/35c3060eacc39470.gif"/></a>
     </div>
 </header>
 <div class="navbar navbar-default navbar-static-top" role="navigation">
