@@ -56,6 +56,20 @@
 
     <context:property-placeholder location="${properties.location}"/>
 
+    <!-- Message internationalization -->
+    <bean id="localeChangeInterceptor"
+          class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="language" />
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" >
+        <property name="interceptors">
+            <list>
+                <ref bean="localeChangeInterceptor" />
+            </list>
+        </property>
+    </bean>
+
     <!-- SET default mail properties -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com"/>

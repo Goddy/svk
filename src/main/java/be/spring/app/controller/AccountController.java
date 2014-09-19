@@ -4,6 +4,7 @@ import be.spring.app.form.AccountDetailsForm;
 import be.spring.app.form.ChangePwdForm;
 import be.spring.app.form.RegistrationForm;
 import be.spring.app.interfaces.AccountService;
+import be.spring.app.interfaces.MailService;
 import be.spring.app.model.Account;
 import be.spring.app.utils.Constants;
 import org.slf4j.Logger;
@@ -25,6 +26,9 @@ import java.util.Locale;
 @Controller
 @RequestMapping("/account")
 public class AccountController extends AbstractController {
+    @Autowired
+    private MailService mailService;
+
     private static final Logger log = LoggerFactory.getLogger(AccountController.class);
     @Autowired
     private AccountService accountService;
@@ -56,6 +60,9 @@ public class AccountController extends AbstractController {
         accountService.registerAccount(
                 toAccount(form), form.getPassword(), result);
         convertPasswordError(result);
+        if (result.hasErrors()) {
+            mailService.sendPreConfiguredMail(String.format("User %s has registered.", form.getUsername()));
+        }
         return (result.hasErrors() ? LANDING_REG_FORM : REDIRECT_REGISTRATION_OK);
     }
 

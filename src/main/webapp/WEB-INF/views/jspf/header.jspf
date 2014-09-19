@@ -60,7 +60,7 @@
                                 class="glyphicon glyphicon-globe"></span>&nbsp;<c:out value="${currentLang}"/><b
                                 class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a id="lnkSwitchToLanguage" href="#"><c:out value="${otherLang}"/></a></li>
+                            <li><a id="changeLang" href="#"><c:out value="${otherLang}"/></a></li>
                         </ul>
                     </li>
                     <security:authorize access="isAuthenticated()">
