@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,5 +62,15 @@ public class JpaAccountDao extends AbstractJpaDao<Account> implements AccountDao
         Map<String, Object> p = getParameterMap("username", username);
         p.putAll(getParameterMap("id", id));
         return getSingleResultQuery("findAccountByUsernameExcludeCurrentId", p);
+    }
+
+    @Override
+    public List<Account> findByActivationStatus(boolean status) {
+        return getMultipleResultQuery("findAccountsByStatus", getParameterMap("status", status));
+    }
+
+    @Override
+    public List<Account> findByActivationCodeNotNull() {
+        return getMultipleResultQuery("findNotNullActivationCodes", null);
     }
 }

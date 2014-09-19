@@ -417,6 +417,7 @@
             </activation>
         <id>local</id>
         <properties>
+            <baseUrl>http://localhost:8080</baseUrl>
             <gmail.password>PASSWORD</gmail.password>
             <url>jdbc:mysql://localhost:3306/svk</url>
             <userName>root</userName>
@@ -427,10 +428,8 @@
             <profile>
                 <id>openshift</id>
                 <properties>
+                    <baseUrl>BASEURL</baseUrl>
                     <gmail.password>PASSWORD</gmail.password>
-                    <userName>adminymrySPG</userName>
-                    <password>lcTqjTpY5xXs</password>
-                    <url>n/a</url>
                     <properties.location>classpath:openshift.properties</properties.location>
                 </properties>
                 <build>

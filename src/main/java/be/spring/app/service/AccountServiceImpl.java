@@ -1,22 +1,29 @@
 package be.spring.app.service;
 
+import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.AccountDetailsForm;
+import be.spring.app.form.ActivateAccountForm;
 import be.spring.app.interfaces.AccountDao;
 import be.spring.app.interfaces.AccountService;
 import be.spring.app.interfaces.MailService;
 import be.spring.app.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @Transactional(readOnly = true)
 public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountDao accountDao;
+
+    @Autowired
+    MessageSource messageSource;
 
     @Autowired
     private MailService mailService;
@@ -28,8 +35,6 @@ public class AccountServiceImpl implements AccountService {
         if (valid) {
             accountDao.create(account, password);
         }
-        //send mail
-        mailService.sendPreConfiguredMail(String.format("Account id %s was created", account.getId()));
         return valid;
     }
 
@@ -43,6 +48,22 @@ public class AccountServiceImpl implements AccountService {
             accountDao.update(newAccount);
         }
         return valid;
+    }
+
+    @Override
+    @Transactional
+    public Account activateAccount(ActivateAccountForm form, Locale locale, Errors errors) {
+        Account account = accountDao.get(form.getAccountId());
+        if (account == null) throw new ObjectNotFoundException(String.format("Object with id %s not found", form.getAccountId()));
+        account.setActive(true);
+        if (form.isSendEmail()) {
+            if (!mailService.sendMail(account.getUsername(),
+                    messageSource.getMessage("email.activation.subject", null, locale),
+                    messageSource.getMessage("email.activation.body", new String[]{account.getFirstName()}, locale))) {
+                errors.reject("sendEmail");
+            }
+        }
+        return account;
     }
 
     public void validateUsername(String username, Errors errors) {
@@ -77,9 +98,24 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account getAccount(String id) {
+        return accountDao.get(id);
+    }
+
+    @Override
     public Account getActiveAccountByEmail(String email) {
         //Get account and check if
         return accountDao.findByUsernameAndActiveStatus(email, true);
+    }
+
+    @Override
+    public List<Account> getAccountsByActivationStatus(boolean status) {
+        return accountDao.findByActivationStatus(status);
+    }
+
+    @Override
+    public List<Account> getAccountsWithActivationCode() {
+        return accountDao.findByActivationCodeNotNull();
     }
 
     private Account getUpdatedAccount(Account account, AccountDetailsForm form) {

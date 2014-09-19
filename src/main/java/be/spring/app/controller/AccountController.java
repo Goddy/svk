@@ -9,6 +9,7 @@ import be.spring.app.model.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,9 @@ import java.util.Locale;
 public class AccountController extends AbstractController {
     @Autowired
     private MailService mailService;
+
+    @Value("${base.url}")
+    private String baseUrl;
 
     private static final Logger log = LoggerFactory.getLogger(AccountController.class);
     @Autowired
@@ -54,13 +58,13 @@ public class AccountController extends AbstractController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String postRegistrationForm(@ModelAttribute("Account") @Valid RegistrationForm form, BindingResult result) {
+    public String postRegistrationForm(@ModelAttribute("Account") @Valid RegistrationForm form, BindingResult result, Locale locale) {
         log.info("Posted RegistrationForm: {}", form);
         accountService.registerAccount(
                 toAccount(form), form.getPassword(), result);
         convertPasswordError(result);
-        if (result.hasErrors()) {
-            mailService.sendPreConfiguredMail(String.format("User %s has registered.", form.getUsername()));
+        if (!result.hasErrors()) {
+            mailService.sendPreConfiguredMail(getMessage("mail.user.registered", new String[] {baseUrl, form.getUsername()},locale));
         }
         return (result.hasErrors() ? LANDING_REG_FORM : REDIRECT_REGISTRATION_OK);
     }
@@ -78,6 +82,7 @@ public class AccountController extends AbstractController {
         }
         return LANDING_DET_FORM;
     }
+
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "edit", method = RequestMethod.GET)
@@ -118,19 +123,6 @@ public class AccountController extends AbstractController {
                 return getMessage("error.unknown", null, locale);
             }
         }
-        /**if (!form.getNewPassword().matches(Constants.PASSWORD_REGEX)) {
-            return getMessage("validation.complexity.password.message", null, locale);
-        }
-        try {
-            if (form.getOldPassword() != null && accountService.checkOldPassword(activeAccount, form.getOldPassword())) {
-                return getMessage("success.changePassword", null, locale);
-            }
-            accountService.setPasswordFor(activeAccount, form.getNewPassword());
-            return getMessage("success.changePassword", null, locale);
-        } catch (Exception e) {
-            return getMessage("error.unknown", null, locale);
-        }
-        **/
     }
 
     private static Account toAccount(RegistrationForm form) {

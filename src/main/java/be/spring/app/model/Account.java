@@ -10,7 +10,10 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = "findAccountByUsername", query = "select a from Account a where a.username = :username"),
         @NamedQuery(name = "findAccountByUsernameAndActiveStatus", query = "select a from Account a where a.username = :username AND a.active = :active"),
         @NamedQuery(name = "findAccountById", query = "select a from Account a where a.id = :id"),
-        @NamedQuery(name = "findAccountByUsernameExcludeCurrentId", query = "select a from Account a where a.username = :username AND a.id != :id")
+        @NamedQuery(name = "findAccountByUsernameExcludeCurrentId", query = "select a from Account a where a.username = :username AND a.id != :id"),
+        @NamedQuery(name = "findAccountsByStatus", query = "select a from Account a where a.active = :status"),
+        @NamedQuery(name = "findNotNullActivationCodes", query = "select a from Account a where a.pwdRecovery IS NOT NULL")
+
 })
 @Entity
 @Table(name = "account")

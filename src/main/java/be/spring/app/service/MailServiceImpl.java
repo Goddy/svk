@@ -16,12 +16,11 @@ import javax.mail.internet.MimeMessage;
  */
 @Service
 public class MailServiceImpl  implements MailService {
+    @Autowired
+    private JavaMailSenderImpl mailSender;
 
-@Autowired
-private JavaMailSenderImpl mailSender;
-
-@Autowired
-private SimpleMailMessage preConfiguredMessage;
+    @Autowired
+    private SimpleMailMessage preConfiguredMessage;
 
     private static final Logger log = LoggerFactory.getLogger(MailService.class);
     /**

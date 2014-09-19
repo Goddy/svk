@@ -8,12 +8,16 @@ import be.spring.app.model.Account;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -23,12 +27,18 @@ import java.util.Random;
 @Service
 @Transactional
 public class PwdRecoveryServiceImpl implements PwdRecoveryService {
+
+    @Value("${base.url}")
+    private String baseUrl;
+
     private MailService mailService;
     private AccountDao accountDao;
     private MessageSource messageSource;
 
     private final static String TIMESTAMP_PATTERN =  "yyyyMMddHHmmss";
     private static final int RECOVERY_LENGTH = 10;
+
+    private static final Logger log = LoggerFactory.getLogger(PwdRecoveryServiceImpl.class);
 
     @Autowired
     public PwdRecoveryServiceImpl(MailService mailService, AccountDao accountDao, MessageSource messageSource) {
@@ -38,6 +48,24 @@ public class PwdRecoveryServiceImpl implements PwdRecoveryService {
     }
 
     @Override
+    @Transactional
+    public void deleteExpiredCodes() {
+        List<Account> accounts = accountDao.findByActivationCodeNotNull();
+        DateTime hourAgo = DateTime.now().minusHours(1);
+
+        for (Account a : accounts) {
+
+            DateTime codeTime = getDateFromDbString(a.getPwdRecovery());
+            if (codeTime.isBefore(hourAgo)) {
+                a.setPwdRecovery(null);
+                accountDao.update(a);
+                log.info("Deleted activationcode for account {}", a.getUsername());
+            }
+        }
+    }
+
+    @Override
+    @Transactional
     public void setRecoveryCodeAndEmail(String email, Errors errors, Locale locale) {
         Account account = accountDao.findByUsername(email);
         if (account == null) throw new ObjectNotFoundException(String.format("Account with email %s not found", email));
@@ -49,7 +77,7 @@ public class PwdRecoveryServiceImpl implements PwdRecoveryService {
 
         accountDao.update(account);
 
-        Object[] args = new Object[] {account.getFirstName(), recoveryHex, account.getUsername()};
+        Object[] args = new Object[] {account.getFirstName(), recoveryHex, account.getUsername(), baseUrl};
 
         if (!mailService.sendMail(
                 account.getUsername(),
@@ -60,6 +88,7 @@ public class PwdRecoveryServiceImpl implements PwdRecoveryService {
     }
 
     @Override
+    @Transactional
     public void checkPwdRecoverCodeAndEmail(String password, String email, String code, Errors errors, Locale locale) {
         Account account = accountDao.findByUsername(email);
         if (account == null) throw new ObjectNotFoundException(String.format("Account with email %s not found", email));
@@ -80,6 +109,10 @@ public class PwdRecoveryServiceImpl implements PwdRecoveryService {
         DateTimeFormatter fmt = DateTimeFormat.forPattern(TIMESTAMP_PATTERN);
         return fmt.print(dt);
     }
+    private DateTime getDateTimeFromString(String date) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern(TIMESTAMP_PATTERN);
+        return formatter.parseDateTime(date);
+    }
 
     private String getRandomHexString(int numChars){
         Random r = new Random();
@@ -95,7 +128,9 @@ public class PwdRecoveryServiceImpl implements PwdRecoveryService {
         return code.substring(TIMESTAMP_PATTERN.length(), code.length());
     }
 
-
-
+    private DateTime getDateFromDbString(String code) {
+        if (code == null || code.length() < TIMESTAMP_PATTERN.length() + RECOVERY_LENGTH) return null;
+        return getDateTimeFromString(code.substring(0, TIMESTAMP_PATTERN.length()));
+    }
 
 }

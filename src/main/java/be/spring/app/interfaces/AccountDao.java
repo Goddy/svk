@@ -2,6 +2,8 @@ package be.spring.app.interfaces;
 
 import be.spring.app.model.Account;
 
+import java.util.List;
+
 public interface AccountDao extends Dao<Account> {
 	void create(Account account, String password);
 
@@ -14,4 +16,8 @@ public interface AccountDao extends Dao<Account> {
     Account findByUsernameAndActiveStatus(String username, boolean active);
 
     Account findByEmailExcludeCurrentId(String email, Long id);
+
+    List<Account> findByActivationStatus(boolean status);
+
+    List<Account> findByActivationCodeNotNull();
 }

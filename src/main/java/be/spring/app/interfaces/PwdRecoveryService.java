@@ -9,6 +9,8 @@ import java.util.Locale;
  */
 
 public interface PwdRecoveryService {
+    void deleteExpiredCodes();
+
     void setRecoveryCodeAndEmail(String email, Errors errors, Locale locale);
 
     void checkPwdRecoverCodeAndEmail(String password, String email, String code, Errors errors, Locale locale);
