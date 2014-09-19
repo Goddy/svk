@@ -61,7 +61,7 @@ public class Match {
 
     @JsonIgnore
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "season_id")
     public Season getSeason() {
         return season;
@@ -72,7 +72,7 @@ public class Match {
     }
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "hometeam_id", insertable = true, updatable = true, nullable = false)
     public Team getHomeTeam() {
         return homeTeam;
@@ -83,7 +83,7 @@ public class Match {
     }
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "awayteam_id", insertable = true, updatable = true, nullable = false)
     public Team getAwayTeam() {
         return awayTeam;

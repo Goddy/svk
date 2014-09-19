@@ -89,7 +89,6 @@ public class TeamController extends AbstractController {
             }
 
             if (result.hasErrors()) {
-                model.addAttribute("form", form);
                 return createTeam(model,locale);
             }
             Team team = teamService.createTeam(form);

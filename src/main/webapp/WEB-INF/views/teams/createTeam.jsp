@@ -67,17 +67,19 @@
     var submit = $("#submit");
     var existingAddress = $("#existingAddress");
     var newAddress = $("#newAddress");
+    var existingAddressCheckbox = $( "input[name*='useExistingAddress']");
 
     $(function () {
         mapDiv.hide();
         googleLinkInput.prop('disabled', true);
         checkGoogleLinkInput();
+        switchAddress(existingAddressCheckbox);
 
         $('.address').keyup(function () {
             checkGoogleLinkInput();
         });
 
-        $( "input[name*='useExistingAddress']").change(function () {
+        existingAddressCheckbox.change(function () {
             switchAddress($(this));
         });
 

@@ -35,8 +35,8 @@
             $(document).on('click', 'a[class*="delete"]', function (e) {
                 console.log("Clicked delete");
                 e.preventDefault();
-                var hTeam = $(this).parents('tr:first').find('td:nth-child(2)').text();
-                var aTeam = $(this).parents('tr:first').find('td:nth-child(2)').text();
+                var hTeam = $(this).parents('tr:first').find('td:nth-child(3)').text();
+                var aTeam = $(this).parents('tr:first').find('td:nth-child(4)').text();
                 var href = $(this).attr("href");
                 var msg = hTeam + " - " + aTeam;
                 dd.showDeleteDialog(deleteMatchModal, msg, deleteTitle, href)
