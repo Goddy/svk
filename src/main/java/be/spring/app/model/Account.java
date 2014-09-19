@@ -135,7 +135,7 @@ public class Account {
     public boolean equals(Object obj) {
         if (! (obj instanceof Account) ) return false;
         final Account other = (Account) obj;
-        return id.equals(other.id);
+        return id != null && other.id != null && id.equals(other.id);
     }
 
 }
