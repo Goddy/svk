@@ -39,7 +39,7 @@ public class AccountServiceImpl implements AccountService {
         boolean valid = !errors.hasErrors();
         if (valid) {
             accountDao.create(account, password);
-            mailService.sendPreConfiguredMail(messageSource.getMessage("mail.user.registered", new Object[] {baseUrl, account.getId()},Locale.ENGLISH));
+            mailService.sendPreConfiguredMail(messageSource.getMessage("mail.user.registered", new Object[] {baseUrl, account.getId(), account.getFullName()},Locale.ENGLISH));
         }
         return valid;
     }
