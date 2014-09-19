@@ -6,7 +6,7 @@
 <h2><spring:message code="title.activation.code"/></h2>
 <div class="panel panel-default">
     <div class="panel-body">
-<form:form action="getPwdRecoveryCode.html" modelAttribute="form" cssClass="form-horizontal">
+<form:form action="getPwdRecoveryCode.html" modelAttribute="form" cssClass="form-horizontal" autocomplete="false">
     <form:hidden path="newCode"/>
     <tag:formField path="email" label="label.email" title="label.email" type="input" optional="false"/>
     <c:if test="${form.newCode == false}">
