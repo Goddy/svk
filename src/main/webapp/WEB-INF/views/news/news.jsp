@@ -1,6 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ include file="../jspf/header.jspf" %>
+<sec:authentication var="principal" property="principal" />
 <div class="row">
     <div class="col-md-4">
     </div>
@@ -29,11 +30,19 @@
                         <div style="text-align: right"><spring:message code="text.postedby"/> <c:out
                                 value="${newsItem.account.getFullName()}"/> <spring:message code="text.on"/>
                             <fmt:formatDate value="${newsItem.postDate}"/>
-                            <sec:authorize access="isAuthenticated()">
+                            <sec:authorize access="hasRole('ADMIN')">
                             <div class="btn-group">
                                 <a href="/news/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
                                 <a href="/news/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
                             </div>
+                            </sec:authorize>
+                            <sec:authorize access="hasRole('USER')">
+                                <c:if test="${principal.username == newsItem.account.username}">
+                                <div class="btn-group">
+                                    <a href="/news/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
+                                    <a href="/news/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
+                                </div>
+                                </c:if>
                             </sec:authorize>
                         </div>
                     </div>
@@ -62,7 +71,7 @@
     <tbody>
     </tbody>
 </table>
-<%@ include file="../footer.jsp"%>
+<%@ include file="../jspf/footer.jspf" %>
 
 <script type="text/javascript">
 

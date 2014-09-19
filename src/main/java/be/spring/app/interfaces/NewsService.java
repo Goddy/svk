@@ -3,6 +3,7 @@ package be.spring.app.interfaces;
 import be.spring.app.form.NewsForm;
 import be.spring.app.model.Account;
 import be.spring.app.model.News;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,5 +28,6 @@ public interface NewsService {
 
     public int getNewsCount();
 
-    void deleteNews(String id);
+    @Transactional(readOnly = false)
+    void deleteNews(String id, Account account);
 }

@@ -55,10 +55,10 @@ public class NewsController extends AbstractController {
         return VN_NEWS_ITEM_PAGE;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "deleteItem", method = RequestMethod.GET)
     public String deleteNewsItem(Model model, @RequestParam String newsId) {
-        newsService.deleteNews(newsId);
+        newsService.deleteNews(newsId, getAccountFromSecurity());
         log.info(String.format("News item %s was deleted by user %s", newsId, getAccountFromSecurity().getUsername()));
         return getRedirect(VN_NEWS_PAGE);
     }

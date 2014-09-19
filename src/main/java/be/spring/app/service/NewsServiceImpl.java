@@ -23,6 +23,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class NewsServiceImpl implements NewsService {
     @Autowired private NewsDao newsDao;
+    @Autowired private AuthorizationService authorizationService;
 
     @Override
     @Transactional(readOnly = false)
@@ -37,6 +38,7 @@ public class NewsServiceImpl implements NewsService {
     public void updateNews(NewsForm form, Account account) {
         News n = newsDao.get(form.getId());
         if (n == null) throw new ObjectNotFoundException(String.format("News item with id %s not found", form.getId()));
+        authorizationService.isAuthorized(account, n);
         updateNews(n, form, account);
         newsDao.update(n);
 
@@ -71,15 +73,19 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional(readOnly = false)
-    public void deleteNews(String id) {
+    public void deleteNews(String id, Account account) {
+        News news = newsDao.get(id);
+        authorizationService.isAuthorized(account, news);
         newsDao.delete(id);
     }
 
     private News updateNews(News n, NewsForm f, Account a) {
         n.setHeader(f.getTitle());
         n.setContent(f.getBody());
-        n.setId(Strings.isNullOrEmpty(f.getId()) ? null : Long.parseLong(f.getId()));
-        n.setAccount(a);
+        //n.setId(Strings.isNullOrEmpty(f.getId()) ? null : Long.parseLong(f.getId()));
+        if (Strings.isNullOrEmpty(f.getId())) {
+            n.setAccount(a);
+        }
         return n;
     }
 }

@@ -66,6 +66,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(readOnly = false)
+    public boolean checkOldPassword(Account account, String password) {
+        return accountDao.checkPassword(account, password);
+    }
+
+    @Override
     public List<Account> getAll() {
         return accountDao.getAll();
     }

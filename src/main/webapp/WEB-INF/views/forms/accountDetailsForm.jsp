@@ -26,6 +26,7 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <form:form id="changePassword" modelAttribute="changePassword" cssClass="form-horizontal">
+            <tag:formField path="oldPassword" label="label.currentPwd" title="label.currentPwd" type="password" optional="false"/>
             <tag:formField path="newPassword" label="label.password" title="title.password" type="password" optional="false"/>
             <tag:formField path="confirmPassword" label="label.confirmPassword" title="label.confirmPassword" type="password" optional="false"/>
             <div id="pwdError">

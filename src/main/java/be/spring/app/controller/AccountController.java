@@ -6,7 +6,6 @@ import be.spring.app.form.RegistrationForm;
 import be.spring.app.interfaces.AccountService;
 import be.spring.app.interfaces.MailService;
 import be.spring.app.model.Account;
-import be.spring.app.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,19 +100,37 @@ public class AccountController extends AbstractController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "changePassword.json", method = RequestMethod.POST)
-    public @ResponseBody String updatePassword(@ModelAttribute("changePassword") ChangePwdForm form, Locale locale) {
+    public @ResponseBody String updatePassword(@ModelAttribute("changePassword") @Valid ChangePwdForm form, BindingResult result, Locale locale) {
         log.info("updatePassword.json called");
         Account activeAccount = getAccountFromSecurity();
         //Check pwd complexity
-        if (!form.getNewPassword().matches(Constants.PASSWORD_REGEX)) {
+        if (result.hasErrors()) {
+            return getDefaultMessages(result);
+        }
+        else {
+            try {
+                if (form.getOldPassword() != null && !accountService.checkOldPassword(activeAccount, form.getOldPassword())) {
+                    return getMessage("validation.oldpwd.nomatch", null, locale);
+                }
+                accountService.setPasswordFor(activeAccount, form.getNewPassword());
+                return getMessage("success.changePassword", null, locale);
+            } catch (Exception e) {
+                return getMessage("error.unknown", null, locale);
+            }
+        }
+        /**if (!form.getNewPassword().matches(Constants.PASSWORD_REGEX)) {
             return getMessage("validation.complexity.password.message", null, locale);
         }
         try {
+            if (form.getOldPassword() != null && accountService.checkOldPassword(activeAccount, form.getOldPassword())) {
+                return getMessage("success.changePassword", null, locale);
+            }
             accountService.setPasswordFor(activeAccount, form.getNewPassword());
             return getMessage("success.changePassword", null, locale);
         } catch (Exception e) {
             return getMessage("error.unknown", null, locale);
         }
+        **/
     }
 
     private static Account toAccount(RegistrationForm form) {

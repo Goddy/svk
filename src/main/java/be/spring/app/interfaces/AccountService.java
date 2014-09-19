@@ -19,6 +19,9 @@ public interface AccountService {
     @Transactional(readOnly = false)
     void setPasswordFor(Account account, String password);
 
+    @Transactional(readOnly = false)
+    boolean checkOldPassword(Account account, String password);
+
     @Transactional(readOnly = true)
     List<Account> getAll();
 
