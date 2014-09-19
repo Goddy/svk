@@ -4,7 +4,7 @@ import be.spring.app.interfaces.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,11 @@ public class MailServiceImpl  implements MailService {
     @Autowired
     private JavaMailSenderImpl mailSender;
 
-    @Autowired
-    private SimpleMailMessage preConfiguredMessage;
+    @Value("${mail.admin.fromTo}")
+    private String defaultAdminFromTo;
+
+    @Value("${mail.admin.subject}")
+    private String defaultAdminSubject;
 
     private static final Logger log = LoggerFactory.getLogger(MailService.class);
     /**
@@ -53,13 +56,6 @@ public class MailServiceImpl  implements MailService {
 
     @Override
     public void sendPreConfiguredMail(String message) {
-        try {
-            SimpleMailMessage mailMessage = new SimpleMailMessage(preConfiguredMessage);
-            mailMessage.setText(message);
-            mailSender.send(mailMessage);
-        }
-        catch (Exception e) {
-            log.debug(String.format("Sending perconfigured message failed"));
-        }
+        sendMail(defaultAdminFromTo, defaultAdminSubject, message);
     }
 }

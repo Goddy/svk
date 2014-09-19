@@ -81,13 +81,6 @@
         </property>
     </bean>
 
-    <!-- You can have some pre-configured messagess also which are ready to send -->
-    <bean id="preConfiguredMessage" class="org.springframework.mail.SimpleMailMessage">
-        <property name="to" value="voetbalsvk@gmail.com"></property>
-        <property name="from" value="voetbalsvk@gmail.com"></property>
-        <property name="subject" value="SVK - Message"/>
-    </bean>
-
     <!-- Tasks -->
     <task:scheduled-tasks scheduler="scheduler">
         <task:scheduled ref="activationCodeCleanupTask" method="execute" cron="${activationCodeCleanup.cronSchedule}"/>

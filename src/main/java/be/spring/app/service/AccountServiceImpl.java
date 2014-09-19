@@ -8,6 +8,7 @@ import be.spring.app.interfaces.AccountService;
 import be.spring.app.interfaces.MailService;
 import be.spring.app.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,10 @@ import java.util.Locale;
 @Service
 @Transactional(readOnly = true)
 public class AccountServiceImpl implements AccountService {
+
+    @Value("${base.url}")
+    private String baseUrl;
+
     @Autowired
     private AccountDao accountDao;
 
@@ -34,6 +39,7 @@ public class AccountServiceImpl implements AccountService {
         boolean valid = !errors.hasErrors();
         if (valid) {
             accountDao.create(account, password);
+            mailService.sendPreConfiguredMail(messageSource.getMessage("mail.user.registered", new Object[] {baseUrl, account.getId()},Locale.ENGLISH));
         }
         return valid;
     }
