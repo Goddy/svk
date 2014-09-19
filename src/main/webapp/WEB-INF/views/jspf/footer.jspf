@@ -13,7 +13,7 @@
 
     $(document).ready(function() {
         $("#changeLang").click(function() {
-            document.cookie = "clientlanguage=" + this.text.toLowerCase() + "; path=/; secure"
+            document.cookie = "clientlanguage=" + this.text.toLowerCase() + "; path=/"
             window.location.reload();
         });
     });
