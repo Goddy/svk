@@ -1,7 +1,7 @@
 package be.spring.app.validators;
 
 import be.spring.app.form.PwdRecoveryForm;
-import be.spring.app.interfaces.AccountService;
+import be.spring.app.service.AccountService;
 import be.spring.app.utils.ValidationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

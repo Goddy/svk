@@ -1,7 +1,7 @@
 package be.spring.app.controller;
 
 import be.spring.app.form.PwdRecoveryForm;
-import be.spring.app.interfaces.PwdRecoveryService;
+import be.spring.app.service.PwdRecoveryService;
 import be.spring.app.validators.PwdRecoveryValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

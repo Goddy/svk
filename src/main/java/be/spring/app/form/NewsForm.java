@@ -16,7 +16,7 @@ public class NewsForm {
     @NotEmpty
     private String body;
 
-    private String id;
+    private long id;
 
 
     public String getTitle() {
@@ -35,11 +35,11 @@ public class NewsForm {
         this.body = body;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

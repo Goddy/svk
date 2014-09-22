@@ -2,13 +2,13 @@ package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.CreateMatchForm;
-import be.spring.app.interfaces.AccountService;
-import be.spring.app.interfaces.MatchesService;
-import be.spring.app.interfaces.SeasonService;
-import be.spring.app.interfaces.TeamService;
 import be.spring.app.model.Account;
 import be.spring.app.model.ActionWrapper;
 import be.spring.app.model.Match;
+import be.spring.app.service.AccountService;
+import be.spring.app.service.MatchesService;
+import be.spring.app.service.SeasonService;
+import be.spring.app.service.TeamService;
 import be.spring.app.validators.CreateMatchValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,7 +112,7 @@ public class MatchesController extends AbstractController {
     }
 
     @RequestMapping(value = "deleteMatch", method = RequestMethod.GET)
-    public String deleteMatchPage(@RequestParam String matchId, RedirectAttributes redirectAttributes, Locale locale) {
+    public String deleteMatchPage(@RequestParam Long matchId, RedirectAttributes redirectAttributes, Locale locale) {
         Match m = matchesService.getMatch(matchId);
         if (m == null) throw new ObjectNotFoundException(String.format("Match id %s not found", matchId));
         matchesService.deleteMatch(matchId);
@@ -124,7 +124,7 @@ public class MatchesController extends AbstractController {
     @RequestMapping(value = "matchesForSeason.json", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<ActionWrapper<Match>> getMatchesForSeason(@RequestParam String seasonId, Locale locale) {
+    List<ActionWrapper<Match>> getMatchesForSeason(@RequestParam long seasonId, Locale locale) {
         Account account = getAccountFromSecurity();
         return matchesService.getMatchesForSeason(seasonId, account, locale);
     }

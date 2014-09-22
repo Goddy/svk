@@ -1,6 +1,5 @@
 package be.spring.app.service;
 
-import be.spring.app.interfaces.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

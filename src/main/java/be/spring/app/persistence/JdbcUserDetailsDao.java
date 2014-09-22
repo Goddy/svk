@@ -1,6 +1,5 @@
 package be.spring.app.persistence;
 
-import be.spring.app.interfaces.UserDetailsDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package be.spring.app.interfaces;
+package be.spring.app.tasks;
 
 /**
  * Created by u0090265 on 9/19/14.

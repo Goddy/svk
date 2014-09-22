@@ -29,6 +29,8 @@ public class RegistrationForm {
         this.password = password;
     }
 
+    @NotNull
+    @NotEmpty(message = "{validation.notempty.message}")
     public String getConfirmPassword() {
         return confirmPassword;
     }

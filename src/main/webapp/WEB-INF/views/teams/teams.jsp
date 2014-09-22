@@ -8,7 +8,6 @@
     <table class="table table-hover">
         <tr>
             <th style="display:none;"></th>
-            <th><spring:message code="label.id"/> </th>
             <th><spring:message code="label.teamName"/> </th>
             <th><spring:message code="label.address"/> </th>
             <th><spring:message code="text.actions"/> </th>
@@ -16,7 +15,6 @@
     <c:forEach items="${teams}" var="team">
         <tr>
             <td style="display:none;">${team.object.address.googleLink}</td>
-            <td>${team.object.id}</td>
             <td>${team.object.name}</td>
             <td>${team.object.address}</td>
             <td>${team.htmlActions}</td>
@@ -38,7 +36,7 @@
         $(document).ready(function() {
             $(document).on('click', 'a[class*="delete"]', function (e) {
                 e.preventDefault();
-                var name = $(this).parents('tr:first').find('td:nth-child(3)').text();
+                var name = $(this).parents('tr:first').find('td:nth-child(2)').text();
                 var href = $(this).attr("href");
                 var msg = deleteMsg + name;
                 dd.showDeleteDialog(deleteMatchModal, msg, deleteTitle, href)

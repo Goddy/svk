@@ -3,14 +3,13 @@ package be.spring.app.controller;
 import be.spring.app.form.AccountDetailsForm;
 import be.spring.app.form.ChangePwdForm;
 import be.spring.app.form.RegistrationForm;
-import be.spring.app.interfaces.AccountService;
 import be.spring.app.model.Account;
+import be.spring.app.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -52,7 +51,6 @@ public class AccountController extends AbstractController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    @Transactional
     public String postRegistrationForm(@ModelAttribute("Account") @Valid RegistrationForm form, BindingResult result, Locale locale) {
         log.info("Posted RegistrationForm: {}", form);
         accountService.registerAccount(
@@ -63,7 +61,6 @@ public class AccountController extends AbstractController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "update_details", method = RequestMethod.POST)
-    @Transactional
     public String updateAccountDetails(@ModelAttribute("Account") @Valid AccountDetailsForm form, BindingResult result, ModelMap model, Locale locale) {
         Account a = getAccountFromSecurity();
         accountService.updateAccount(a, result, form);

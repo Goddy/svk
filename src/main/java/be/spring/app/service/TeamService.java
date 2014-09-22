@@ -1,4 +1,4 @@
-package be.spring.app.interfaces;
+package be.spring.app.service;
 
 import be.spring.app.form.CreateAndUpdateTeamForm;
 import be.spring.app.model.Account;
@@ -16,7 +16,7 @@ public interface TeamService {
 
     boolean teamExists(String name);
 
-    Team getTeam(String id);
+    Team getTeam(long id);
 
     Team createTeam(CreateAndUpdateTeamForm form);
 
@@ -24,5 +24,5 @@ public interface TeamService {
 
     List<ActionWrapper<Team>> getTeams(Account account, Locale locale);
 
-    boolean deleteTeam(String id, Account a);
+    boolean deleteTeam(long id, Account a);
 }

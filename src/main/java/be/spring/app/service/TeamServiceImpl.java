@@ -2,11 +2,13 @@ package be.spring.app.service;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.CreateAndUpdateTeamForm;
-import be.spring.app.interfaces.*;
 import be.spring.app.model.Account;
 import be.spring.app.model.ActionWrapper;
 import be.spring.app.model.Address;
 import be.spring.app.model.Team;
+import be.spring.app.persistence.AddressDao;
+import be.spring.app.persistence.MatchesDao;
+import be.spring.app.persistence.TeamDao;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +42,7 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public List<Team> getAll() {
-        return teamDao.getAll();
+        return Lists.newArrayList(teamDao.findAll());
     }
 
     @Override
@@ -49,8 +51,8 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Team getTeam(String id) {
-        return teamDao.get(id);
+    public Team getTeam(long id) {
+        return teamDao.findOne(id);
     }
 
     @Transactional(readOnly = false)
@@ -58,23 +60,23 @@ public class TeamServiceImpl implements TeamService {
     public Team createTeam(CreateAndUpdateTeamForm form) {
         Team team = new Team();
         updateTeamFromForm(form, team);
-        teamDao.create(team);
+        teamDao.save(team);
         return team;
     }
 
     @Transactional(readOnly = false)
     @Override
     public Team updateTeam(CreateAndUpdateTeamForm form) {
-        Team team = teamDao.get(form.getId());
+        Team team = teamDao.findOne(form.getId());
         updateTeamFromForm(form, team);
-        teamDao.update(team);
+        teamDao.save(team);
         return team;
     }
 
     private void updateTeamFromForm(CreateAndUpdateTeamForm form, Team team) {
         //If an existing address is chose, get the address, otherwise create a new one.
         if (form.isUseExistingAddress()) {
-            Address address = addressDao.get(form.getAddressId());
+            Address address = addressDao.findOne(form.getAddressId());
             if (address == null) throw new ObjectNotFoundException(String.format("Address with id %s not found", form.getAddressId()));
             team.setAddress(address);
         } else {
@@ -104,10 +106,10 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     @Transactional(readOnly = false)
-    public boolean deleteTeam(String id, Account a) {
-        Team team = teamDao.get(id);
+    public boolean deleteTeam(long id, Account a) {
+        Team team = teamDao.findOne(id);
         if (team == null) return true;
-        if (matchesDao.isTeamInUse(team)) {
+        if (!matchesDao.getMatchesForTeam(team).isEmpty()) {
             return false;
         }
         else {

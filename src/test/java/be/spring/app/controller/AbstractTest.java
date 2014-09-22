@@ -1,8 +1,8 @@
 package be.spring.app.controller;
 
-import be.spring.app.interfaces.AccountDao;
-import be.spring.app.interfaces.MailService;
 import be.spring.app.model.Account;
+import be.spring.app.persistence.AccountDao;
+import be.spring.app.service.MailService;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
@@ -51,7 +51,7 @@ public abstract class AbstractTest {
         account.setUsername(userName);
         account.setLastName(name);
         account.setFirstName(firstName);
-        accountDao.create(account);
+        accountDao.save(account);
         return account;
     }
 }

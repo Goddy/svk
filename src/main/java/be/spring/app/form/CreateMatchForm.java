@@ -7,25 +7,25 @@ import org.springframework.format.annotation.DateTimeFormat;
  * Created by u0090265 on 5/10/14.
  */
 public class CreateMatchForm {
-    private int awayTeam;
-    private int homeTeam;
+    private long awayTeam;
+    private long homeTeam;
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private DateTime date;
-    private int season;
+    private long season;
 
-    public int getAwayTeam() {
+    public long getAwayTeam() {
         return awayTeam;
     }
 
-    public void setAwayTeam(int awayTeam) {
+    public void setAwayTeam(long awayTeam) {
         this.awayTeam = awayTeam;
     }
 
-    public int getHomeTeam() {
+    public long getHomeTeam() {
         return homeTeam;
     }
 
-    public void setHomeTeam(int homeTeam) {
+    public void setHomeTeam(long homeTeam) {
         this.homeTeam = homeTeam;
     }
 
@@ -37,11 +37,11 @@ public class CreateMatchForm {
         this.date = date;
     }
 
-    public int getSeason() {
+    public long getSeason() {
         return season;
     }
 
-    public void setSeason(int season) {
+    public void setSeason(long season) {
         this.season = season;
     }
 }

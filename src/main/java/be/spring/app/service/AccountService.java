@@ -1,4 +1,4 @@
-package be.spring.app.interfaces;
+package be.spring.app.service;
 
 import be.spring.app.form.AccountDetailsForm;
 import be.spring.app.form.ActivateAccountForm;

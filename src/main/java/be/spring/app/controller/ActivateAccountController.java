@@ -2,8 +2,9 @@ package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.ActivateAccountForm;
-import be.spring.app.interfaces.AccountService;
 import be.spring.app.model.Account;
+import be.spring.app.service.AccountService;
+import be.spring.app.utils.GeneralUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class ActivateAccountController extends AbstractController {
             setErrorMessage(model,locale, "error.activation.already.activated", null);
             return LANDING_ACTIVATION;
         }
-        form.setAccountId(accountId);
+        form.setAccountId(GeneralUtils.convertToLong(accountId));
 
         return LANDING_ACTIVATION;
     }

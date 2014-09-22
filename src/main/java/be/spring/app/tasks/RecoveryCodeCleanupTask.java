@@ -1,7 +1,6 @@
 package be.spring.app.tasks;
 
-import be.spring.app.interfaces.PwdRecoveryService;
-import be.spring.app.interfaces.Task;
+import be.spring.app.service.PwdRecoveryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

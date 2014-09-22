@@ -1,8 +1,9 @@
 package be.spring.app.service;
 
-import be.spring.app.interfaces.AddressDao;
-import be.spring.app.interfaces.AddressService;
 import be.spring.app.model.Address;
+import be.spring.app.persistence.AddressDao;
+import be.spring.app.utils.GeneralUtils;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +21,11 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<Address> getAllAddresses() {
-        return addressDao.getAll();
+        return Lists.newArrayList(addressDao.findAll());
     }
 
     @Override
     public Address getAddressById(String id) {
-        return addressDao.get(id);
+        return addressDao.findOne(GeneralUtils.convertToLong(id));
     }
 }

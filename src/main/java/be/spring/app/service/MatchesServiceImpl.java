@@ -3,13 +3,19 @@ package be.spring.app.service;
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.ChangeResultForm;
 import be.spring.app.form.CreateMatchForm;
-import be.spring.app.interfaces.*;
 import be.spring.app.model.*;
+import be.spring.app.persistence.AccountDao;
+import be.spring.app.persistence.MatchesDao;
+import be.spring.app.persistence.SeasonDao;
+import be.spring.app.persistence.TeamDao;
+import be.spring.app.utils.GeneralUtils;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +54,7 @@ public class MatchesServiceImpl implements MatchesService {
     public Map<Integer, List<Match>> getMatchesForLastSeasons() {
         int count = 1;
         Map<Integer, List<Match>> resultMap = new HashMap<>();
-        for (Season season : seasonDao.getLastSeasons(maxSeasons)) {
+        for (Season season : seasonDao.findAll(new PageRequest(0, maxSeasons, Sort.Direction.DESC, "description"))) {
             resultMap.put(count, matchesDao.getMatchForSeason(season));
             count++;
         }
@@ -56,7 +62,7 @@ public class MatchesServiceImpl implements MatchesService {
     }
 
     @Override
-    public List<ActionWrapper<Match>> getMatchesForSeason(String seasonId, final Account account, final Locale locale) {
+    public List<ActionWrapper<Match>> getMatchesForSeason(long seasonId, final Account account, final Locale locale) {
         try {
             return concurrentDataService.getMatchForSeasonActionWrappers(seasonId, account, locale).get();
         } catch (InterruptedException | ExecutionException e) {
@@ -67,19 +73,19 @@ public class MatchesServiceImpl implements MatchesService {
 
     @Override
     @Transactional(readOnly = false)
-    public Match getMatch(String id) {
-        return matchesDao.get(id);
+    public Match getMatch(long id) {
+        return matchesDao.findOne(id);
     }
 
     @Override
     @Transactional(readOnly = false)
     public Match createMatch(CreateMatchForm form) throws ParseException {
         Match m = new Match();
-        m.setSeason(seasonDao.get(form.getSeason()));
+        m.setSeason(seasonDao.findOne(form.getSeason()));
         m.setDate(form.getDate());
-        m.setHomeTeam(teamDao.get(form.getHomeTeam()));
-        m.setAwayTeam(teamDao.get(form.getAwayTeam()));
-        matchesDao.create(m);
+        m.setHomeTeam(teamDao.findOne(form.getHomeTeam()));
+        m.setAwayTeam(teamDao.findOne(form.getAwayTeam()));
+        matchesDao.save(m);
         log.debug("Match {} created.", m);
         return m;
     }
@@ -87,19 +93,19 @@ public class MatchesServiceImpl implements MatchesService {
     @Override
     @Transactional(readOnly = false)
     public Match updateMatchResult(ChangeResultForm form) {
-        Match m = matchesDao.get(form.getMatchId());
+        Match m = matchesDao.findOne(form.getMatchId());
         m.setGoals(transFormGoals(form));
         m.setAtGoals(form.getAtGoals());
         m.setHtGoals(form.getHtGoals());
         m.setPlayed(true);
-        matchesDao.update(m);
+        matchesDao.save(m);
         return m;
     }
 
     @Override
     @Transactional(readOnly = false)
-    public void deleteMatch(String id) throws ObjectNotFoundException {
-        Match m = matchesDao.get(id);
+    public void deleteMatch(long id) throws ObjectNotFoundException {
+        Match m = matchesDao.findOne(id);
         if (m == null) throw new ObjectNotFoundException(String.format("Match with id %s not found", id));
         matchesDao.delete(id);
     }
@@ -109,8 +115,8 @@ public class MatchesServiceImpl implements MatchesService {
         for (ChangeResultForm.FormGoal goal : form.getGoals()) {
             Goal g = new Goal();
             g.setOrder(goal.getOrder());
-            g.setScorer(accountDao.get(goal.getScorer()));
-            g.setAssist(accountDao.get(goal.getAssist()));
+            g.setScorer(accountDao.findOne(GeneralUtils.convertToLong(goal.getScorer())));
+            g.setAssist(accountDao.findOne(GeneralUtils.convertToLong(goal.getAssist())));
             result.add(g);
         }
         return result;

@@ -2,12 +2,14 @@ package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.NewsForm;
-import be.spring.app.interfaces.NewsService;
 import be.spring.app.model.Account;
 import be.spring.app.model.News;
+import be.spring.app.service.NewsService;
 import be.spring.app.utils.Constants;
+import be.spring.app.utils.GeneralUtils;
 import be.spring.app.utils.PageObject;
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +45,13 @@ public class NewsController extends AbstractController {
         int newsCount = newsService.getNewsCount();
         PageObject pageObject = new PageObject(model, newsCount, Constants.ZERO,VN_NEWS_PAGE);
         pageObject.addAttributes();
-        List<News> newsList = newsService.getPagedNews(Constants.ZERO);
+        List<News> newsList = Lists.newArrayList(newsService.getPagedNews(Constants.ZERO).iterator());
         model.addAttribute("newsList", newsList);
         return VN_NEWS_PAGE;
     }
 
     @RequestMapping(value = "newsItem", method = RequestMethod.GET)
-    public String getNewsItem(Model model, @RequestParam String newsId) {
+    public String getNewsItem(Model model, @RequestParam long newsId) {
         News news = newsService.getNewsItem(newsId);
         model.addAttribute("newsItem", news );
         return VN_NEWS_ITEM_PAGE;
@@ -57,7 +59,7 @@ public class NewsController extends AbstractController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "deleteItem", method = RequestMethod.GET)
-    public String deleteNewsItem(Model model, @RequestParam String newsId) {
+    public String deleteNewsItem(Model model, @RequestParam long newsId) {
         newsService.deleteNews(newsId, getAccountFromSecurity());
         log.info(String.format("News item %s was deleted by user %s", newsId, getAccountFromSecurity().getUsername()));
         return getRedirect(VN_NEWS_PAGE);
@@ -69,7 +71,8 @@ public class NewsController extends AbstractController {
         int newsCount = newsService.getNewsCount();
         PageObject pageObject = new PageObject(model, newsCount,page,VN_NEWS_PAGE);
         pageObject.addAttributes();
-        model.addAttribute("newsList", newsService.getPagedNews(page));
+        List<News> allNews = Lists.newArrayList(newsService.getPagedNews(page).iterator());
+        model.addAttribute("newsList", allNews);
 
         return VN_NEWS_PAGE;
     }
@@ -95,9 +98,10 @@ public class NewsController extends AbstractController {
     @RequestMapping(value = "editNews", method = RequestMethod.GET)
     public String addGet(@ModelAttribute("form") NewsForm form, @RequestParam(required = false) String newsId, Model model) {
         if (!Strings.isNullOrEmpty(newsId)) {
+            long id = GeneralUtils.convertToLong(newsId);
             model.addAttribute("command", "updateNews.html");
-            form.setId(newsId);
-            News n = newsService.getNewsItem(newsId);
+            form.setId(id);
+            News n = newsService.getNewsItem(id);
             if (n == null) throw new ObjectNotFoundException(String.format("News item %s not found by user %s", newsId, getAccountFromSecurity().getUsername()));
             form.setTitle(n.getHeader());
             form.setBody(n.getContent());

@@ -1,4 +1,4 @@
-package be.spring.app.interfaces;
+package be.spring.app.persistence;
 
 /**
  * User: Tom De Dobbeleer

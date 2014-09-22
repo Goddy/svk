@@ -1,8 +1,7 @@
 package be.spring.app.persistence;
 
-import be.spring.app.interfaces.AccountService;
-import be.spring.app.interfaces.UserDetailsDao;
 import be.spring.app.model.Account;
+import be.spring.app.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;

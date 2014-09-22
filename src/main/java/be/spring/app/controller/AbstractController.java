@@ -2,8 +2,8 @@ package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.controller.exceptions.UnauthorizedAccessException;
-import be.spring.app.interfaces.MailService;
 import be.spring.app.model.Account;
+import be.spring.app.service.MailService;
 import be.spring.app.utils.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

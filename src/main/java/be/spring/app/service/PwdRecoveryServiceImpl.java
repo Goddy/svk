@@ -1,10 +1,8 @@
 package be.spring.app.service;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
-import be.spring.app.interfaces.AccountDao;
-import be.spring.app.interfaces.MailService;
-import be.spring.app.interfaces.PwdRecoveryService;
 import be.spring.app.model.Account;
+import be.spring.app.persistence.AccountDao;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -34,6 +32,7 @@ public class PwdRecoveryServiceImpl implements PwdRecoveryService {
     private MailService mailService;
     private AccountDao accountDao;
     private MessageSource messageSource;
+    private AccountService accountService;
 
     private final static String TIMESTAMP_PATTERN =  "yyyyMMddHHmmss";
     private static final int RECOVERY_LENGTH = 10;
@@ -41,10 +40,11 @@ public class PwdRecoveryServiceImpl implements PwdRecoveryService {
     private static final Logger log = LoggerFactory.getLogger(PwdRecoveryServiceImpl.class);
 
     @Autowired
-    public PwdRecoveryServiceImpl(MailService mailService, AccountDao accountDao, MessageSource messageSource) {
+    public PwdRecoveryServiceImpl(MailService mailService, AccountDao accountDao, MessageSource messageSource, AccountService accountService) {
         this.mailService = mailService;
         this.accountDao = accountDao;
         this.messageSource = messageSource;
+        this.accountService = accountService;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class PwdRecoveryServiceImpl implements PwdRecoveryService {
             DateTime codeTime = getDateFromDbString(a.getPwdRecovery());
             if (codeTime.isBefore(hourAgo)) {
                 a.setPwdRecovery(null);
-                accountDao.update(a);
+                accountDao.save(a);
                 log.info("Deleted activationcode for account {}", a.getUsername());
             }
         }
@@ -75,7 +75,7 @@ public class PwdRecoveryServiceImpl implements PwdRecoveryService {
 
         account.setPwdRecovery(pwdRecoveryCode);
 
-        accountDao.update(account);
+        accountDao.save(account);
 
         Object[] args = new Object[] {account.getFirstName(), recoveryHex, account.getUsername(), baseUrl};
 
@@ -100,7 +100,7 @@ public class PwdRecoveryServiceImpl implements PwdRecoveryService {
         }
         else {
             account.setPwdRecovery(null);
-            accountDao.update(account, password);
+            accountService.setPasswordFor(account, password);
         }
     }
 

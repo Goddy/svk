@@ -1,10 +1,10 @@
 package be.spring.app.controller;
 
 import be.spring.app.form.ChangeResultForm;
-import be.spring.app.interfaces.AccountService;
-import be.spring.app.interfaces.MatchesService;
 import be.spring.app.model.Account;
 import be.spring.app.model.Match;
+import be.spring.app.service.AccountService;
+import be.spring.app.service.MatchesService;
 import be.spring.app.validators.ResultValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -66,7 +66,7 @@ public class MatchResultController extends AbstractController{
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "changeMatchResult", method = RequestMethod.GET)
-    public ModelAndView newMatchResult(ModelMap model, @RequestParam String matchId, @ModelAttribute("form") ChangeResultForm form) {
+    public ModelAndView newMatchResult(ModelMap model, @RequestParam long matchId, @ModelAttribute("form") ChangeResultForm form) {
         Match match = matchesService.getMatch(matchId);
         model.addAttribute("match", match);
 

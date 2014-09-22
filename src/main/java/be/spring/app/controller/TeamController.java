@@ -2,11 +2,11 @@ package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.CreateAndUpdateTeamForm;
-import be.spring.app.interfaces.AddressService;
-import be.spring.app.interfaces.TeamService;
 import be.spring.app.model.ActionWrapper;
 import be.spring.app.model.Address;
 import be.spring.app.model.Team;
+import be.spring.app.service.AddressService;
+import be.spring.app.service.TeamService;
 import be.spring.app.validators.CreateTeamValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +63,7 @@ public class TeamController extends AbstractController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "editTeam", method = RequestMethod.GET)
-    public String getEditTeamPage(@ModelAttribute("form") CreateAndUpdateTeamForm form, @RequestParam String teamId, ModelMap model, Locale locale) {
+    public String getEditTeamPage(@ModelAttribute("form") CreateAndUpdateTeamForm form, @RequestParam long teamId, ModelMap model, Locale locale) {
         Team team = teamService.getTeam(teamId);
         if (team == null) throw new ObjectNotFoundException(String.format("Team with id %s not found", teamId));
         form.setId(team.getId());
@@ -140,7 +140,7 @@ public class TeamController extends AbstractController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteTeam", method = RequestMethod.GET)
-    public String deleteTeam(@RequestParam String teamId, ModelMap model, Locale locale) {
+    public String deleteTeam(@RequestParam long teamId, ModelMap model, Locale locale) {
         Team team = teamService.getTeam(teamId);
         if (team == null) throw new ObjectNotFoundException(String.format("Team with id %s not found", teamId));
         if (teamService.deleteTeam(teamId, getAccountFromSecurity())) {

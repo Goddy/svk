@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
  * Created by u0090265 on 9/19/14.
  */
 public class ActivateAccountForm {
-    private String accountId;
+    private long accountId;
     private boolean sendEmail;
 
     public boolean isSendEmail() {
@@ -18,11 +18,11 @@ public class ActivateAccountForm {
     }
 
     @NotNull
-    public String getAccountId() {
+    public long getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(String accountId) {
+    public void setAccountId(long accountId) {
         this.accountId = accountId;
     }
 }

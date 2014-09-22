@@ -1,7 +1,7 @@
 package be.spring.app.controller;
 
-import be.spring.app.interfaces.AccountDao;
 import be.spring.app.model.Account;
+import be.spring.app.persistence.AccountDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,7 @@ public class AccountControllerTest extends AbstractTest {
     @Test
     public void testPostRegistrationFormAccountExists() throws Exception {
         Account existingAccount = createAccount();
-        accountDao.create(existingAccount);
+        accountDao.save(existingAccount);
 
         MvcResult r = performRegistration(firstName, name, userName, password, password, status().isOk());
 

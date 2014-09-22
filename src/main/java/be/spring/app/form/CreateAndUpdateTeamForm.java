@@ -11,7 +11,7 @@ public class CreateAndUpdateTeamForm {
     private String city;
     private String googleLink;
     private boolean useLink = false;
-    private int addressId;
+    private long addressId;
     private boolean useExistingAddress = true;
 
     public String getPostalCode() {
@@ -71,11 +71,11 @@ public class CreateAndUpdateTeamForm {
         this.id = id;
     }
 
-    public int getAddressId() {
+    public long getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
+    public void setAddressId(long addressId) {
         this.addressId = addressId;
     }
 

@@ -1,4 +1,4 @@
-package be.spring.app.interfaces;
+package be.spring.app.service;
 
 import org.springframework.validation.Errors;
 

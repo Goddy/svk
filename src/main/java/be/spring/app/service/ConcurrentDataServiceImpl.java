@@ -1,12 +1,12 @@
 package be.spring.app.service;
 
-import be.spring.app.interfaces.ConcurrentDataService;
-import be.spring.app.interfaces.MatchesDao;
-import be.spring.app.interfaces.SeasonDao;
-import be.spring.app.interfaces.TeamDao;
 import be.spring.app.model.*;
+import be.spring.app.persistence.MatchesDao;
+import be.spring.app.persistence.SeasonDao;
+import be.spring.app.persistence.TeamDao;
 import be.spring.app.utils.HtmlHelper;
 import be.spring.app.utils.SecurityUtils;
+import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
@@ -52,8 +52,8 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
 
     //Todo: duplicated behaviour, should be avoided
     @Override
-    public ListenableFuture<List<ActionWrapper<Match>>> getMatchForSeasonActionWrappers(String seasonId, Account account, Locale locale) {
-        Season season = seasonDao.get(seasonId);
+    public ListenableFuture<List<ActionWrapper<Match>>> getMatchForSeasonActionWrappers(long seasonId, Account account, Locale locale) {
+        Season season = seasonDao.findOne(seasonId);
         List<Match> matches = matchesDao.getMatchForSeason(season);
         List<ListenableFuture<ActionWrapper<Match>>> r = new ArrayList<>();
 
@@ -65,7 +65,7 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
 
     @Override
     public  ListenableFuture<List<ActionWrapper<Team>>> getTeamsActionWrappers(Account account, Locale locale) {
-        List<Team> teams = teamDao.getAll();
+        List<Team> teams = Lists.newArrayList(teamDao.findAll());
         List<ListenableFuture<ActionWrapper<Team>>> r = new ArrayList<>();
 
         for (ActionWrapper<Team> teamActionWrapper : getActionWrappers(teams)) {

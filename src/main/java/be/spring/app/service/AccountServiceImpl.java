@@ -3,13 +3,15 @@ package be.spring.app.service;
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.AccountDetailsForm;
 import be.spring.app.form.ActivateAccountForm;
-import be.spring.app.interfaces.AccountDao;
-import be.spring.app.interfaces.AccountService;
-import be.spring.app.interfaces.MailService;
 import be.spring.app.model.Account;
+import be.spring.app.persistence.AccountDao;
+import be.spring.app.utils.GeneralUtils;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -20,6 +22,9 @@ import java.util.Locale;
 @Service
 @Transactional(readOnly = true)
 public class AccountServiceImpl implements AccountService {
+
+    private static final String UPDATE_PASSWORD_SQL = "update account set password = ? where id = ?";
+    private static final String GET_PASSWORD = "select password from account where id = ?";
 
     @Value("${base.url}")
     private String baseUrl;
@@ -33,15 +38,26 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private MailService mailService;
 
-    @Transactional(readOnly = false)
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     public boolean registerAccount(Account account, String password, Errors errors) {
         validateUsername(account.getUsername(), errors);
         boolean valid = !errors.hasErrors();
         if (valid) {
-            accountDao.create(account, password);
+            createAccountWithPassword(account, password);
             mailService.sendPreConfiguredMail(messageSource.getMessage("mail.user.registered", new Object[] {baseUrl, account.getId(), account.getFullName()},Locale.ENGLISH));
         }
         return valid;
+    }
+
+    @Transactional(readOnly = false)
+    private void createAccountWithPassword(Account account, String password) {
+        accountDao.save(account);
+        String encPassword = passwordEncoder.encode(password);
+        jdbcTemplate.update(UPDATE_PASSWORD_SQL, encPassword, account.getId());
     }
 
     @Transactional(readOnly = false)
@@ -51,7 +67,7 @@ public class AccountServiceImpl implements AccountService {
         validateUsernameExcludeCurrentId(newAccount.getUsername(), newAccount.getId(), errors);
         boolean valid = !errors.hasErrors();
         if (valid) {
-            accountDao.update(newAccount);
+            accountDao.save(newAccount);
         }
         return valid;
     }
@@ -59,7 +75,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public Account activateAccount(ActivateAccountForm form, Locale locale, Errors errors) {
-        Account account = accountDao.get(form.getAccountId());
+        Account account = accountDao.findOne(form.getAccountId());
         if (account == null) throw new ObjectNotFoundException(String.format("Object with id %s not found", form.getAccountId()));
         account.setActive(true);
         if (form.isSendEmail()) {
@@ -72,6 +88,7 @@ public class AccountServiceImpl implements AccountService {
         return account;
     }
 
+    @Transactional(readOnly = true)
     public void validateUsername(String username, Errors errors) {
         if (accountDao.findByUsername(username) != null) {
             errors.rejectValue("username", "error.duplicate.account.email",
@@ -89,23 +106,25 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional(readOnly = false)
     public void setPasswordFor(Account account, String password) {
-        accountDao.update(account, password);
+        String encPassword = passwordEncoder.encode(password);
+        jdbcTemplate.update(UPDATE_PASSWORD_SQL, encPassword, account.getId());
     }
 
     @Override
-    @Transactional(readOnly = false)
+    @Transactional(readOnly = true)
     public boolean checkOldPassword(Account account, String password) {
-        return accountDao.checkPassword(account, password);
+        String encodedPassword = jdbcTemplate.queryForObject(GET_PASSWORD, String.class, account.getId());
+        return passwordEncoder.matches(password, encodedPassword);
     }
 
     @Override
     public List<Account> getAll() {
-        return accountDao.getAll();
+        return Lists.newArrayList(accountDao.findAll());
     }
 
     @Override
     public Account getAccount(String id) {
-        return accountDao.get(id);
+        return accountDao.findOne(GeneralUtils.convertToLong(id));
     }
 
     @Override
@@ -125,7 +144,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private Account getUpdatedAccount(Account account, AccountDetailsForm form) {
-        Account newAccount = accountDao.get(account.getId());
+        Account newAccount = accountDao.findOne(account.getId());
         newAccount.setFirstName(form.getFirstName());
         newAccount.setLastName(form.getLastName());
         newAccount.setUsername(form.getUsername());
