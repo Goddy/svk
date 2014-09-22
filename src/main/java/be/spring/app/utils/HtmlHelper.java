@@ -37,17 +37,15 @@ public class HtmlHelper {
     }
 
     public String getTeamButtons(Team team, boolean isAdmin, Locale locale) {
-        if (isAdmin) {
-            StringBuilder btns = new StringBuilder()
-                    .append(getBtn(EMPTY, EDIT, String.format("editTeam.html?teamId=%s", team.getId())))
-                    .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteTeam.html?teamId=%s", team.getId())));
-            if (team.getAddress().getGoogleLink() != null) btns.append(getBtn(MAP_CLASS, MAP, "#"));
+        StringBuilder btns = new StringBuilder();
+        if (team.getAddress().getGoogleLink() != null) btns.append(getBtn(MAP_CLASS, MAP, "#"));
 
-            return wrapIntoBtnGroup(btns.toString());
+        if (isAdmin) {
+            btns.append(getBtn(EMPTY, EDIT, String.format("editTeam.html?teamId=%s", team.getId())))
+                .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteTeam.html?teamId=%s", team.getId())));
         }
-        else {
-            return messageSource.getMessage("text.noActions", null, locale);
-        }
+
+        return btns.toString().isEmpty() ? messageSource.getMessage("text.noActions", null, locale) : wrapIntoBtnGroup(btns.toString());
     }
 
     private static String getBtn(String aClazz, String clazz, String url) {

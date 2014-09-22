@@ -83,7 +83,17 @@ header h3 {
 /* Maps
 -------------------------------------------------- */
 .google-maps iframe {
-    width: 100% !important;
-    height: 100% !important;
+    width: 425px;
+    height: 350px;
     padding-bottom: 10px;
+}
+
+/* Media queries
+-------------------------------------------------- */
+@media (max-width: 768px) {
+    .google-maps iframe {
+        width: 100% !important;
+        height: 100% !important;
+        padding-bottom: 10px;
+    }
 }

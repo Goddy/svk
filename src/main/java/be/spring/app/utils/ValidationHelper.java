@@ -24,7 +24,7 @@ public class ValidationHelper {
         return sdf.parse(date);
     }
 
-    public static boolean isMatch(String input) {
+    public static boolean isPasswordMatch(String input) {
         return input != null && input.matches(Constants.PASSWORD_REGEX);
     }
 }

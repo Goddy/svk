@@ -1,4 +1,4 @@
-package controllers;
+package be.spring.app.controller;
 
 import be.spring.app.interfaces.NewsDao;
 import org.junit.runner.RunWith;

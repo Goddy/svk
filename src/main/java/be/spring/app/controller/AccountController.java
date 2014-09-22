@@ -52,6 +52,7 @@ public class AccountController extends AbstractController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
+    @Transactional
     public String postRegistrationForm(@ModelAttribute("Account") @Valid RegistrationForm form, BindingResult result, Locale locale) {
         log.info("Posted RegistrationForm: {}", form);
         accountService.registerAccount(

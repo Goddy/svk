@@ -40,7 +40,7 @@ public class PwdRecoveryValidator implements Validator {
             if (!form.getNewPassword().equals(form.getRepeatNewPassword())) {
                 errors.rejectValue("newPassword", "validation.passwords.noMatch");
             }
-            if (!ValidationHelper.isMatch(form.getNewPassword()))
+            if (!ValidationHelper.isPasswordMatch(form.getNewPassword()))
                 errors.rejectValue("newPassword", "validation.complexity.password.message");
 
         }

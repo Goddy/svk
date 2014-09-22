@@ -5,11 +5,11 @@
         xmlns="http://www.springframework.org/schema/beans"
         xmlns:tx="http://www.springframework.org/schema/tx"
         xmlns:p="http://www.springframework.org/schema/p"
-        xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:data="http://www.springframework.org/schema/data/jpa"
         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <import resource="test-data-source.xml"/>
     <!-- Scan persistence package for annotations -->
@@ -19,14 +19,23 @@
         <context:exclude-filter expression="be.spring.app.service.MailServiceImpl" type="regex"/>
     </context:component-scan>
     <context:component-scan base-package="be.spring.app.utils"/>
-    <tx:annotation-driven transaction-manager="jpaTxManager"/>
 
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <data:repositories base-package="be.spring.app.interfaces"/>
+
+    <bean id="mailService" class="org.easymock.EasyMock" factory-method="createStrictMock">
+        <constructor-arg value="be.spring.app.interfaces.MailService"/>
+    </bean>
+
+    <!-- make a bean out of jdbcTemplate, otherwise there are password column errors
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource"/>
     <util:properties id="hibernateProperties">
         <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
         <prop key="hibernate.show_sql">true</prop>
         <prop key="hibernate.hbm2ddl.auto">update</prop>
     </util:properties>
+    -->
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
@@ -50,7 +59,7 @@
             </props>
         </property>
     </bean>
-    <bean id="jpaTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="dataSource" ref="dataSource"/>
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
