@@ -24,13 +24,16 @@
 </div>
 <%@ include file="../jspf/footer.jspf" %>
 <tag:deleteDialog dialogId="delete-match-modal"/>
+<tag:mapDialog dialogId="map-modal"/>
 <script src="<c:url value='/resources/js/svk-1.0.0.js'/>"></script>
 <script type="text/javascript">
 
-    (function($, dd){
+    (function($, dd, md){
         var deleteMsg = "<spring:message code="text.delete.match"/>";
         var deleteTitle = "<spring:message code="title.delete.match"/>";
         var deleteMatchModal = $("#delete-match-modal");
+        var mapModal = $("#map-modal");
+
         $(document).ready(function() {
             $(document).on('click', 'a[class*="delete"]', function (e) {
                 console.log("Clicked delete");
@@ -40,6 +43,12 @@
                 var href = $(this).attr("href");
                 var msg = hTeam + " - " + aTeam;
                 dd.showDeleteDialog(deleteMatchModal, msg, deleteTitle, href)
+            });
+
+            $(document).on('click', 'a[class*="map"]', function (e) {
+                e.preventDefault();
+                var href = $(this).attr("href");
+                md.showMapDialog(mapModal, href)
             });
         });
         $(document).ready(function () {
@@ -70,8 +79,9 @@
                             var divContent = "";
                             var message = "";
                             if (json != null) {
-                                divContent += '<div class="table-responsive">"<table class="table table-hover">'
-                                        + '<tr><td><spring:message code='text.date'/></td>'
+                                divContent += '<div class="table-responsive"><table class="table table-hover">'
+                                        + '<tr>' + '<td style="display:none"></td>'
+                                        + '<td><spring:message code='text.date'/></td>'
                                         + '<td><spring:message code='text.hour'/></td>'
                                         + '<td><spring:message code='text.homeTeam'/></td>'
                                         + '<td><spring:message code='text.awayTeam'/></td>'
@@ -105,7 +115,7 @@
             //Populate the first div with matches
             populateFirstDiv();
         })
-    })(jQuery, svk.deleteDialogs);
+    })(jQuery, svk.deleteDialogs, svk.mapDialog);
 
 
 </script>

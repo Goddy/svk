@@ -24,16 +24,16 @@ public class HtmlHelper {
     private static String EMPTY = "";
 
     public String getMatchesButtons(Match match, boolean isAdmin, Locale locale) {
+        StringBuilder btns = new StringBuilder();
         if (isAdmin) {
-            String btns = new StringBuilder()
-                    .append(getBtn(EMPTY, EDIT, String.format("changeMatchResult.html?matchId=%s", match.getId())))
-                    .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteMatch.html?matchId=%s", match.getId())))
-                    .toString();
-            return wrapIntoBtnGroup(btns);
+            btns.append(getBtn(EMPTY, EDIT, String.format("changeMatchResult.html?matchId=%s", match.getId())))
+                    .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteMatch.html?matchId=%s", match.getId())));
         }
-        else {
-            return messageSource.getMessage("text.noActions", null, locale);
-        }
+
+        String googleLink = match.getHomeTeam().getAddress().getGoogleLink();
+        if (googleLink != null) btns.append(getBtn(MAP_CLASS, MAP, googleLink));
+
+        return btns.toString().isEmpty() ? messageSource.getMessage("text.noActions", null, locale) : wrapIntoBtnGroup(btns.toString());
     }
 
     public String getTeamButtons(Team team, boolean isAdmin, Locale locale) {
