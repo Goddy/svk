@@ -362,6 +362,7 @@
                             <directory>${basedir}/src/main/webapp/WEB-INF</directory>
                             <includes>
                                 <include>applicationContext.xml</include>
+                                <include>spring-servlet.xml</include>
                             </includes>
                             <targetPath>WEB-INF</targetPath>
                             <filtering>true</filtering>

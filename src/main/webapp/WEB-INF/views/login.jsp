@@ -60,7 +60,7 @@ and social sign in buttons.
             <div class="row">
                 <div class="form-group col-lg-4">
                     <!-- Add create user account link -->
-                    <a href="/account/register.html"><spring:message code="button.register"/></a>
+                    <a href="${baseUrl}/account/register.html"><spring:message code="button.register"/></a>
                 </div>
             </div>
             <div class="row">

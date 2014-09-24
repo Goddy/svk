@@ -15,6 +15,12 @@
     <context:component-scan base-package="be.spring.app.validators"/>
     <context:component-scan base-package="be.spring.app.controller"/>
 
+    <mvc:interceptors>
+        <bean class="be.spring.app.handler.PropertiesAddingHandlerInterceptor">
+            <constructor-arg value="${baseUrl}"/>
+        </bean>
+    </mvc:interceptors>
+
     <!--Enables JSON integration-->
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
