@@ -1,6 +1,8 @@
 package controllers;
 
+import be.spring.app.interfaces.NewsDao;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -14,11 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 @WebAppConfiguration
 @ContextConfiguration(locations={"/test-applicationContext.xml"})
 @Transactional
-public class NewsControllerTest {
-    @org.junit.Before
-    public void setUp() throws Exception {
-
-    }
+public class NewsControllerTest extends AbstractTest {
+    @Autowired
+    private NewsDao newsDao;
 
     @org.junit.Test
     public void testGetNewsPage() throws Exception {

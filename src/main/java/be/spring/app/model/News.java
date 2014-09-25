@@ -68,7 +68,7 @@ public class News {
 
     @NotNull
     @Size(min = 1)
-    @Column(name = "content", columnDefinition="longblob")
+    @Column(name = "content")
     public String getContent() {
         return content;
     }

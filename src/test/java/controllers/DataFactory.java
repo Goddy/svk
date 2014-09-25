@@ -1,3 +1,5 @@
+package controllers;
+
 import be.spring.app.model.News;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
