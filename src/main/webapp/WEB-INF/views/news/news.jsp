@@ -67,10 +67,8 @@
     </div>
 </div>
 <div id="loader" class="text-center"></div>
-<table id="searchResult" style="display: none;">
-    <tbody>
-    </tbody>
-</table>
+<div id="searchResult" style="display: none;">
+</div>
 <%@ include file="../jspf/footer.jspf" %>
 
 <script type="text/javascript">
@@ -92,7 +90,7 @@
         defaultDiv.hide();
 
         $.ajax({
-            url: 'getNewsSearch.json',
+            url: '/news/getNewsSearch.json',
             data: {search: search},
             dataType: 'json',
             cache: false,
@@ -102,10 +100,10 @@
                 if (json != null) {
                     if (json.length > 0) {
                         $.each(json, function (i, newsItem) {
-                            var content = newsItem.content.substring(0, 100) + " ..."
+                            var content = newsItem.content;
 
                             divContent += '<div class="panel panel-info">' +
-                                    '<div class="panel-heading"><a href="newsItem.html?newsId=' + newsItem.id + '"\">' + newsItem.header + '</a></div>' +
+                                    '<div class="panel-heading"><a href="/news/newsItem.html?newsId=' + newsItem.id + '"\">' + newsItem.header + '</a></div>' +
                                     '<div class="panel-body">' +
                                     '<p align="left">' + content + ' </p>' +
                                     '</div></div>';

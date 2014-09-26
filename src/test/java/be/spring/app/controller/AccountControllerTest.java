@@ -2,7 +2,6 @@ package be.spring.app.controller;
 
 import be.spring.app.model.Account;
 import be.spring.app.persistence.AccountDao;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
 import static org.easymock.EasyMock.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -43,8 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class,
-        DbUnitTestExecutionListener.class})
+        WithSecurityContextTestExecutionListener.class})
 public class AccountControllerTest extends AbstractTest {
     @Autowired
     AccountDao accountDao;

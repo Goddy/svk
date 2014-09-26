@@ -13,6 +13,7 @@ import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,11 +43,7 @@ public class NewsController extends AbstractController {
 
     @RequestMapping(value = "news", method = RequestMethod.GET)
     public String getNews(Model model) {
-        int newsCount = newsService.getNewsCount();
-        PageObject pageObject = new PageObject(model, newsCount, Constants.ZERO,VN_NEWS_PAGE);
-        pageObject.addAttributes();
-        List<News> newsList = Lists.newArrayList(newsService.getPagedNews(Constants.ZERO).iterator());
-        model.addAttribute("newsList", newsList);
+        setPagedNews(model, Constants.ZERO);
         return VN_NEWS_PAGE;
     }
 
@@ -68,13 +65,15 @@ public class NewsController extends AbstractController {
     @RequestMapping(value = "/news/{page}", method = RequestMethod.GET)
     public String getPaged(Model model, @PathVariable int page)
     {
-        int newsCount = newsService.getNewsCount();
-        PageObject pageObject = new PageObject(model, newsCount,page,VN_NEWS_PAGE);
-        pageObject.addAttributes();
-        List<News> allNews = Lists.newArrayList(newsService.getPagedNews(page).iterator());
-        model.addAttribute("newsList", allNews);
-
+        setPagedNews(model, page);
         return VN_NEWS_PAGE;
+    }
+
+    private void setPagedNews(Model model, int page) {
+        Page<News> pages = newsService.getPagedNews(page);
+        PageObject pageObject = new PageObject(model, pages.getTotalPages(), page, VN_NEWS_PAGE);
+        pageObject.addAttributes();
+        model.addAttribute("newsList", Lists.newArrayList(pages.iterator()));
     }
 
     @RequestMapping(value = "search", method = RequestMethod.GET)

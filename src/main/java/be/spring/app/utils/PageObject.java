@@ -16,11 +16,11 @@ public class PageObject {
     private int previousPage;
     private int nextPage;
 
-    public PageObject (Model model, int entryCount, int requestedPage, String url ) {
+    public PageObject (Model model, int pageCount, int requestedPage, String url ) {
         this.model = model;
         this.url = url;
         //initialize previousPage / nextPage
-        this.getPages(requestedPage, entryCount);
+        this.getPages(requestedPage, pageCount);
     }
 
     public void addAttributes() {
@@ -31,11 +31,10 @@ public class PageObject {
     }
 
     private void getPages(int requestedPage, int count) {
-        int totalPages = count;
-        firstPage = Constants.ONE;
-        previousPage = (requestedPage + Constants.MINUS_TEN < Constants.ONE) ? Constants.ONE : requestedPage + Constants.MINUS_TEN;
-        nextPage = (requestedPage + Constants.TEN > totalPages) ? floor(totalPages) : floor(requestedPage + Constants.TEN);
-        lastPage =  (count % Constants.TEN == Constants.ZERO) ? subtractPages(count) : floor(count);
+        firstPage = Constants.ZERO;
+        previousPage = (requestedPage - Constants.ONE < 0) ? Constants.ZERO : requestedPage - Constants.ONE;
+        nextPage = requestedPage + Constants.ONE;
+        lastPage =  count -1;
     }
     private int floor(int count) {
         return (int)(Math.floor((double)(count/ Constants.TEN))* Constants.TEN);
