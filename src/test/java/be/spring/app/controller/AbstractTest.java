@@ -3,14 +3,17 @@ package be.spring.app.controller;
 import be.spring.app.model.Account;
 import be.spring.app.persistence.AccountDao;
 import be.spring.app.service.MailService;
+import be.spring.app.utils.SecurityUtils;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.servlet.Filter;
 import java.util.List;
 
 /**
@@ -27,6 +30,15 @@ public abstract class AbstractTest {
     protected Account account;
 
     @Autowired
+    protected SecurityUtils securityUtils;
+
+    @Autowired
+    private Filter springSecurityFilterChain;
+
+    @Autowired
+    protected UserDetailsService userDetailsService;
+
+    @Autowired
     protected WebApplicationContext wac;
 
     @Autowired
@@ -37,7 +49,7 @@ public abstract class AbstractTest {
 
     @Before
     public void setUp() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).addFilter(springSecurityFilterChain).build();
     }
 
     public void verifyValidation(MvcResult result, List<ResultMatcher> matchers) throws Exception {
@@ -46,11 +58,16 @@ public abstract class AbstractTest {
         }
     }
 
-    public Account createAccount() {
+    public Account getTestAccount() {
+        return accountDao.findByUsername(userName);
+    }
+
+    public Account createRandomAccount() {
         Account account = new Account();
-        account.setUsername(userName);
-        account.setLastName(name);
-        account.setFirstName(firstName);
+        account.setUsername(DataFactory.getDefaultRandomString() + "@test.com");
+        account.setLastName(DataFactory.getDefaultRandomString());
+        account.setFirstName(DataFactory.getDefaultRandomString());
+        account.setActive(true);
         accountDao.save(account);
         return account;
     }

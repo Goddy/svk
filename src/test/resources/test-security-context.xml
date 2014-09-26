@@ -11,10 +11,6 @@
 <security:logout logout-success-url="/home.html" />
 </security:http>
 
-<bean id="userDetailsService" class="org.easymock.EasyMock" factory-method="createStrictMock">
-    <constructor-arg value="org.springframework.security.core.userdetails.UserDetailsService"/>
-</bean>
-
 <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
 <security:authentication-manager>

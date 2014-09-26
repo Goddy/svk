@@ -21,4 +21,8 @@ public class DataFactory {
     public static String getDefaultRandomString() {
         return randomAlphabetic(DEF_RANDOM_LENGTH);
     }
+
+    public static String getRandomUserName() {
+        return getDefaultRandomString() + "@test.com";
+    }
 }

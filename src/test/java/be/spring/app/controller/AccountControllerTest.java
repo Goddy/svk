@@ -2,13 +2,20 @@ package be.spring.app.controller;
 
 import be.spring.app.model.Account;
 import be.spring.app.persistence.AccountDao;
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.web.ServletTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -16,8 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static org.easymock.EasyMock.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -30,12 +39,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 @ContextConfiguration(locations={"/jUnit.xml"})
 @Transactional
+@TestExecutionListeners(listeners={ServletTestExecutionListener.class,
+        DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class,
+        DbUnitTestExecutionListener.class})
 public class AccountControllerTest extends AbstractTest {
     @Autowired
     AccountDao accountDao;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    String newName = DataFactory.getDefaultRandomString();
+    String newFirstName = DataFactory.getDefaultRandomString();
+    String newUsername = DataFactory.getRandomUserName();
 
     @Test
     public void testPostRegistrationFormSucceeds() throws Exception {
@@ -45,7 +64,7 @@ public class AccountControllerTest extends AbstractTest {
 
         replay(jdbcTemplate, mailService);
 
-        MvcResult r = performRegistration(firstName, name, userName, password, password, status().isFound());
+        MvcResult r = performRegistration(firstName, name, newUsername, password, password, status().isFound());
 
         verifyValidation(r, Arrays.asList(model().hasNoErrors()));
 
@@ -58,9 +77,7 @@ public class AccountControllerTest extends AbstractTest {
 
     @Test
     public void testPostRegistrationFormAccountExists() throws Exception {
-        Account existingAccount = createAccount();
-        accountDao.save(existingAccount);
-
+        //Try to register with account that already exists (DB populator)
         MvcResult r = performRegistration(firstName, name, userName, password, password, status().isOk());
 
         verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("Account", "username")));
@@ -112,7 +129,18 @@ public class AccountControllerTest extends AbstractTest {
 
     @Test
     public void testUpdateAccountDetails() throws Exception {
+        Account existingAccount = createRandomAccount();
+        reset(securityUtils);
+        expect(securityUtils.getAccountFromSecurity()).andReturn(existingAccount);
+        replay(securityUtils);
 
+        performUpdate(newFirstName, newName, newUsername, status().isOk());
+
+        Account newAccount = accountDao.findOne(existingAccount.getId());
+        assertEquals(newFirstName, newAccount.getFirstName());
+        assertEquals(newName, newAccount.getLastName());
+        assertEquals(newUsername, newAccount.getUsername());
+        verify(securityUtils);
     }
 
     @Test
@@ -123,6 +151,18 @@ public class AccountControllerTest extends AbstractTest {
     @Test
     public void testUpdatePassword() throws Exception {
 
+    }
+
+    private MvcResult performUpdate(String firstName, String lastName, String username, ResultMatcher status) throws Exception {
+        return mockMvc.perform(post("/account/update_details.html")
+                .param("firstName", firstName)
+                .param("lastName", lastName)
+                .param("username", username)
+                .with(user("user").roles("USER"))
+                .accept(MediaType.TEXT_PLAIN))
+                .andDo(print())
+                .andExpect(status)
+                .andReturn();
     }
 
 

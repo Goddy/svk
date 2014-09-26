@@ -18,15 +18,15 @@
     <context:component-scan base-package="be.spring.app.service">
         <context:exclude-filter expression="be.spring.app.service.MailServiceImpl" type="regex"/>
     </context:component-scan>
-    <context:component-scan base-package="be.spring.app.utils"/>
+    <context:component-scan base-package="be.spring.app.utils">
+        <context:exclude-filter expression="be.spring.app.utils.SecurityUtils" type="regex"/>
+    </context:component-scan>
+
+    <bean id="populateDb" autowire="constructor" class="utils.populateDb"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <data:repositories base-package="be.spring.app.persistence"/>
-
-    <bean id="mailService" class="org.easymock.EasyMock" factory-method="createStrictMock">
-        <constructor-arg value="be.spring.app.service.MailService"/>
-    </bean>
 
     <!-- make a bean out of jdbcTemplate, otherwise there are password column errors
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource"/>
