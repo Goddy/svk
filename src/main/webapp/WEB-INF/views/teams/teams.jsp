@@ -5,6 +5,7 @@
 <div class="alert alert-info"><spring:message code="info.teams"/></div>
 <%@ include file="../jspf/resultMessage.jspf" %>
 <div class="panel-group" id="accordion">
+    <div class="table-responsive">
     <table class="table table-hover">
         <tr>
             <th style="display:none;"></th>
@@ -21,6 +22,7 @@
         </tr>
     </c:forEach>
     </table>
+    </div>
 </div>
 <%@ include file="../jspf/footer.jspf" %>
 <tag:deleteDialog dialogId="delete-team-modal"/>

@@ -70,7 +70,7 @@
                             var divContent = "";
                             var message = "";
                             if (json != null) {
-                                divContent += '<table class="table table-hover">'
+                                divContent += '<div class="table-responsive">"<table class="table table-hover">'
                                         + '<tr><td><spring:message code='text.date'/></td>'
                                         + '<td><spring:message code='text.hour'/></td>'
                                         + '<td><spring:message code='text.homeTeam'/></td>'
@@ -89,7 +89,7 @@
                                                     result +
                                                     '<td>' + o.htmlActions + ' </td></tr>';
                                 });
-                                divContent += '</table>';
+                                divContent += '</table></div>';
 
                             } else {
                                 divContent = "<spring:message code='text.noMatches'/>";
