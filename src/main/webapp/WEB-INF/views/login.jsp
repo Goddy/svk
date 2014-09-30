@@ -77,6 +77,9 @@ If the user is already authenticated, show a help message instead
 of the login form and social sign in buttons.
 -->
 <sec:authorize access="isAuthenticated()">
-    <p><spring:message code="text.loggedin"/></p>
+    <%
+        String redirectURL = "/welcome.html";
+        response.sendRedirect(redirectURL);
+    %>
 </sec:authorize>
 <%@ include file="jspf/footer.jspf" %>
