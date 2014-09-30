@@ -33,10 +33,10 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/home.html"><spring:message code="nav.home"/></a></li>
                 <li><a href="/news/news.html"><spring:message code="nav.news"/></a></li>
                 <li><a href="/matches/matches.html"><spring:message code="nav.matches"/></a></li>
                 <li><a href="/teams/teams.html"><spring:message code="nav.teams"/></a></li>
+                <li><a href="/home.html"><spring:message code="nav.home"/></a></li>
 
                 <security:authorize access="isAuthenticated()">
                 <li class="dropdown">
