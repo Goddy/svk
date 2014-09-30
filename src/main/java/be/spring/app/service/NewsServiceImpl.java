@@ -9,6 +9,7 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,7 +60,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public Page<News> getPagedNews(int start) {
-        return newsDao.findAll((new PageRequest(start, start + 10)));
+        return newsDao.findAll((new PageRequest(start, start + 10, Sort.Direction.DESC, "postDate")));
     }
 
     @Override
