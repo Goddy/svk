@@ -118,7 +118,8 @@ public class NewsController extends AbstractController {
         if (result.hasErrors()) {
             return VN_ADD_NEWS_PAGE;
         }
-        newsService.createNews(form, a);
+        News news = newsService.createNews(form, a);
+        log.info(String.format("User %s created newsitem %s", a.getUsername(), news.getId()));
         return "redirect:" + VN_NEWS_PAGE;
     }
 
@@ -130,6 +131,7 @@ public class NewsController extends AbstractController {
             return VN_ADD_NEWS_PAGE;
         }
         newsService.updateNews(form, a);
+        log.info(String.format("User %s updated newsitem %s", a.getUsername(), form.getId()));
         return "redirect:" + VN_NEWS_PAGE;
     }
 

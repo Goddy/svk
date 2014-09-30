@@ -66,7 +66,7 @@ public class AccountControllerTest extends AbstractTest {
 
         verifyValidation(r, Arrays.asList(model().hasNoErrors()));
 
-        Account account = accountDao.findByUsername(userName);
+        Account account = accountDao.findByUsername(newUsername);
         assertNotNull(account);
 
         verify(jdbcTemplate, mailService);
@@ -180,4 +180,5 @@ public class AccountControllerTest extends AbstractTest {
     private void executeJdbcStatement() {
         expect(jdbcTemplate.update(anyString(), anyString(), anyString())).andReturn(1);
     }
+
 }

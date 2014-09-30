@@ -52,11 +52,14 @@ public class AccountController extends AbstractController {
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public String postRegistrationForm(@ModelAttribute("Account") @Valid RegistrationForm form, BindingResult result, Locale locale) {
-        log.info("Posted RegistrationForm: {}", form);
         accountService.registerAccount(
                 toAccount(form), form.getPassword(), result);
         convertPasswordError(result);
-        return (result.hasErrors() ? LANDING_REG_FORM : REDIRECT_REGISTRATION_OK);
+        if (result.hasErrors()) return LANDING_REG_FORM;
+        else {
+            log.info(String.format("Account %s created", form.getUsername()));
+            return REDIRECT_REGISTRATION_OK;
+        }
     }
 
     @PreAuthorize("isAuthenticated()")

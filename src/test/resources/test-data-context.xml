@@ -22,7 +22,7 @@
         <context:exclude-filter expression="be.spring.app.utils.SecurityUtils" type="regex"/>
     </context:component-scan>
 
-    <bean id="populateDb" autowire="constructor" class="utils.populateDb"/>
+    <bean id="populateDb" autowire="constructor" class="utils.PopulateDb"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
