@@ -111,6 +111,11 @@ public class MatchesController extends AbstractController {
 
     }
 
+    @ModelAttribute(value = "loggedIn")
+    public boolean setLoggedIn() {
+        return isLoggedIn();
+    }
+
     @RequestMapping(value = "deleteMatch", method = RequestMethod.GET)
     public String deleteMatchPage(@RequestParam Long matchId, RedirectAttributes redirectAttributes, Locale locale) {
         Match m = matchesService.getMatch(matchId);
@@ -126,7 +131,8 @@ public class MatchesController extends AbstractController {
     @ResponseBody
     List<ActionWrapper<Match>> getMatchesForSeason(@RequestParam long seasonId, Locale locale) {
         Account account = getAccountFromSecurity();
-        return matchesService.getMatchesForSeason(seasonId, account, locale);
+        List<ActionWrapper<Match>> r = matchesService.getMatchesForSeason(seasonId, account, locale);
+        return r;
     }
 
     private void populateCreateMatch(ModelMap model) {

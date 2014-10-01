@@ -57,6 +57,11 @@ public abstract class AbstractController {
         return securityUtils.getAccountFromSecurity();
     }
 
+
+    public boolean isLoggedIn() {
+        return securityUtils.isloggedIn();
+    }
+
     /**
      * Get a message from the message source
      * @param msg   The message code

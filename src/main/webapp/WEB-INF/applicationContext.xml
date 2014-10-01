@@ -22,36 +22,29 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!-- Configure to plugin JSON as request and response in method handler -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="jsonMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Configure bean to convert JSON to POJO and vice versa -->
+    <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+    </bean>
+
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:basename="classpath:messages">
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
-    <bean id="objectMapper"
-          class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
-          p:indentOutput="true" p:simpleDateFormat="yyyy-MM-dd'T'HH:mm:ss.SSSZ">
-    </bean>
-    <bean
-            class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
-            p:targetObject-ref="objectMapper" p:targetMethod="registerModule">
-        <property name="arguments">
-            <list>
-                <bean class="com.fasterxml.jackson.datatype.joda.JodaModule" />
-            </list>
-        </property>
-    </bean>
-
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter" />
-            <bean
-                    class="org.springframework.http.converter.ResourceHttpMessageConverter" />
-
-            <bean
-                    class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper" ref="objectMapper" />
-            </bean>
+            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter" />
         </mvc:message-converters>
     </mvc:annotation-driven>
 

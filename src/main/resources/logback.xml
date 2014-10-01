@@ -22,6 +22,10 @@
         <appender-ref ref="console"/>
     </logger>
 
+    <logger name="org.codehaus.jackson" level="debug">
+        <appender-ref ref="console"/>
+    </logger>
+
     <!-- Root Logger -->
     <root level="info">
         <appender-ref ref="console"/>

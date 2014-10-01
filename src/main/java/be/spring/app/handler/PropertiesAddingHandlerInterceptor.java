@@ -24,9 +24,7 @@ public class PropertiesAddingHandlerInterceptor extends HandlerInterceptorAdapte
                            final ModelAndView modelAndView) throws Exception {
 
         if (modelAndView != null) {
-            modelAndView.getModelMap().
-                    addAttribute("baseUrl",
-                            baseUrl);
+            modelAndView.getModelMap().addAttribute("baseUrl", baseUrl);
         }
     }
 }

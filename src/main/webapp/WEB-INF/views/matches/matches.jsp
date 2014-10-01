@@ -33,6 +33,7 @@
         var deleteTitle = "<spring:message code="title.delete.match"/>";
         var deleteMatchModal = $("#delete-match-modal");
         var mapModal = $("#map-modal");
+        var loggedIn = "${loggedIn}";
 
         $(document).ready(function() {
             $(document).on('click', 'a[class*="delete"]', function (e) {
@@ -85,8 +86,13 @@
                                         + '<td><spring:message code='text.hour'/></td>'
                                         + '<td><spring:message code='text.homeTeam'/></td>'
                                         + '<td><spring:message code='text.awayTeam'/></td>'
-                                        + '<td><spring:message code='text.result'/></td>'
-                                        + '<td><spring:message code='text.actions'/></td></tr>';
+                                        + '<td><spring:message code='text.result'/></td>';
+
+                                if (loggedIn == 'true') {
+                                    divContent += '<td><spring:message code='text.presence'/></td>';
+                                }
+
+                                divContent += '<td><spring:message code='text.actions'/></td></tr>';
 
                                 $.each(json, function (i, o) {
                                     var result = o.object.played ? '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>' : '<td><spring:message code='text.notYetPlayed'/></td>';
@@ -97,7 +103,7 @@
                                                     '<td>' + o.object.homeTeam.name + '</td>' +
                                                     '<td>' + o.object.awayTeam.name + '</td>' +
                                                     result +
-                                                    '<td>' + o.htmlActions + ' </td></tr>';
+                                                    '<td>' + o.additions['htmlActions'] + ' </td></tr>';
                                 });
                                 divContent += '</table></div>';
 

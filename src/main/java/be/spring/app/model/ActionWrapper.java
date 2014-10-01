@@ -1,22 +1,16 @@
 package be.spring.app.model;
 
+import java.util.Map;
+
 /**
  * Created by u0090265 on 8/30/14.
  */
 public class ActionWrapper<T> {
     private T object;
-    private String htmlActions;
+    private Map additions;
 
     public ActionWrapper(T object) {
         this.object = object;
-    }
-
-    public String getHtmlActions() {
-        return htmlActions;
-    }
-
-    public void setHtmlActions(String htmlActions) {
-        this.htmlActions = htmlActions;
     }
 
     public T getObject() {
@@ -25,5 +19,13 @@ public class ActionWrapper<T> {
 
     public void setObject(T object) {
         this.object = object;
+    }
+
+    public Map getAdditions() {
+        return additions;
+    }
+
+    public void setAdditions(Map additions) {
+        this.additions = additions;
     }
 }

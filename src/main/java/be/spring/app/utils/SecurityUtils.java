@@ -30,4 +30,8 @@ public class SecurityUtils {
     public boolean isAdmin(Account account) {
         return account != null && account.getRole() == Role.ADMIN;
     }
+
+    public boolean isloggedIn() {
+        return getAccountFromSecurity() != null;
+    }
 }

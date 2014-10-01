@@ -18,7 +18,7 @@
             <td style="display:none;">${team.object.address.googleLink}</td>
             <td>${team.object.name}</td>
             <td>${team.object.address}</td>
-            <td>${team.htmlActions}</td>
+            <td>${team.additions['htmlActions']}</td>
         </tr>
     </c:forEach>
     </table>

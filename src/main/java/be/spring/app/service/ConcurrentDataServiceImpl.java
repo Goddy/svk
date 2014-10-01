@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Callable;
@@ -82,7 +83,10 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
         return executorService.submit( new Callable<ActionWrapper<Match>>() {
             @Override
             public ActionWrapper<Match> call() throws Exception {
-                matchActionWrapper.setHtmlActions(htmlHelper.getMatchesButtons(matchActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
+                HashMap<String, String> map = new HashMap<>();
+                map.putAll(htmlHelper.getMatchesButtons(matchActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
+                map.putAll(htmlHelper.getMatchesAdditions(matchActionWrapper.getObject(), account, locale));
+                matchActionWrapper.setAdditions(map);
                 return matchActionWrapper;
             }
         });
@@ -92,7 +96,7 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
         return executorService.submit( new Callable<ActionWrapper<Team>>() {
             @Override
             public ActionWrapper<Team> call() throws Exception {
-                teamActionWrapper.setHtmlActions(htmlHelper.getTeamButtons(teamActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
+                teamActionWrapper.setAdditions(htmlHelper.getTeamButtons(teamActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
                 return teamActionWrapper;
             }
         });

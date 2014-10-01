@@ -1,6 +1,6 @@
 package be.spring.app.model;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
@@ -33,6 +33,7 @@ public class Match {
     private int atGoals;
     private int htGoals;
     private List<Goal> goals;
+    private MatchDoodle matchDoodle;
 
     public Match() {
     }
@@ -144,5 +145,15 @@ public class Match {
 
     public void setPlayed(boolean played) {
         this.played = played;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "doodle_id", insertable = true, updatable = true, nullable = true)
+    public MatchDoodle getMatchDoodle() {
+        return matchDoodle;
+    }
+
+    public void setMatchDoodle(MatchDoodle matchDoodle) {
+        this.matchDoodle = matchDoodle;
     }
 }
