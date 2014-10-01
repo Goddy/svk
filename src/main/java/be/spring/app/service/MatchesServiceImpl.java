@@ -9,6 +9,7 @@ import be.spring.app.persistence.MatchesDao;
 import be.spring.app.persistence.SeasonDao;
 import be.spring.app.persistence.TeamDao;
 import be.spring.app.utils.GeneralUtils;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,8 +116,9 @@ public class MatchesServiceImpl implements MatchesService {
         for (ChangeResultForm.FormGoal goal : form.getGoals()) {
             Goal g = new Goal();
             g.setOrder(goal.getOrder());
-            g.setScorer(accountDao.findOne(GeneralUtils.convertToLong(goal.getScorer())));
-            g.setAssist(accountDao.findOne(GeneralUtils.convertToLong(goal.getAssist())));
+            //Goals and and assists can be null
+            if (!Strings.isNullOrEmpty(goal.getScorer())) g.setScorer(accountDao.findOne(GeneralUtils.convertToLong(goal.getScorer())));
+            if (!Strings.isNullOrEmpty(goal.getAssist())) g.setAssist(accountDao.findOne(GeneralUtils.convertToLong(goal.getAssist())));
             result.add(g);
         }
         return result;

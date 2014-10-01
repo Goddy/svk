@@ -85,7 +85,8 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
             public ActionWrapper<Match> call() throws Exception {
                 HashMap<String, String> map = new HashMap<>();
                 map.putAll(htmlHelper.getMatchesButtons(matchActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
-                map.putAll(htmlHelper.getMatchesAdditions(matchActionWrapper.getObject(), account, locale));
+                //Todo: uncomment after finishing
+                //map.putAll(htmlHelper.getMatchesAdditions(matchActionWrapper.getObject(), account, locale));
                 matchActionWrapper.setAdditions(map);
                 return matchActionWrapper;
             }

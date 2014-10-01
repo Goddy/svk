@@ -70,10 +70,11 @@
                                         + '<td><spring:message code='text.homeTeam'/></td>'
                                         + '<td><spring:message code='text.awayTeam'/></td>'
                                         + '<td><spring:message code='text.result'/></td>';
-
+                                /**
                                 if (loggedIn == 'true') {
                                     divContent += '<td><spring:message code='text.presence'/></td>';
                                 }
+                                **/
 
                                 divContent += '<td><spring:message code='text.actions'/></td></tr>';
 
@@ -87,7 +88,7 @@
                                                     '<td>' + o.object.homeTeam.name + '</td>' +
                                                     '<td>' + o.object.awayTeam.name + '</td>' +
                                                     result +
-                                                    doodle +
+                                                    /* doodle + */
                                                     '<td>' + o.additions['htmlActions'] + ' </td></tr>';
                                 });
                                 divContent += '</table></div>';
