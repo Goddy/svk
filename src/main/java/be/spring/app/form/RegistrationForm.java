@@ -3,6 +3,7 @@ package be.spring.app.form;
 import be.spring.app.utils.Constants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.text.WordUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.ScriptAssert;
@@ -47,7 +48,7 @@ public class RegistrationForm {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = WordUtils.capitalize(firstName);
     }
 
     @NotNull
@@ -58,7 +59,7 @@ public class RegistrationForm {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = WordUtils.capitalize(lastName);
     }
 
     @Email

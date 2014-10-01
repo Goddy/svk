@@ -2,6 +2,7 @@ package be.spring.app.controller;
 
 import be.spring.app.model.Account;
 import be.spring.app.persistence.AccountDao;
+import org.apache.commons.lang3.text.WordUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,8 +136,8 @@ public class AccountControllerTest extends AbstractTest {
         performUpdate(newFirstName, newName, newUsername, status().isOk());
 
         Account newAccount = accountDao.findOne(existingAccount.getId());
-        assertEquals(newFirstName, newAccount.getFirstName());
-        assertEquals(newName, newAccount.getLastName());
+        assertEquals(WordUtils.capitalize(newFirstName), newAccount.getFirstName());
+        assertEquals(WordUtils.capitalize(newName), newAccount.getLastName());
         assertEquals(newUsername, newAccount.getUsername());
         verify(securityUtils);
     }

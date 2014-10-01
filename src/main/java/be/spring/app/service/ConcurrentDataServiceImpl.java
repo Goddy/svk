@@ -28,7 +28,7 @@ import java.util.concurrent.Executors;
  */
 @Service
 public class ConcurrentDataServiceImpl implements ConcurrentDataService {
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private Logger log = LoggerFactory.getLogger(getClass());
 
     private static final int N_THREADS = 20;
 
@@ -83,11 +83,17 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
         return executorService.submit( new Callable<ActionWrapper<Match>>() {
             @Override
             public ActionWrapper<Match> call() throws Exception {
-                HashMap<String, String> map = new HashMap<>();
-                map.putAll(htmlHelper.getMatchesButtons(matchActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
-                //Todo: uncomment after finishing
-                //map.putAll(htmlHelper.getMatchesAdditions(matchActionWrapper.getObject(), account, locale));
-                matchActionWrapper.setAdditions(map);
+                try {
+                    HashMap<String, String> map = new HashMap<>();
+                    map.putAll(htmlHelper.getMatchesButtons(matchActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
+                    //Todo: uncomment after finishing
+                    map.putAll(htmlHelper.getMatchesAdditions(matchActionWrapper.getObject(), account, locale));
+                    matchActionWrapper.setAdditions(map);
+                }
+                catch (Exception e) {
+                    log.error("Could not create Matches btns. Exception: {}", e.getMessage());
+                    e.printStackTrace();
+                }
                 return matchActionWrapper;
             }
         });

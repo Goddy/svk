@@ -1,14 +1,12 @@
 package be.spring.app.utils;
 
-import be.spring.app.model.*;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Iterables;
+import be.spring.app.model.Account;
+import be.spring.app.model.Match;
+import be.spring.app.model.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -37,11 +35,15 @@ public class HtmlHelper {
     public Map<String, String> getMatchesAdditions(Match match, Account account, Locale locale) {
         Map<String, String> r = new HashMap<>();
         if (account != null) {
-            r.put(PRESENCE_ACTIONS, isPresent(match) ?
-                    getDoodleBtns(PRESENCE_CLASS, OK, String.format("changeMatchPresence.html?matchId=%s", match.getId())) :
-                    getDoodleBtns(PRESENCE_CLASS, REMOVE, String.format("changeMatchPresence.html?matchId=%s", match.getId())));
+            r.put(PRESENCE_ACTIONS, getPresenceBtns(match, account));
         }
         return r;
+    }
+
+    public String getPresenceBtns(Match match, Account account) {
+        return match.getMatchDoodle().isPresent(account) ?
+                getDoodleBtns(PRESENCE_CLASS, OK, String.format("/doodle/changeMatchDoodle.json?matchId=%s&present=false", match.getId())) :
+                getDoodleBtns(PRESENCE_CLASS, REMOVE, String.format("/doodle/changeMatchDoodle.json?matchId=%s&present=true", match.getId()));
     }
 
     private String getDoodleBtns(String aClazz, String clazz, String url) {
@@ -90,21 +92,5 @@ public class HtmlHelper {
 
     private static String wrapIntoBtnGroup(String s) {
         return "<div class=\"btn-group\">" + s + "</div>";
-    }
-
-    private static boolean isPresent(Match m) {
-        Doodle doodle = m.getMatchDoodle();
-        if (doodle != null) {
-            Collection<Presence> p = Collections2.filter(m.getMatchDoodle().getPresences(), new Predicate<Presence>() {
-                @Override
-                public boolean apply(Presence presence) {
-                    return false;
-                }
-            });
-
-            Presence presence = (Presence)Iterables.getFirst(p, Presence.class);
-            return presence != null && presence.isPresent();
-        }
-        return false;
     }
 }

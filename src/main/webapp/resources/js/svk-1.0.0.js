@@ -4,9 +4,9 @@
 
 var svk = svk || {};
 svk.utils = {
-    postForm : function(url, data, func) {
+    postOrGet : function(type, url, data, func) {
         $.ajax({
-            type: "POST",
+            type: type,
             url: url,
             data:  data,
             success: func,
@@ -15,6 +15,12 @@ svk.utils = {
             },
             dataType: "text"
         });
+    },
+    jsonGet : function(url, data, func) {
+        this.postOrGet("GET", url, data, func);
+    },
+    jsonPost : function(url, data, func) {
+        this.postOrGet("POST", url, data, func);
     },
     setKeyupAndBlur: function (element, func) {
         element.on({

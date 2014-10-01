@@ -33,7 +33,7 @@ public class Match {
     private int atGoals;
     private int htGoals;
     private List<Goal> goals;
-    private MatchDoodle matchDoodle;
+    private Doodle matchDoodle;
 
     public Match() {
     }
@@ -147,13 +147,14 @@ public class Match {
         this.played = played;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "doodle_id", insertable = true, updatable = true, nullable = true)
-    public MatchDoodle getMatchDoodle() {
+    public Doodle getMatchDoodle() {
+        if (matchDoodle == null) matchDoodle = new Doodle();
         return matchDoodle;
     }
 
-    public void setMatchDoodle(MatchDoodle matchDoodle) {
+    public void setMatchDoodle(Doodle matchDoodle) {
         this.matchDoodle = matchDoodle;
     }
 }

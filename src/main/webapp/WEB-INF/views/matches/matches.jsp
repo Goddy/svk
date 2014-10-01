@@ -70,11 +70,11 @@
                                         + '<td><spring:message code='text.homeTeam'/></td>'
                                         + '<td><spring:message code='text.awayTeam'/></td>'
                                         + '<td><spring:message code='text.result'/></td>';
-                                /**
+
                                 if (loggedIn == 'true') {
                                     divContent += '<td><spring:message code='text.presence'/></td>';
                                 }
-                                **/
+
 
                                 divContent += '<td><spring:message code='text.actions'/></td></tr>';
 
@@ -88,7 +88,7 @@
                                                     '<td>' + o.object.homeTeam.name + '</td>' +
                                                     '<td>' + o.object.awayTeam.name + '</td>' +
                                                     result +
-                                                    /* doodle + */
+                                                    doodle +
                                                     '<td>' + o.additions['htmlActions'] + ' </td></tr>';
                                 });
                                 divContent += '</table></div>';
@@ -125,27 +125,11 @@
 
             $(document).on('click', 'a[class*="presence"]', function (e) {
                 e.preventDefault();
-                if (!($(this).parent().next().attr("class") == "tableBtn") ) {
-                    alterPresence($(this));
-                }
-            });
-
-            $(document).on('click', '#submitPresence', function (e) {
-                e.preventDefault();
-                var presenceActions = $(this).parent();
-                var checkBox = $(this).parent().closest().find('[type=checkbox]');
-                utils.postForm($(this).attr("href"), { present : checkBox.checked }, function (data) {
-                    presenceActions.html(data);
-                    presenceActions.next().remove();
+                var parent = $(this).parent();
+                utils.jsonGet($(this).attr("href") , {} , function (data) {
+                    parent.html(data);
                 });
-
             });
-
-            function alterPresence(element) {
-                element.hide();
-                element.next().show();
-                element.parent().after('<div class="tableBtn"><button id="submitPresence" class="btn btn-primary btn-xs"><spring:message code="button.update"/></button></div>')
-            }
         });
 
     })(jQuery, svk.deleteDialogs, svk.mapDialog, svk.utils);
