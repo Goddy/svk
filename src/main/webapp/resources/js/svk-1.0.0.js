@@ -11,8 +11,7 @@ svk.utils = {
             data:  data,
             success: func,
             error: function(xhr, status, error) {
-                var err = eval("(" + xhr.responseText + ")");
-                console.log(err.Message);
+                console.log("status: " + status + ", error: " + error);
             },
             dataType: "text"
         });

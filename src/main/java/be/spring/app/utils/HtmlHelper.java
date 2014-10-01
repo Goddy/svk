@@ -24,10 +24,11 @@ public class HtmlHelper {
     private static String EDIT = "glyphicon glyphicon-edit edit";
     private static String DELETE = "glyphicon glyphicon-trash delete";
     private static String MAP = "glyphicon glyphicon-map-marker";
-    private static String OK = "glyphicon glyphicon-ok green";
-    private static String REMOVE = "glyphicon glyphicon-remove red";
+    private static String OK = "glyphicon glyphicon-ok green presence";
+    private static String REMOVE = "glyphicon glyphicon-remove red presence";
     private static String DELETE_CLASS = "delete";
     private static String PRESENCE_CLASS = "presence";
+    private static String PRESENCE_BOX = "presenceBox";
     private static String MAP_CLASS = "map";
     private static String EMPTY = "";
     private static String HTML_ACTIONS = "htmlActions";
@@ -36,10 +37,24 @@ public class HtmlHelper {
     public Map<String, String> getMatchesAdditions(Match match, Account account, Locale locale) {
         Map<String, String> r = new HashMap<>();
         if (account != null) {
-            r.put(PRESENCE_ACTIONS, isPresent(match) ? getBtn(PRESENCE_CLASS, OK, String.format("changeMatchPresence.html?matchId=%s", match.getId())) : getBtn(PRESENCE_CLASS, REMOVE, String.format("changeMatchPresence.html?matchId=%s", match.getId())));
+            r.put(PRESENCE_ACTIONS, isPresent(match) ?
+                    getDoodleBtns(PRESENCE_CLASS, OK, String.format("changeMatchPresence.html?matchId=%s", match.getId())) :
+                    getDoodleBtns(PRESENCE_CLASS, REMOVE, String.format("changeMatchPresence.html?matchId=%s", match.getId())));
         }
         return r;
     }
+
+    private String getDoodleBtns(String aClazz, String clazz, String url) {
+        StringBuilder stringBuilder = new StringBuilder().append(getBtn(aClazz, clazz, url));
+        stringBuilder.append(clazz.equals(OK) ? getCheckBox(true, PRESENCE_BOX) : getCheckBox(false, PRESENCE_BOX));
+        return stringBuilder.toString();
+
+    }
+
+    private String getCheckBox(boolean checked, String name) {
+        return "<input type=\"checkbox\" style=\"display:none\"" + (checked ? "checked" : "") + "name=\"" + name + "\">";
+    }
+
     public Map<String, String> getMatchesButtons(Match match, boolean isAdmin, Locale locale) {
         Map<String, String> m = new HashMap<>();
         StringBuilder btns = new StringBuilder();

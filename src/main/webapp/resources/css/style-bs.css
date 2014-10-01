@@ -32,6 +32,10 @@ body {
     background-image: url('../images/ajax-loader.gif');
 }
 
+.tableBtn {
+    padding-top: 5px;
+}
+
 .space-bottom {
     padding-bottom: 10px;
     display:block;
@@ -40,6 +44,14 @@ body {
 
 .blue {
     color: #41afc1;
+}
+
+.red {
+    color : red;
+}
+
+.green {
+    color: greenyellow;
 }
 
 /*

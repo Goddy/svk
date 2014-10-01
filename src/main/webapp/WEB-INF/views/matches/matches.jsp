@@ -28,7 +28,7 @@
 <script src="<c:url value='/resources/js/svk-1.0.0.js'/>"></script>
 <script type="text/javascript">
 
-    (function($, dd, md){
+    (function($, dd, md, utils){
         var deleteMsg = "<spring:message code="text.delete.match"/>";
         var deleteTitle = "<spring:message code="title.delete.match"/>";
         var deleteMatchModal = $("#delete-match-modal");
@@ -36,23 +36,6 @@
         var loggedIn = "${loggedIn}";
 
         $(document).ready(function() {
-            $(document).on('click', 'a[class*="delete"]', function (e) {
-                console.log("Clicked delete");
-                e.preventDefault();
-                var hTeam = $(this).parents('tr:first').find('td:nth-child(3)').text();
-                var aTeam = $(this).parents('tr:first').find('td:nth-child(4)').text();
-                var href = $(this).attr("href");
-                var msg = hTeam + " - " + aTeam;
-                dd.showDeleteDialog(deleteMatchModal, msg, deleteTitle, href)
-            });
-
-            $(document).on('click', 'a[class*="map"]', function (e) {
-                e.preventDefault();
-                var href = $(this).attr("href");
-                md.showMapDialog(mapModal, href)
-            });
-        });
-        $(document).ready(function () {
             function populateFirstDiv() {
                 var firstDiv = $("div.panel-group:first");
                 var seasonId = firstDiv.find("a.collapsed").attr('id');
@@ -97,7 +80,7 @@
                                 $.each(json, function (i, o) {
                                     var result = o.object.played ? '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>' : '<td><spring:message code='text.notYetPlayed'/></td>';
                                     var minute = o.object.date.minuteOfHour < 10 ? "0" + o.object.date.minuteOfHour :  o.object.date.minuteOfHour;
-                                    var doodle = loggedIn == "true"? '<td> ' + o.additions['presenceActions'] + '</td>' : "";
+                                    var doodle = loggedIn == "true"? '<td><div id="presenceActions"> ' + o.additions['presenceActions'] + '<div></td>' : "";
                                     divContent +=
                                             '<tr><td>' + o.object.date.dayOfMonth + '/' + o.object.date.monthOfYear + '/' + o.object.date.year  + '</td>' +
                                                     '<td>' + o.object.date.hourOfDay + ':' + minute + '</td>' +
@@ -122,8 +105,49 @@
 
             //Populate the first div with matches
             populateFirstDiv();
-        })
-    })(jQuery, svk.deleteDialogs, svk.mapDialog);
+
+            $(document).on('click', 'a[class*="delete"]', function (e) {
+                console.log("Clicked delete");
+                e.preventDefault();
+                var hTeam = $(this).parents('tr:first').find('td:nth-child(3)').text();
+                var aTeam = $(this).parents('tr:first').find('td:nth-child(4)').text();
+                var href = $(this).attr("href");
+                var msg = hTeam + " - " + aTeam;
+                dd.showDeleteDialog(deleteMatchModal, msg, deleteTitle, href)
+            });
+
+            $(document).on('click', 'a[class*="map"]', function (e) {
+                e.preventDefault();
+                var href = $(this).attr("href");
+                md.showMapDialog(mapModal, href)
+            });
+
+            $(document).on('click', 'a[class*="presence"]', function (e) {
+                e.preventDefault();
+                if (!($(this).parent().next().attr("class") == "tableBtn") ) {
+                    alterPresence($(this));
+                }
+            });
+
+            $(document).on('click', '#submitPresence', function (e) {
+                e.preventDefault();
+                var presenceActions = $(this).parent();
+                var checkBox = $(this).parent().closest().find('[type=checkbox]');
+                utils.postForm($(this).attr("href"), { present : checkBox.checked }, function (data) {
+                    presenceActions.html(data);
+                    presenceActions.next().remove();
+                });
+
+            });
+
+            function alterPresence(element) {
+                element.hide();
+                element.next().show();
+                element.parent().after('<div class="tableBtn"><button id="submitPresence" class="btn btn-primary btn-xs"><spring:message code="button.update"/></button></div>')
+            }
+        });
+
+    })(jQuery, svk.deleteDialogs, svk.mapDialog, svk.utils);
 
 
 </script>
