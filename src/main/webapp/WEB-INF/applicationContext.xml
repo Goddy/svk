@@ -76,10 +76,10 @@
 
     <!-- Tasks -->
     <task:scheduled-tasks scheduler="scheduler">
-        <task:scheduled ref="activationCodeCleanupTask" method="execute" cron="${activationCodeCleanup.cronSchedule}"/>
+        <task:scheduled ref="cleanupTask" method="execute" cron="${activationCodeCleanup.cronSchedule}"/>
     </task:scheduled-tasks>
 
-    <bean id="activationCodeCleanupTask" class="be.spring.app.tasks.RecoveryCodeCleanupTask"/>
+    <bean id="cleanupTask" class="be.spring.app.tasks.CleanupTask"/>
 
-    <task:scheduler id="scheduler" pool-size="1"/>
+    <task:scheduler id="scheduler" pool-size="2"/>
 </beans>

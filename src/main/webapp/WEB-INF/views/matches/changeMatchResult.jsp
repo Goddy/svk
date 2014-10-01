@@ -42,7 +42,7 @@
         </div>
         <div class="form-group" id="buttons">
             <div class="col-sm-offset-2 col-sm-10">
-                <button id="submit" type="submit" class="btn btn-default"><spring:message code="button.add"/></button>
+                <button id="submit" type="submit" class="btn btn-default"><spring:message code="button.update"/></button>
             </div>
         </div>
 </form:form>
