@@ -1,9 +1,6 @@
 package be.spring.app.utils;
 
-import be.spring.app.model.Account;
-import be.spring.app.model.Match;
-import be.spring.app.model.Presence;
-import be.spring.app.model.Team;
+import be.spring.app.model.*;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
@@ -27,8 +24,8 @@ public class HtmlHelper {
     private static String EDIT = "glyphicon glyphicon-edit edit";
     private static String DELETE = "glyphicon glyphicon-trash delete";
     private static String MAP = "glyphicon glyphicon-map-marker";
-    private static String OK = "glyphicon glyphicon-ok";
-    private static String REMOVE = "glyphicon glyphicon-remove";
+    private static String OK = "glyphicon glyphicon-ok green";
+    private static String REMOVE = "glyphicon glyphicon-remove red";
     private static String DELETE_CLASS = "delete";
     private static String PRESENCE_CLASS = "presence";
     private static String MAP_CLASS = "map";
@@ -38,8 +35,8 @@ public class HtmlHelper {
 
     public Map<String, String> getMatchesAdditions(Match match, Account account, Locale locale) {
         Map<String, String> r = new HashMap<>();
-        if (isPresent(match, account)) {
-            r.put(PRESENCE_ACTIONS, getBtn(PRESENCE_CLASS, OK, String.format("changeMatchPresence.html?matchId=%s", match.getId())));
+        if (account != null) {
+            r.put(PRESENCE_ACTIONS, isPresent(match) ? getBtn(PRESENCE_CLASS, OK, String.format("changeMatchPresence.html?matchId=%s", match.getId())) : getBtn(PRESENCE_CLASS, REMOVE, String.format("changeMatchPresence.html?matchId=%s", match.getId())));
         }
         return r;
     }
@@ -80,8 +77,9 @@ public class HtmlHelper {
         return "<div class=\"btn-group\">" + s + "</div>";
     }
 
-    private static boolean isPresent(Match m, final Account account) {
-        if (account != null) {
+    private static boolean isPresent(Match m) {
+        Doodle doodle = m.getMatchDoodle();
+        if (doodle != null) {
             Collection<Presence> p = Collections2.filter(m.getMatchDoodle().getPresences(), new Predicate<Presence>() {
                 @Override
                 public boolean apply(Presence presence) {
@@ -91,7 +89,6 @@ public class HtmlHelper {
 
             Presence presence = (Presence)Iterables.getFirst(p, Presence.class);
             return presence != null && presence.isPresent();
-
         }
         return false;
     }

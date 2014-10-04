@@ -5,7 +5,15 @@ html
 p
 {
     max-width:800px;
-} 
+}
+
+.red {
+    color : red;
+}
+
+.green {
+    color: greenyellow;
+}
 
 body
 {
