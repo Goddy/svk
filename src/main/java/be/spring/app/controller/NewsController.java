@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,7 @@ public class NewsController extends AbstractController {
     private static final String VN_NEWS_PAGE = "/news/news";
     private static final String VN_SEARCH_PAGE = "/news/search";
     private static final String VN_ADD_NEWS_PAGE = "/news/editNews";
+    private static final String NEWS_ITEM = "/news/news-item";
 
     @Autowired
     NewsService newsService;
@@ -91,6 +93,22 @@ public class NewsController extends AbstractController {
     @RequestMapping(value = "getNewsSearch.json", method = RequestMethod.GET)
     public @ResponseBody List<News> getNews(@RequestParam(value="search", required=false) String searchTerm) {
         return newsService.getSearch(searchTerm);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "addComment", method = RequestMethod.POST)
+    public String createCommentNews(@RequestParam(value="newsId") long newsId,
+                                                    @RequestParam(value="comment") String comment, ModelMap model) {
+        model.addAttribute("newsItem", newsService.addNewsComment(newsId, comment, getAccountFromSecurity()));
+        return NEWS_ITEM;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "editComment", method = RequestMethod.GET)
+    public String editCommentNews(@RequestParam(value="newsId") long newsId,
+                                  @RequestParam(value="commentId") long commentId, ModelMap model) {
+        model.addAttribute("newsItem", newsService.getNewsItem(newsId));
+        return NEWS_ITEM;
     }
 
     @PreAuthorize("isAuthenticated()")

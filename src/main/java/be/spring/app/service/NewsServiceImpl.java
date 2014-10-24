@@ -3,7 +3,10 @@ package be.spring.app.service;
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.NewsForm;
 import be.spring.app.model.Account;
+import be.spring.app.model.Comment;
 import be.spring.app.model.News;
+import be.spring.app.model.NewsComment;
+import be.spring.app.persistence.CommentDao;
 import be.spring.app.persistence.NewsDao;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class NewsServiceImpl implements NewsService {
     @Autowired private NewsDao newsDao;
+    @Autowired private CommentDao commentDao;
     @Autowired private AuthorizationService authorizationService;
 
     @Override
@@ -44,6 +48,22 @@ public class NewsServiceImpl implements NewsService {
         updateNews(n, form, account, false);
         newsDao.save(n);
 
+    }
+
+    @Override
+    public News addNewsComment(long newsId, String content, Account account) {
+        News news = newsDao.findOne(newsId);
+        NewsComment comment = new NewsComment(content, news, account);
+        news.getComments().add(comment);
+        return newsDao.save(news);
+    }
+
+    @Override
+    public News changeNewsComment(long commentId, long newsId, String content, Account account) {
+        Comment comment = commentDao.findOne(commentId);
+        authorizationService.isAuthorized(account, comment);
+        comment.setContent(content);
+        return newsDao.findOne(newsId);
     }
 
     @Override

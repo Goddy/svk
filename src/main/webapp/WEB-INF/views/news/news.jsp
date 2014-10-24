@@ -1,6 +1,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ include file="../jspf/header.jspf" %>
+<%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <sec:authentication var="principal" property="principal" />
 <div class="row">
     <div class="col-md-4">
@@ -22,41 +24,14 @@
         <c:when test="${empty newsList}"><p><spring:message code="text.nomessages"/></p></c:when>
         <c:otherwise>
             <c:forEach var="newsItem" items="${newsList}">
-                <div class="panel panel-info">
-                    <div class="panel-heading"><c:out value="${newsItem.header}"/></div>
-                    <div class="panel-body">
-                        <p align="left">${newsItem.content}</p>
-
-                        <div style="text-align: right"><spring:message code="text.postedby"/> <c:out
-                                value="${newsItem.account.getFullName()}"/> <spring:message code="text.on"/>
-                            <fmt:formatDate value="${newsItem.postDate}"/>
-                            <sec:authorize access="hasRole('ADMIN')">
-                            <div class="btn-group">
-                                <a href="/news/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
-                                <a href="/news/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
-                            </div>
-                            </sec:authorize>
-                            <sec:authorize access="hasRole('USER')">
-                                <c:if test="${principal.username == newsItem.account.username}">
-                                <div class="btn-group">
-                                    <a href="/news/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
-                                    <a href="/news/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
-                                </div>
-                                </c:if>
-                            </sec:authorize>
-                        </div>
-                    </div>
-                </div>
+            <div class="news-div">
+                <tag:news newsItem="${newsItem}"/>
+                <tag:comment newsItem="${newsItem}"/>
+            </div>
             </c:forEach>
         </c:otherwise>
     </c:choose>
 
-    <c:choose>
-        <c:when test="${not single}"></c:when>
-        <c:otherwise>
-
-        </c:otherwise>
-    </c:choose>
     <div class="text-center">
         <ul class="pagination blue">
             <li><a href="<c:out value="${first}" />">&laquo;&nbsp;<spring:message code="text.first"/></a></li>
@@ -71,7 +46,11 @@
 </div>
 <%@ include file="../jspf/footer.jspf" %>
 
+<script src="<c:url value='/resources/js/svk-1.0.0.js'/>"></script>
+
 <script type="text/javascript">
+
+(function($, utils){
 
     var lastSearchTerm; // Keeps track of last search string to avoid redundant searches.
     var to; // timeoutId
@@ -141,6 +120,28 @@
     }
 
     $(document).ready(function () {
+        updateDelegates();
+
+         function updateDelegates() {
+            $('.addComment').click(function(e) {
+                e.preventDefault();
+                var newsDiv = $(this).closest("div.news-div");
+                var parentDiv = $(this).parent().parent();
+                var data = $(this).prev().val();
+                utils.jsonPost($(this).attr('href'), { comment : data}, function(data) {
+                    newsDiv.html(data);
+                    updateDelegates();
+                    parentDiv.toggle();
+                    parentDiv.focus();
+                });
+            });
+            $('.commentBtn').click(function(e) {
+                e.preventDefault();
+                var div = $(this).attr('href');
+                $('#' + div ).toggle();
+            });
+        }
+
         $("#search").keyup(function () {
             var filter = $(this).val();
             if (filter) {
@@ -155,6 +156,7 @@
             }
         });
     });
+})(jQuery, svk.utils);
 
 </script>
 

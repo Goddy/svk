@@ -1,6 +1,7 @@
 package be.spring.app.service;
 
 import be.spring.app.model.Account;
+import be.spring.app.model.Comment;
 import be.spring.app.model.News;
 
 /**
@@ -8,4 +9,5 @@ import be.spring.app.model.News;
  */
 public interface AuthorizationService {
     public void isAuthorized(Account account, News news);
+    public void isAuthorized(Account account, Comment comment);
 }

@@ -1,9 +1,12 @@
 package be.spring.app.model;
 
+import com.google.common.collect.Lists;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -12,18 +15,15 @@ import java.util.Date;
  * Time: 7:42 PM
  * Remarks: Base class for news items.
  */
-@NamedQueries({
-        @NamedQuery(name = "findNewsById", query = "select n from News n where n.id = :id"),
-        @NamedQuery(name = "searchNews", query = "select n from News n where n.header like :term OR n.content like :term")
-})
 @Entity
 @Table(name = "news")
 public class News {
-        private Long id;
-        private Date postDate;
-        private String header;
-        private String content;
-        private Account account;
+    private Long id;
+    private Date postDate;
+    private String header;
+    private String content;
+    private Account account;
+    private List<NewsComment> comments;
 
 
     public News (String header, String content, Account account) {
@@ -85,5 +85,15 @@ public class News {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "news")
+    public List<NewsComment> getComments() {
+        if (comments == null) comments = Lists.newArrayList();
+        return comments;
+    }
+
+    public void setComments(List<NewsComment> comments) {
+        this.comments = comments;
     }
 }

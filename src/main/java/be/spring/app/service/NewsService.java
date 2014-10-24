@@ -19,6 +19,10 @@ public interface NewsService {
 
     void updateNews(NewsForm form, Account account);
 
+    News addNewsComment(long newsId, String content, Account account);
+
+    News changeNewsComment(long commentId, long newsId, String content, Account account);
+
     News getNewsItem(long id);
 
     List<News> getAll();

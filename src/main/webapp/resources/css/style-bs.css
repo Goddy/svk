@@ -79,6 +79,11 @@ header h3 {
     display: block;
 }
 
+.comment {
+    padding-top:5px;
+    margin-left:5%;
+    border-top: 1px solid lightgrey
+}
 /* PageDown css
 -------------------------------------------------- */
 
