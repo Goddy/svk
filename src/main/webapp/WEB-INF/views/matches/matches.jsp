@@ -62,6 +62,8 @@
                         success: function (json) {
                             var divContent = "";
                             var message = "";
+                            //Disabled
+                            var loggedId = "false";
                             if (json != null) {
                                 divContent += '<div class="table-responsive"><table class="table table-hover">'
                                         + '<tr>' + '<td style="display:none"></td>'
