@@ -104,10 +104,16 @@ public class NewsController extends AbstractController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "editComment", method = RequestMethod.GET)
-    public String editCommentNews(@RequestParam(value="newsId") long newsId,
-                                  @RequestParam(value="commentId") long commentId, ModelMap model) {
-        model.addAttribute("newsItem", newsService.getNewsItem(newsId));
+    @RequestMapping(value = "editComment", method = RequestMethod.POST)
+    public String editCommentNews(@RequestParam(value = "commentId") long commentId, @RequestParam(value = "comment") String comment, @RequestParam(value = "newsId") long newsId, ModelMap model) {
+        model.addAttribute("newsItem", newsService.changeNewsComment(commentId, newsId, comment, getAccountFromSecurity()));
+        return NEWS_ITEM;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "deleteComment", method = RequestMethod.POST)
+    public String deleteCommentNews(@RequestParam(value = "commentId") long commentId, @RequestParam(value = "newsId") long newsId, Model model) {
+        model.addAttribute("newsItem", newsService.deleteNewsComment(commentId, newsId, getAccountFromSecurity()));
         return NEWS_ITEM;
     }
 

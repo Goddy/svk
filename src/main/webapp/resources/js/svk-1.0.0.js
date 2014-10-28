@@ -34,14 +34,24 @@ svk.utils = {
     }
 }
 svk.deleteDialogs = (function($){
+    function setModal(dialog, message, title, f) {
+        $("#delete-modal-title").html(title);
+        $("#delete-modal-body").html(message);
+        $("#delete-modal-btn").click(function (e) {
+            f(e);
+            dialog.modal('hide');
+        });
+        dialog.modal();
+    }
+
     return {
         showDeleteDialog : function(dialog, message, title, href) {
-            $("#delete-modal-title").html(title);
-            $("#delete-modal-body").html(message);
-            $("#delete-modal-btn").click(function() {
+            setModal(dialog, message, title, function () {
                 window.location.href = href;
             });
-            dialog.modal();
+        },
+        showJsonDeleteDialog: function (dialog, message, title, jsonF) {
+            setModal(dialog, message, title, jsonF);
         }
     }
 

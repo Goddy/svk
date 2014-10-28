@@ -11,7 +11,8 @@
 <div class="panel panel-info">
 <div class="panel-heading"><c:out value="${newsItem.header}"/>
     <div style="float: right;">
-        <a href="comments_${newsItem.id}" class="commentBtn">Reacties&NonBreakingSpace;<span class="badge">${fn:length(newsItem.comments)}</span></a>
+        <a href="comments_${newsItem.id}" class="commentBtn"><spring:message
+                code="text.reactions"/>&NonBreakingSpace;<span class="badge">${fn:length(newsItem.comments)}</span></a>
     </div>
 </div>
 <div class="panel-body">

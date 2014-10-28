@@ -51,6 +51,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public News addNewsComment(long newsId, String content, Account account) {
         News news = newsDao.findOne(newsId);
         NewsComment comment = new NewsComment(content, news, account);
@@ -59,11 +60,23 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public News changeNewsComment(long commentId, long newsId, String content, Account account) {
         Comment comment = commentDao.findOne(commentId);
         authorizationService.isAuthorized(account, comment);
         comment.setContent(content);
+        commentDao.save(comment);
         return newsDao.findOne(newsId);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public News deleteNewsComment(long commentId, long newsId, Account account) {
+        Comment comment = commentDao.findOne(commentId);
+        authorizationService.isAuthorized(account, comment);
+        News news = newsDao.findOne(newsId);
+        news.getComments().remove(comment);
+        return newsDao.save(news);
     }
 
     @Override

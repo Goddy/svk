@@ -1,6 +1,7 @@
 package be.spring.app.controller;
 
 import be.spring.app.model.Account;
+import be.spring.app.model.Role;
 import be.spring.app.persistence.AccountDao;
 import be.spring.app.service.MailService;
 import be.spring.app.utils.SecurityUtils;
@@ -15,6 +16,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.Filter;
 import java.util.List;
+
+import static org.easymock.EasyMock.expect;
 
 /**
  * Created by u0090265 on 9/25/14.
@@ -70,5 +73,20 @@ public abstract class AbstractTest {
         account.setActive(true);
         accountDao.save(account);
         return account;
+    }
+
+    public Account createRandomAccount(Role role) {
+        Account account = new Account();
+        account.setRole(role);
+        account.setUsername(DataFactory.getDefaultRandomString() + "@test.com");
+        account.setLastName(DataFactory.getDefaultRandomString());
+        account.setFirstName(DataFactory.getDefaultRandomString());
+        account.setActive(true);
+        accountDao.save(account);
+        return account;
+    }
+
+    public void expectSecurityLogin(Account account) {
+        expect(securityUtils.getAccountFromSecurity()).andReturn(account);
     }
 }

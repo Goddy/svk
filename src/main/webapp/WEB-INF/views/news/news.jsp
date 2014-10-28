@@ -45,20 +45,23 @@
 <div id="searchResult" style="display: none;">
 </div>
 <%@ include file="../jspf/footer.jspf" %>
+<tag:deleteDialog dialogId="delete-modal"/>
 
 <script src="<c:url value='/resources/js/svk-1.0.0.js'/>"></script>
 
 <script type="text/javascript">
 
-(function($, utils){
+    (function ($, utils, dd) {
 
-    var lastSearchTerm; // Keeps track of last search string to avoid redundant searches.
+        var lastSearchTerm; // Keeps track of last search string to avoid redundant searches.
     var to; // timeoutId
     var loader = $('#loader');
     var searchResult = $('#searchResult');
     var defaultDiv = $('#default');
+        var deleteDialog = $("#delete-modal");
+        var activeDiv = "#comments_${id}";
 
-    function isSearchChanged(search) {
+        function isSearchChanged(search) {
         return lastSearchTerm != search;
 
     }
@@ -121,24 +124,53 @@
 
     $(document).ready(function () {
         updateDelegates();
+        toggleAndFocusOnParent(activeDiv);
 
-         function updateDelegates() {
-            $('.addComment').click(function(e) {
-                e.preventDefault();
-                var newsDiv = $(this).closest("div.news-div");
-                var parentDiv = $(this).parent().parent();
-                var data = $(this).prev().val();
-                utils.jsonPost($(this).attr('href'), { comment : data}, function(data) {
-                    newsDiv.html(data);
-                    updateDelegates();
-                    parentDiv.toggle();
-                    parentDiv.focus();
-                });
+        function toggleDiv(element, e) {
+            e.preventDefault();
+            var div = element.attr("href");
+            $('#' + div).toggle();
+        }
+
+        function toggleAndFocusOnParent(id) {
+            $(id).show();
+            $(id).focus();
+        }
+
+        function post(e, element) {
+            e.preventDefault();
+            var parentDiv = '#' + element.closest(("div[id^='comments_']")).attr('id');
+            var newsDiv = element.closest("div.news-div");
+            var data = element.prev().val();
+            utils.jsonPost(element.attr('href'), { comment: data}, function (data) {
+                newsDiv.html(data);
+                updateDelegates();
+                toggleAndFocusOnParent(parentDiv);
+            });
+        }
+
+        function updateDelegates() {
+            $('.addComment, .editComment').click(function (e) {
+                post(e, $(this));
+            });
+
+            $('.showEditComment').click(function (e) {
+                toggleDiv($(this), e);
             });
             $('.commentBtn').click(function(e) {
+                toggleDiv($(this), e);
+            });
+            $('.addCommentBtn').click(function () {
+                $(this).hide();
+            });
+            $('.deleteComment').click(function (e) {
                 e.preventDefault();
-                var div = $(this).attr('href');
-                $('#' + div ).toggle();
+                var element = $(this);
+                var msg = "<spring:message code="text.delete.comment"/>";
+                var title = "<spring:message code="text.delete.comment.title"/>";
+                dd.showJsonDeleteDialog(deleteDialog, msg, title, function (e) {
+                    post(e, element);
+                });
             });
         }
 
@@ -156,7 +188,7 @@
             }
         });
     });
-})(jQuery, svk.utils);
+    })(jQuery, svk.utils, svk.deleteDialogs);
 
 </script>
 

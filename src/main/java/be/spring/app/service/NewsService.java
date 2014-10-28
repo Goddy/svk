@@ -23,6 +23,9 @@ public interface NewsService {
 
     News changeNewsComment(long commentId, long newsId, String content, Account account);
 
+    @Transactional(readOnly = false)
+    News deleteNewsComment(long commentId, long newsId, Account account);
+
     News getNewsItem(long id);
 
     List<News> getAll();
