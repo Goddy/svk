@@ -247,7 +247,7 @@ public class NewsControllerTest extends AbstractTest {
                 .accept(MediaType.TEXT_PLAIN))
                 .andDo(print())
                 .andExpect(resultMatcher)
-                .andExpect(view().name("/news/news-item"))
+                .andExpect(view().name("/jspf/newsItem"))
                 .andReturn();
     }
 

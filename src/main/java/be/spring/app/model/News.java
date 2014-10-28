@@ -1,5 +1,6 @@
 package be.spring.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 
 import javax.persistence.*;
@@ -26,14 +27,16 @@ public class News {
     private List<NewsComment> comments;
 
 
-    public News (String header, String content, Account account) {
+    public News(String header, String content, Account account) {
         this.header = header;
         this.content = content;
         this.account = account;
     }
-    public News () {
+
+    public News() {
         postDate = new Date();
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -87,6 +90,7 @@ public class News {
         this.account = account;
     }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "news")
     public List<NewsComment> getComments() {
         if (comments == null) comments = Lists.newArrayList();

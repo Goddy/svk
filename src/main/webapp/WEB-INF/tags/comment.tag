@@ -42,11 +42,13 @@
             <a href="addComment.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
                class="btn btn-primary addComment"><spring:message code="button.add"/></a>
         </div>
-        <a class="addCommentBtn" data-toggle="collapse" data-target="#comment${newsItem.id}"><spring:message
+        <a class="btn btn-xs btn-info addCommentBtn addCommentBtn" data-toggle="collapse"
+           data-target="#comment${newsItem.id}"><spring:message
                 code="button.add.comment"/></a>
     </sec:authorize>
     <sec:authorize access="isAnonymous()">
-        <a class="addCommentBtn" href="${baseUrl}/login.html" data-target="#comment${newsItem.id}"><spring:message
+        <a class="btn btn-xs btn-info addCommentBtn" href="${baseUrl}/login.html"
+           data-target="#comment${newsItem.id}"><spring:message
                 code="button.add.comment"/></a></p>
     </sec:authorize>
 </div>

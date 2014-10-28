@@ -38,7 +38,7 @@ public class NewsController extends AbstractController {
     private static final String VN_NEWS_PAGE = "/news/news";
     private static final String VN_SEARCH_PAGE = "/news/search";
     private static final String VN_ADD_NEWS_PAGE = "/news/editNews";
-    private static final String NEWS_ITEM = "/news/news-item";
+    private static final String NEWS_ITEM = "/jspf/newsItem";
 
     @Autowired
     NewsService newsService;
