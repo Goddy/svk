@@ -9,6 +9,8 @@ import be.spring.app.model.NewsComment;
 import be.spring.app.persistence.CommentDao;
 import be.spring.app.persistence.NewsDao;
 import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,16 +29,22 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class NewsServiceImpl implements NewsService {
-    @Autowired private NewsDao newsDao;
-    @Autowired private CommentDao commentDao;
-    @Autowired private AuthorizationService authorizationService;
+    Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private NewsDao newsDao;
+    @Autowired
+    private CommentDao commentDao;
+    @Autowired
+    private AuthorizationService authorizationService;
 
     @Override
     @Transactional(readOnly = false)
     public News createNews(NewsForm form, Account account) {
-            News n = updateNews(new News(), form, account, true);
-            newsDao.save(n);
-            return n;
+        News n = updateNews(new News(), form, account, true);
+        newsDao.save(n);
+        log.info(String.format("Newsitem %s created by %s", n, account));
+        return n;
     }
 
     @Override
@@ -46,6 +54,7 @@ public class NewsServiceImpl implements NewsService {
         if (n == null) throw new ObjectNotFoundException(String.format("News item with id %s not found", form.getId()));
         authorizationService.isAuthorized(account, n);
         updateNews(n, form, account, false);
+        log.info(String.format("Newsitem %s updated by %s", n, account));
         newsDao.save(n);
 
     }
@@ -56,6 +65,7 @@ public class NewsServiceImpl implements NewsService {
         News news = newsDao.findOne(newsId);
         NewsComment comment = new NewsComment(content, news, account);
         news.getComments().add(comment);
+        log.info(String.format("Newscomment %s added by %s", comment, account));
         return newsDao.save(news);
     }
 
@@ -66,6 +76,7 @@ public class NewsServiceImpl implements NewsService {
         authorizationService.isAuthorized(account, comment);
         comment.setContent(content);
         commentDao.save(comment);
+        log.info(String.format("Newscomment %s changed by %s", comment, account));
         return newsDao.findOne(newsId);
     }
 
@@ -76,6 +87,7 @@ public class NewsServiceImpl implements NewsService {
         authorizationService.isAuthorized(account, comment);
         News news = newsDao.findOne(newsId);
         news.getComments().remove(comment);
+        log.info(String.format("Newscomment %s deleted by by %s", comment, account));
         return newsDao.save(news);
     }
 
@@ -88,7 +100,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> getAll() {
-         return Lists.newArrayList(newsDao.findAll());
+        return Lists.newArrayList(newsDao.findAll());
     }
 
     @Override
@@ -98,7 +110,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public int getNewsCount() {
-        return (int)newsDao.count();
+        return (int) newsDao.count();
     }
 
     @Override
@@ -111,6 +123,7 @@ public class NewsServiceImpl implements NewsService {
     public void deleteNews(long id, Account account) {
         News news = newsDao.findOne(id);
         authorizationService.isAuthorized(account, news);
+        log.info(String.format("Newsitem %s deleted by %s", news, account));
         newsDao.delete(id);
     }
 

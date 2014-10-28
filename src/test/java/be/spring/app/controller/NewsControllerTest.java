@@ -1,18 +1,34 @@
 package be.spring.app.controller;
 
-import be.spring.app.model.Account;
-import be.spring.app.model.Role;
+import be.spring.app.model.*;
 import be.spring.app.persistence.NewsDao;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.web.ServletTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.easymock.EasyMock.reset;
+import java.util.Arrays;
+
+import static junit.framework.Assert.assertEquals;
+import static org.easymock.EasyMock.*;
+import static org.junit.Assert.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 /**
  * Created by u0090265 on 9/12/14.
@@ -20,74 +36,135 @@ import static org.easymock.EasyMock.reset;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations={"/test-applicationContext.xml"})
+@ContextConfiguration(locations = {"/jUnit.xml"})
 @Transactional
+@TestExecutionListeners(listeners = {ServletTestExecutionListener.class,
+        DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class})
 public class NewsControllerTest extends AbstractTest {
     Account userAccount;
     Account adminAccount;
+
+    private String comment;
 
     @Autowired
     private NewsDao newsDao;
 
     @Before
-    public void setUp() {
+    public void setUpTests() {
         userAccount = createRandomAccount();
         adminAccount = createRandomAccount(Role.ADMIN);
-    }
-
-    @org.junit.Test
-    public void testGetNewsPage() throws Exception {
-
-    }
-
-    @org.junit.Test
-    public void testGetNewsItem() throws Exception {
-
-    }
-
-    @org.junit.Test
-    public void testDeleteNewsItem() throws Exception {
-
-    }
-
-    @org.junit.Test
-    public void testGetPaged() throws Exception {
-
-    }
-
-    @org.junit.Test
-    public void testSearch() throws Exception {
-
-    }
-
-    @org.junit.Test
-    public void testSearchTerm() throws Exception {
-
-    }
-
-    @org.junit.Test
-    public void testGetNews() throws Exception {
-
-    }
-
-    @org.junit.Test
-    public void testAddGet() throws Exception {
-
-    }
-
-    @org.junit.Test
-    public void testCreateNews() throws Exception {
-
-    }
-
-    @org.junit.Test
-    public void testUpdateNews() throws Exception {
-
+        comment = DataFactory.getDefaultRandomString();
     }
 
     @Test
-    public void testCreateComment() throws Exception {
+    public void testCreateCommentWithAccount() throws Exception {
         reset(securityUtils);
+        News n = createAndSaveNews(userAccount);
         expectSecurityLogin(userAccount);
+        replay(securityUtils);
+
+        postCreateNews(n.getId(), comment, status().isOk(), ROLE_USER);
+
+        News resultNews = newsDao.findOne(n.getId());
+
+        NewsComment resultComment = resultNews.getComments().get(0);
+        assertEquals(comment, resultComment.getContent());
+        assertEquals(userAccount, resultComment.getAccount());
+
+        verify(securityUtils);
+    }
+
+    @Test
+    public void testCreateCommentWithOutAccount() throws Exception {
+        News n = createAndSaveNews(userAccount);
+
+        mockMvc.perform(post("/news/addComment.html")
+                .param("comment", comment)
+                .param("newsId", Long.toString(n.getId()))
+                .accept(MediaType.TEXT_PLAIN))
+                .andDo(print())
+                .andExpect(status().isFound())
+                .andReturn();
+
+        News resultNews = newsDao.findOne(n.getId());
+
+        assertTrue(resultNews.getComments().isEmpty());
+    }
+
+    @Test
+    public void testUpdateCommentWithAccount() throws Exception {
+        reset(securityUtils);
+        News n = createNewsWithComment(userAccount);
+        NewsComment c = n.getComments().get(0);
+        expectSecurityLogin(userAccount);
+        replay(securityUtils);
+
+        postUpdateNews(n.getId(), c.getId(), comment, status().isOk(), ROLE_USER);
+
+        News resultNews = newsDao.findOne(n.getId());
+
+        NewsComment resultComment = resultNews.getComments().get(0);
+        assertEquals(comment, resultComment.getContent());
+        assertEquals(userAccount, resultComment.getAccount());
+
+        verify(securityUtils);
+    }
+
+    @Test
+    public void testUpdateCommentWithOutAccount() throws Exception {
+        News n = createNewsWithComment(userAccount);
+        Comment c = n.getComments().get(0);
+
+        mockMvc.perform(post("/news/editComment.html")
+                .param("comment", comment)
+                .param("newsId", Long.toString(n.getId()))
+                .param("commentId", Long.toString(c.getId()))
+                .accept(MediaType.TEXT_PLAIN))
+                .andDo(print())
+                .andExpect(status().isFound())
+                .andReturn();
+
+        News resultNews = newsDao.findOne(n.getId());
+
+        assertEquals(c, resultNews.getComments().get(0));
+    }
+
+    private News createAndSaveNews(Account account) {
+        News news = DataFactory.createNews(account);
+        return newsDao.save(news);
+    }
+
+    private News createNewsWithComment(Account account) {
+        News news = DataFactory.createNews(account);
+        news.setComments(Arrays.asList(DataFactory.createNewsComment(account)));
+        return newsDao.save(news);
+
+    }
+
+    private void postCreateNews(long newsId, String comment, ResultMatcher resultMatcher, String role) throws Exception {
+        mockMvc.perform(post("/news/addComment.html")
+                .param("comment", comment)
+                .param("newsId", Long.toString(newsId))
+                .with(user("user").roles(role))
+                .accept(MediaType.TEXT_PLAIN))
+                .andDo(print())
+                .andExpect(resultMatcher)
+                .andExpect(view().name("/news/news-item"))
+                .andReturn();
+    }
+
+    private void postUpdateNews(long newsId, long commentId, String comment, ResultMatcher resultMatcher, String role) throws Exception {
+        mockMvc.perform(post("/news/editComment.html")
+                .param("comment", comment)
+                .param("newsId", Long.toString(newsId))
+                .param("commentId", Long.toString(commentId))
+                .with(user("user").roles(role))
+                .accept(MediaType.TEXT_PLAIN))
+                .andDo(print())
+                .andExpect(resultMatcher)
+                .andReturn();
     }
 }

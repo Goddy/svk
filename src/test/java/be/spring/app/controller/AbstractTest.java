@@ -30,6 +30,11 @@ public abstract class AbstractTest {
     protected String firstName = "testSurName";
     protected String password = "P3ssword";
 
+    protected static final String ROLE_NONE = "NONE";
+    protected static final String ROLE_ADMIN = "ADMIN";
+    protected static final String ROLE_USER = "USER";
+
+
     protected Account account;
 
     @Autowired

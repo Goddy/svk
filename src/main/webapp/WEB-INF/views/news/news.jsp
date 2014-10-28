@@ -142,11 +142,13 @@
             var parentDiv = '#' + element.closest(("div[id^='comments_']")).attr('id');
             var newsDiv = element.closest("div.news-div");
             var data = element.prev().val();
-            utils.jsonPost(element.attr('href'), { comment: data}, function (data) {
-                newsDiv.html(data);
-                updateDelegates();
-                toggleAndFocusOnParent(parentDiv);
-            });
+            if (data != '') {
+                utils.jsonPost(element.attr('href'), { comment: data}, function (data) {
+                    newsDiv.html(data);
+                    updateDelegates();
+                    toggleAndFocusOnParent(parentDiv);
+                });
+            }
         }
 
         function updateDelegates() {
