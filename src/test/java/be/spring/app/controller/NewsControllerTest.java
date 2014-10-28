@@ -23,6 +23,7 @@ import java.util.Arrays;
 
 import static junit.framework.Assert.assertEquals;
 import static org.easymock.EasyMock.*;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -44,7 +45,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         TransactionalTestExecutionListener.class,
         WithSecurityContextTestExecutionListener.class})
 public class NewsControllerTest extends AbstractTest {
-    Account userAccount;
+    Account userAccount1;
+    Account userAccount2;
     Account adminAccount;
 
     private String comment;
@@ -54,7 +56,8 @@ public class NewsControllerTest extends AbstractTest {
 
     @Before
     public void setUpTests() {
-        userAccount = createRandomAccount();
+        userAccount1 = createRandomAccount();
+        userAccount2 = createRandomAccount();
         adminAccount = createRandomAccount(Role.ADMIN);
         comment = DataFactory.getDefaultRandomString();
     }
@@ -62,8 +65,8 @@ public class NewsControllerTest extends AbstractTest {
     @Test
     public void testCreateCommentWithAccount() throws Exception {
         reset(securityUtils);
-        News n = createAndSaveNews(userAccount);
-        expectSecurityLogin(userAccount);
+        News n = createAndSaveNews(userAccount1);
+        expectSecurityLogin(userAccount1);
         replay(securityUtils);
 
         postCreateNews(n.getId(), comment, status().isOk(), ROLE_USER);
@@ -72,14 +75,14 @@ public class NewsControllerTest extends AbstractTest {
 
         NewsComment resultComment = resultNews.getComments().get(0);
         assertEquals(comment, resultComment.getContent());
-        assertEquals(userAccount, resultComment.getAccount());
+        assertEquals(userAccount1, resultComment.getAccount());
 
         verify(securityUtils);
     }
 
     @Test
     public void testCreateCommentWithOutAccount() throws Exception {
-        News n = createAndSaveNews(userAccount);
+        News n = createAndSaveNews(userAccount1);
 
         mockMvc.perform(post("/news/addComment.html")
                 .param("comment", comment)
@@ -97,9 +100,9 @@ public class NewsControllerTest extends AbstractTest {
     @Test
     public void testUpdateCommentWithAccount() throws Exception {
         reset(securityUtils);
-        News n = createNewsWithComment(userAccount);
+        News n = createNewsWithComment(userAccount1);
         NewsComment c = n.getComments().get(0);
-        expectSecurityLogin(userAccount);
+        expectSecurityLogin(userAccount1);
         replay(securityUtils);
 
         postUpdateNews(n.getId(), c.getId(), comment, status().isOk(), ROLE_USER);
@@ -108,14 +111,52 @@ public class NewsControllerTest extends AbstractTest {
 
         NewsComment resultComment = resultNews.getComments().get(0);
         assertEquals(comment, resultComment.getContent());
-        assertEquals(userAccount, resultComment.getAccount());
+        assertEquals(userAccount1, resultComment.getAccount());
+
+        verify(securityUtils);
+    }
+
+    @Test
+    public void testUpdateCommentWrongAccount() throws Exception {
+        reset(securityUtils);
+        News n = createNewsWithComment(userAccount1);
+        NewsComment c = n.getComments().get(0);
+        expectSecurityLogin(userAccount2);
+        replay(securityUtils);
+
+        postUpdateNews(n.getId(), c.getId(), comment, view().name("error-403"), ROLE_USER);
+
+        News resultNews = newsDao.findOne(n.getId());
+
+        NewsComment resultComment = resultNews.getComments().get(0);
+        assertEquals(c, resultComment);
+        assertEquals(userAccount1, resultComment.getAccount());
+
+        verify(securityUtils);
+    }
+
+    @Test
+    public void testUpdateCommentWrongAccountButAdmin() throws Exception {
+        reset(securityUtils);
+        News n = createNewsWithComment(userAccount1);
+        NewsComment c = n.getComments().get(0);
+        expectSecurityLogin(adminAccount);
+        replay(securityUtils);
+
+        postUpdateNews(n.getId(), c.getId(), comment, status().isOk(), ROLE_USER);
+
+        News resultNews = newsDao.findOne(n.getId());
+
+        NewsComment resultComment = resultNews.getComments().get(0);
+        assertEquals(comment, resultComment.getContent());
+        assertEquals(userAccount1, resultComment.getAccount());
 
         verify(securityUtils);
     }
 
     @Test
     public void testUpdateCommentWithOutAccount() throws Exception {
-        News n = createNewsWithComment(userAccount);
+        News n = createNewsWithComment(userAccount1);
         Comment c = n.getComments().get(0);
 
         mockMvc.perform(post("/news/editComment.html")
@@ -132,6 +173,57 @@ public class NewsControllerTest extends AbstractTest {
         assertEquals(c, resultNews.getComments().get(0));
     }
 
+    public void testDeleteCommentWithUser() throws Exception {
+        reset(securityUtils);
+        News n = createNewsWithComment(userAccount1);
+        NewsComment c = n.getComments().get(0);
+        expectSecurityLogin(userAccount1);
+        replay(securityUtils);
+
+        postDeleteNews(n.getId(), c.getId(), status().isOk(), ROLE_USER);
+
+        News resultNews = newsDao.findOne(n.getId());
+
+        assertTrue(resultNews.getComments().isEmpty());
+
+        verify(securityUtils);
+    }
+
+    @Test
+    public void testDeleteCommentWithOtherUser() throws Exception {
+        reset(securityUtils);
+        News n = createNewsWithComment(userAccount1);
+        NewsComment c = n.getComments().get(0);
+        expectSecurityLogin(userAccount2);
+        replay(securityUtils);
+
+        postDeleteNews(n.getId(), c.getId(), status().isOk(), ROLE_USER);
+
+        News resultNews = newsDao.findOne(n.getId());
+
+        assertFalse(resultNews.getComments().isEmpty());
+
+        verify(securityUtils);
+    }
+
+
+    public void testDeleteCommentWithOtherUserButAdmin() throws Exception {
+        reset(securityUtils);
+        News n = createNewsWithComment(userAccount1);
+        NewsComment c = n.getComments().get(0);
+        expectSecurityLogin(adminAccount);
+        replay(securityUtils);
+
+        postDeleteNews(n.getId(), c.getId(), status().isOk(), ROLE_USER);
+
+        News resultNews = newsDao.findOne(n.getId());
+
+        assertTrue(resultNews.getComments().isEmpty());
+
+        verify(securityUtils);
+    }
+
+
     private News createAndSaveNews(Account account) {
         News news = DataFactory.createNews(account);
         return newsDao.save(news);
@@ -139,7 +231,10 @@ public class NewsControllerTest extends AbstractTest {
 
     private News createNewsWithComment(Account account) {
         News news = DataFactory.createNews(account);
-        news.setComments(Arrays.asList(DataFactory.createNewsComment(account)));
+        NewsComment comment = DataFactory.createNewsComment(account);
+        comment.setNews(news);
+        news.setComments(Arrays.asList(comment));
+
         return newsDao.save(news);
 
     }
@@ -159,6 +254,17 @@ public class NewsControllerTest extends AbstractTest {
     private void postUpdateNews(long newsId, long commentId, String comment, ResultMatcher resultMatcher, String role) throws Exception {
         mockMvc.perform(post("/news/editComment.html")
                 .param("comment", comment)
+                .param("newsId", Long.toString(newsId))
+                .param("commentId", Long.toString(commentId))
+                .with(user("user").roles(role))
+                .accept(MediaType.TEXT_PLAIN))
+                .andDo(print())
+                .andExpect(resultMatcher)
+                .andReturn();
+    }
+
+    private void postDeleteNews(long newsId, long commentId, ResultMatcher resultMatcher, String role) throws Exception {
+        mockMvc.perform(post("/news/deleteComment.html")
                 .param("newsId", Long.toString(newsId))
                 .param("commentId", Long.toString(commentId))
                 .with(user("user").roles(role))

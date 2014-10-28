@@ -142,18 +142,20 @@
             var parentDiv = '#' + element.closest(("div[id^='comments_']")).attr('id');
             var newsDiv = element.closest("div.news-div");
             var data = element.prev().val();
-            if (data != '') {
-                utils.jsonPost(element.attr('href'), { comment: data}, function (data) {
-                    newsDiv.html(data);
-                    updateDelegates();
-                    toggleAndFocusOnParent(parentDiv);
-                });
-            }
+
+            utils.jsonPost(element.attr('href'), { comment: data}, function (data) {
+                newsDiv.html(data);
+                updateDelegates();
+                toggleAndFocusOnParent(parentDiv);
+            });
+
         }
 
         function updateDelegates() {
             $('.addComment, .editComment').click(function (e) {
-                post(e, $(this));
+                if ($(this).prev().val() != '') {
+                    post(e, $(this));
+                }
             });
 
             $('.showEditComment').click(function (e) {

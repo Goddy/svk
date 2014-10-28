@@ -83,7 +83,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     @Transactional(readOnly = false)
     public News deleteNewsComment(long commentId, long newsId, Account account) {
-        Comment comment = commentDao.findOne(commentId);
+        NewsComment comment = (NewsComment) commentDao.findOne(commentId);
         authorizationService.isAuthorized(account, comment);
         News news = newsDao.findOne(newsId);
         news.getComments().remove(comment);
