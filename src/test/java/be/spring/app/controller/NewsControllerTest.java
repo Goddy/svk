@@ -19,8 +19,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-
 import static junit.framework.Assert.assertEquals;
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertFalse;
@@ -173,6 +171,7 @@ public class NewsControllerTest extends AbstractTest {
         assertEquals(c, resultNews.getComments().get(0));
     }
 
+    @Test
     public void testDeleteCommentWithUser() throws Exception {
         reset(securityUtils);
         News n = createNewsWithComment(userAccount1);
@@ -207,6 +206,7 @@ public class NewsControllerTest extends AbstractTest {
     }
 
 
+    @Test
     public void testDeleteCommentWithOtherUserButAdmin() throws Exception {
         reset(securityUtils);
         News n = createNewsWithComment(userAccount1);
@@ -233,7 +233,7 @@ public class NewsControllerTest extends AbstractTest {
         News news = DataFactory.createNews(account);
         NewsComment comment = DataFactory.createNewsComment(account);
         comment.setNews(news);
-        news.setComments(Arrays.asList(comment));
+        news.getComments().add(comment);
 
         return newsDao.save(news);
 
