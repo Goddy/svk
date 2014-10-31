@@ -15,6 +15,9 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<!--[if lt IE 10]>
+<div class="alert alert-danger" role="alert"><spring:message code="text.version.warning"/></div>
+<![endif]-->
 <header class="hidden-xs">
     <div class="content-heading clearfix media">
         <a rel="nofollow"><img src="/resources/images/logo.png"/></a>
