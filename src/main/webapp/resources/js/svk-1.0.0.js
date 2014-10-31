@@ -35,8 +35,10 @@ svk.utils = {
     },
     toggleDiv: function (element, e) {
         e.preventDefault();
-        var div = element.attr("href");
-        $('#' + div).toggle();
+        var div = "#" + element.attr("href");
+        $(div).toggle();
+        $('html, body').animate({ scrollTop: $(div).offset().top }, 'fast');
+
     },
 
     toggleAndFocus: function (id) {
