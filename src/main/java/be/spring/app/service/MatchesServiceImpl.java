@@ -10,7 +10,6 @@ import be.spring.app.persistence.SeasonDao;
 import be.spring.app.persistence.TeamDao;
 import be.spring.app.utils.GeneralUtils;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by u0090265 on 5/3/14.
@@ -64,12 +62,7 @@ public class MatchesServiceImpl implements MatchesService {
 
     @Override
     public List<ActionWrapper<Match>> getMatchesForSeason(long seasonId, final Account account, final Locale locale) {
-        try {
-            return concurrentDataService.getMatchForSeasonActionWrappers(seasonId, account, locale).get();
-        } catch (InterruptedException | ExecutionException e) {
-            log.error("getMatchesForSeason failed: {}", e.getMessage());
-            return Lists.newArrayList();
-        }
+        return concurrentDataService.getMatchForSeasonActionWrappers(seasonId, account, locale);
     }
 
     @Override
