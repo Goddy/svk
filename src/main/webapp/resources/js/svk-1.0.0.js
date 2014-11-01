@@ -112,6 +112,8 @@ svk.news = (function ($, utils, dd) {
     function updateDelegates() {
         $('.addComment, .editComment').click(function (e) {
             if ($(this).prev().val() != '') {
+                $(this).html('<img src="/resources/images/btn-info-loader.gif"/>');
+                $(this).attr("disabled", "disabled");
                 post(e, $(this));
             }
         });
