@@ -25,7 +25,7 @@
 <%@ include file="../jspf/footer.jspf" %>
 <tag:deleteDialog dialogId="delete-match-modal"/>
 <tag:mapDialog dialogId="map-modal"/>
-<script src="<c:url value='/resources/js/svk-1.0.0.js'/>"></script>
+<script src="<c:url value='/resources/js/svk-1.0.1.js'/>"></script>
 <script type="text/javascript">
 
     (function($, dd, md, utils){
@@ -63,7 +63,7 @@
                             var divContent = "";
                             var message = "";
                             //Disabled
-                            var loggedId = "false";
+                            var loggedIn = "false";
                             if (json != null) {
                                 divContent += '<div class="table-responsive"><table class="table table-hover">'
                                         + '<tr>' + '<td style="display:none"></td>'

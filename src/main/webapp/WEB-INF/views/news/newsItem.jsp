@@ -8,7 +8,7 @@
 <%@ include file="../jspf/footer.jspf" %>
 
 <tag:deleteDialog dialogId="delete-modal"/>
-<script src="<c:url value='/resources/js/svk-1.0.0.js'/>"></script>
+<script src="<c:url value='/resources/js/svk-1.0.1.js'/>"></script>
 
 <script type="text/javascript">
 

@@ -37,13 +37,17 @@ svk.utils = {
         e.preventDefault();
         var div = "#" + element.attr("href");
         $(div).toggle();
-        var offset = $(div).offset().top - 100;
-        $('html, body').animate({ scrollTop: offset }, 'slow');
     },
 
     toggleAndFocus: function (id) {
         $(id).show();
         $(id).focus();
+    },
+
+    focusDiv: function (element) {
+        var div = "#" + element.attr("href");
+        var offset = $(div).offset().top - 100;
+        $('html, body').animate({ scrollTop: offset }, 'slow');
     }
 };
 
@@ -110,6 +114,8 @@ svk.news = (function ($, utils, dd) {
     }
 
     function updateDelegates() {
+        $('.addComment, .editComment,.showEditComment, .commentBtn, .addCommentBtn, .deleteComment, .delete').unbind();
+
         $('.addComment, .editComment').click(function (e) {
             if ($(this).prev().val() != '') {
                 $(this).html('<img src="/resources/images/btn-info-loader.gif"/>');
@@ -123,6 +129,7 @@ svk.news = (function ($, utils, dd) {
         });
         $('.commentBtn').click(function (e) {
             utils.toggleDiv($(this), e);
+            utils.focusDiv($(this));
         });
         $('.addCommentBtn').click(function () {
             $(this).hide();
