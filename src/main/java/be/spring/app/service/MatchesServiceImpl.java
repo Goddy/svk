@@ -49,7 +49,7 @@ public class MatchesServiceImpl implements MatchesService {
     private AccountDao accountDao;
 
     @Autowired
-    private ConcurrentDataService concurrentDataService;
+    private CacheAdapter cacheAdapter;
 
     @Override
     public Map<Integer, List<Match>> getMatchesForLastSeasons() {
@@ -65,7 +65,7 @@ public class MatchesServiceImpl implements MatchesService {
     @Override
     public List<ActionWrapper<Match>> getMatchesForSeason(long seasonId, final Account account, final Locale locale) {
         try {
-            return concurrentDataService.getMatchForSeasonActionWrappers(seasonId, account, locale).get();
+            return cacheAdapter.getMatchActionWrappers(seasonId, account, locale);
         } catch (InterruptedException | ExecutionException e) {
             log.error("getMatchesForSeason failed: {}", e.getMessage());
             return Lists.newArrayList();
@@ -88,6 +88,7 @@ public class MatchesServiceImpl implements MatchesService {
         m.setAwayTeam(teamDao.findOne(form.getAwayTeam()));
         matchesDao.save(m);
         log.debug("Match {} created.", m);
+        cacheAdapter.resetMatchCache();
         return m;
     }
 
@@ -100,6 +101,7 @@ public class MatchesServiceImpl implements MatchesService {
         m.setHtGoals(form.getHtGoals());
         m.setPlayed(true);
         matchesDao.save(m);
+        cacheAdapter.resetMatchCache();
         return m;
     }
 
@@ -109,6 +111,7 @@ public class MatchesServiceImpl implements MatchesService {
         Match m = matchesDao.findOne(id);
         if (m == null) throw new ObjectNotFoundException(String.format("Match with id %s not found", id));
         matchesDao.delete(id);
+        cacheAdapter.resetMatchCache();
     }
 
     private List<Goal> transFormGoals(ChangeResultForm form) {

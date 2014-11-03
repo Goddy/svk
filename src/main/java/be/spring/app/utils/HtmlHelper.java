@@ -41,9 +41,12 @@ public class HtmlHelper {
     }
 
     public String getPresenceBtns(Match match, Account account) {
+        /**
         return match.getMatchDoodle().isPresent(account) ?
                 getDoodleBtns(PRESENCE_CLASS, OK, String.format("/doodle/changeMatchDoodle.json?matchId=%s&present=false", match.getId())) :
                 getDoodleBtns(PRESENCE_CLASS, REMOVE, String.format("/doodle/changeMatchDoodle.json?matchId=%s&present=true", match.getId()));
+         **/
+        return null;
     }
 
     private String getDoodleBtns(String aClazz, String clazz, String url) {

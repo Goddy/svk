@@ -1,9 +1,7 @@
 package be.spring.app.service;
 
-import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.model.Account;
 import be.spring.app.model.Doodle;
-import be.spring.app.model.Match;
 import be.spring.app.model.Presence;
 import be.spring.app.persistence.DoodleDao;
 import be.spring.app.persistence.MatchesDao;
@@ -33,6 +31,7 @@ public class DoodleServiceImpl implements DoodleService {
 
     @Override
     public String changeMatchPresence(Account account, long matchId, boolean present) {
+        /**
         Match match = matchesDao.findOne(matchId);
         if (match == null) throw new ObjectNotFoundException(String.format("Match with id %s not found.", matchId));
         Doodle doodle = match.getMatchDoodle();
@@ -49,6 +48,8 @@ public class DoodleServiceImpl implements DoodleService {
 
         log.info("Changed presence ({}) for match {} for account {}", present, matchId, account.getUsername() );
         return htmlHelper.getPresenceBtns(match, account);
+         **/
+        return null;
     }
 
     private void changePresence(Doodle doodle, Presence p, boolean present, Account account) {
