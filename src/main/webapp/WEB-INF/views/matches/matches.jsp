@@ -126,7 +126,7 @@
                                     divContent += '<spring:message code='text.goals'/>:<br/><ul>'
                                      for (i = 0; i < o.object.goals.length; i++) {
                                          var scorer = !o.object.goals[i].scorer ? "<spring:message code="text.no.player"/>" : o.object.goals[i].scorer.fullName;
-                                         var assist = !o.object.goals[i].assist ? " ()" : " (" + o.object.goals[i].assist.fullName + ")";
+                                         var assist = !o.object.goals[i].assist ? "" : " (" + o.object.goals[i].assist.fullName + ")";
                                          divContent += "<li>";
                                          divContent += scorer;
                                          divContent += assist;
