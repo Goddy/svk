@@ -20,8 +20,9 @@
 <![endif]-->
 <header class="hidden-xs">
     <div class="content-heading clearfix media">
-        <a rel="nofollow"><img src="/resources/images/logo.png"/></a>
+        <a href="/news/news.html" rel="nofollow"><img src="/resources/images/logo.png"/></a>
     </div>
+
 </header>
 <div class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
