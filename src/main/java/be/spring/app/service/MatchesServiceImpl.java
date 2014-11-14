@@ -75,7 +75,8 @@ public class MatchesServiceImpl implements MatchesService {
 
     @Override
     public Match getLatestMatch() {
-        return matchesDao.findFirstByDate(DateTime.now());
+        List<Match> matches = matchesDao.findByDate(DateTime.now());
+        return matches.isEmpty() ? null : matchesDao.findByDate(DateTime.now()).get(0);
     }
 
     @Override

@@ -21,6 +21,6 @@ public interface MatchesDao extends PagingAndSortingRepository<Match, Long>, Jpa
     @Query("select m from Match m where m.homeTeam = ?1 OR awayTeam = ?1 order by date desc")
     List<Match> getMatchesForTeam(Team team);
 
-    @Query("select m from Match m where m.date > ?1")
-    Match findFirstByDate(DateTime date);
+    @Query("select m from Match m where m.date > ?1 order by date asc")
+    List<Match> findByDate(DateTime date);
 }

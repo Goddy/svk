@@ -4,11 +4,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../jspf/header.jspf" %>
 
-<joda:format value="${nextMatch.date}" var="nextMatchDate" pattern="dd-MM-yyyy HH:mm"/>
-
 <div class="alert alert-info"><spring:message code="info.matches"/></div>
 
-<div class="panel panel-danger">
+<c:if test="${not empty nextMatch}">
+    <joda:format value="${nextMatch.date}" var="nextMatchDate" pattern="dd-MM-yyyy HH:mm"/>
+    <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title"><spring:message code="text.next.match"/></h3>
     </div>
@@ -30,6 +30,7 @@
 
     </div>
 </div>
+</c:if>
 
 <%@ include file="../jspf/resultMessage.jspf" %>
 <div class="panel-group" id="accordion">
