@@ -112,8 +112,7 @@ public class Match {
         this.htGoals = htGoals;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
-    @JoinColumn(name = "goal_id", referencedColumnName = "id")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "match")
     public List<Goal> getGoals() {
         return goals;
     }

@@ -95,7 +95,8 @@ public class MatchesServiceImpl implements MatchesService {
     @Transactional(readOnly = false)
     public Match updateMatchResult(ChangeResultForm form) {
         Match m = matchesDao.findOne(form.getMatchId());
-        m.setGoals(transFormGoals(form));
+        m.getGoals().clear();
+        m.getGoals().addAll(transFormGoals(form, m));
         m.setAtGoals(form.getAtGoals());
         m.setHtGoals(form.getHtGoals());
         m.setPlayed(true);
@@ -111,10 +112,11 @@ public class MatchesServiceImpl implements MatchesService {
         matchesDao.delete(id);
     }
 
-    private List<Goal> transFormGoals(ChangeResultForm form) {
+    private List<Goal> transFormGoals(ChangeResultForm form, Match match) {
         List<Goal> result = new ArrayList<>();
         for (ChangeResultForm.FormGoal goal : form.getGoals()) {
             Goal g = new Goal();
+            g.setMatch(match);
             g.setOrder(goal.getOrder());
             //Goals and and assists can be null
             if (!Strings.isNullOrEmpty(goal.getScorer())) g.setScorer(accountDao.findOne(GeneralUtils.convertToLong(goal.getScorer())));

@@ -1,5 +1,7 @@
 package be.spring.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -13,6 +15,7 @@ public class Goal {
     private int order;
     private Account scorer;
     private Account assist;
+    private Match match;
 
     public Goal() {
     }
@@ -55,5 +58,17 @@ public class Goal {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "MATCH_ID", referencedColumnName = "ID")
+    public Match getMatch() {
+        return match;
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
     }
 }

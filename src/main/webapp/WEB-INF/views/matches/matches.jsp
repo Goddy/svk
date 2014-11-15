@@ -92,6 +92,17 @@
                                                     result +
                                                     doodle +
                                                     '<td>' + o.additions['htmlActions'] + ' </td></tr>';
+                                    /**
+                                     divContent += '<tr style="display: " id="' +  o.object.id + '"><td colspan="5">';
+                                     divContent += '<spring:message code='text.goals'/>:<br/><ul>'
+                                     for (i = 0; i < o.object.goals.length; i++) {
+                                        divContent += "<li>";
+                                        divContent += o.object.goals[i].scorer.fullName + " (" + o.object.goals[i].assist.fullName +")";
+                                        divContent += "</li>";
+                                    }
+                                     divContent += "</ul>";
+                                     divContent += '<td></tr>';
+                                     **/
                                 });
                                 divContent += '</table></div>';
 
