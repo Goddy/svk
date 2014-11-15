@@ -146,6 +146,7 @@ public class Match {
         this.played = played;
     }
 
+    /**
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "doodle_id", insertable = true, updatable = true, nullable = true)
     public Doodle getMatchDoodle() {
@@ -156,4 +157,5 @@ public class Match {
     public void setMatchDoodle(Doodle matchDoodle) {
         this.matchDoodle = matchDoodle;
     }
+    **/
 }
