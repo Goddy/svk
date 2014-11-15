@@ -24,10 +24,12 @@ public class HtmlHelper {
     private static String MAP = "glyphicon glyphicon-map-marker";
     private static String OK = "glyphicon glyphicon-ok green presence";
     private static String REMOVE = "glyphicon glyphicon-remove red presence";
+    private static String DETAILS = "glyphicon glyphicon-eye-open";
     private static String DELETE_CLASS = "delete";
     private static String PRESENCE_CLASS = "presence";
     private static String PRESENCE_BOX = "presenceBox";
     private static String MAP_CLASS = "map";
+    private static String DETAILS_CLASS = "details";
     private static String EMPTY = "";
     private static String HTML_ACTIONS = "htmlActions";
     private static String PRESENCE_ACTIONS = "presenceActions";
@@ -71,6 +73,8 @@ public class HtmlHelper {
         String googleLink = match.getHomeTeam().getAddress().getGoogleLink();
         if (googleLink != null) btns.append(getBtn(MAP_CLASS, MAP, googleLink));
 
+        if (!match.getGoals().isEmpty()) btns.append(getBtn(DETAILS_CLASS, DETAILS, "details" + match.getId()));
+
         m.put(HTML_ACTIONS, btns.toString().isEmpty() ? messageSource.getMessage("text.noActions", null, locale) : wrapIntoBtnGroup(btns.toString()));
         return m;
     }
@@ -90,7 +94,7 @@ public class HtmlHelper {
     }
 
     private static String getBtn(String aClazz, String clazz, String url) {
-        return String.format("<a href='%s' data-toggle='tooltip' data-placement='top' class='btn btn-default %s'><span class='%s'></span></a>", url, clazz, aClazz);
+        return String.format("<a href='%s' data-toggle='tooltip' data-placement='top' class='btn btn-default %s %s'/>", url, clazz, aClazz);
     }
 
     private static String wrapIntoBtnGroup(String s) {

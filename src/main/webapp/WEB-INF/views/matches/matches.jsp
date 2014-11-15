@@ -92,17 +92,19 @@
                                                     result +
                                                     doodle +
                                                     '<td>' + o.additions['htmlActions'] + ' </td></tr>';
-                                    /**
-                                     divContent += '<tr style="display: " id="' +  o.object.id + '"><td colspan="5">';
-                                     divContent += '<spring:message code='text.goals'/>:<br/><ul>'
+
+                                    divContent += '<tr style="display: none" class="active" id="details' + o.object.id + '"><td colspan="5">';
+                                    divContent += '<spring:message code='text.goals'/>:<br/><ul>'
                                      for (i = 0; i < o.object.goals.length; i++) {
-                                        divContent += "<li>";
-                                        divContent += o.object.goals[i].scorer.fullName + " (" + o.object.goals[i].assist.fullName +")";
-                                        divContent += "</li>";
+                                         var scorer = !o.object.goals[i].scorer ? "<spring:message code="text.no.player"/>" : o.object.goals[i].scorer.fullName;
+                                         var assist = !o.object.goals[i].assist ? " ()" : " (" + o.object.goals[i].assist.fullName + ")";
+                                         divContent += "<li>";
+                                         divContent += scorer;
+                                         divContent += assist;
+                                         divContent += "</li>";
                                     }
                                      divContent += "</ul>";
                                      divContent += '<td></tr>';
-                                     **/
                                 });
                                 divContent += '</table></div>';
 
@@ -134,6 +136,12 @@
                 e.preventDefault();
                 var href = $(this).attr("href");
                 md.showMapDialog(mapModal, href)
+            });
+
+            $(document).on('click', 'a[class*="details"]', function (e) {
+                e.preventDefault();
+                var href = $(this).attr("href");
+                $('#' + href).toggle();
             });
 
             $(document).on('click', 'a[class*="presence"]', function (e) {
