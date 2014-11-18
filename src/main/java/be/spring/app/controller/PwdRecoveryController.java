@@ -5,7 +5,7 @@ import be.spring.app.service.PwdRecoveryService;
 import be.spring.app.validators.PwdRecoveryValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -44,11 +44,11 @@ public class PwdRecoveryController extends AbstractController {
     }
 
     @RequestMapping(value = "getPwdRecoveryCode", method = RequestMethod.POST)
-    public String postPwdRecoveryForm(@Valid @ModelAttribute("form") PwdRecoveryForm form, BindingResult result ,ModelMap model, Locale locale) {
+    public String postPwdRecoveryForm(@Valid @ModelAttribute("form") PwdRecoveryForm form, BindingResult result, Model model, Locale locale) {
         return form.isNewCode() ? getNewCode(form, result, locale, model) : checkCode(form, result, locale, model);
     }
 
-    private String getNewCode(PwdRecoveryForm form, BindingResult result, Locale locale, ModelMap model) {
+    private String getNewCode(PwdRecoveryForm form, BindingResult result, Locale locale, Model model) {
         if (result.hasErrors()) return GET_PWD_REC_CODE_LANDING;
         service.setRecoveryCodeAndEmail(form.getEmail(), result, locale);
         if (!result.hasErrors()) {
@@ -57,7 +57,7 @@ public class PwdRecoveryController extends AbstractController {
         return GET_PWD_REC_CODE_LANDING;
     }
 
-    private String checkCode(PwdRecoveryForm form, BindingResult result, Locale locale, ModelMap model) {
+    private String checkCode(PwdRecoveryForm form, BindingResult result, Locale locale, Model model) {
         if (result.hasErrors()) return GET_PWD_REC_CODE_LANDING;
         service.checkPwdRecoverCodeAndEmail(form.getNewPassword(), form.getEmail(), form.getCode(), result, locale);
         if (!result.hasErrors()) {

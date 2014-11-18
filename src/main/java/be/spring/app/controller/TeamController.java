@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -89,7 +90,7 @@ public class TeamController extends AbstractController {
             }
 
             if (result.hasErrors()) {
-                return createTeam(model,locale);
+                return createTeam(model, locale);
             }
             Team team = teamService.createTeam(form);
             log.debug("Created team: {}", team);
@@ -107,7 +108,7 @@ public class TeamController extends AbstractController {
         try {
             if (result.hasErrors()) {
                 model.addAttribute("form", form);
-                return editTeam(model,locale);
+                return editTeam(model, locale);
             }
             Team team = teamService.updateTeam(form);
             log.debug("Created team: {}", team);
@@ -140,13 +141,12 @@ public class TeamController extends AbstractController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteTeam", method = RequestMethod.GET)
-    public String deleteTeam(@RequestParam long teamId, ModelMap model, Locale locale) {
+    public String deleteTeam(@RequestParam long teamId, Model model, Locale locale) {
         Team team = teamService.getTeam(teamId);
         if (team == null) throw new ObjectNotFoundException(String.format("Team with id %s not found", teamId));
         if (teamService.deleteTeam(teamId, getAccountFromSecurity())) {
             setSuccessMessage(model, locale, "text.team.deleted", null);
-        }
-        else {
+        } else {
             setErrorMessage(model, locale, "error.delete.team.dependencies", null);
         }
         model.addAttribute("teams", getTeams(locale));

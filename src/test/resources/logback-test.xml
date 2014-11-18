@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds">
-	<!-- Appenders -->
-	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- Appenders -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%date{"HH:mm:ss,SSS"} [%thread] %-5level %logger{32} {%mdc} - %msg%n</pattern>
         </encoder>
-	</appender>
-	
-	<!-- Application Loggers -->
-	<logger name="be.spring.app">
+    </appender>
+
+    <!-- Application Loggers -->
+    <logger name="be.spring.app">
         <level value="debug"/>
     </logger>
-	
-	<!-- 3rdparty Loggers -->
+
+    <!-- 3rdparty Loggers -->
 
     <logger name="org.springframework.test" level="info">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="org.springframework.security" level="debug">
         <appender-ref ref="console"/>
     </logger>
 

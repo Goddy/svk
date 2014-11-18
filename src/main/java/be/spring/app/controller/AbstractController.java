@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -64,23 +64,31 @@ public abstract class AbstractController {
 
     /**
      * Get a message from the message source
-     * @param msg   The message code
-     * @param args  The arguments for the message, null if empty
-     * @param locale    The locale
+     *
+     * @param msg    The message code
+     * @param args   The arguments for the message, null if empty
+     * @param locale The locale
      * @return
      */
-    protected String getMessage(String msg, Object [] args, Locale locale) {
+    protected String getMessage(String msg, Object[] args, Locale locale) {
         try {
             return messageSource.getMessage(msg, args, locale);
-        }
-
-        catch (NoSuchMessageException e) {
+        } catch (NoSuchMessageException e) {
             log.debug("messageSourceError - {}", e.getMessage());
             return null;
         }
     }
 
-    public void setSuccessMessage(ModelMap model, Locale locale, String code, Object[] args) {
+    public void setFlashSuccessMessage(RedirectAttributes redirectAttributes, Locale locale, String code, Object[] args) {
+        try {
+            redirectAttributes.addFlashAttribute("resultMessage", messageSource.getMessage(code, args, locale));
+            redirectAttributes.addFlashAttribute("divClass", DIV_CLASS_SUCCESS);
+        } catch (NoSuchMessageException e) {
+            log.debug("messageSourceError for success message - {}", e.getMessage());
+        }
+    }
+
+    public <T extends Model> void setSuccessMessage(T model, Locale locale, String code, Object[] args) {
         try {
             model.addAttribute("resultMessage", messageSource.getMessage(code, args, locale));
             model.addAttribute("divClass", DIV_CLASS_SUCCESS);
@@ -89,7 +97,7 @@ public abstract class AbstractController {
         }
     }
 
-    public void setErrorMessage(ModelMap model, Locale locale, String code, Object[] args) {
+    public <T extends Model> void setErrorMessage(T model, Locale locale, String code, Object[] args) {
         try {
             model.addAttribute("resultMessage", messageSource.getMessage(code, args, locale));
             model.addAttribute("divClass", DIV_CLASS_ERROR);
@@ -115,7 +123,7 @@ public abstract class AbstractController {
         StringBuilder builder = new StringBuilder();
         for (FieldError r : result.getFieldErrors()) {
             builder.append(r.getDefaultMessage())
-                   .append("</br>");
+                    .append("</br>");
         }
         return builder.toString();
     }

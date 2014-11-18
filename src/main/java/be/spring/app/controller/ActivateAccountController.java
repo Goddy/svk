@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,14 +39,15 @@ public class ActivateAccountController extends AbstractController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "activateAccount", method = RequestMethod.GET)
-    public String getActivateAccount(@ModelAttribute("form") ActivateAccountForm form, @RequestParam String accountId, ModelMap model, Locale locale) {
+    public String getActivateAccount(@ModelAttribute("form") ActivateAccountForm form, @RequestParam String accountId, Model model, Locale locale) {
         Account account = accountService.getAccount(accountId);
-        if (account == null) throw new ObjectNotFoundException(String.format("Account with id %s does not exist", accountId));
+        if (account == null)
+            throw new ObjectNotFoundException(String.format("Account with id %s does not exist", accountId));
 
         model.addAttribute("account", account);
 
         if (account.isActive()) {
-            setErrorMessage(model,locale, "error.activation.already.activated", null);
+            setErrorMessage(model, locale, "error.activation.already.activated", null);
             return LANDING_ACTIVATION;
         }
         form.setAccountId(GeneralUtils.convertToLong(accountId));
@@ -56,14 +57,13 @@ public class ActivateAccountController extends AbstractController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "activateAccount", method = RequestMethod.POST)
-    public String postActivateAccount(@Valid @ModelAttribute("form") ActivateAccountForm form, BindingResult result, ModelMap model, Locale locale) {
+    public String postActivateAccount(@Valid @ModelAttribute("form") ActivateAccountForm form, BindingResult result, Model model, Locale locale) {
         Account a = getAccountFromSecurity();
         Account activatedAccount = accountService.activateAccount(form, locale, result);
         log.info(String.format("Account id %s was activated by %s", form.getAccountId(), a.getUsername()));
         if (!result.hasErrors()) {
             setSuccessMessage(model, locale, "success.activation", null);
-        }
-        else {
+        } else {
             setErrorMessage(model, locale, "validation.activation.email.not.sent", null);
         }
 

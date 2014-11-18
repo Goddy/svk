@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
@@ -64,7 +63,7 @@ public class AccountController extends AbstractController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "update_details", method = RequestMethod.POST)
-    public String updateAccountDetails(@ModelAttribute("Account") @Valid AccountDetailsForm form, BindingResult result, ModelMap model, Locale locale) {
+    public String updateAccountDetails(@ModelAttribute("Account") @Valid AccountDetailsForm form, BindingResult result, Model model, Locale locale) {
         Account a = getAccountFromSecurity();
         accountService.updateAccount(a, result, form);
         log.info(String.format("Updated account %s", a.getUsername()));
@@ -97,14 +96,15 @@ public class AccountController extends AbstractController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "changePassword.json", method = RequestMethod.POST)
-    public @ResponseBody String updatePassword(@ModelAttribute("changePassword") @Valid ChangePwdForm form, BindingResult result, Locale locale) {
+    public
+    @ResponseBody
+    String updatePassword(@ModelAttribute("changePassword") @Valid ChangePwdForm form, BindingResult result, Locale locale) {
         log.info("updatePassword.json called");
         Account activeAccount = getAccountFromSecurity();
         //Check pwd complexity
         if (result.hasErrors()) {
             return getDefaultMessages(result);
-        }
-        else {
+        } else {
             try {
                 if (form.getOldPassword() != null && !accountService.checkOldPassword(activeAccount, form.getOldPassword())) {
                     return getMessage("validation.oldpwd.nomatch", null, locale);

@@ -1,6 +1,7 @@
 package be.spring.app.controller;
 
 import be.spring.app.model.*;
+import be.spring.app.persistence.MatchesDao;
 import be.spring.app.persistence.NewsDao;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,6 +52,10 @@ public class NewsControllerTest extends AbstractTest {
 
     @Autowired
     private NewsDao newsDao;
+
+
+    @Autowired
+    MatchesDao matchesDao;
 
     @Before
     public void setUpTests() {

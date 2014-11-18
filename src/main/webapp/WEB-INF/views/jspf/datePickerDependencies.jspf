@@ -5,12 +5,13 @@
 <script type="text/javascript">
     (function ($) {
         $(document).ready(function () {
+            var d = new Date();
+
             $("[class*='date']").datetimepicker({
                 pickTime: true,
-                useCurrent: true,
                 pick12HourFormat: false,
                 format: "DD/MM/YYYY HH:mm"
-            });
+            }).data("DateTimePicker").setDate(new Date(d.getFullYear(), d.getMonth(), d.getDate(), 20, 30));
         })
     })(jQuery);
 

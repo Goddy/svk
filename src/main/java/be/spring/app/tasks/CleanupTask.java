@@ -22,7 +22,7 @@ public class CleanupTask implements Task {
     public void execute() {
         log.info("Execute CleanupTask - start");
         pwdRecoveryService.deleteExpiredCodes();
-        cleanUpDao.cleanGoals();
+        //cleanUpDao.cleanGoals();
         log.info("Execute CleanupTask - end");
     }
 }

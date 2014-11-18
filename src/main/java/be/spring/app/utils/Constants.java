@@ -19,6 +19,10 @@ public class Constants {
 
     public static final String LANDING_CREATE_TEAM = "/teams/createTeam";
     public static final String LANDING_TEAMS = "/teams/teams";
+    public static final String LANDING_MATCHES_CREATE_RESULT = "/matches/changeMatchResult";
+    public static final String LANDING_MATCHES_PAGE = "/matches/matches";
+    public static final String LANDING_MATCHES_CREATE = "/matches/createMatch";
 
-    private Constants() {}
+    private Constants() {
+    }
 }

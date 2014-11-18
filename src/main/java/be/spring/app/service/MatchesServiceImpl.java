@@ -11,6 +11,7 @@ import be.spring.app.persistence.TeamDao;
 import be.spring.app.utils.GeneralUtils;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,11 @@ public class MatchesServiceImpl implements MatchesService {
             log.error("getMatchesForSeason failed: {}", e.getMessage());
             return Lists.newArrayList();
         }
+    }
+
+    @Override
+    public Match getLatestMatch() {
+        return matchesDao.findFirstByDate(DateTime.now());
     }
 
     @Override

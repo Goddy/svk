@@ -5,7 +5,6 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf" %>
 
-<%@ include file="../jspf/resultMessage.jspf" %>
 <h2><spring:message code="title.goals" arguments="${match.description}"/></h2>
 
 <div class="panel panel-default">

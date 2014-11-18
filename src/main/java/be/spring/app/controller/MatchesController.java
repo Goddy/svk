@@ -9,13 +9,14 @@ import be.spring.app.service.AccountService;
 import be.spring.app.service.MatchesService;
 import be.spring.app.service.SeasonService;
 import be.spring.app.service.TeamService;
+import be.spring.app.utils.Constants;
 import be.spring.app.validators.CreateMatchValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -75,39 +76,38 @@ public class MatchesController extends AbstractController {
 
 
     private static final Logger log = LoggerFactory.getLogger(MatchesController.class);
-    private static final String LANDING_MATCHES_PAGE = "/matches/matches";
-    private static final String LANDING_MATCHES_CREATE = "/matches/createMatch";
-
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createMatch", method = RequestMethod.GET)
-    public String newMatch(ModelMap model, @ModelAttribute("form") CreateMatchForm form) {
+    public String newMatch(Model model, @ModelAttribute("form") CreateMatchForm form) {
         populateCreateMatch(model);
-        return LANDING_MATCHES_CREATE;
+        return Constants.LANDING_MATCHES_CREATE;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createMatch", method = RequestMethod.POST)
-    public String createMatch(@ModelAttribute("form") @Valid CreateMatchForm form, BindingResult result, ModelMap model) {
+    public String createMatch(@ModelAttribute("form") @Valid CreateMatchForm form, BindingResult result, Model model, Locale locale) {
         try {
             if (result.hasErrors()) {
                 populateCreateMatch(model);
-                return LANDING_MATCHES_CREATE;
+                return Constants.LANDING_MATCHES_CREATE;
             }
             Match m = matchesService.createMatch(form);
             log.info(String.format("Match id %s created by user %s", m.getId(), getAccountFromSecurity().getUsername()));
-            return getRedirect(LANDING_MATCHES_PAGE);
+            setSuccessMessage(model, locale, "text.match.created", new Object[]{m.getDescription()});
+            return Constants.LANDING_MATCHES_CREATE;
         } catch (ParseException e) {
             log.debug(e.getMessage());
-            return null;
+            throw new RuntimeException(e);
         }
     }
 
 
     @RequestMapping(value = "matches", method = RequestMethod.GET)
-    public String getMatchesPage(ModelMap model) {
+    public String getMatchesPage(Model model, RedirectAttributes redirectAttributes) {
         model.addAttribute("seasons", seasonService.getSeasons());
-        return LANDING_MATCHES_PAGE;
+        model.addAttribute("nextMatch", matchesService.getLatestMatch());
+        return Constants.LANDING_MATCHES_PAGE;
 
     }
 
@@ -123,7 +123,7 @@ public class MatchesController extends AbstractController {
         matchesService.deleteMatch(matchId);
         setSuccessMessage(redirectAttributes, locale, "text.delete.match.success", null);
         log.info(String.format("Match id %s deleted by user %s", matchId, getAccountFromSecurity().getUsername()));
-        return getRedirect(LANDING_MATCHES_PAGE);
+        return getRedirect(Constants.LANDING_MATCHES_PAGE);
     }
 
     @RequestMapping(value = "matchesForSeason.json", method = RequestMethod.GET)
@@ -135,7 +135,7 @@ public class MatchesController extends AbstractController {
         return r;
     }
 
-    private void populateCreateMatch(ModelMap model) {
+    private void populateCreateMatch(Model model) {
         model.addAttribute("teams", teamService.getAll());
         model.addAttribute("seasons", seasonService.getSeasons());
     }

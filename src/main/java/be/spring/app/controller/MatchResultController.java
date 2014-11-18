@@ -5,15 +5,18 @@ import be.spring.app.model.Account;
 import be.spring.app.model.Match;
 import be.spring.app.service.AccountService;
 import be.spring.app.service.MatchesService;
+import be.spring.app.utils.Constants;
 import be.spring.app.validators.ResultValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.rmi.AccessException;
@@ -25,7 +28,7 @@ import java.util.Locale;
  */
 @Controller
 @RequestMapping("/matches")
-public class MatchResultController extends AbstractController{
+public class MatchResultController extends AbstractController {
 
     @Autowired
     private MatchesService matchesService;
@@ -41,11 +44,10 @@ public class MatchResultController extends AbstractController{
         binder.setValidator(validator);
     }
 
-    private static final String LANDING_MATCHES_CREATE_RESULT = "/matches/changeMatchResult";
     private static final String DEFAULT_TEAM = "SVK";
 
     @ModelAttribute("players")
-    public List<Account> getPerson(){
+    public List<Account> getPerson() {
         return accountService.getAll();
     }
 
@@ -56,12 +58,12 @@ public class MatchResultController extends AbstractController{
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "changeMatchResult", method = RequestMethod.POST)
-    public String postChangeMatchResult(@Valid @ModelAttribute("form") ChangeResultForm form, BindingResult result, ModelMap model ,Locale locale) {
-        if (result.hasErrors()) return LANDING_MATCHES_CREATE_RESULT;
+    public String postChangeMatchResult(@Valid @ModelAttribute("form") ChangeResultForm form, BindingResult result, Model model, Locale locale, final RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) return Constants.LANDING_MATCHES_CREATE_RESULT;
         Match m = matchesService.updateMatchResult(form);
         model.addAttribute("match", m);
-        setSuccessMessage(model, locale, "text.match.result.update.success", new Object[]{m.getDescription()});
-        return LANDING_MATCHES_CREATE_RESULT;
+        setFlashSuccessMessage(redirectAttributes, locale, "text.match.result.update.success", new Object[]{m.getDescription()});
+        return getRedirect(Constants.LANDING_MATCHES_PAGE);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -78,14 +80,14 @@ public class MatchResultController extends AbstractController{
             model.addAttribute("form", resultForm);
         }
 
-        return new ModelAndView(LANDING_MATCHES_CREATE_RESULT);
+        return new ModelAndView(Constants.LANDING_MATCHES_CREATE_RESULT);
     }
+
     @RequestMapping(value = "getError", method = RequestMethod.GET)
     public void getError() throws AccessException {
         try {
             if (true) throw new AccessException("test");
-        }
-        finally {
+        } finally {
 
         }
     }

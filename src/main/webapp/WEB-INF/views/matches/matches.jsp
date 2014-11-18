@@ -1,8 +1,36 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../jspf/header.jspf" %>
+
+<joda:format value="${nextMatch.date}" var="nextMatchDate" pattern="dd-MM-yyyy - HH:mm"/>
+
 <div class="alert alert-info"><spring:message code="info.matches"/></div>
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title"><spring:message code="text.next.match"/></h3>
+    </div>
+    <div class="panel-body">
+        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+        <c:out value="${nextMatchDate}"/><br>
+        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+        <c:out value="${nextMatch.description}"/><br>
+        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+        <c:choose>
+            <c:when test="${not empty nextMatch.homeTeam.address.googleLink}">
+                <a href="${nextMatch.homeTeam.address.googleLink}" class="map"><c:out
+                        value="${nextMatch.homeTeam.address}"/></a>
+            </c:when>
+            <c:otherwise>
+                <c:out value="${nextMatch.homeTeam.address}"/>
+            </c:otherwise>
+        </c:choose>
+
+    </div>
+</div>
+
 <%@ include file="../jspf/resultMessage.jspf" %>
 <div class="panel-group" id="accordion">
     <c:forEach items="${seasons}" var="season">
