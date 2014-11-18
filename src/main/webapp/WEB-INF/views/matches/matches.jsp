@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../jspf/header.jspf" %>
 
-<joda:format value="${nextMatch.date}" var="nextMatchDate" pattern="dd-MM-yyyy - HH:mm"/>
+<joda:format value="${nextMatch.date}" var="nextMatchDate" pattern="dd-MM-yyyy HH:mm"/>
 
 <div class="alert alert-info"><spring:message code="info.matches"/></div>
 
