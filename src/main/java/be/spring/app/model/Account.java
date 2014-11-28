@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 })
 @Entity
 @Table(name = "account")
-public class Account {
+public class Account implements Comparable<Account> {
     private Long id;
     private String firstName;
     private String lastName;
@@ -138,4 +138,8 @@ public class Account {
         return id != null && other.id != null && id.equals(other.id);
     }
 
+    @Override
+    public int compareTo(Account o) {
+        return this.getFullName().compareTo(o.getFullName());
+    }
 }

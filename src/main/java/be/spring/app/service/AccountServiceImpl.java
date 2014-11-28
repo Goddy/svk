@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -119,7 +120,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> getAll() {
-        return Lists.newArrayList(accountDao.findAll());
+        List<Account> r = Lists.newArrayList(accountDao.findAll());
+        Collections.sort(r);
+        return r;
     }
 
     @Override

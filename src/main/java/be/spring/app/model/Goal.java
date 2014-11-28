@@ -63,7 +63,7 @@ public class Goal {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "MATCH_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "match_id", referencedColumnName = "id")
     public Match getMatch() {
         return match;
     }
