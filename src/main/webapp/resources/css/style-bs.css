@@ -72,6 +72,12 @@ header h3 {
     text-transform: uppercase;
 }
 
+.indent {
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+
 .row-margin-bottom {
     margin-bottom: 15px;
 }
@@ -183,6 +189,11 @@ header h3 {
     .linkToMother img {
         max-height: 70%;
         max-width: 70%;
+    }
+
+    .indent {
+        margin-left: 0px;
+        margin-right: 0px;
     }
 
 }
