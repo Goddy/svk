@@ -1,6 +1,7 @@
 package be.spring.app.model;
 
 import be.spring.app.data.SocialMediaEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,6 +38,7 @@ public class Account implements Comparable<Account> {
     }
 
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     @Column(name = "sign_in_provider", length = 20)
     public SocialMediaEnum getSignInProvider() {
         return signInProvider;
@@ -59,6 +61,7 @@ public class Account implements Comparable<Account> {
     }
 
     @NotNull
+    @JsonIgnore
     @Size(min = 1, max = 50)
     @Column(name = "username")
     public String getUsername() {
@@ -100,6 +103,7 @@ public class Account implements Comparable<Account> {
     }
 
     @Column(name = "role")
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     public Role getRole() {
         if (role == null)
@@ -113,6 +117,7 @@ public class Account implements Comparable<Account> {
     }
 
     @NotNull
+    @JsonIgnore
     @Column(name = "activated")
     public boolean isActive() {
         return active;
@@ -123,6 +128,7 @@ public class Account implements Comparable<Account> {
     }
 
     @Column(name = "password_recovery")
+    @JsonIgnore
     public String getPwdRecovery() {
         return pwdRecovery;
     }
