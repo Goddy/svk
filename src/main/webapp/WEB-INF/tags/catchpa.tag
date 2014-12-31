@@ -9,7 +9,7 @@
     <div class="col-sm-10">
         <div id="captcha_paragraph">
             <%
-                ReCaptcha c = ReCaptchaFactory.newReCaptcha(publicKey, privateKey, false);
+                ReCaptcha c = ReCaptchaFactory.newSecureReCaptcha(publicKey, privateKey, false);
                 out.print(c.createRecaptchaHtml(null, null));
             %>
             <c:if test="${invalidRecaptcha == true}">
