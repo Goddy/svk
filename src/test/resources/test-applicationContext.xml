@@ -19,6 +19,11 @@
         <constructor-arg value="be.spring.app.utils.SecurityUtils"/>
     </bean>
 
+    <!-- recatchpa -->
+    <bean id="reCaptchaImpl" class="org.easymock.EasyMock" factory-method="createStrictMock">
+        <constructor-arg value="net.tanesha.recaptcha.ReCaptchaImpl"/>
+    </bean>
+
     <import resource="test-data-context.xml"/>
     <import resource="test-security-context.xml"/>
 

@@ -3,6 +3,7 @@ package be.spring.app.controller;
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.controller.exceptions.UnauthorizedAccessException;
 import be.spring.app.model.Account;
+import be.spring.app.service.CatchPaService;
 import be.spring.app.service.MailService;
 import be.spring.app.utils.SecurityUtils;
 import org.slf4j.Logger;
@@ -30,7 +31,10 @@ public abstract class AbstractController {
     private static final String DIV_CLASS_SUCCESS = "alert alert-success";
     private static final String DIV_CLASS_ERROR = "alert alert-danger";
     @Autowired
-    MailService mailService;
+    protected MailService mailService;
+
+    @Autowired
+    protected CatchPaService catchPaService;
 
     @Autowired
     private MessageSource messageSource;
@@ -126,5 +130,10 @@ public abstract class AbstractController {
                     .append("</br>");
         }
         return builder.toString();
+    }
+
+    protected void populateRecatchPa(Model model) {
+        model.addAttribute("privateKey", catchPaService.getPrivateKey());
+        model.addAttribute("publicKey", catchPaService.getPublicKey());
     }
 }

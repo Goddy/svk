@@ -84,6 +84,8 @@
                         <li><a href="${baseUrl}/login.html"><span class="glyphicon glyphicon-user"></span>&nbsp;<spring:message
                                 code="text.login"/></a></li>
                     </security:authorize>
+                    <li><a href="/contact.html"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;<spring:message
+                            code="nav.contact"/></a></li>
                 </ul>
             </ul>
         </div>

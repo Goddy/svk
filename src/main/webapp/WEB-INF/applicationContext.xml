@@ -85,6 +85,11 @@
         </property>
     </bean>
 
+    <!-- recatchpa -->
+    <bean id="reCaptchaImpl" class="net.tanesha.recaptcha.ReCaptchaImpl">
+        <property name="privateKey" value="${recatchpa.private}"/>
+    </bean>
+
     <!-- Tasks -->
     <task:scheduled-tasks scheduler="scheduler">
         <task:scheduled ref="cleanupTask" method="execute" cron="${activationCodeCleanup.cronSchedule}"/>

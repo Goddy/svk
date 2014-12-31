@@ -72,6 +72,9 @@ header h3 {
     text-transform: uppercase;
 }
 
+.error {
+    color: #a94442;
+}
 .indent {
     padding-left: 10px;
     padding-right: 20px;

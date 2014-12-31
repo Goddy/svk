@@ -32,6 +32,13 @@
             <version>3.2</version>
         </dependency>
 
+        <!-- recatchpa -->
+        <dependency>
+            <groupId>net.tanesha.recaptcha4j</groupId>
+            <artifactId>recaptcha4j</artifactId>
+            <version>0.0.7</version>
+        </dependency>
+
         <!-- joda -->
         <dependency>
             <groupId>joda-time</groupId>
@@ -264,6 +271,12 @@
             <artifactId>guava</artifactId>
             <version>17.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+            <artifactId>owasp-java-html-sanitizer</artifactId>
+            <version>r239</version>
+        </dependency>
+
 
         <!-- AspectJ -->
         <dependency>
@@ -438,6 +451,8 @@
             <userName>root</userName>
             <password>java</password>
             <properties.location>classpath:local.properties</properties.location>
+            <recatchpa.privateKey>privatekey</recatchpa.privateKey>
+            <recatchpa.publicKey>publickey</recatchpa.publicKey>
         </properties>
     </profile>
             <profile>
@@ -446,6 +461,8 @@
                     <baseUrl>BASEURL</baseUrl>
                     <gmail.password>PASSWORD</gmail.password>
                     <properties.location>classpath:openshift.properties</properties.location>
+                    <recatchpa.privateKey></recatchpa.privateKey>
+                    <recatchpa.publicKey></recatchpa.publicKey>
                 </properties>
                 <build>
                     <finalName>svk</finalName>
