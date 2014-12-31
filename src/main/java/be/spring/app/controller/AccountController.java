@@ -5,6 +5,7 @@ import be.spring.app.form.ChangePwdForm;
 import be.spring.app.form.RegistrationForm;
 import be.spring.app.model.Account;
 import be.spring.app.service.AccountService;
+import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletRequest;
 import javax.validation.Valid;
 import java.util.Locale;
 
@@ -40,6 +42,7 @@ public class AccountController extends AbstractController {
     @RequestMapping(value = "register", method = RequestMethod.GET)
     public String getRegistrationForm(Model model) {
         model.addAttribute("Account", new RegistrationForm());
+        populateRecatchPa(model);
         log.info("Created RegistrationForm");
         return LANDING_REG_FORM;
     }
@@ -50,14 +53,24 @@ public class AccountController extends AbstractController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String postRegistrationForm(@ModelAttribute("Account") @Valid RegistrationForm form, BindingResult result, Locale locale) {
+    public String postRegistrationForm(@ModelAttribute("Account") @Valid RegistrationForm form, BindingResult result, Locale locale,
+                                       @RequestParam("recaptcha_challenge_field") String challangeField,
+                                       @RequestParam("recaptcha_response_field") String responseField,
+                                       ServletRequest servletRequest,
+                                       Model model) {
         accountService.registerAccount(
                 toAccount(form), form.getPassword(), result);
         convertPasswordError(result);
-        if (result.hasErrors()) return LANDING_REG_FORM;
-        else {
+
+        ReCaptchaResponse r = catchPaService.checkResponse(servletRequest, challangeField, responseField);
+
+        if (r.isValid() && !result.hasErrors()) {
             log.info(String.format("Account %s created", form.getUsername()));
             return REDIRECT_REGISTRATION_OK;
+        }
+        else {
+            populateRecatchPa(model);
+            return LANDING_REG_FORM;
         }
     }
 

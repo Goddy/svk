@@ -2,6 +2,8 @@ package be.spring.app.controller;
 
 import be.spring.app.model.Account;
 import be.spring.app.persistence.AccountDao;
+import net.tanesha.recaptcha.ReCaptcha;
+import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.apache.commons.lang3.text.WordUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,17 +53,23 @@ public class AccountControllerTest extends AbstractTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private ReCaptcha reCaptcha;
+
+    ReCaptchaResponse reCaptchaResponse = createNiceMock(ReCaptchaResponse.class);
     String newName = DataFactory.getDefaultRandomString();
     String newFirstName = DataFactory.getDefaultRandomString();
     String newUsername = DataFactory.getRandomUserName();
 
     @Test
     public void testPostRegistrationFormSucceeds() throws Exception {
-        reset(jdbcTemplate, mailService);
+        reset(jdbcTemplate, mailService, reCaptcha, reCaptchaResponse);
         executeJdbcStatement();
         mailService.sendPreConfiguredMail(anyString());
+        expect(reCaptcha.checkAnswer(anyString(), anyString(), anyString())).andReturn(reCaptchaResponse);
+        expect(reCaptchaResponse.isValid()).andReturn(true);
 
-        replay(jdbcTemplate, mailService);
+        replay(jdbcTemplate, mailService, reCaptcha, reCaptchaResponse);
 
         MvcResult r = performRegistration(firstName, name, newUsername, password, password, status().isFound());
 
@@ -70,20 +78,32 @@ public class AccountControllerTest extends AbstractTest {
         Account account = accountDao.findByUsername(newUsername);
         assertNotNull(account);
 
-        verify(jdbcTemplate, mailService);
+        verify(jdbcTemplate, mailService, reCaptcha, reCaptchaResponse);
 
     }
 
     @Test
     public void testPostRegistrationFormAccountExists() throws Exception {
+        reset(reCaptcha, reCaptchaResponse);
+        expect(reCaptcha.checkAnswer(anyString(), anyString(), anyString())).andReturn(reCaptchaResponse);
+        expect(reCaptchaResponse.isValid()).andReturn(true);
+        replay(reCaptcha, reCaptchaResponse);
         //Try to register with account that already exists (DB populator)
         MvcResult r = performRegistration(firstName, name, userName, password, password, status().isOk());
 
         verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("Account", "username")));
+        verify(reCaptcha, reCaptchaResponse);
     }
 
     @Test
     public void testPasswordValidation() throws Exception {
+        reset(reCaptcha, reCaptchaResponse);
+        expect(reCaptcha.checkAnswer(anyString(), anyString(), anyString())).andReturn(reCaptchaResponse);
+        expectLastCall().anyTimes();
+        expect(reCaptchaResponse.isValid()).andReturn(true);
+        expectLastCall().anyTimes();
+        replay(reCaptcha, reCaptchaResponse);
+
         //Password regex errors
         //Length
         MvcResult r = performRegistration(firstName, name, userName, "P3ss", "P3ss", status().isOk());
@@ -105,6 +125,7 @@ public class AccountControllerTest extends AbstractTest {
         r = performRegistration(firstName, name, userName, password, "dummy", status().isOk());
         verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("Account", "password")));
 
+        verify(reCaptcha, reCaptchaResponse);
     }
 
     @Test(expected = org.springframework.web.util.NestedServletException.class)
@@ -172,6 +193,8 @@ public class AccountControllerTest extends AbstractTest {
                 .param("password", password)
                 .param("confirmPassword", repeatPassword)
                 .param("username", username)
+                .param("recaptcha_challenge_field", "test")
+                .param("recaptcha_response_field", "test")
                 .accept(MediaType.TEXT_HTML))
                 .andDo(print())
                 .andExpect(status)

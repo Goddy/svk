@@ -12,7 +12,7 @@
     <tag:formField path="lastName" label="label.lastName" title="label.lastName" type="input" optional="false"/>
     <tag:formField path="password" label="label.password" title="title.password" type="password" optional="false"/>
     <tag:formField path="confirmPassword" label="label.confirmPassword" title="label.confirmPassword" type="password" optional="false"/>
-
+    <tag:catchpa privateKey="${privateKey}" publicKey="${publicKey}"/>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <button id="btnSubmit" type="submit" class="btn btn-primary"><spring:message code='button.submit'/></button>
