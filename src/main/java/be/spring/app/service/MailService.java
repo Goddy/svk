@@ -8,7 +8,5 @@ public interface MailService {
 
     boolean sendMail(String to, String subject, String body);
 
-    void sendPreConfiguredMail(String message);
-
-    boolean sendPreConfiguredMail(String message, String from);
+    boolean sendPreConfiguredMail(String message);
 }

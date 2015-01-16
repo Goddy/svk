@@ -65,7 +65,7 @@ public class AccountControllerTest extends AbstractTest {
     public void testPostRegistrationFormSucceeds() throws Exception {
         reset(jdbcTemplate, mailService, reCaptcha, reCaptchaResponse);
         executeJdbcStatement();
-        mailService.sendPreConfiguredMail(anyString());
+        expect(mailService.sendPreConfiguredMail(anyString())).andReturn(true);
         expect(reCaptcha.checkAnswer(anyString(), anyString(), anyString())).andReturn(reCaptchaResponse);
         expect(reCaptchaResponse.isValid()).andReturn(true);
 

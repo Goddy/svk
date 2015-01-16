@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
@@ -36,7 +37,7 @@ public class MailServiceImpl  implements MailService {
         try {
             final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false, "utf-8");
             mimeMessage.setContent(body, "text/html");
-            message.setFrom(from);
+            mimeMessage.setFrom(new InternetAddress(from));
             message.setTo(to);
             message.setSubject(subject);
 
@@ -60,12 +61,7 @@ public class MailServiceImpl  implements MailService {
      * */
 
     @Override
-    public void sendPreConfiguredMail(String message) {
-        sendMail(defaultAdminFromTo, defaultAdminSubject, message);
-    }
-
-    @Override
-    public boolean sendPreConfiguredMail(String message, String from) {
-        return sendMail(defaultAdminFromTo, from, defaultAdminSubject, message);
+    public boolean sendPreConfiguredMail(String message) {
+        return sendMail(defaultAdminFromTo, defaultAdminSubject, message);
     }
 }
