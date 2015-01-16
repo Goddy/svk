@@ -92,7 +92,8 @@ public class NewsControllerTest extends AbstractTest {
                 .param("newsId", Long.toString(n.getId()))
                 .accept(MediaType.TEXT_PLAIN))
                 .andDo(print())
-                .andExpect(status().isFound())
+                .andExpect(status().isOk())
+                .andExpect(view().name("error-500"))
                 .andReturn();
 
         News resultNews = newsDao.findOne(n.getId());
@@ -168,7 +169,8 @@ public class NewsControllerTest extends AbstractTest {
                 .param("commentId", Long.toString(c.getId()))
                 .accept(MediaType.TEXT_PLAIN))
                 .andDo(print())
-                .andExpect(status().isFound())
+                .andExpect(status().isOk())
+                .andExpect(view().name("error-500"))
                 .andReturn();
 
         News resultNews = newsDao.findOne(n.getId());

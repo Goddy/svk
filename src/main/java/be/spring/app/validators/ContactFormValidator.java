@@ -1,6 +1,7 @@
 package be.spring.app.validators;
 
 import be.spring.app.form.ContactForm;
+import be.spring.app.utils.ValidationHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -21,6 +22,9 @@ public class ContactFormValidator implements Validator {
         ContactForm form = (ContactForm) o;
         ValidationUtils.rejectIfEmpty(errors, "message", "validation.notempty.message");
 
+        if (!ValidationHelper.isEmailMatch(form.getEmail())) {
+            errors.rejectValue("email", "validation.noEmail");
+        }
         form.setMessage(SanitizeUtils.SanitizeHtml(form.getMessage()));
     }
 }

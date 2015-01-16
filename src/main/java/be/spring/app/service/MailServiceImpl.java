@@ -29,13 +29,14 @@ public class MailServiceImpl  implements MailService {
      * This method will send compose and send the message
      * */
     @Override
-     public boolean sendMail(String to, String subject, String body) {
+    public boolean sendMail(String to, String from, String subject, String body) {
         log.debug(String.format("Trying to send message %s to %s", subject, to ));
         final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
 
         try {
             final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false, "utf-8");
             mimeMessage.setContent(body, "text/html");
+            message.setFrom(from);
             message.setTo(to);
             message.setSubject(subject);
 
@@ -49,6 +50,11 @@ public class MailServiceImpl  implements MailService {
 
     }
 
+    @Override
+    public boolean sendMail(String to, String subject, String body) {
+        return sendMail(to, defaultAdminFromTo, subject, body);
+    }
+
     /**
      * This method will send a pre-configured message
      * */
@@ -56,5 +62,10 @@ public class MailServiceImpl  implements MailService {
     @Override
     public void sendPreConfiguredMail(String message) {
         sendMail(defaultAdminFromTo, defaultAdminSubject, message);
+    }
+
+    @Override
+    public boolean sendPreConfiguredMail(String message, String from) {
+        return sendMail(defaultAdminFromTo, from, defaultAdminSubject, message);
     }
 }

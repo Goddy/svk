@@ -49,7 +49,9 @@ public class ContactController extends AbstractController {
         ReCaptchaResponse r = catchPaService.checkResponse(servletRequest, challangeField, responseField);
 
         if (r.isValid() && !result.hasErrors()) {
-            mailService.sendPreConfiguredMail(form.getMessage());
+            if (!mailService.sendPreConfiguredMail(form.getMessage(), form.getEmail())) {
+                throw new RuntimeException("Error sending mail");
+            }
             model.addAttribute("invalidRecaptcha", false);
             populateRecatchPa(model);
             setSuccessMessage(model, locale, "success.message.sent", null);

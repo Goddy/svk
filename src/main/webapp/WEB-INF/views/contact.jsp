@@ -6,6 +6,7 @@
 <div class="alert alert-info"><spring:message code="info.contact"/></div>
 <%@ include file="jspf/resultMessage.jspf" %>
 <form:form modelAttribute="form" cssClass="form-horizontal">
+    <tag:formField path="email" label="label.email" title="label.email" type="text" optional="false"/>
     <tag:formField path="message" label="label.message" title="label.message" type="textarea" optional="false"
                    rows="10"/>
     <tag:catchpa privateKey="${privateKey}" publicKey="${publicKey}"/>
