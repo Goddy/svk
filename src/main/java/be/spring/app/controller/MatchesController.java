@@ -2,9 +2,7 @@ package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.CreateMatchForm;
-import be.spring.app.model.Account;
-import be.spring.app.model.ActionWrapper;
-import be.spring.app.model.Match;
+import be.spring.app.model.*;
 import be.spring.app.service.AccountService;
 import be.spring.app.service.MatchesService;
 import be.spring.app.service.SeasonService;
@@ -33,26 +31,6 @@ import java.util.Locale;
 @Controller
 @RequestMapping("/matches")
 public class MatchesController extends AbstractController {
-    private static class MatchActionObject {
-        private Match match;
-        private String actions;
-
-        public Match getMatch() {
-            return match;
-        }
-
-        public void setMatch(Match match) {
-            this.match = match;
-        }
-
-        public String getActions() {
-            return actions;
-        }
-
-        public void setActions(String actions) {
-            this.actions = actions;
-        }
-    }
 
     @Autowired
     private MatchesService matchesService;
@@ -74,13 +52,21 @@ public class MatchesController extends AbstractController {
         binder.setValidator(validator);
     }
 
-
     private static final Logger log = LoggerFactory.getLogger(MatchesController.class);
+
+    @ModelAttribute("seasons")
+    public List<Season> getSeasons() {
+        return seasonService.getSeasons();
+    }
+
+    @ModelAttribute("teams")
+    public List<Team> getTeams() {
+        return teamService.getAll();
+    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createMatch", method = RequestMethod.GET)
     public String newMatch(Model model, @ModelAttribute("form") CreateMatchForm form) {
-        populateCreateMatch(model);
         return Constants.LANDING_MATCHES_CREATE;
     }
 
@@ -89,7 +75,6 @@ public class MatchesController extends AbstractController {
     public String createMatch(@ModelAttribute("form") @Valid CreateMatchForm form, BindingResult result, Model model, Locale locale) {
         try {
             if (result.hasErrors()) {
-                populateCreateMatch(model);
                 return Constants.LANDING_MATCHES_CREATE;
             }
             Match m = matchesService.createMatch(form);
@@ -102,10 +87,8 @@ public class MatchesController extends AbstractController {
         }
     }
 
-
     @RequestMapping(value = "matches", method = RequestMethod.GET)
     public String getMatchesPage(Model model, RedirectAttributes redirectAttributes) {
-        model.addAttribute("seasons", seasonService.getSeasons());
         model.addAttribute("nextMatch", matchesService.getLatestMatch());
         return Constants.LANDING_MATCHES_PAGE;
 
@@ -134,10 +117,4 @@ public class MatchesController extends AbstractController {
         List<ActionWrapper<Match>> r = matchesService.getMatchesForSeason(seasonId, account, locale);
         return r;
     }
-
-    private void populateCreateMatch(Model model) {
-        model.addAttribute("teams", teamService.getAll());
-        model.addAttribute("seasons", seasonService.getSeasons());
-    }
-
 }
