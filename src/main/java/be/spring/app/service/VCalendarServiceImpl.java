@@ -1,5 +1,6 @@
 package be.spring.app.service;
 
+import be.spring.app.model.Address;
 import be.spring.app.model.Match;
 import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.component.VEvent;
@@ -41,10 +42,11 @@ public class VCalendarServiceImpl implements VCalendarService {
         icsCalendar.getComponents().add(tz);
 
         for (Match m : matches) {
+            Address htLocation = m.getHomeTeam().getAddress();
             DateTime start = new DateTime(m.getDate().getMillis());
             DateTime end = new DateTime(m.getDate().plusHours(2).getMillis());
             VEvent e = new VEvent(start, end, m.getDescription());
-            Location location = new Location(m.getHomeTeam().getAddress().toString());
+            Location location = new Location(String.format("%s, %s %s", htLocation.getAddress(), htLocation.getPostalCode(), htLocation.getCity()));
             e.getProperties().add(location);
             calendarEvents.add(new VEvent());
 
