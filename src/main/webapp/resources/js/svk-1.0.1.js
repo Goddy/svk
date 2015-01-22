@@ -85,6 +85,18 @@ svk.mapDialog = (function($){
 
 })(jQuery);
 
+svk.calendarDialog = (function ($) {
+    return {
+        showCalendarDialog: function (dialog, link) {
+            $("#calendar-download-modal-btn").click(function () {
+                location.href = link;
+            });
+            dialog.modal();
+        }
+    }
+
+})(jQuery);
+
 svk.news = (function ($, utils, dd) {
     var deleteDialog = $("#delete-modal");
     var deleteCommentMsg;

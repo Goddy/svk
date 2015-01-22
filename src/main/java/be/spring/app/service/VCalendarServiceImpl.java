@@ -4,10 +4,7 @@ import be.spring.app.model.Match;
 import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VTimeZone;
-import net.fortuna.ical4j.model.property.CalScale;
-import net.fortuna.ical4j.model.property.ProdId;
-import net.fortuna.ical4j.model.property.Uid;
-import net.fortuna.ical4j.model.property.Version;
+import net.fortuna.ical4j.model.property.*;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,11 +36,16 @@ public class VCalendarServiceImpl implements VCalendarService {
         icsCalendar.getProperties().add(new ProdId("-//Svk Matches//iCal4j 1.0//EN"));
         icsCalendar.getProperties().add(CalScale.GREGORIAN);
         icsCalendar.getProperties().add(Version.VERSION_2_0);
+        TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
+        VTimeZone tz = registry.getTimeZone("Europe/Brussels").getVTimeZone();
+        icsCalendar.getComponents().add(tz);
 
         for (Match m : matches) {
             DateTime start = new DateTime(m.getDate().getMillis());
             DateTime end = new DateTime(m.getDate().plusHours(2).getMillis());
-            VEvent e = new VEvent(start, end, String.format("%s,\r\n%s", m.getDescription(), m.getHomeTeam().getAddress().toString()));
+            VEvent e = new VEvent(start, end, m.getDescription());
+            Location location = new Location(m.getHomeTeam().getAddress().toString());
+            e.getProperties().add(location);
             calendarEvents.add(new VEvent());
 
             UidGenerator ug = new UidGenerator("uidGen");

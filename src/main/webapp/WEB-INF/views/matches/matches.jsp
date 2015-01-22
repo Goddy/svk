@@ -42,6 +42,9 @@
                        href="#collapse${season.id}" class="collapsed" id="${season.id}">
                         <spring:message code="text.season"/> ${season.description}
                     </a>
+                    <a class="pull-right downloadCalendar"
+                       href="/calendar/getMatchesCalendar.html?seasonId=${season.id}"><span
+                            class="glyphicon glyphicon-calendar">Exporteer</span></a>
                 </h4>
             </div>
             <div id="collapse${season.id}" class="panel-collapse collapse">
@@ -53,15 +56,17 @@
 </div>
 <%@ include file="../jspf/footer.jspf" %>
 <tag:deleteDialog dialogId="delete-match-modal"/>
+<tag:calendarDialog dialogId="download-calendar-modal"/>
 <tag:mapDialog dialogId="map-modal"/>
 <script src="<c:url value='/resources/js/svk-1.0.1.js'/>"></script>
 <script type="text/javascript">
 
-    (function($, dd, md, utils){
+    (function ($, dd, md, dc, utils) {
         var deleteMsg = "<spring:message code="text.delete.match"/>";
         var deleteTitle = "<spring:message code="title.delete.match"/>";
         var deleteMatchModal = $("#delete-match-modal");
         var mapModal = $("#map-modal");
+        var downloadCalendarModal = $("#download-calendar-modal");
         var loggedIn = "${loggedIn}";
 
         $(document).ready(function() {
@@ -167,6 +172,12 @@
                 md.showMapDialog(mapModal, href)
             });
 
+            $(document).on('click', 'a[class*="downloadCalendar"]', function (e) {
+                e.preventDefault();
+                var href = $(this).attr("href");
+                dc.showCalendarDialog(downloadCalendarModal, href)
+            });
+
             $(document).on('click', 'a[class*="details"]', function (e) {
                 e.preventDefault();
                 var href = $(this).attr("href");
@@ -182,7 +193,7 @@
             });
         });
 
-    })(jQuery, svk.deleteDialogs, svk.mapDialog, svk.utils);
+    })(jQuery, svk.deleteDialogs, svk.mapDialog, svk.calendarDialog, svk.utils);
 
 
 </script>
