@@ -44,7 +44,7 @@
                     </a>
                     <a class="pull-right downloadCalendar"
                        href="/calendar/getMatchesCalendar.html?seasonId=${season.id}"><span
-                            class="glyphicon glyphicon-calendar">Exporteer</span></a>
+                            class="glyphicon glyphicon-calendar"><spring:message code="text.export"/></span></a>
                 </h4>
             </div>
             <div id="collapse${season.id}" class="panel-collapse collapse">
