@@ -32,6 +32,13 @@
             <version>3.2</version>
         </dependency>
 
+        <!-- iCal -->
+        <dependency>
+            <groupId>org.mnode.ical4j</groupId>
+            <artifactId>ical4j</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
         <!-- joda -->
         <dependency>
             <groupId>joda-time</groupId>

@@ -20,6 +20,8 @@ public interface MatchesService {
 
     List<ActionWrapper<Match>> getMatchesForSeason(long seasonId, Account account, Locale locale);
 
+    List<Match> getMatchesForSeason(long seasonId);
+
     Match getLatestMatch();
 
     Match getMatch(long id);

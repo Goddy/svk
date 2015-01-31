@@ -73,6 +73,14 @@ public class MatchesServiceImpl implements MatchesService {
         }
     }
 
+
+    @Override
+    public List<Match> getMatchesForSeason(long seasonId) {
+        Season s = seasonDao.findOne(seasonId);
+        if (s == null) throw new ObjectNotFoundException(String.format("Season with id %s not found", seasonId));
+        return matchesDao.getMatchForSeason(s);
+    }
+
     @Override
     public Match getLatestMatch() {
         List<Match> matches = matchesDao.findByDate(DateTime.now());
