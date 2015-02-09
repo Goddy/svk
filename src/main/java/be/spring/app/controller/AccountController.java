@@ -58,13 +58,14 @@ public class AccountController extends AbstractController {
                                        @RequestParam("recaptcha_response_field") String responseField,
                                        ServletRequest servletRequest,
                                        Model model) {
-        accountService.registerAccount(
-                toAccount(form), form.getPassword(), result);
-        convertPasswordError(result);
-
         ReCaptchaResponse r = catchPaService.checkResponse(servletRequest, challangeField, responseField);
+        //Validate username first
+        accountService.validateUsername(form.getUsername(), result);
 
         if (r.isValid() && !result.hasErrors()) {
+            accountService.registerAccount(
+                    toAccount(form), form.getPassword(), result);
+            convertPasswordError(result);
             log.info(String.format("Account %s created", form.getUsername()));
             return REDIRECT_REGISTRATION_OK;
         }

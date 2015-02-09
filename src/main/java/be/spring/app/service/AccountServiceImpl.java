@@ -45,7 +45,6 @@ public class AccountServiceImpl implements AccountService {
     private BCryptPasswordEncoder passwordEncoder;
 
     public boolean registerAccount(Account account, String password, Errors errors) {
-        validateUsername(account.getUsername(), errors);
         boolean valid = !errors.hasErrors();
         if (valid) {
             createAccountWithPassword(account, password);

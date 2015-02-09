@@ -85,10 +85,11 @@ public class AccountControllerTest extends AbstractTest {
     @Test
     public void testPostRegistrationFormAccountExists() throws Exception {
         reset(reCaptcha, reCaptchaResponse);
+
         expect(reCaptcha.checkAnswer(anyString(), anyString(), anyString())).andReturn(reCaptchaResponse);
         expect(reCaptchaResponse.isValid()).andReturn(true);
         replay(reCaptcha, reCaptchaResponse);
-        //Try to register with account that already exists (DB populator)
+
         MvcResult r = performRegistration(firstName, name, userName, password, password, status().isOk());
 
         verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("Account", "username")));
@@ -123,7 +124,7 @@ public class AccountControllerTest extends AbstractTest {
 
         //passwords do not match
         r = performRegistration(firstName, name, userName, password, "dummy", status().isOk());
-        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("Account", "password")));
+        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("Account")));
 
         verify(reCaptcha, reCaptchaResponse);
     }

@@ -55,11 +55,16 @@ public abstract class AbstractController {
         return "error-403";
     }
 
+    /**
+     * Blocks spring security exceptions
+     * @param e
+     * @return
     @ExceptionHandler(RuntimeException.class)
     public String handleRuntimeException(Exception e) {
         log.error(e.getMessage());
         return "error-500";
     }
+     **/
 
     private static final Logger log = LoggerFactory.getLogger(AbstractController.class);
 
