@@ -42,7 +42,7 @@ public class AccountController extends AbstractController {
     @RequestMapping(value = "register", method = RequestMethod.GET)
     public String getRegistrationForm(Model model) {
         model.addAttribute("Account", new RegistrationForm());
-        populateRecatchPa(model);
+        populateRecatchPa(model, true);
         log.info("Created RegistrationForm");
         return LANDING_REG_FORM;
     }
@@ -62,15 +62,21 @@ public class AccountController extends AbstractController {
         //Validate username first
         accountService.validateUsername(form.getUsername(), result);
 
+        //Todo: replace with validation on form (scriptassert not working)
+        if (!form.getPassword().equals(form.getConfirmPassword())) {
+            result.rejectValue("confirmPassword", "validation.password.mismatch.message");
+        }
+
         if (r.isValid() && !result.hasErrors()) {
             accountService.registerAccount(
                     toAccount(form), form.getPassword(), result);
             convertPasswordError(result);
+            populateRecatchPa(model, r.isValid());
             log.info(String.format("Account %s created", form.getUsername()));
             return REDIRECT_REGISTRATION_OK;
         }
         else {
-            populateRecatchPa(model);
+            populateRecatchPa(model, r.isValid());
             return LANDING_REG_FORM;
         }
     }

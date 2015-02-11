@@ -34,7 +34,7 @@ public class ContactController extends AbstractController {
 
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String getContact(@ModelAttribute("form") ContactForm form, Model model) {
-        populateRecatchPa(model);
+        populateRecatchPa(model, true);
         return LANDING_CONTACTFORM;
     }
 
@@ -52,16 +52,13 @@ public class ContactController extends AbstractController {
             if (!mailService.sendPreConfiguredMail(String.format("%s</br></br>Van/From: %s", form.getMessage(), form.getEmail()))) {
                 throw new RuntimeException("Error sending mail");
             }
-            model.addAttribute("invalidRecaptcha", false);
-            populateRecatchPa(model);
             setSuccessMessage(model, locale, "success.message.sent", null);
         } else {
             model.addAttribute("form", form);
-            if (!r.isValid()) {
-                model.addAttribute("invalidRecaptcha", true);
-                populateRecatchPa(model);
-            }
         }
+
+        populateRecatchPa(model, r.isValid());
+
         return LANDING_CONTACTFORM;
     }
 }

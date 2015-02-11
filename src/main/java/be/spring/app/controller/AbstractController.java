@@ -143,8 +143,9 @@ public abstract class AbstractController {
         return builder.toString();
     }
 
-    protected void populateRecatchPa(Model model) {
+    protected void populateRecatchPa(Model model, boolean b) {
         model.addAttribute("privateKey", catchPaService.getPrivateKey());
         model.addAttribute("publicKey", catchPaService.getPublicKey());
+        model.addAttribute("invalidRecaptcha", !b);
     }
 }

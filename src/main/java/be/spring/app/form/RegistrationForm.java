@@ -21,6 +21,7 @@ public class RegistrationForm {
     protected String firstName, lastName, username, password, confirmPassword;
 
     @NotNull
+    @NotEmpty(message = "{validation.notempty.message}")
     @Pattern(regexp = Constants.PASSWORD_REGEX, message = "{validation.complexity.password.message}")
     public String getPassword() {
         return password;
