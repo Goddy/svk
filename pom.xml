@@ -447,6 +447,8 @@
         <properties>
             <baseUrl>http://localhost:8080</baseUrl>
             <gmail.password>PASSWORD</gmail.password>
+            <facebook.id>ID</facebook.id>
+            <facebook.secret>SECRET</facebook.secret>
             <url>jdbc:mysql://localhost:3306/svk</url>
             <userName>root</userName>
             <password>java</password>
@@ -463,6 +465,8 @@
                     <properties.location>classpath:openshift.properties</properties.location>
                     <recatchpa.privateKey></recatchpa.privateKey>
                     <recatchpa.publicKey></recatchpa.publicKey>
+                    <facebook.id>ID</facebook.id>
+                    <facebook.secret>SECRET</facebook.secret>
                 </properties>
                 <build>
                     <finalName>svk</finalName>
