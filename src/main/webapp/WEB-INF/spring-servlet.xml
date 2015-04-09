@@ -32,4 +32,22 @@
         </property>
     </bean>
 
+    <!--
+    This bean manages the connection flow between the account provider and
+    the application.
+    -->
+    <bean id="connectController" class="org.springframework.social.connect.web.ConnectController"
+          autowire="constructor">
+        <property name="connectInterceptors">
+            <list>
+                <bean class="be.spring.app.interceptors.SetAccountSocialProviderAfterConnectInterceptor" />
+            </list>
+        </property>
+        <property name="disconnectInterceptors">
+            <list>
+                <bean class="be.spring.app.interceptors.RemoveAccountSocialProviderAfterDisconnectInterceptor" />
+            </list>
+        </property>
+    </bean>
+
 </beans>

@@ -33,4 +33,9 @@ public class ErrorController {
         map.put("title", "error_500_title");
         return "error-500";
     }
+
+    @RequestMapping(value="/error-social-login-failed", method = RequestMethod.GET)
+    public String errorSocialLoginFailed(ModelMap map) {
+        return "/account/socialLoginFailed";
+    }
 }

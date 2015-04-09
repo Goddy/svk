@@ -1,28 +1,15 @@
 package be.spring.app.form;
 
-import be.spring.app.utils.Constants;
+import be.spring.app.data.SocialMediaEnum;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.text.WordUtils;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.ScriptAssert;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
-@ScriptAssert(
-        lang = "javascript",
-        script = "_this.confirmPassword.equals(_this.password)",
-        message = "account.password.mismatch.message")
 public class RegistrationForm {
 
     protected String firstName, lastName, username, password, confirmPassword;
+    protected SocialMediaEnum signInProvider;
 
-    @NotNull
-    @NotEmpty(message = "{validation.notempty.message}")
-    @Pattern(regexp = Constants.PASSWORD_REGEX, message = "{validation.complexity.password.message}")
     public String getPassword() {
         return password;
     }
@@ -31,8 +18,6 @@ public class RegistrationForm {
         this.password = password;
     }
 
-    @NotNull
-    @NotEmpty(message = "{validation.notempty.message}")
     public String getConfirmPassword() {
         return confirmPassword;
     }
@@ -41,9 +26,6 @@ public class RegistrationForm {
         this.confirmPassword = confirmPassword;
     }
 
-    @NotNull
-    @NotEmpty(message = "{validation.notempty.message}")
-    @Size(max = 50)
     public String getFirstName() {
         return firstName;
     }
@@ -52,9 +34,6 @@ public class RegistrationForm {
         this.firstName = WordUtils.capitalize(firstName);
     }
 
-    @NotNull
-    @NotEmpty(message = "{validation.notempty.message}")
-    @Size(max = 50)
     public String getLastName() {
         return lastName;
     }
@@ -63,9 +42,6 @@ public class RegistrationForm {
         this.lastName = WordUtils.capitalize(lastName);
     }
 
-    @Email
-    @NotEmpty(message = "{validation.notempty.message}")
-    @NotNull
     public String getUsername() {
         return username;
     }
@@ -74,6 +50,21 @@ public class RegistrationForm {
         this.username = username;
     }
 
+    public SocialMediaEnum getSignInProvider() {
+        return signInProvider;
+    }
+
+    public void setSignInProvider(SocialMediaEnum signInProvider) {
+        this.signInProvider = signInProvider;
+    }
+
+    public boolean isNormalRegistration() {
+        return signInProvider == null;
+    }
+
+    public boolean isSocialSignIn() {
+        return signInProvider != null;
+    }
 
     public String toString() {
 
@@ -81,10 +72,6 @@ public class RegistrationForm {
                 .append("firstName", firstName)
                 .append("lastName", lastName)
                 .append("username", username)
-                .append("password", password)
-                .append("confirmPassword", confirmPassword)
                 .toString();
     }
-
-
 }

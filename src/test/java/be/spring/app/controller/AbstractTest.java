@@ -71,24 +71,22 @@ public abstract class AbstractTest {
     }
 
     public Account createRandomAccount() {
-        Account account = new Account();
-        account.setUsername(DataFactory.getDefaultRandomString() + "@test.com");
-        account.setLastName(DataFactory.getDefaultRandomString());
-        account.setFirstName(DataFactory.getDefaultRandomString());
-        account.setActive(true);
-        accountDao.save(account);
-        return account;
+        Account.Builder b = new Account.Builder()
+                .username(DataFactory.getDefaultRandomString() + "@test.com")
+                .lastName(DataFactory.getDefaultRandomString())
+                .firstName(DataFactory.getDefaultRandomString())
+                .active(true);
+        return b.build();
     }
 
     public Account createRandomAccount(Role role) {
-        Account account = new Account();
-        account.setRole(role);
-        account.setUsername(DataFactory.getDefaultRandomString() + "@test.com");
-        account.setLastName(DataFactory.getDefaultRandomString());
-        account.setFirstName(DataFactory.getDefaultRandomString());
-        account.setActive(true);
-        accountDao.save(account);
-        return account;
+        Account.Builder b = new Account.Builder()
+                .username(DataFactory.getDefaultRandomString() + "@test.com")
+                .lastName(DataFactory.getDefaultRandomString())
+                .firstName(DataFactory.getDefaultRandomString())
+                .role(role)
+                .active(true);
+        return b.build();
     }
 
     public void expectSecurityLogin(Account account) {

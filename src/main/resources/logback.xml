@@ -18,6 +18,10 @@
         <appender-ref ref="console"/>
     </logger>
 
+    <logger name="org.springframework.social" level="debug">
+        <appender-ref ref="console"/>
+    </logger>
+
     <logger name="org.hibernate" level="info">
         <appender-ref ref="console"/>
     </logger>
@@ -27,7 +31,7 @@
     </logger>
 
     <!-- Root Logger -->
-    <root level="info">
+    <root level="debug">
         <appender-ref ref="console"/>
     </root>
 </configuration>

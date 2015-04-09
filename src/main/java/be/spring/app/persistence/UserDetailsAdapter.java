@@ -1,9 +1,10 @@
 package be.spring.app.persistence;
 
 import be.spring.app.model.Account;
+import com.google.common.collect.Sets;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.social.security.SocialUser;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -15,16 +16,20 @@ import java.util.Set;
  * Time: 3:13 PM
  * Remarks: none
  */
-public class UserDetailsAdapter implements UserDetails {
+public class UserDetailsAdapter extends SocialUser {
     /**
      *
      */
     private static final long serialVersionUID = 1L;
     private Account account;
-    private String password;
 
-    public UserDetailsAdapter(Account account) {
+    public UserDetailsAdapter(Account account, String password) {
+        super(account.getUsername(), getPassword(password), Sets.newHashSet(new SimpleGrantedAuthority(account.getRole().name())));
         this.account = account;
+    }
+
+    private static String getPassword(String pw) {
+        return pw == null ? "SocialUser" : pw;
     }
 
     public Account getAccount() {
@@ -49,16 +54,10 @@ public class UserDetailsAdapter implements UserDetails {
 
     @Override
     public String getUsername() {
+        if (account.getSignInProvider() != null) {
+            return account.getId().toString();
+        }
         return account.getUsername();
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Override

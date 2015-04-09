@@ -3,6 +3,7 @@ package be.spring.app.controller;
 import be.spring.app.model.*;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.persistence.NewsDao;
+import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,6 +63,7 @@ public class NewsControllerTest extends AbstractTest {
         userAccount1 = createRandomAccount();
         userAccount2 = createRandomAccount();
         adminAccount = createRandomAccount(Role.ADMIN);
+        accountDao.save(Lists.newArrayList(userAccount1, userAccount2, adminAccount));
         comment = DataFactory.getDefaultRandomString();
     }
 

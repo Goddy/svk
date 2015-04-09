@@ -267,9 +267,10 @@ svk.updatePassword = (function($){
     }
 
     function sendPassword(form, msg, resultDiv) {
+        var action = form.attr('action');
         $.ajax({
             type: "POST",
-            url: 'changePassword.json',
+            url: action,
             data: form.serialize(),
             cache: false,
             dataType: "text",
@@ -299,6 +300,18 @@ svk.updatePassword = (function($){
 
     return {
         changePassword: function(form, msg, resultDiv) {
+            resultDiv.hide();
+            var newPassword = getFormElement(form, "newPassword");
+            var confirmPassword = getFormElement(form, "confirmPassword");
+
+            if (!checkPassword(newPassword, confirmPassword)) {
+                showErrorBox(resultDiv, msg[0]);
+            }
+            else {
+                sendPassword(form, msg, resultDiv);
+            }
+        },
+        setPassword: function(form, msg, resultDiv) {
             resultDiv.hide();
             var newPassword = getFormElement(form, "newPassword");
             var confirmPassword = getFormElement(form, "confirmPassword");

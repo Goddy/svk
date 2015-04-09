@@ -1,7 +1,6 @@
 package be.spring.app.form;
 
 import be.spring.app.utils.Constants;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.ScriptAssert;
 
 import javax.validation.constraints.NotNull;
@@ -16,7 +15,7 @@ import javax.validation.constraints.Pattern;
 @ScriptAssert(
         lang = "javascript",
         script = "_this.confirmPassword.equals(_this.newPassword)",
-        message = "account.password.mismatch.message")
+        message = "validation.password.mismatch.message")
 public class ChangePwdForm {
     private String oldPassword;
     private String newPassword;
@@ -40,8 +39,6 @@ public class ChangePwdForm {
         this.confirmPassword = confirmPassword;
     }
 
-    @NotNull
-    @NotEmpty(message = "{validation.oldpwd.not.empty}")
     public String getOldPassword() {
         return oldPassword;
     }

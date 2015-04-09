@@ -13,7 +13,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -112,6 +112,11 @@ public abstract class AbstractController {
         }
     }
 
+    public <T extends Model> void setSuccessMessage(T model, String text) {
+        model.addAttribute("resultMessage", text);
+        model.addAttribute("divClass", DIV_CLASS_SUCCESS);
+    }
+
     public <T extends Model> void setErrorMessage(T model, Locale locale, String code, Object[] args) {
         try {
             model.addAttribute("resultMessage", messageSource.getMessage(code, args, locale));
@@ -119,6 +124,11 @@ public abstract class AbstractController {
         } catch (NoSuchMessageException e) {
             log.debug("messageSourceError for success message - {}", e.getMessage());
         }
+    }
+
+    public <T extends Model> void setErrorMessage(T model,String text) {
+        model.addAttribute("resultMessage", text);
+        model.addAttribute("divClass", DIV_CLASS_ERROR);
     }
 
     public void setSuccessMessage(RedirectAttributes redirectAttributes, Locale locale, String code, Object[] args) {
@@ -134,10 +144,10 @@ public abstract class AbstractController {
         return "redirect:" + landing + ".html";
     }
 
-    public String getDefaultMessages(BindingResult result) {
+    public String getDefaultMessages(BindingResult result, Locale locale) {
         StringBuilder builder = new StringBuilder();
-        for (FieldError r : result.getFieldErrors()) {
-            builder.append(r.getDefaultMessage())
+        for (ObjectError r : result.getAllErrors()) {
+            builder.append(getMessage(r.getDefaultMessage(), null, locale))
                     .append("</br>");
         }
         return builder.toString();

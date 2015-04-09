@@ -17,6 +17,8 @@ import javax.validation.constraints.Size;
  */
 public class AccountDetailsForm {
     protected String firstName, lastName, username;
+    private boolean hasSignInProvider;
+    private boolean hasPassword;
 
     @NotNull
     @NotEmpty(message = "{validation.notempty.message}")
@@ -51,7 +53,6 @@ public class AccountDetailsForm {
         this.username = username;
     }
 
-
     public String toString() {
 
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -59,6 +60,22 @@ public class AccountDetailsForm {
                 .append("lastName", lastName)
                 .append("username", username)
                 .toString();
+    }
+
+    public boolean isHasSignInProvider() {
+        return hasSignInProvider;
+    }
+
+    public void setHasSignInProvider(boolean hasSignInProvider) {
+        this.hasSignInProvider = hasSignInProvider;
+    }
+
+    public boolean isHasPassword() {
+        return hasPassword;
+    }
+
+    public void setHasPassword(boolean hasPassword) {
+        this.hasPassword = hasPassword;
     }
 }
 

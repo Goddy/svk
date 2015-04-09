@@ -6,12 +6,16 @@
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
-<form:form action="register" autocomplete="false" modelAttribute="Account" cssClass="form-horizontal">
+<form:form action="register" autocomplete="false" modelAttribute="form" cssClass="form-horizontal">
+    <form:hidden path="signInProvider"/>
     <tag:formField path="username" label="label.email" title="title.email" type="input" optional="false"/>
     <tag:formField path="firstName" label="label.firstName" title="label.firstName" type="input" optional="false"/>
     <tag:formField path="lastName" label="label.lastName" title="label.lastName" type="input" optional="false"/>
-    <tag:formField path="password" label="label.password" title="title.password" type="password" optional="false"/>
-    <tag:formField path="confirmPassword" label="label.confirmPassword" title="label.confirmPassword" type="password" optional="false"/>
+    <c:if test="${form.signInProvider == null}">
+        <tag:formField path="password" label="label.password" title="title.password" type="password" optional="false"/>
+        <tag:formField path="confirmPassword" label="label.confirmPassword" title="label.confirmPassword" type="password" optional="false"/>
+    </c:if>
+
     <tag:catchpa privateKey="${privateKey}" publicKey="${publicKey}"/>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">

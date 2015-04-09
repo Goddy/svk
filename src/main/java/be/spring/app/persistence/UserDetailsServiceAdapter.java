@@ -32,10 +32,8 @@ public class UserDetailsServiceAdapter implements UserDetailsService {
             throw new UsernameNotFoundException(
                     "No user with username "+ username);
         }
-        UserDetailsAdapter user = new UserDetailsAdapter(account);
-        user.setPassword(
-                userDetailsDao.findPasswordByUsername(username));
-        return user;
+        String pw = userDetailsDao.findPasswordByUsername(username);
+        return new UserDetailsAdapter(account, pw);
     }
 }
 

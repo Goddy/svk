@@ -24,6 +24,11 @@
         <constructor-arg value="net.tanesha.recaptcha.ReCaptchaImpl"/>
     </bean>
 
+    <!-- Spring social -->
+    <bean id="providerSignInUtilsImpl" class="org.easymock.EasyMock" factory-method="createStrictMock">
+        <constructor-arg value="org.springframework.social.connect.web.ProviderSignInUtils"/>
+    </bean>
+
     <import resource="test-data-context.xml"/>
     <import resource="test-security-context.xml"/>
 

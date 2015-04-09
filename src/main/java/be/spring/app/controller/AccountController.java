@@ -1,21 +1,28 @@
 package be.spring.app.controller;
 
+import be.spring.app.data.SocialMediaEnum;
 import be.spring.app.form.AccountDetailsForm;
 import be.spring.app.form.ChangePwdForm;
 import be.spring.app.form.RegistrationForm;
 import be.spring.app.model.Account;
 import be.spring.app.service.AccountService;
+import be.spring.app.validators.RegistrationFormValidator;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionKey;
+import org.springframework.social.connect.UserProfile;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.ServletRequest;
 import javax.validation.Valid;
@@ -28,23 +35,66 @@ public class AccountController extends AbstractController {
     private static final Logger log = LoggerFactory.getLogger(AccountController.class);
 
     @Autowired
+    RegistrationFormValidator validator;
+
+    @Autowired
+    ProviderSignInUtils providerSignInUtils;
+
+    @InitBinder("form")
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(validator);
+        //Set allowed fields
+        binder.setAllowedFields("oldPassword", "newPassword", "password", "confirmPassword", "firstName",
+                "lastName", "username", "signInProvider");
+    }
+
+    @Autowired
     private AccountService accountService;
     private static final String LANDING_REG_FORM = "forms/registrationForm";
     private static final String LANDING_DET_FORM = "forms/accountDetailsForm";
     private static final String REDIRECT_REGISTRATION_OK = "redirect:registration_ok.html";
     private static final String LANDING_REGISTRATION_OK = "/account/registration_ok";
+    private static final String LANDING_ADD_SOCIAL_CONNECTION = "/account/addSocialConnection";
 
     @RequestMapping(value = "notloggedin", method = RequestMethod.GET)
     public String notLoggedIn() {
         return "notloggedin";
     }
 
+    /**
     @RequestMapping(value = "register", method = RequestMethod.GET)
     public String getRegistrationForm(Model model) {
         model.addAttribute("Account", new RegistrationForm());
         populateRecatchPa(model, true);
         log.info("Created RegistrationForm");
         return LANDING_REG_FORM;
+    }
+     **/
+
+    @RequestMapping(value = "register", method = RequestMethod.GET)
+    public String showRegistrationForm(WebRequest request, Model model) {
+        populateRecatchPa(model, true);
+        Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
+        RegistrationForm registrationForm = createRegistrationDTO(connection);
+        model.addAttribute("form", registrationForm);
+
+        return LANDING_REG_FORM;
+    }
+
+    private RegistrationForm createRegistrationDTO(Connection<?> connection) {
+        RegistrationForm dto = new RegistrationForm();
+
+        if (connection != null) {
+            UserProfile socialMediaProfile = connection.fetchUserProfile();
+            dto.setUsername(socialMediaProfile.getEmail());
+            dto.setFirstName(socialMediaProfile.getFirstName());
+            dto.setLastName(socialMediaProfile.getLastName());
+
+            ConnectionKey providerKey = connection.getKey();
+            dto.setSignInProvider(SocialMediaEnum.valueOf(providerKey.getProviderId().toUpperCase()));
+        }
+
+        return dto;
     }
 
     @RequestMapping(value = "registration_ok", method = RequestMethod.GET)
@@ -53,25 +103,20 @@ public class AccountController extends AbstractController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String postRegistrationForm(@ModelAttribute("Account") @Valid RegistrationForm form, BindingResult result, Locale locale,
-                                       @RequestParam("recaptcha_challenge_field") String challangeField,
-                                       @RequestParam("recaptcha_response_field") String responseField,
+    public String postRegistrationForm(@ModelAttribute("form") @Valid RegistrationForm form, BindingResult result, Locale locale,
                                        ServletRequest servletRequest,
+                                       WebRequest request,
+                                       @RequestParam("recaptcha_challenge_field") String challengeField,
+                                       @RequestParam("recaptcha_response_field") String responseField,
                                        Model model) {
-        ReCaptchaResponse r = catchPaService.checkResponse(servletRequest, challangeField, responseField);
-        //Validate username first
-        accountService.validateUsername(form.getUsername(), result);
-
-        //Todo: replace with validation on form (scriptassert not working)
-        if (!form.getPassword().equals(form.getConfirmPassword())) {
-            result.rejectValue("confirmPassword", "validation.password.mismatch.message");
-        }
+        ReCaptchaResponse r = catchPaService.checkResponse(servletRequest, challengeField, responseField);
 
         if (r.isValid() && !result.hasErrors()) {
             accountService.registerAccount(
-                    toAccount(form), form.getPassword(), result);
+                    toAccount(form), form.getPassword());
             convertPasswordError(result);
             populateRecatchPa(model, r.isValid());
+            providerSignInUtils.doPostSignUp(form.getUsername(), request);
             log.info(String.format("Account %s created", form.getUsername()));
             return REDIRECT_REGISTRATION_OK;
         }
@@ -85,12 +130,14 @@ public class AccountController extends AbstractController {
     @RequestMapping(value = "update_details", method = RequestMethod.POST)
     public String updateAccountDetails(@ModelAttribute("Account") @Valid AccountDetailsForm form, BindingResult result, Model model, Locale locale) {
         Account a = getAccountFromSecurity();
-        accountService.updateAccount(a, result, form);
-        log.info(String.format("Updated account %s", a.getUsername()));
-        model.addAttribute("changePassword", new ChangePwdForm());
         if (!result.hasErrors()) {
-            setSuccessMessage(model, locale, "success.changedDetails", null);
+            accountService.updateAccount(a, result, form);
+            log.info(String.format("Updated account %s", a.getUsername()));
+            if (!result.hasErrors()) {
+                setSuccessMessage(model, locale, "success.changedDetails", null);
+            }
         }
+        setAccountDetailsModel(a, model, form);
         return LANDING_DET_FORM;
     }
 
@@ -100,58 +147,82 @@ public class AccountController extends AbstractController {
     public String getAccountDetails(Model model) {
         log.info("Method edit called");
         Account activeAccount = getAccountFromSecurity();
-
-        AccountDetailsForm accountDetailsForm = new AccountDetailsForm();
-        accountDetailsForm.setFirstName(activeAccount.getFirstName());
-        accountDetailsForm.setUsername(activeAccount.getUsername());
-        accountDetailsForm.setLastName(activeAccount.getLastName());
-
-        model.addAttribute("Account", accountDetailsForm);
-        model.addAttribute("changePassword", new ChangePwdForm());
-        //model.addAttribute("Password", new ChangePwdForm());
+        setAccountDetailsModel(activeAccount, model, new AccountDetailsForm());
 
         log.info("Created AccountDetailsForm");
         return LANDING_DET_FORM;
     }
 
+    private void setAccountDetailsModel(Account account, Model model, AccountDetailsForm accountDetailsForm) {
+        Account currentAccount = accountService.getAccount(account.getId());
+        accountDetailsForm.setFirstName(currentAccount.getFirstName());
+        accountDetailsForm.setUsername(currentAccount.getUsername());
+        accountDetailsForm.setLastName(currentAccount.getLastName());
+        accountDetailsForm.setHasSignInProvider(currentAccount.getSignInProvider() != null);
+        accountDetailsForm.setHasPassword(!accountService.checkOldPassword(currentAccount, ""));
+
+        model.addAttribute("Account", accountDetailsForm);
+        model.addAttribute("changePassword", new ChangePwdForm());
+    }
+
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "changePassword.json", method = RequestMethod.POST)
+    @RequestMapping(value = "changePassword", method = RequestMethod.POST)
     public
-    @ResponseBody
-    String updatePassword(@ModelAttribute("changePassword") @Valid ChangePwdForm form, BindingResult result, Locale locale) {
+    String updatePassword(@ModelAttribute("changePassword") @Valid ChangePwdForm form, BindingResult result, Locale locale, Model model) {
         log.info("updatePassword.json called");
         Account activeAccount = getAccountFromSecurity();
         //Check pwd complexity
         if (result.hasErrors()) {
-            return getDefaultMessages(result);
+            setErrorMessage(model, getDefaultMessages(result, locale));
         } else {
             try {
                 if (form.getOldPassword() != null && !accountService.checkOldPassword(activeAccount, form.getOldPassword())) {
-                    return getMessage("validation.oldpwd.nomatch", null, locale);
+                    setErrorMessage(model, locale, "validation.oldpwd.nomatch", null);
                 }
                 accountService.setPasswordFor(activeAccount, form.getNewPassword());
-                return getMessage("success.changePassword", null, locale);
+                setSuccessMessage(model, locale, "success.changePassword", null);
             } catch (Exception e) {
-                return getMessage("error.unknown", null, locale);
+                setErrorMessage(model, locale, "error.unknown", null);
             }
         }
+        setAccountDetailsModel(activeAccount, model, new AccountDetailsForm());
+        return LANDING_DET_FORM;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "setPassword", method = RequestMethod.POST)
+    public
+    String setPassword(@ModelAttribute("changePassword") @Valid ChangePwdForm form, BindingResult result, Locale locale, Model model) {
+        log.info("setPassword.json called");
+        Account activeAccount = getAccountFromSecurity();
+        //Check pwd complexity
+        if (result.hasErrors()) {
+            setErrorMessage(model, getDefaultMessages(result, locale));
+        } else {
+            try {
+                if (accountService.checkOldPassword(activeAccount, "")) {
+                    accountService.setPasswordFor(activeAccount, form.getNewPassword());
+                    setSuccessMessage(model, locale, "success.changePassword", null);
+                }
+                else {
+                    //Not permitted, old pw detected
+                    setErrorMessage(model, locale, "error.unknown", null);
+                }
+            } catch (Exception e) {
+                setErrorMessage(model, locale, "error.unknown", null);
+            }
+        }
+        setAccountDetailsModel(activeAccount, model, new AccountDetailsForm());
+        return LANDING_DET_FORM;
     }
 
     private static Account toAccount(RegistrationForm form) {
-        Account account = new Account();
-        account.setFirstName(form.getFirstName());
-        account.setLastName(form.getLastName());
-        account.setUsername(form.getUsername());
-        return account;
-    }
-
-    @InitBinder
-    /** Sets allowed fields that can be submitted
-     * @param binder
-     */
-    public void initBinder(WebDataBinder binder) {
-        binder.setAllowedFields("oldPassword", "newPassword", "password", "confirmPassword", "firstName",
-                "lastName", "username");
+        Account.Builder b = new Account.Builder()
+                .firstName(form.getFirstName())
+                .lastName(form.getLastName())
+                .signInProvider(form.getSignInProvider())
+                .username(form.getUsername());
+        return b.build();
     }
 
     private static void convertPasswordError(BindingResult result) {

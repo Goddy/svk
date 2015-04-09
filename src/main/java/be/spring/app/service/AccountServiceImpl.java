@@ -44,24 +44,26 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public boolean registerAccount(Account account, String password, Errors errors) {
-        boolean valid = !errors.hasErrors();
-        if (valid) {
-            createAccountWithPassword(account, password);
-            mailService.sendPreConfiguredMail(messageSource.getMessage("mail.user.registered", new Object[] {baseUrl, account.getId(), account.getFullName()},Locale.ENGLISH));
+    @Override
+    public Account registerAccount(Account account, String password) {
+        Account resultAccount = createAccountWithPassword(account, password);
+        mailService.sendPreConfiguredMail(messageSource.getMessage("mail.user.registered", new Object[]{baseUrl, account.getId(), account.getFullName()}, Locale.ENGLISH));
+        return resultAccount;
+    }
+
+    @Transactional(readOnly = false)
+    private Account createAccountWithPassword(Account account, String password) {
+        Account resultAccount = accountDao.save(account);
+        //Update only if sign in provider is not specified
+        if (account.getSignInProvider() == null) {
+            String encPassword = passwordEncoder.encode(password);
+            jdbcTemplate.update(UPDATE_PASSWORD_SQL, encPassword, account.getId());
         }
-        return valid;
+        return resultAccount;
     }
 
     @Transactional(readOnly = false)
-    private void createAccountWithPassword(Account account, String password) {
-        accountDao.save(account);
-        String encPassword = passwordEncoder.encode(password);
-        jdbcTemplate.update(UPDATE_PASSWORD_SQL, encPassword, account.getId());
-    }
-
-    @Transactional(readOnly = false)
-    public boolean updateAccount(Account account, Errors errors, AccountDetailsForm form) {
+    public Account updateAccount(Account account, Errors errors, AccountDetailsForm form) {
         //To do: why is object detached when coming from security?
         Account newAccount = getUpdatedAccount(account, form);
         validateUsernameExcludeCurrentId(newAccount.getUsername(), newAccount.getId(), errors);
@@ -69,7 +71,12 @@ public class AccountServiceImpl implements AccountService {
         if (valid) {
             accountDao.save(newAccount);
         }
-        return valid;
+        return newAccount;
+    }
+
+    @Override
+    public Account saveAccount(Account account) {
+        return accountDao.save(account);
     }
 
     @Override
@@ -114,6 +121,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional(readOnly = true)
     public boolean checkOldPassword(Account account, String password) {
         String encodedPassword = jdbcTemplate.queryForObject(GET_PASSWORD, String.class, account.getId());
+        if (encodedPassword.isEmpty()) return password.isEmpty();
         return passwordEncoder.matches(password, encodedPassword);
     }
 
@@ -130,9 +138,18 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account getAccount(Long id) {
+        return accountDao.findOne(id);
+    }
+
+    @Override
     public Account getActiveAccountByEmail(String email) {
-        //Get account and check if
         return accountDao.findByUsernameAndActiveStatus(email, true);
+    }
+
+    @Override
+    public Account getActiveAccountById(String id) {
+        return accountDao.findByIdAndActiveStatus(GeneralUtils.convertToLong(id), true);
     }
 
     @Override

@@ -28,13 +28,14 @@ public class Account implements Comparable<Account> {
     private String pwdRecovery;
     private boolean active = false;
 
-    public Account() {
-    }
-
     public Account(String firstName, String lastName, String username) {
+        //Default values: null as password
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
+    }
+
+    public Account() {
     }
 
     @Enumerated(EnumType.STRING)
@@ -147,5 +148,70 @@ public class Account implements Comparable<Account> {
     @Override
     public int compareTo(Account o) {
         return this.getFullName().compareTo(o.getFullName());
+    }
+
+    public static class Builder {
+
+        private Long id;
+
+        private String username;
+
+        private String firstName;
+
+        private String lastName;
+
+        private String password;
+
+        private Role role = Role.USER;
+
+        private boolean active = false;
+
+        private SocialMediaEnum socialSignInProvider;
+
+        public Builder() {
+        }
+
+        public Builder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder active(boolean active) {
+            this.active = active;
+            return this;
+        }
+
+        public Builder role(Role role) {
+            this.role = role;
+            return this;
+        }
+
+        public Builder signInProvider(SocialMediaEnum socialSignInProvider) {
+            this.socialSignInProvider = socialSignInProvider;
+            return this;
+        }
+
+        public Builder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Account build() {
+            Account account = new Account(firstName, lastName, username);
+            account.setSignInProvider(socialSignInProvider);
+            account.setRole(role);
+            account.setActive(active);
+            return account;
+        }
     }
 }

@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.Locale;
 
 public interface AccountService {
-    boolean registerAccount(Account account, String password, Errors errors);
+    Account registerAccount(Account account, String password);
 
-    boolean updateAccount(Account account, Errors errors, AccountDetailsForm form);
+    Account updateAccount(Account account, Errors errors, AccountDetailsForm form);
+
+    @Transactional
+    Account saveAccount(Account account);
 
     @Transactional
     Account activateAccount(ActivateAccountForm form, Locale locale, Errors errors);
@@ -33,7 +36,11 @@ public interface AccountService {
     @Transactional(readOnly = true)
     Account getAccount(String id);
 
+    Account getAccount(Long id);
+
     Account getActiveAccountByEmail(String email);
+
+    Account getActiveAccountById(String id);
 
     List<Account> getAccountsByActivationStatus(boolean status);
 

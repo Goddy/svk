@@ -84,6 +84,7 @@ public class AccountControllerTest extends AbstractTest {
 
     @Test
     public void testPostRegistrationFormAccountExists() throws Exception {
+        Account account = accountDao.findByUsername(userName);
         reset(reCaptcha, reCaptchaResponse);
 
         expect(reCaptcha.checkAnswer(anyString(), anyString(), anyString())).andReturn(reCaptchaResponse);
@@ -92,7 +93,7 @@ public class AccountControllerTest extends AbstractTest {
 
         MvcResult r = performRegistration(firstName, name, userName, password, password, status().isOk());
 
-        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("Account", "username")));
+        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form", "username")));
         verify(reCaptcha, reCaptchaResponse);
     }
 
@@ -108,23 +109,23 @@ public class AccountControllerTest extends AbstractTest {
         //Password regex errors
         //Length
         MvcResult r = performRegistration(firstName, name, userName, "P3ss", "P3ss", status().isOk());
-        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("Account", "password")));
+        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form", "password")));
 
         //Length too long
         r = performRegistration(firstName, name, userName, "P1ssIamTooLongForAPassword", "P1ssIamTooLongForAPassword", status().isOk());
-        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("Account", "password")));
+        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form", "password")));
 
         //No Numbers
         r = performRegistration(firstName, name, userName, "IdontContainNrs", "IdontContainNrs", status().isOk());
-        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("Account", "password")));
+        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form", "password")));
 
         //No capitals
         r = performRegistration(firstName, name, userName, "idontc3ntaincap", "idontc3ntaincap", status().isOk());
-        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("Account", "password")));
+        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form", "password")));
 
         //passwords do not match
         r = performRegistration(firstName, name, userName, password, "dummy", status().isOk());
-        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("Account")));
+        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form")));
 
         verify(reCaptcha, reCaptchaResponse);
     }
@@ -152,9 +153,12 @@ public class AccountControllerTest extends AbstractTest {
     @Test
     public void testUpdateAccountDetails() throws Exception {
         Account existingAccount = createRandomAccount();
-        reset(securityUtils);
+        //Save the account!
+        accountDao.save(existingAccount);
+        reset(securityUtils, jdbcTemplate);
         expect(securityUtils.getAccountFromSecurity()).andReturn(existingAccount);
-        replay(securityUtils);
+        expectQueryForPassword("notEmpty");
+        replay(securityUtils, jdbcTemplate);
 
         performUpdate(newFirstName, newName, newUsername, status().isOk());
 
@@ -162,7 +166,7 @@ public class AccountControllerTest extends AbstractTest {
         assertEquals(WordUtils.capitalize(newFirstName), newAccount.getFirstName());
         assertEquals(WordUtils.capitalize(newName), newAccount.getLastName());
         assertEquals(newUsername, newAccount.getUsername());
-        verify(securityUtils);
+        verify(securityUtils, jdbcTemplate);
     }
 
     @Test
@@ -205,6 +209,9 @@ public class AccountControllerTest extends AbstractTest {
 
     private void executeJdbcStatement() {
         expect(jdbcTemplate.update(anyString(), anyString(), anyString())).andReturn(1);
+    }
+    private void expectQueryForPassword(String expectedPassword) {
+        expect(jdbcTemplate.queryForObject(anyString(), eq(String.class), anyObject(long.class))).andReturn(expectedPassword);
     }
 
 }

@@ -14,6 +14,9 @@ public interface AccountDao extends PagingAndSortingRepository<Account, Long>, J
     @Query("select a from Account a where a.username = ?1 AND a.active = ?2")
     Account findByUsernameAndActiveStatus(String username, boolean active);
 
+    @Query("select a from Account a where a.id = ?1 AND a.active = ?2")
+    Account findByIdAndActiveStatus(Long id, boolean active);
+
     @Query("select a from Account a where a.username = ?1 AND a.id <> ?2")
     Account findByEmailExcludeCurrentId(String email, Long id);
 
