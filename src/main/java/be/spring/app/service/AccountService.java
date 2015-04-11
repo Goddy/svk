@@ -31,6 +31,9 @@ public interface AccountService {
     boolean checkOldPassword(Account account, String password);
 
     @Transactional(readOnly = true)
+    boolean passwordIsNullOrEmpty(Account account);
+
+    @Transactional(readOnly = true)
     List<Account> getAll();
 
     @Transactional(readOnly = true)

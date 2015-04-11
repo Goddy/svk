@@ -159,7 +159,7 @@ public class AccountController extends AbstractController {
         accountDetailsForm.setUsername(currentAccount.getUsername());
         accountDetailsForm.setLastName(currentAccount.getLastName());
         accountDetailsForm.setHasSignInProvider(currentAccount.getSignInProvider() != null);
-        accountDetailsForm.setHasPassword(!accountService.checkOldPassword(currentAccount, ""));
+        accountDetailsForm.setHasPassword(!accountService.passwordIsNullOrEmpty(currentAccount));
 
         model.addAttribute("Account", accountDetailsForm);
         model.addAttribute("changePassword", new ChangePwdForm());
@@ -200,7 +200,7 @@ public class AccountController extends AbstractController {
             setErrorMessage(model, getDefaultMessages(result, locale));
         } else {
             try {
-                if (accountService.checkOldPassword(activeAccount, "")) {
+                if (accountService.passwordIsNullOrEmpty(activeAccount)) {
                     accountService.setPasswordFor(activeAccount, form.getNewPassword());
                     setSuccessMessage(model, locale, "success.changePassword", null);
                 }

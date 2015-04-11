@@ -120,9 +120,15 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional(readOnly = true)
     public boolean checkOldPassword(Account account, String password) {
-        String encodedPassword = jdbcTemplate.queryForObject(GET_PASSWORD, String.class, account.getId());
-        if (encodedPassword == null || encodedPassword.isEmpty()) return true;
-        return passwordEncoder.matches(password, encodedPassword);
+        String encodedPassword = getCurrentEncodedPasswordFor(account);
+        return !(encodedPassword == null || encodedPassword.isEmpty()) && passwordEncoder.matches(password, encodedPassword);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean passwordIsNullOrEmpty(Account account) {
+        String encodedPassword = getCurrentEncodedPasswordFor(account);
+        return encodedPassword == null || encodedPassword.isEmpty();
     }
 
     @Override
@@ -168,5 +174,9 @@ public class AccountServiceImpl implements AccountService {
         newAccount.setLastName(form.getLastName());
         newAccount.setUsername(form.getUsername());
         return newAccount;
+    }
+
+    private String getCurrentEncodedPasswordFor(Account account) {
+        return jdbcTemplate.queryForObject(GET_PASSWORD, String.class, account.getId());
     }
 }
