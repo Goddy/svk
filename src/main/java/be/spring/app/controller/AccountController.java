@@ -137,7 +137,7 @@ public class AccountController extends AbstractController {
                 setSuccessMessage(model, locale, "success.changedDetails", null);
             }
         }
-        setAccountDetailsModel(a, model, form);
+        setAccountDetailsModel(a, model, form, new ChangePwdForm());
         return LANDING_DET_FORM;
     }
 
@@ -147,13 +147,13 @@ public class AccountController extends AbstractController {
     public String getAccountDetails(Model model) {
         log.info("Method edit called");
         Account activeAccount = getAccountFromSecurity();
-        setAccountDetailsModel(activeAccount, model, new AccountDetailsForm());
+        setAccountDetailsModel(activeAccount, model, new AccountDetailsForm(), new ChangePwdForm());
 
         log.info("Created AccountDetailsForm");
         return LANDING_DET_FORM;
     }
 
-    private void setAccountDetailsModel(Account account, Model model, AccountDetailsForm accountDetailsForm) {
+    private void setAccountDetailsModel(Account account, Model model, AccountDetailsForm accountDetailsForm, ChangePwdForm passwordForm) {
         Account currentAccount = accountService.getAccount(account.getId());
         accountDetailsForm.setFirstName(currentAccount.getFirstName());
         accountDetailsForm.setUsername(currentAccount.getUsername());
@@ -162,7 +162,7 @@ public class AccountController extends AbstractController {
         accountDetailsForm.setHasPassword(!accountService.passwordIsNullOrEmpty(currentAccount));
 
         model.addAttribute("Account", accountDetailsForm);
-        model.addAttribute("changePassword", new ChangePwdForm());
+        model.addAttribute("changePassword", passwordForm);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -185,7 +185,7 @@ public class AccountController extends AbstractController {
                 setErrorMessage(model, locale, "error.unknown", null);
             }
         }
-        setAccountDetailsModel(activeAccount, model, new AccountDetailsForm());
+        setAccountDetailsModel(activeAccount, model, new AccountDetailsForm(), form);
         return LANDING_DET_FORM;
     }
 
@@ -212,7 +212,7 @@ public class AccountController extends AbstractController {
                 setErrorMessage(model, locale, "error.unknown", null);
             }
         }
-        setAccountDetailsModel(activeAccount, model, new AccountDetailsForm());
+        setAccountDetailsModel(activeAccount, model, new AccountDetailsForm(), form);
         return LANDING_DET_FORM;
     }
 
