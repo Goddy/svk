@@ -7,6 +7,7 @@ import be.spring.app.form.RegistrationForm;
 import be.spring.app.model.Account;
 import be.spring.app.service.AccountService;
 import be.spring.app.validators.RegistrationFormValidator;
+import com.google.common.base.Strings;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,11 +173,9 @@ public class AccountController extends AbstractController {
         log.info("updatePassword.json called");
         Account activeAccount = getAccountFromSecurity();
         //Check pwd complexity
-        if (result.hasErrors()) {
-            setErrorMessage(model, getDefaultMessages(result, locale));
-        } else {
+        if (!result.hasErrors()) {
             try {
-                if (form.getOldPassword() != null && !accountService.checkOldPassword(activeAccount, form.getOldPassword())) {
+                if (Strings.isNullOrEmpty(form.getOldPassword()) || !accountService.checkOldPassword(activeAccount, form.getOldPassword())) {
                     setErrorMessage(model, locale, "validation.oldpwd.nomatch", null);
                 }
                 accountService.setPasswordFor(activeAccount, form.getNewPassword());
@@ -196,9 +195,7 @@ public class AccountController extends AbstractController {
         log.info("setPassword.json called");
         Account activeAccount = getAccountFromSecurity();
         //Check pwd complexity
-        if (result.hasErrors()) {
-            setErrorMessage(model, getDefaultMessages(result, locale));
-        } else {
+        if (!result.hasErrors()) {
             try {
                 if (accountService.passwordIsNullOrEmpty(activeAccount)) {
                     accountService.setPasswordFor(activeAccount, form.getNewPassword());
