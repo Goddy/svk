@@ -2,7 +2,15 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf"%>
 <div class="alert alert-info">
-    <spring:message code="text.register"/>
+    <c:choose>
+        <c:when test="${form.signInProvider == null}">
+            <spring:message code="text.register"/>
+        </c:when>
+        <c:otherwise>
+            <spring:message code="text.register.social"/>
+        </c:otherwise>
+    </c:choose>
+
 </div>
 <div class="panel panel-default">
     <div class="panel-body">

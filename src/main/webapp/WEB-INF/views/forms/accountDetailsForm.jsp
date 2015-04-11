@@ -22,7 +22,7 @@
     </div>
 </div>
         <c:choose>
-            <c:when test="${Account.hasSignInProvider == null}">
+            <c:when test="${!Account.hasSignInProvider}">
                 <h2><spring:message code="title.social.profiles"/></h2>
                 <div class="panel panel-default">
                     <div class="panel-body">

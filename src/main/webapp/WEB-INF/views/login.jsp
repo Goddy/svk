@@ -43,6 +43,13 @@ and social sign in buttons.
                     <div class="form-group col-lg-4">
                         <!-- Add submit button -->
                         <button type="submit" class="btn btn-default"><spring:message code="button.login"/></button>
+                        <a href="${pageContext.request.contextPath}/auth/facebook">
+                            <button type="button" value="facebook" class="btn btn-facebook" data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    title="<spring:message code="button.facebook.sign.in.info"/>"><i
+                                    class="fa fa-facebook"></i> | <spring:message code="button.facebook.sign.in.button"
+                                                                                  text="Facebook sign in"/></button>
+                        </a>
                     </div>
                 </div>
             </form>
@@ -72,7 +79,10 @@ and social sign in buttons.
             <div class="row social-button-row">
                 <div class="col-lg-4">
                     <!-- Add Facebook sign in button -->
-                    <a href="${pageContext.request.contextPath}/auth/facebook"><button class="btn btn-facebook"><i class="fa fa-facebook"></i> | <spring:message code="button.facebook.sign.in.button" text="Facebook sign in"/></button></a>
+                    <a href="${pageContext.request.contextPath}/auth/facebook">
+                        <button class="btn btn-facebook"><i class="fa fa-facebook"></i> | <spring:message
+                                code="button.facebook.register.button" text="Facebook sign in"/></button>
+                    </a>
                 </div>
             </div>
         </div>

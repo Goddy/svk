@@ -172,12 +172,13 @@ public class AccountController extends AbstractController {
     String updatePassword(@ModelAttribute("changePassword") @Valid ChangePwdForm form, BindingResult result, Locale locale, Model model) {
         log.info("updatePassword.json called");
         Account activeAccount = getAccountFromSecurity();
-        //Check pwd complexity
+        //Check old pwd
+        if (Strings.isNullOrEmpty(form.getOldPassword()) || !accountService.checkOldPassword(activeAccount, form.getOldPassword())) {
+            result.rejectValue("oldPassword", "validation.oldpwd.nomatch");
+        }
+
         if (!result.hasErrors()) {
             try {
-                if (Strings.isNullOrEmpty(form.getOldPassword()) || !accountService.checkOldPassword(activeAccount, form.getOldPassword())) {
-                    setErrorMessage(model, locale, "validation.oldpwd.nomatch", null);
-                }
                 accountService.setPasswordFor(activeAccount, form.getNewPassword());
                 setSuccessMessage(model, locale, "success.changePassword", null);
             } catch (Exception e) {
