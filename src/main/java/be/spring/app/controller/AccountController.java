@@ -112,11 +112,11 @@ public class AccountController extends AbstractController {
         ReCaptchaResponse r = catchPaService.checkResponse(servletRequest, challengeField, responseField);
 
         if (r.isValid() && !result.hasErrors()) {
-            accountService.registerAccount(
+            Account account = accountService.registerAccount(
                     toAccount(form), form.getPassword());
             convertPasswordError(result);
             populateRecatchPa(model, r.isValid());
-            providerSignInUtils.doPostSignUp(form.getUsername(), request);
+            providerSignInUtils.doPostSignUp(account.getId().toString(), request);
             log.info(String.format("Account %s created", form.getUsername()));
             return REDIRECT_REGISTRATION_OK;
         }
