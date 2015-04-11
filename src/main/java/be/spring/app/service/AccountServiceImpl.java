@@ -121,7 +121,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional(readOnly = true)
     public boolean checkOldPassword(Account account, String password) {
         String encodedPassword = jdbcTemplate.queryForObject(GET_PASSWORD, String.class, account.getId());
-        if (encodedPassword.isEmpty()) return password.isEmpty();
+        if (encodedPassword == null || encodedPassword.isEmpty()) return true;
         return passwordEncoder.matches(password, encodedPassword);
     }
 
