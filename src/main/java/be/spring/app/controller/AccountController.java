@@ -117,7 +117,7 @@ public class AccountController extends AbstractController {
                     toAccount(form), form.getPassword());
             convertPasswordError(result);
             populateRecatchPa(model, r.isValid());
-            providerSignInUtils.doPostSignUp(account.getId().toString(), request);
+            providerSignInUtils.doPostSignUp(account.getUsername(), request);
             log.info(String.format("Account %s created", form.getUsername()));
             return REDIRECT_REGISTRATION_OK;
         }
