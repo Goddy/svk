@@ -2,6 +2,8 @@ package be.spring.app.persistence;
 
 import be.spring.app.model.Account;
 import com.google.common.collect.Sets;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.social.security.SocialUser;
@@ -22,6 +24,8 @@ public class UserDetailsAdapter extends SocialUser {
      */
     private static final long serialVersionUID = 1L;
     private Account account;
+
+    private static final Logger log = LoggerFactory.getLogger(UserDetailsAdapter.class);
 
     public UserDetailsAdapter(Account account, String password) {
         super(account.getUsername(), getPassword(password), Sets.newHashSet(new SimpleGrantedAuthority(account.getRole().name())));
@@ -54,9 +58,6 @@ public class UserDetailsAdapter extends SocialUser {
 
     @Override
     public String getUsername() {
-        if (account.getSignInProvider() != null) {
-            return account.getId().toString();
-        }
         return account.getUsername();
     }
 
