@@ -1,24 +1,26 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-<head>
-    <title>Facebook Account Connection Status</title>
-</head>
-<body>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ include file="../jspf/header.jspf" %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout('redirect()', '8000');
+    });
+    function redirect() {
+        window.location = "/account/edit.html";
+    }
 
-<c:if test="${requestScope['social.addConnection.duplicate'] ne null}">
-    <h3 style="color:red">The Facebook account you tried to use is already connected to another account.</h3>
-</c:if>
+</script>
+<c:choose>
+    <c:when test="${sessionScope.lastSessionException ne null}">
+        <div class="alert alert-danger" role="alert"><spring:message code="text.error.social.duplicate"/></div>
+    </c:when>
+    <c:otherwise>
+        <h1><spring:message code="title.account.connected"/></h1>
 
-<h3>You do not have a Facebook account connected to your account.</h3>
+        <p><spring:message code="text.social.connect.success"/></p>
+    </c:otherwise>
+</c:choose>
+<a class="btn btn-info" href="<c:url value="/account/edit.html"/>"><spring:message code="button.back"/> </a>
 
-<form name="facebook" action="<c:url value="/connect/facebook"/>" method="post">
-    <input type="submit" name="submitBtn" value="Connect With Facebook!">
-</form>
-
-<p><a href="<c:url value="/"/>">Back</a></p>
-</body>
-</html>
+<%@ include file="../jspf/footer.jspf" %>
 
 

@@ -2,7 +2,7 @@
 <%@ include file="../jspf/header.jspf" %>
 <script type="text/javascript">
     $(document).ready(function(){
-        setTimeout('redirect()','5000');
+        setTimeout('redirect()', '8000');
     });
     function redirect(){
         window.location = "/account/edit.html";
@@ -15,12 +15,8 @@
     </c:when>
     <c:otherwise>
         <h1><spring:message code="title.account.connected"/></h1>
-        <form:form action="${pageContext.request.contextPath}/connect/facebook" method="DELETE">
-            <div class="formInfo">
-                <spring:message code="text.social.connect.success"/>
-            </div>
-            <button type="submit">Disconnect</button>
-        </form:form>
+
+        <p><spring:message code="text.social.connect.success"/></p>
     </c:otherwise>
 </c:choose>
 <a class="btn btn-info" href="<c:url value="/account/edit.html"/>"><spring:message code="button.back"/> </a>

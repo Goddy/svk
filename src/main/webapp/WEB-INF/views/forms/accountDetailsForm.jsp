@@ -87,7 +87,8 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button id="btnSubmitSetPwd" class="btn btn-primary"><spring:message code='button.update'/></button>
+                        <button id="btnSubmitSetPwd" class="btn btn-primary"><spring:message
+                                code='button.change'/></button>
                     </div>
                 </div>
             </form:form>
