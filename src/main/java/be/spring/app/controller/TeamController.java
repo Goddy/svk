@@ -23,14 +23,13 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
 
-import static be.spring.app.utils.Constants.LANDING_CREATE_TEAM;
-import static be.spring.app.utils.Constants.LANDING_TEAMS;
+import static be.spring.app.utils.Constants.*;
 
 /**
  * Created by u0090265 on 5/11/14.
  */
 @Controller
-@RequestMapping("/teams")
+@RequestMapping("/")
 public class TeamController extends AbstractController {
     @Autowired
     TeamService teamService;
@@ -94,7 +93,7 @@ public class TeamController extends AbstractController {
             }
             Team team = teamService.createTeam(form);
             log.debug("Created team: {}", team);
-            return "redirect:" + LANDING_TEAMS + ".html";
+            return REDIRECT_LANDING_TEAMS;
         } finally {
             log.info("Finally of createTeam");
         }
@@ -112,7 +111,7 @@ public class TeamController extends AbstractController {
             }
             Team team = teamService.updateTeam(form);
             log.debug("Created team: {}", team);
-            return "redirect:" + LANDING_TEAMS + ".html";
+            return REDIRECT_LANDING_TEAMS;
         } finally {
             log.info("Finally of createTeam");
         }

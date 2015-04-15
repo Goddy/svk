@@ -23,15 +23,19 @@
         <fmt:formatDate value="${newsItem.postDate}"/>
         <sec:authorize access="hasRole('ADMIN')">
             <div class="btn-group">
-                <a href="/news/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
-                <a href="/news/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
+                <a href="/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
+                   class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
+                <a href="/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
+                   class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
             </div>
         </sec:authorize>
         <sec:authorize access="hasRole('USER')">
             <c:if test="${principal.username == newsItem.account.username}">
                 <div class="btn-group">
-                    <a href="/news/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
-                    <a href="/news/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top" class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
+                    <a href="/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
+                       class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
+                    <a href="/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
+                       class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
                 </div>
             </c:if>
         </sec:authorize>

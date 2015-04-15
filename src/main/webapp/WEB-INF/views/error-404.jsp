@@ -4,7 +4,7 @@
                 setTimeout('redirect()','5000');
         });
         function redirect(){
-            window.location = "/news/news.html";
+            window.location = "/news.html";
         }
         
     </script>

@@ -31,7 +31,7 @@ import java.util.List;
  * Remarks: none
  */
 @Controller
-@RequestMapping("/news")
+@RequestMapping("/")
 public class NewsController extends AbstractController {
     private static final Logger log = LoggerFactory.getLogger(AccountController.class);
     private static final String VN_NEWS_ITEM_PAGE = "/news/newsItem";
@@ -61,7 +61,7 @@ public class NewsController extends AbstractController {
     public String deleteNewsItem(Model model, @RequestParam long newsId) {
         newsService.deleteNews(newsId, getAccountFromSecurity());
         log.info(String.format("News item %s was deleted by user %s", newsId, getAccountFromSecurity().getUsername()));
-        return getRedirect(VN_NEWS_PAGE);
+        return Constants.REDIRECT_NEWS_PAGE;
     }
 
     @RequestMapping(value = "/news/{page}", method = RequestMethod.GET)
@@ -144,7 +144,7 @@ public class NewsController extends AbstractController {
         }
         News news = newsService.createNews(form, a);
         log.info(String.format("User %s created newsitem %s", a.getUsername(), news.getId()));
-        return "redirect:" + VN_NEWS_PAGE;
+        return Constants.REDIRECT_NEWS_PAGE;
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -156,7 +156,7 @@ public class NewsController extends AbstractController {
         }
         newsService.updateNews(form, a);
         log.info(String.format("User %s updated newsitem %s", a.getUsername(), form.getId()));
-        return "redirect:" + VN_NEWS_PAGE;
+        return Constants.REDIRECT_NEWS_PAGE;
     }
 
 

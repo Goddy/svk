@@ -140,10 +140,6 @@ public abstract class AbstractController {
         }
     }
 
-    public String getRedirect(String landing) {
-        return "redirect:" + landing + ".html";
-    }
-
     public String getDefaultMessages(BindingResult result, Locale locale) {
         StringBuilder builder = new StringBuilder();
         for (ObjectError r : result.getAllErrors()) {

@@ -13,7 +13,7 @@
 	</servlet>
 	
     <welcome-file-list>
-        <welcome-file>/news/news.html</welcome-file>
+        <welcome-file>/news.html</welcome-file>
     </welcome-file-list>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>

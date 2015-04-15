@@ -42,8 +42,7 @@
     </div>
 </div>
 <div id="loader" class="text-center"></div>
-<div id="searchResult" style="display: none;">
-</div>
+<div id="searchResult" style="display: none;"></div>
 <%@ include file="../jspf/footer.jspf" %>
 <tag:deleteDialog dialogId="delete-modal"/>
 

@@ -89,7 +89,7 @@ public class NewsControllerTest extends AbstractTest {
     public void testCreateCommentWithOutAccount() throws Exception {
         News n = createAndSaveNews(userAccount1);
 
-        mockMvc.perform(post("/news/addComment.html")
+        mockMvc.perform(post("/addComment.html")
                 .param("comment", comment)
                 .param("newsId", Long.toString(n.getId()))
                 .accept(MediaType.TEXT_PLAIN))
@@ -164,7 +164,7 @@ public class NewsControllerTest extends AbstractTest {
         News n = createNewsWithComment(userAccount1);
         Comment c = n.getComments().get(0);
 
-        mockMvc.perform(post("/news/editComment.html")
+        mockMvc.perform(post("/editComment.html")
                 .param("comment", comment)
                 .param("newsId", Long.toString(n.getId()))
                 .param("commentId", Long.toString(c.getId()))
@@ -247,7 +247,7 @@ public class NewsControllerTest extends AbstractTest {
     }
 
     private void postCreateNews(long newsId, String comment, ResultMatcher resultMatcher, String role) throws Exception {
-        mockMvc.perform(post("/news/addComment.html")
+        mockMvc.perform(post("/addComment.html")
                 .param("comment", comment)
                 .param("newsId", Long.toString(newsId))
                 .with(user("user").roles(role))
@@ -259,7 +259,7 @@ public class NewsControllerTest extends AbstractTest {
     }
 
     private void postUpdateNews(long newsId, long commentId, String comment, ResultMatcher resultMatcher, String role) throws Exception {
-        mockMvc.perform(post("/news/editComment.html")
+        mockMvc.perform(post("/editComment.html")
                 .param("comment", comment)
                 .param("newsId", Long.toString(newsId))
                 .param("commentId", Long.toString(commentId))
@@ -271,7 +271,7 @@ public class NewsControllerTest extends AbstractTest {
     }
 
     private void postDeleteNews(long newsId, long commentId, ResultMatcher resultMatcher, String role) throws Exception {
-        mockMvc.perform(post("/news/deleteComment.html")
+        mockMvc.perform(post("/deleteComment.html")
                 .param("newsId", Long.toString(newsId))
                 .param("commentId", Long.toString(commentId))
                 .with(user("user").roles(role))

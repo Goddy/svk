@@ -22,7 +22,7 @@
 <![endif]-->
 <header class="hidden-xs">
     <div class="content-heading clearfix media">
-        <a href="/news/news.html" rel="nofollow"><img src="/resources/images/logo.png"/></a>
+        <a href="/news.html" rel="nofollow"><img src="/resources/images/logo.png"/></a>
     </div>
 
 </header>
@@ -39,9 +39,9 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/news/news.html"><spring:message code="nav.news"/></a></li>
-                <li><a href="/matches/matches.html"><spring:message code="nav.matches"/></a></li>
-                <li><a href="/teams/teams.html"><spring:message code="nav.teams"/></a></li>
+                <li><a href="/news.html"><spring:message code="nav.news"/></a></li>
+                <li><a href="/matches.html"><spring:message code="nav.matches"/></a></li>
+                <li><a href="/teams.html"><spring:message code="nav.teams"/></a></li>
                 <li><a href="http://doodle.com/zhkfyad4t7m3x42b#table"><spring:message code="nav.doodle"/></a></li>
                 <li><a href="/home.html"><spring:message code="nav.home"/></a></li>
 
@@ -50,9 +50,9 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="nav.admin"/> <b
                             class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/matches/createMatch.html"><spring:message code="nav.createMatch"/></a></li>
-                        <li><a href="/teams/createTeam.html"><spring:message code="nav.createTeam"/></a></li>
-                        <li><a href="/news/editNews.html"><spring:message code="nav.createNews"/></a></li>
+                        <li><a href="/createMatch.html"><spring:message code="nav.createMatch"/></a></li>
+                        <li><a href="/createTeam.html"><spring:message code="nav.createTeam"/></a></li>
+                        <li><a href="/editNews.html"><spring:message code="nav.createNews"/></a></li>
                     </ul>
                 </li>
                 </security:authorize>

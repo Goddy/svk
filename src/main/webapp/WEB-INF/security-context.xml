@@ -9,7 +9,7 @@
         <security:form-login authentication-failure-url="/login.html?auth=fail"
                              login-page="/login.html"/>
         <security:remember-me user-service-ref="userDetailsService"/>
-        <security:logout logout-success-url="/news/news.html"/>
+        <security:logout logout-success-url="/news.html"/>
         <security:custom-filter ref="localeContextFilter" after="FIRST"/>
         <security:custom-filter ref="socialAuthenticationFilter" before="PRE_AUTH_FILTER" />
     </security:http>

@@ -27,7 +27,7 @@ import java.util.Locale;
  * Created by u0090265 on 5/30/14.
  */
 @Controller
-@RequestMapping("/matches")
+@RequestMapping("/")
 public class MatchResultController extends AbstractController {
 
     @Autowired
@@ -63,7 +63,7 @@ public class MatchResultController extends AbstractController {
         Match m = matchesService.updateMatchResult(form);
         model.addAttribute("match", m);
         setFlashSuccessMessage(redirectAttributes, locale, "text.match.result.update.success", new Object[]{m.getDescription()});
-        return getRedirect(Constants.LANDING_MATCHES_PAGE);
+        return Constants.REDIRECT_MATCHES_PAGE;
     }
 
     @PreAuthorize("hasRole('ADMIN')")

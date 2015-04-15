@@ -29,7 +29,7 @@ import java.util.Locale;
  * Created by u0090265 on 5/3/14.
  */
 @Controller
-@RequestMapping("/matches")
+@RequestMapping("/")
 public class MatchesController extends AbstractController {
 
     @Autowired
@@ -106,7 +106,7 @@ public class MatchesController extends AbstractController {
         matchesService.deleteMatch(matchId);
         setSuccessMessage(redirectAttributes, locale, "text.delete.match.success", null);
         log.info(String.format("Match id %s deleted by user %s", matchId, getAccountFromSecurity().getUsername()));
-        return getRedirect(Constants.LANDING_MATCHES_PAGE);
+        return Constants.REDIRECT_MATCHES_PAGE;
     }
 
     @RequestMapping(value = "matchesForSeason.json", method = RequestMethod.GET)

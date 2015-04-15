@@ -89,7 +89,7 @@
             function getMatches(season, div) {
                 if (div.find('.table:first').length === 0) {
                     $.ajax({
-                        url: '/matches/matchesForSeason.json',
+                        url: '/matchesForSeason.json',
                         data: {seasonId: season},
                         dataType: 'json',
                         cache: true,

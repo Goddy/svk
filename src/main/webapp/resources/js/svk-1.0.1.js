@@ -172,7 +172,7 @@ svk.news = (function ($, utils, dd) {
         defaultDiv.hide();
 
         $.ajax({
-            url: '/news/getNewsSearch.json',
+            url: '/getNewsSearch.json',
             data: {search: search},
             dataType: 'json',
             cache: false,
@@ -184,7 +184,7 @@ svk.news = (function ($, utils, dd) {
                             var content = newsItem.content;
 
                             divContent += '<div class="panel panel-info">' +
-                                '<div class="panel-heading"><a href="/news/newsItem.html?newsId=' + newsItem.id + '"\">' + newsItem.header + '</a></div>' +
+                            '<div class="panel-heading"><a href="/newsItem.html?newsId=' + newsItem.id + '"\">' + newsItem.header + '</a></div>' +
                                 '<div class="panel-body">' +
                                 '<p align="left">' + content + ' </p>' +
                                 '</div></div>';
