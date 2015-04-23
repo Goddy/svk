@@ -94,9 +94,11 @@
     <!-- Tasks -->
     <task:scheduled-tasks scheduler="scheduler">
         <task:scheduled ref="cleanupTask" method="execute" cron="${activationCodeCleanup.cronSchedule}"/>
+        <task:scheduled ref="resetCachesTask" method="execute" fixed-delay="${cleanupCache.delay}"/>
     </task:scheduled-tasks>
 
     <bean id="cleanupTask" class="be.spring.app.tasks.CleanupTask"/>
+    <bean id="resetCachesTask" class="be.spring.app.tasks.ResetCachesTask"/>
 
     <task:scheduler id="scheduler" pool-size="2"/>
 </beans>
