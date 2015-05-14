@@ -36,6 +36,7 @@ public class NewsController extends AbstractController {
     private static final Logger log = LoggerFactory.getLogger(AccountController.class);
     private static final String VN_NEWS_ITEM_PAGE = "/news/newsItem";
     private static final String VN_NEWS_PAGE = "/news/news";
+    private static final String VN_NEWS_PAGED_NEWS = "/news";
     private static final String VN_SEARCH_PAGE = "/news/search";
     private static final String VN_ADD_NEWS_PAGE = "/news/editNews";
     private static final String NEWS_ITEM = "/jspf/newsItem";
@@ -73,7 +74,7 @@ public class NewsController extends AbstractController {
 
     private void setPagedNews(Model model, int page) {
         Page<News> pages = newsService.getPagedNews(page);
-        PageObject pageObject = new PageObject(model, pages.getTotalPages(), page, VN_NEWS_PAGE);
+        PageObject pageObject = new PageObject(model, pages.getTotalPages(), page, VN_NEWS_PAGED_NEWS);
         pageObject.addAttributes();
         model.addAttribute("newsList", Lists.newArrayList(pages.iterator()));
     }
