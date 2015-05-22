@@ -2,6 +2,8 @@ package be.spring.app.persistence;
 
 import be.spring.app.model.Account;
 import be.spring.app.service.AccountService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +27,10 @@ public class UserDetailsServiceAdapter implements UserDetailsService {
     @Autowired AccountService accountService;
     @Autowired UserDetailsDao userDetailsDao;
 
+    private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceAdapter.class);
+
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+        logger.info(String.format("Trying to load user %s from Database", username));
         Account account =
                 accountService.getActiveAccountByEmail(username);
         if (account == null) {

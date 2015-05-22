@@ -1,5 +1,7 @@
 package be.spring.app.persistence;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,8 +16,11 @@ public class DefaultSocialUserDetailsService implements SocialUserDetailsService
     @Autowired
     private UserDetailsService userDetailsService;
 
+    private static final Logger logger = LoggerFactory.getLogger(DefaultSocialUserDetailsService.class);
+
     @Override
     public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException, DataAccessException {
+        logger.info(String.format("Trying to match %s with username in Database", userId));
         return (SocialUserDetails) userDetailsService.loadUserByUsername(userId);
     }
 }
