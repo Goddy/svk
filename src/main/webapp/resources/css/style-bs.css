@@ -57,6 +57,24 @@ body {
     color: greenyellow;
 }
 
+.doodle-user {
+    font-size: 2.1em;
+}
+
+.doodle-user-btn {
+    font-size: 2.2em;
+}
+
+.doodle-badge, .doodle-list{
+    float: right;
+}
+
+.doodle-title{
+    float: left;
+}
+
+
+
 /*
 -------------------------------------------------- */
 
