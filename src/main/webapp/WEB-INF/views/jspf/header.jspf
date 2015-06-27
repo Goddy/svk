@@ -43,7 +43,7 @@
                 <li><a href="/news.html"><spring:message code="nav.news"/></a></li>
                 <li><a href="/matches.html"><spring:message code="nav.matches"/></a></li>
                 <li><a href="/teams.html"><spring:message code="nav.teams"/></a></li>
-                <li><a href="http://doodle.com/zhkfyad4t7m3x42b#table"><spring:message code="nav.doodle"/></a></li>
+                <li><a href="/doodle.html"><spring:message code="nav.doodle"/></a></li>
                 <li><a href="/home.html"><spring:message code="nav.home"/></a></li>
 
                 <security:authorize access="isAuthenticated()">

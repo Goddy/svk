@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by u0090265 on 10/1/14.
  */
 @Controller
-@RequestMapping("/doodle")
+@RequestMapping("/")
 public class DoodleController extends AbstractController {
     @Autowired
     DoodleService doodleService;
@@ -32,13 +32,13 @@ public class DoodleController extends AbstractController {
     SeasonService seasonService;
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "changeMatchDoodle", method = RequestMethod.GET)
+    @RequestMapping(value = "/doodle/changeMatchDoodle", method = RequestMethod.GET)
     public @ResponseBody String getRegistrationOk(@RequestParam long matchId, @RequestParam boolean present ) {
         return doodleService.changeMatchPresence(getAccountFromSecurity(), matchId, present);
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "changePresence.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/doodle/changePresence.json", method = RequestMethod.POST)
     public String changeMatchDoodle(@RequestParam long id, @RequestParam long matchId, boolean showUsers, ModelMap map) {
         doodleService.changePresence(getAccountFromSecurity(), id, matchId).isPresent();
         map.addAttribute("accounts", accountService.getAll());
@@ -50,7 +50,7 @@ public class DoodleController extends AbstractController {
 
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value="/overview", method = RequestMethod.GET)
+    @RequestMapping(value = "/doodle", method = RequestMethod.GET)
     public String getOverView(ModelMap map) {
         //Season s = seasonService.getLatestSeason();
         map.addAttribute("accounts", accountService.getAll());

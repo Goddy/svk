@@ -1,6 +1,10 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ include file="../jspf/header.jspf" %>
 
+<h1><p><spring:message code="nav.doodle"/></h1>
+<c:if test="${empty matches}">
+  <spring:message code="text.doodle.none.found"/>
+</c:if>
 <c:forEach var="match" items="${matches}">
   <div class="matchDoodle">
     <%@ include file="../jspf/matchDoodle.jsp" %>
