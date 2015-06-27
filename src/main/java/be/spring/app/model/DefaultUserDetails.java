@@ -13,6 +13,8 @@ import java.util.Set;
  * Created by u0090265 on 4/3/15.
  */
 public class DefaultUserDetails extends SocialUser {
+    private static final long serialVersionUID = 1L;
+
     private Long id;
 
     private String firstName;
