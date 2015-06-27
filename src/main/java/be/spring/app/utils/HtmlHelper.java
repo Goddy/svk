@@ -2,6 +2,7 @@ package be.spring.app.utils;
 
 import be.spring.app.model.Account;
 import be.spring.app.model.Match;
+import be.spring.app.model.Presence;
 import be.spring.app.model.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * Created by u0090265 on 8/30/14.

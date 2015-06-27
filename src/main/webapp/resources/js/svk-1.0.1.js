@@ -325,3 +325,17 @@ svk.updatePassword = (function($){
         }
     }
 })(jQuery);
+
+svk.doodle = (function ($, utils) {
+
+    return {
+        changePresence: function (button) {
+            var parent = button.closest("div.matchDoodle");
+            var showUsers = parent.find("div.list").is(':visible');
+
+            utils.jsonPost(button.attr("href"), {"showUsers": showUsers}, function (data) {
+                parent.html(data);
+            })
+        }
+    }
+})(jQuery, svk.utils);

@@ -6,6 +6,7 @@ import be.spring.app.form.CreateMatchForm;
 import be.spring.app.model.Account;
 import be.spring.app.model.ActionWrapper;
 import be.spring.app.model.Match;
+import be.spring.app.model.Season;
 
 import java.text.ParseException;
 import java.util.List;
@@ -18,7 +19,11 @@ import java.util.Map;
 public interface MatchesService {
     Map<Integer, List<Match>> getMatchesForLastSeasons();
 
-    List<ActionWrapper<Match>> getMatchesForSeason(long seasonId, Account account, Locale locale);
+    List<Match> getMatchesListForSeason(Season season);
+
+    List<Match> getUpcomingMatchesList();
+
+    List<ActionWrapper<Match>> getMatchesWrappersForSeason(long seasonId, Account account, Locale locale);
 
     List<Match> getMatchesForSeason(long seasonId);
 

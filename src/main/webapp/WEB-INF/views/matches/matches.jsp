@@ -13,7 +13,7 @@
         <h3 class="panel-title"><spring:message code="text.next.match"/></h3>
     </div>
     <div class="panel-body">
-        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
         <c:out value="${nextMatchDate}"/><br>
         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
         <c:out value="${nextMatch.description}"/><br>

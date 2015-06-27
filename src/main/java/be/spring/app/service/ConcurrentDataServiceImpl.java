@@ -55,7 +55,7 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
     @Override
     public ListenableFuture<List<ActionWrapper<Match>>> getMatchForSeasonActionWrappers(long seasonId, Account account, Locale locale) {
         Season season = seasonDao.findOne(seasonId);
-        List<Match> matches = matchesDao.getMatchForSeason(season);
+        List<Match> matches = matchesDao.getMatchesForSeason(season);
         List<ListenableFuture<ActionWrapper<Match>>> r = new ArrayList<>();
 
         for (ActionWrapper<Match> matchActionWrapper : getActionWrappers(matches)) {

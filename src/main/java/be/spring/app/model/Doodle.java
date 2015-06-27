@@ -38,12 +38,23 @@ public class Doodle {
     }
 
     @Transient
-    public boolean isPresent(final Account account) {
+    public Presence.PresenceType isPresent(final Account account) {
         for (Presence p : getPresences()) {
             if (p.getAccount().equals(account)) {
-                return p.isPresent();
+                return p.isPresent() ? Presence.PresenceType.PRESENT : Presence.PresenceType.NOT_PRESENT;
             }
         }
-        return false;
+        return Presence.PresenceType.NOT_FILLED_IN;
+    }
+
+    @Transient
+    public int countPresences() {
+        int i = 0;
+        for (Presence p : getPresences()) {
+            if (p.isPresent()) {
+                i++;
+            }
+        }
+        return i;
     }
 }

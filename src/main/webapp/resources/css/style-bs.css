@@ -49,20 +49,20 @@ body {
     color: #41afc1;
 }
 
-.red {
-    color: red;
+.red, a.red:hover {
+    color: indianred;
 }
 
-.green {
-    color: greenyellow;
+.green, a.green:hover {
+    color: lightgreen;
 }
 
-.doodle-user {
+.doodle-users {
     font-size: 2.1em;
 }
 
 .doodle-user-btn {
-    font-size: 2.2em;
+    font-size: 2.3em;
 }
 
 .doodle-badge, .doodle-list{
@@ -71,6 +71,12 @@ body {
 
 .doodle-title{
     float: left;
+}
+
+.doodle-list {
+    display: block;
+    clear: both;
+    padding-bottom: 5px;
 }
 
 

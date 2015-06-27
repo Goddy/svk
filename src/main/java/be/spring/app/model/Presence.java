@@ -12,6 +12,10 @@ public class Presence {
     private Account account;
     private boolean present;
 
+    public enum PresenceType {
+        NOT_PRESENT, PRESENT, NOT_FILLED_IN
+    }
+
     @Id
     @GeneratedValue
     @Column(name= "id")

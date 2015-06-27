@@ -16,11 +16,13 @@ import java.util.List;
 public interface MatchesDao extends PagingAndSortingRepository<Match, Long>, JpaSpecificationExecutor<Match> {
 
     @Query("select m from Match m where m.season = ?1 order by date asc")
-    List<Match> getMatchForSeason(Season season);
+    List<Match> getMatchesForSeason(Season season);
 
     @Query("select m from Match m where m.homeTeam = ?1 OR awayTeam = ?1 order by date desc")
     List<Match> getMatchesForTeam(Team team);
 
     @Query("select m from Match m where m.date > ?1 order by date asc")
     List<Match> findByDate(DateTime date);
+
+    List<Match> findByDateAfter(DateTime date);
 }

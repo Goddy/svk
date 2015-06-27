@@ -57,18 +57,29 @@ public class MatchesServiceImpl implements MatchesService {
         int count = 1;
         Map<Integer, List<Match>> resultMap = new HashMap<>();
         for (Season season : seasonDao.findAll(new PageRequest(0, maxSeasons, Sort.Direction.DESC, "description"))) {
-            resultMap.put(count, matchesDao.getMatchForSeason(season));
+            resultMap.put(count, matchesDao.getMatchesForSeason(season));
             count++;
         }
         return resultMap;
     }
 
     @Override
-    public List<ActionWrapper<Match>> getMatchesForSeason(long seasonId, final Account account, final Locale locale) {
+    public List<Match> getMatchesListForSeason(Season season) {
+        return matchesDao.getMatchesForSeason(season);
+    }
+
+    @Override
+    public List<Match> getUpcomingMatchesList() {
+        DateTime now = DateTime.now();
+        return matchesDao.findByDateAfter(now.minusDays(1));
+    }
+
+    @Override
+    public List<ActionWrapper<Match>> getMatchesWrappersForSeason(long seasonId, final Account account, final Locale locale) {
         try {
             return cacheAdapter.getMatchActionWrappers(seasonId, account, locale);
         } catch (InterruptedException | ExecutionException e) {
-            log.error("getMatchesForSeason failed: {}", e.getMessage());
+            log.error("getMatchesWrappersForSeason failed: {}", e.getMessage());
             return Lists.newArrayList();
         }
     }
@@ -78,7 +89,7 @@ public class MatchesServiceImpl implements MatchesService {
     public List<Match> getMatchesForSeason(long seasonId) {
         Season s = seasonDao.findOne(seasonId);
         if (s == null) throw new ObjectNotFoundException(String.format("Season with id %s not found", seasonId));
-        return matchesDao.getMatchForSeason(s);
+        return matchesDao.getMatchesForSeason(s);
     }
 
     @Override
