@@ -21,7 +21,7 @@ public class SeasonServiceImpl implements SeasonService {
 
     @Override
     public List<Season> getSeasons() {
-        return Lists.newArrayList(seasonDao.findAll());
+        return Lists.newArrayList(seasonDao.findAllOrderByDescriptionAsc());
     }
 
     @Override
