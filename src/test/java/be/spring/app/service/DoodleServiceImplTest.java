@@ -116,6 +116,19 @@ public class DoodleServiceImplTest extends JUnitTest {
         verifyAll();
     }
 
+    @Test(expected = RuntimeException.class)
+    public void testChangePresenceNoAccess() throws Exception {
+        Match m = DataFactory.createMatch();
+        Account a = DataFactory.createAccount();
+        Account b = DataFactory.createAccount();
+
+        replayAll();
+
+        Presence presence = doodleService.changePresence(a, b.getId(), m.getId());
+
+        verifyAll();
+    }
+
     @Override
     protected Object[] getMocks() {
         return new Object[]{doodleDao, accountDao, htmlHelper, matchesDao};
