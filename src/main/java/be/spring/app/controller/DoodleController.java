@@ -1,5 +1,7 @@
 package be.spring.app.controller;
 
+import be.spring.app.controller.exceptions.ObjectNotFoundException;
+import be.spring.app.model.Match;
 import be.spring.app.service.AccountService;
 import be.spring.app.service.DoodleService;
 import be.spring.app.service.MatchesService;
@@ -56,6 +58,16 @@ public class DoodleController extends AbstractController {
         return getDoodle(map);
     }
 
+    @RequestMapping(value = "/getDoodle", method = RequestMethod.GET)
+    public String getOverView(@RequestParam long matchId, ModelMap map) {
+        Match m = matchesService.getMatch(matchId);
+        if (m == null) throw new ObjectNotFoundException(String.format("Match with id %s not found", matchId));
+        map.addAttribute("accounts", accountService.getAll());
+        map.addAttribute("match", m);
+        map.addAttribute("currentAccount", getAccountFromSecurity());
+        return "/doodle/getDoodle";
+    }
+    
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/membersDoodle", method = RequestMethod.GET)
     public String getOverViewProtected(ModelMap map) {

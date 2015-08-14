@@ -24,5 +24,5 @@ public interface MatchesDao extends PagingAndSortingRepository<Match, Long>, Jpa
     @Query("select m from Match m where m.date > ?1 order by date asc")
     List<Match> findByDate(DateTime date);
 
-    List<Match> findByDateAfter(DateTime date);
+    List<Match> findByDateAfterOrderByDateAsc(DateTime date);
 }

@@ -22,6 +22,7 @@ public class HtmlHelper {
     private static String EDIT = "glyphicon glyphicon-edit edit";
     private static String DELETE = "glyphicon glyphicon-trash delete";
     private static String MAP = "glyphicon glyphicon-map-marker";
+    private static String DOODLE = "glyphicon glyphicon-th-list";
     private static String OK = "glyphicon glyphicon-ok green presence";
     private static String REMOVE = "glyphicon glyphicon-remove red presence";
     private static String DETAILS = "glyphicon glyphicon-eye-open";
@@ -30,6 +31,7 @@ public class HtmlHelper {
     private static String PRESENCE_BOX = "presenceBox";
     private static String MAP_CLASS = "map";
     private static String DETAILS_CLASS = "details";
+    private static String DOODLE_CLASS = "doodle";
     private static String EMPTY = "";
     private static String HTML_ACTIONS = "htmlActions";
     private static String PRESENCE_ACTIONS = "presenceActions";
@@ -74,6 +76,8 @@ public class HtmlHelper {
         if (googleLink != null) btns.append(getBtn(MAP_CLASS, MAP, googleLink));
 
         if (!match.getGoals().isEmpty()) btns.append(getBtn(DETAILS_CLASS, DETAILS, "details" + match.getId()));
+
+        btns.append(getBtn(DOODLE_CLASS, DOODLE, String.format("getDoodle.html?matchId=%s", match.getId())));
 
         m.put(HTML_ACTIONS, btns.toString().isEmpty() ? messageSource.getMessage("text.noActions", null, locale) : wrapIntoBtnGroup(btns.toString()));
         return m;

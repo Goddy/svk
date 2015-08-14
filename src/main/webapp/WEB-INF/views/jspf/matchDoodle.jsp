@@ -18,7 +18,7 @@
 <sec:authorize access="hasRole('ADMIN')">
     <c:set var="isAdmin" value="true"/>
 </sec:authorize>
-<div class="panel panel-info">
+<div class="panel panel-default">
     <div class="panel-heading"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;<joda:format
             pattern="dd-MM-yyyy HH:mm" value="${match.date}" style="L-"/></div>
     <div class="panel-body">

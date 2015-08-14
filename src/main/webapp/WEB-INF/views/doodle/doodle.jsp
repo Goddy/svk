@@ -2,6 +2,7 @@
 <%@ include file="../jspf/header.jspf" %>
 
 <h1><p><spring:message code="nav.doodle"/></h1>
+<div class="alert alert-info"><spring:message code="info.doodle"/></div>
 <c:if test="${empty matches}">
   <spring:message code="text.doodle.none.found"/>
 </c:if>
