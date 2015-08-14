@@ -30,6 +30,21 @@ public class DataFactory {
         return match;
     }
 
+    public static Account createAccount() {
+        Account account = new Account(getDefaultRandomString(), getDefaultRandomString(), getRandomUserName());
+        account.setId(new java.util.Random().nextLong());
+        return account;
+    }
+
+    public static Goal createGoal(Account account, Match match) {
+        Goal goal = new Goal();
+        goal.setScorer(account);
+        goal.setAssist(account);
+        goal.setMatch(match);
+        goal.setOrder(1);
+        return goal;
+    }
+
     public static Season createSeason() {
         Season s = new Season();
         s.setDescription(getDefaultRandomString());

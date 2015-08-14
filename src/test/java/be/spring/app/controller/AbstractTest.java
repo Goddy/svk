@@ -3,6 +3,7 @@ package be.spring.app.controller;
 import be.spring.app.model.Account;
 import be.spring.app.model.Role;
 import be.spring.app.persistence.AccountDao;
+import be.spring.app.persistence.MatchesDao;
 import be.spring.app.service.MailService;
 import be.spring.app.utils.SecurityUtils;
 import org.junit.Before;
@@ -51,6 +52,9 @@ public abstract class AbstractTest {
 
     @Autowired
     protected AccountDao accountDao;
+
+    @Autowired
+    protected MatchesDao matchesDao;
 
     @Autowired
     protected MailService mailService;

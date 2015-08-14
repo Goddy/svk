@@ -18,19 +18,24 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class DoodleServiceImpl implements DoodleService {
-    @Autowired
+
     DoodleDao doodleDao;
 
-    @Autowired
     AccountDao accountDao;
 
-    @Autowired
     HtmlHelper htmlHelper;
 
-    @Autowired
     MatchesDao matchesDao;
 
     Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    public DoodleServiceImpl(DoodleDao doodleDao, AccountDao accountDao, HtmlHelper htmlHelper, MatchesDao matchesDao) {
+        this.doodleDao = doodleDao;
+        this.accountDao = accountDao;
+        this.htmlHelper = htmlHelper;
+        this.matchesDao = matchesDao;
+    }
 
     @Override
     public String changeMatchPresence(Account account, long matchId, boolean present) {
