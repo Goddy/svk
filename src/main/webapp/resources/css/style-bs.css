@@ -53,6 +53,10 @@ body {
     color: indianred;
 }
 
+.grey, a.grey:hover {
+    color: darkgrey;
+}
+
 .green, a.green:hover {
     color: lightgreen;
 }

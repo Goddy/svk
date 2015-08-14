@@ -33,7 +33,9 @@ public class DoodleController extends AbstractController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/doodle/changeMatchDoodle", method = RequestMethod.GET)
-    public @ResponseBody String getRegistrationOk(@RequestParam long matchId, @RequestParam boolean present ) {
+    public
+    @ResponseBody
+    String getChangeMatchDoodle(@RequestParam long matchId, @RequestParam boolean present) {
         return doodleService.changeMatchPresence(getAccountFromSecurity(), matchId, present);
     }
 
@@ -49,10 +51,18 @@ public class DoodleController extends AbstractController {
     }
 
 
-    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/doodle", method = RequestMethod.GET)
     public String getOverView(ModelMap map) {
-        //Season s = seasonService.getLatestSeason();
+        return getDoodle(map);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/membersDoodle", method = RequestMethod.GET)
+    public String getOverViewProtected(ModelMap map) {
+        return getDoodle(map);
+    }
+
+    private String getDoodle(ModelMap map) {
         map.addAttribute("accounts", accountService.getAll());
         map.addAttribute("matches", matchesService.getUpcomingMatchesList());
         map.addAttribute("currentAccount", getAccountFromSecurity());

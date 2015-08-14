@@ -8,6 +8,13 @@
 <c:if test="${not showUsers}">
     <c:set var="display" value="display: none"/>
 </c:if>
+
+<c:set var="isAdmin" value="false"/>
+<c:set var="isAuthenticated" value="false"/>
+
+<sec:authorize access="isAuthenticated()">
+    <c:set var="isAuthenticated" value="true"/>
+</sec:authorize>
 <sec:authorize access="hasRole('ADMIN')">
     <c:set var="isAdmin" value="true"/>
 </sec:authorize>
@@ -20,7 +27,7 @@
         <div class="doodle-badge btn-group">
             <a class="btn btn-default glyphicon glyphicon-user doodle-users" aria-hidden="true"><span
                     class="badge">${doodle.countPresences()}</span></a>
-            <tag:doodlePresence account="${currentAccount}" match="${match}" isAdmin="true"
+            <tag:doodlePresence account="${currentAccount}" match="${match}" isAdmin="${isAuthenticated}"
                                 extraClass="doodle-user-btn"/>
         </div>
     </div>

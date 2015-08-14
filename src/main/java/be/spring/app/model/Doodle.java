@@ -39,6 +39,7 @@ public class Doodle {
 
     @Transient
     public Presence.PresenceType isPresent(final Account account) {
+        if (account == null) return Presence.PresenceType.ANONYMOUS;
         for (Presence p : getPresences()) {
             if (p.getAccount().equals(account)) {
                 return p.isPresent() ? Presence.PresenceType.PRESENT : Presence.PresenceType.NOT_PRESENT;

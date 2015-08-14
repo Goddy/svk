@@ -13,7 +13,7 @@ public class Presence {
     private boolean present;
 
     public enum PresenceType {
-        NOT_PRESENT, PRESENT, NOT_FILLED_IN
+        NOT_PRESENT, PRESENT, NOT_FILLED_IN, ANONYMOUS
     }
 
     @Id
