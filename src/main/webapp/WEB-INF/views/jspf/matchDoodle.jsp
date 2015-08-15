@@ -1,8 +1,9 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <c:set var="doodle" value="${match.matchDoodle}"/>
 <c:if test="${not showUsers}">
@@ -25,8 +26,10 @@
         <div class="doodle-title"><h3>${match.description}</h3>
         </div>
         <div class="doodle-badge btn-group">
-            <a class="btn btn-default glyphicon glyphicon-user doodle-users" aria-hidden="true"><span
-                    class="badge">${doodle.countPresences()}</span></a>
+            <a class="btn btn-default glyphicon glyphicon-user doodle-users" data-toggle="tooltip" data-container="body"
+               title="<spring:message code="title.doodlePresences"/>" aria-hidden="true"><span
+                    class="badge">${doodle.countPresences()}</span>
+            </a>
             <tag:doodlePresence account="${currentAccount}" match="${match}" isAdmin="${isAuthenticated}"
                                 extraClass="doodle-user-btn"/>
         </div>

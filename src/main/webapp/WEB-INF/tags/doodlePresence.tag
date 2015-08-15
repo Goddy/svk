@@ -40,4 +40,5 @@
     </c:otherwise>
 </c:choose>
 
-<a href="${href}" data-toggle="tooltip" data-placement="top" ${disabled} class="${classes} ${extraClass}"></a>
+<a href="${href}" data-toggle="tooltip" data-container="body" title="<spring:message code="title.doodleChange"/>"
+   data-placement="top" ${disabled} class="${classes} ${extraClass}"></a>

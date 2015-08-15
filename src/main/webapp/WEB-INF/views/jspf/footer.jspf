@@ -12,7 +12,7 @@
 </div>
 <script type="text/javascript">
     /*activate bootstrap tool tips */
-    $("[data-toggle='tooltip']").tooltip({html:true});
+    $("body").tooltip({selector: '[data-toggle="tooltip"]', container: 'body'});
 
     $(document).ready(function() {
         $("#changeLang").click(function() {

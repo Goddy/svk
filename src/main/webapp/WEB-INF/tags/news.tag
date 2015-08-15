@@ -24,8 +24,10 @@
         <sec:authorize access="hasRole('ADMIN')">
             <div class="btn-group">
                 <a href="/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
+                   title="<spring:message code="title.editNews"/>"
                    class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
                 <a href="/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
+                   title="<spring:message code="title.deleteNews"/>"
                    class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
             </div>
         </sec:authorize>
@@ -33,8 +35,10 @@
             <c:if test="${principal.username == newsItem.account.username}">
                 <div class="btn-group">
                     <a href="/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
+                       title="<spring:message code="title.editNews"/>"
                        class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
                     <a href="/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
+                       title="<spring:message code="title.deleteNews"/>"
                        class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
                 </div>
             </c:if>

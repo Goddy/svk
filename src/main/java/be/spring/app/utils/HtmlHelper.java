@@ -68,16 +68,18 @@ public class HtmlHelper {
         Map<String, String> m = new HashMap<>();
         StringBuilder btns = new StringBuilder();
         if (isAdmin) {
-            btns.append(getBtn(EMPTY, EDIT, String.format("changeMatchResult.html?matchId=%s", match.getId())))
-                    .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteMatch.html?matchId=%s", match.getId())));
+            btns.append(getBtn(EMPTY, EDIT, String.format("changeMatchResult.html?matchId=%s", match.getId()), messageSource.getMessage("title.changeMatchResult", null, locale)))
+                    .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteMatch.html?matchId=%s", match.getId()), messageSource.getMessage("title.deleteMatch", null, locale)));
         }
 
         String googleLink = match.getHomeTeam().getAddress().getGoogleLink();
-        if (googleLink != null) btns.append(getBtn(MAP_CLASS, MAP, googleLink));
+        if (googleLink != null)
+            btns.append(getBtn(MAP_CLASS, MAP, googleLink, messageSource.getMessage("title.matchLocation", null, locale)));
 
-        if (!match.getGoals().isEmpty()) btns.append(getBtn(DETAILS_CLASS, DETAILS, "details" + match.getId()));
+        if (!match.getGoals().isEmpty())
+            btns.append(getBtn(DETAILS_CLASS, DETAILS, "details" + match.getId(), messageSource.getMessage("title.matchDetails", null, locale)));
 
-        btns.append(getBtn(DOODLE_CLASS, DOODLE, String.format("getDoodle.html?matchId=%s", match.getId())));
+        btns.append(getBtn(DOODLE_CLASS, DOODLE, String.format("getDoodle.html?matchId=%s", match.getId()), messageSource.getMessage("title.matchDoodle", null, locale)));
 
         m.put(HTML_ACTIONS, btns.toString().isEmpty() ? messageSource.getMessage("text.noActions", null, locale) : wrapIntoBtnGroup(btns.toString()));
         return m;
@@ -86,11 +88,12 @@ public class HtmlHelper {
     public Map getTeamButtons(Team team, boolean isAdmin, Locale locale) {
         Map<String, String> m = new HashMap<>();
         StringBuilder btns = new StringBuilder();
-        if (team.getAddress().getGoogleLink() != null) btns.append(getBtn(MAP_CLASS, MAP, "#"));
+        if (team.getAddress().getGoogleLink() != null)
+            btns.append(getBtn(MAP_CLASS, MAP, "#", messageSource.getMessage("title.teamLocation", null, locale)));
 
         if (isAdmin) {
-            btns.append(getBtn(EMPTY, EDIT, String.format("editTeam.html?teamId=%s", team.getId())))
-                .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteTeam.html?teamId=%s", team.getId())));
+            btns.append(getBtn(EMPTY, EDIT, String.format("editTeam.html?teamId=%s", team.getId()), messageSource.getMessage("title.editTeam", null, locale)))
+                    .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteTeam.html?teamId=%s", team.getId()), messageSource.getMessage("title.deleteTeam", null, locale)));
         }
 
         m.put(HTML_ACTIONS, btns.toString().isEmpty() ? messageSource.getMessage("text.noActions", null, locale) : wrapIntoBtnGroup(btns.toString()));
@@ -99,6 +102,10 @@ public class HtmlHelper {
 
     private static String getBtn(String aClazz, String clazz, String url) {
         return String.format("<a href='%s' data-toggle='tooltip' data-placement='top' class='btn btn-default %s %s'/>", url, clazz, aClazz);
+    }
+
+    private static String getBtn(String aClazz, String clazz, String url, String title) {
+        return String.format("<a href='%s' title='%s' data-toggle='tooltip' data-placement='top' class='btn btn-default %s %s'/>", url, title, clazz, aClazz);
     }
 
     private static String wrapIntoBtnGroup(String s) {
