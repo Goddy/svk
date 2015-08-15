@@ -139,6 +139,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public List<Account> getAllActivateAccounts() {
+        List<Account> r = Lists.newArrayList(accountDao.findAllByActive(true));
+        Collections.sort(r);
+        return r;
+    }
+
+    @Override
     public Account getAccount(String id) {
         return accountDao.findOne(GeneralUtils.convertToLong(id));
     }

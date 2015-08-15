@@ -1,6 +1,7 @@
 package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
+import be.spring.app.model.Account;
 import be.spring.app.model.Match;
 import be.spring.app.service.AccountService;
 import be.spring.app.service.DoodleService;
@@ -10,10 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by u0090265 on 10/1/14.
@@ -33,6 +33,16 @@ public class DoodleController extends AbstractController {
     @Autowired
     SeasonService seasonService;
 
+    @ModelAttribute(value = "accounts")
+    public List<Account> getActiveAccounts() {
+        return accountService.getAllActivateAccounts();
+    }
+
+    @ModelAttribute(value = "currentAccount")
+    public Account getCurrentAccount() {
+        return getAccountFromSecurity();
+    }
+
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/doodle/changeMatchDoodle", method = RequestMethod.GET)
     public
@@ -45,9 +55,7 @@ public class DoodleController extends AbstractController {
     @RequestMapping(value = "/doodle/changePresence.json", method = RequestMethod.POST)
     public String changeMatchDoodle(@RequestParam long id, @RequestParam long matchId, boolean showUsers, ModelMap map) {
         doodleService.changePresence(getAccountFromSecurity(), id, matchId).isPresent();
-        map.addAttribute("accounts", accountService.getAll());
         map.addAttribute("match", matchesService.getMatch(matchId));
-        map.addAttribute("currentAccount", getAccountFromSecurity());
         map.addAttribute("showUsers", showUsers);
         return "/jspf/matchDoodle";
     }
@@ -62,9 +70,7 @@ public class DoodleController extends AbstractController {
     public String getOverView(@RequestParam long matchId, ModelMap map) {
         Match m = matchesService.getMatch(matchId);
         if (m == null) throw new ObjectNotFoundException(String.format("Match with id %s not found", matchId));
-        map.addAttribute("accounts", accountService.getAll());
         map.addAttribute("match", m);
-        map.addAttribute("currentAccount", getAccountFromSecurity());
         return "/doodle/getDoodle";
     }
     
@@ -75,9 +81,7 @@ public class DoodleController extends AbstractController {
     }
 
     private String getDoodle(ModelMap map) {
-        map.addAttribute("accounts", accountService.getAll());
         map.addAttribute("matches", matchesService.getUpcomingMatchesList());
-        map.addAttribute("currentAccount", getAccountFromSecurity());
         return "/doodle/doodle";
     }
 }

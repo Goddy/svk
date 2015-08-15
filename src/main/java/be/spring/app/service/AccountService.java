@@ -37,6 +37,9 @@ public interface AccountService {
     List<Account> getAll();
 
     @Transactional(readOnly = true)
+    List<Account> getAllActivateAccounts();
+
+    @Transactional(readOnly = true)
     Account getAccount(String id);
 
     Account getAccount(Long id);

@@ -25,4 +25,6 @@ public interface AccountDao extends PagingAndSortingRepository<Account, Long>, J
 
     @Query("select a from Account a where a.pwdRecovery IS NOT NULL")
     List<Account> findByActivationCodeNotNull();
+
+    List<Account> findAllByActive(boolean active);
 }
