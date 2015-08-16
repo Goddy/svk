@@ -71,7 +71,7 @@ public class MatchesServiceImpl implements MatchesService {
     @Override
     public List<Match> getUpcomingMatchesList() {
         DateTime now = DateTime.now();
-        return matchesDao.findByDateAfterOrderByDateAsc(now.minusDays(1));
+        return matchesDao.findByDateAfterOrderByDateAsc(now.minusDays(1), new PageRequest(0, 10)).getContent();
     }
 
     @Override
