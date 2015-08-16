@@ -49,7 +49,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="/doodle.html"><spring:message code="nav.doodle"/></a></li>
                         <li><a href="http://doodle.com/zhkfyad4t7m3x42b#table"><spring:message
-                                code="nav.oldDoodle"/></a></li>
+                                code="nav.extDoodle"/></a></li>
                     </ul>
                 </li>
                 <li><a href="/home.html"><spring:message code="nav.home"/></a></li>
