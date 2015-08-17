@@ -43,7 +43,7 @@ public class StatisticsServiceImplTest extends AbstractTest {
         assertEquals(ONE.intValue(), r.size());
         assertEquals(account.getId(), mso.getId());
         assertEquals((Long) ONE.longValue(), mso.getNumber());
-        assertEquals(account.getFullName(), mso.getName());
+        assertEquals(account.getFirstName() + " " + account.getLastName(), mso.getName());
     }
 
     @Test
@@ -60,6 +60,6 @@ public class StatisticsServiceImplTest extends AbstractTest {
         assertEquals(ONE.intValue(), r.size());
         assertEquals(account.getId(), mso.getId());
         assertEquals((Long) ONE.longValue(), mso.getNumber());
-        assertEquals(account.getFullName(), mso.getName());
+        assertEquals(account.getFirstName() + " " + account.getLastName(), mso.getName());
     }
 }

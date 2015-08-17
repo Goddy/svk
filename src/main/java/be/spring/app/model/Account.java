@@ -93,7 +93,11 @@ public class Account implements Comparable<Account> {
 
     @Transient
     public String getFullName() {
-        return firstName + " " + lastName;
+        StringBuilder b = new StringBuilder(firstName)
+                .append(" ")
+                .append(lastName.substring(0, 1))
+                .append(".");
+        return b.toString();
     }
 
     @Override
