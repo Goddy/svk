@@ -10,6 +10,7 @@
         </p>
     </div>
 </div>
+<script src="<c:url value='/resources/js/svk-ui.js?v=1.2'/>"></script>
 <script type="text/javascript">
     /*activate bootstrap tool tips */
     $("body").tooltip({selector: '[data-toggle="tooltip"]', container: 'body'});

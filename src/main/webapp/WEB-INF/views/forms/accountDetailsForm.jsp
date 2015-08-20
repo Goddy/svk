@@ -99,7 +99,7 @@
 </div>
 
 <%@ include file="../jspf/footer.jspf" %>
-<script src="<c:url value='/resources/js/svk-1.0.1.js'/>"></script>
+
 <script type="text/javascript">
     <%--
     (function ($, pwd) {

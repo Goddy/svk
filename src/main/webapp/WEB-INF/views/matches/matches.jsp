@@ -58,7 +58,6 @@
 <tag:deleteDialog dialogId="delete-match-modal"/>
 <tag:calendarDialog dialogId="download-calendar-modal"/>
 <tag:mapDialog dialogId="map-modal"/>
-<script src="<c:url value='/resources/js/svk-1.0.1.js'/>"></script>
 <script type="text/javascript">
 
     (function ($, dd, md, dc, utils) {
