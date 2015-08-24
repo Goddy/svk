@@ -95,10 +95,12 @@
     <task:scheduled-tasks scheduler="scheduler">
         <task:scheduled ref="cleanupTask" method="execute" cron="${activationCodeCleanup.cronSchedule}"/>
         <task:scheduled ref="resetCachesTask" method="execute" fixed-delay="${cleanupCache.delay}"/>
+        <task:scheduled ref="doodleReminderTask" method="execute" cron="${doodleReminderTask.cronSchedule}"/>
     </task:scheduled-tasks>
 
     <bean id="cleanupTask" class="be.spring.app.tasks.CleanupTask"/>
     <bean id="resetCachesTask" class="be.spring.app.tasks.ResetCachesTask"/>
+    <bean id="doodleReminderTask" class="be.spring.app.tasks.DoodleReminderTask"/>
 
     <task:scheduler id="scheduler" pool-size="2"/>
 </beans>

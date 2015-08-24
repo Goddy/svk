@@ -19,6 +19,7 @@ public class AccountDetailsForm {
     protected String firstName, lastName, username;
     private boolean hasSignInProvider;
     private boolean hasPassword;
+    private boolean doodleNotificationMails;
 
     @NotNull
     @NotEmpty(message = "{validation.notempty.message}")
@@ -29,6 +30,14 @@ public class AccountDetailsForm {
 
     public void setFirstName(String firstName) {
         this.firstName = WordUtils.capitalize(firstName);
+    }
+
+    public boolean isDoodleNotificationMails() {
+        return doodleNotificationMails;
+    }
+
+    public void setDoodleNotificationMails(boolean doodleNotificationMails) {
+        this.doodleNotificationMails = doodleNotificationMails;
     }
 
     @NotNull

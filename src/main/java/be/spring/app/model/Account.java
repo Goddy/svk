@@ -27,6 +27,7 @@ public class Account implements Comparable<Account> {
     private SocialMediaEnum signInProvider;
     private String pwdRecovery;
     private boolean active = false;
+    private AccountSettings accountSettings;
 
     public Account(String firstName, String lastName, String username) {
         //Default values: null as password
@@ -139,6 +140,16 @@ public class Account implements Comparable<Account> {
 
     public void setPwdRecovery(String pwdRecovery) {
         this.pwdRecovery = pwdRecovery;
+    }
+
+    @Embedded
+    public AccountSettings getAccountSettings() {
+        if (accountSettings == null) accountSettings = new AccountSettings();
+        return accountSettings;
+    }
+
+    public void setAccountSettings(AccountSettings accountSettings) {
+        this.accountSettings = accountSettings;
     }
 
     @Override
