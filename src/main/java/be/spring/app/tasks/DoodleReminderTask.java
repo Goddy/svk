@@ -53,9 +53,15 @@ public class DoodleReminderTask implements Task {
                         String subject = messageSource.getMessage("email.doodle.subject", null, Locale.ENGLISH);
                         String body = messageSource.getMessage("email.doodle.body", new String[]{account.getFirstName(), match.getDescription(), matchDate}, Locale.ENGLISH);
                         mailService.sendMail(account.getUsername(), subject, body);
+                    } else {
+                        log.info("Account {} has filled in doodle", account.getUsername());
                     }
+                } else {
+                    log.info("Account {} has disabled doodle notifications, not sending email", account.getUsername());
                 }
             }
+        } else {
+            log.info("Match id {} not starting this week, aborting", match.getId());
         }
 
         log.info("Execute DoodleReminderTask - end");
