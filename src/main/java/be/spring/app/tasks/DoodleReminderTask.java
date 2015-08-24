@@ -20,7 +20,7 @@ import java.util.Locale;
  * Created by u0090265 on 8/24/15.
  */
 public class DoodleReminderTask implements Task {
-    private static final Logger log = LoggerFactory.getLogger(CleanupTask.class);
+    private static final Logger log = LoggerFactory.getLogger(DoodleReminderTask.class);
     @Autowired
     private MessageSource messageSource;
 
