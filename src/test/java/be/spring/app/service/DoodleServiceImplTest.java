@@ -8,12 +8,16 @@ import be.spring.app.persistence.DoodleDao;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.utils.HtmlHelper;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.easymock.EasyMock;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.MessageSource;
 
-import static org.easymock.EasyMock.anyObject;
-import static org.easymock.EasyMock.expect;
+import java.util.Locale;
+
+import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
 public class DoodleServiceImplTest extends JUnitTest {
@@ -21,12 +25,14 @@ public class DoodleServiceImplTest extends JUnitTest {
     AccountDao accountDao = EasyMock.createStrictMock(AccountDao.class);
     HtmlHelper htmlHelper = EasyMock.createStrictMock(HtmlHelper.class);
     MatchesDao matchesDao = EasyMock.createStrictMock(MatchesDao.class);
+    MailService mailService = EasyMock.createStrictMock(MailService.class);
+    MessageSource messageSource = EasyMock.createStrictMock(MessageSource.class);
 
     DoodleServiceImpl doodleService;
 
     @Before
     public void setUp() throws Exception {
-        doodleService = new DoodleServiceImpl(doodleDao, accountDao, htmlHelper, matchesDao);
+        doodleService = new DoodleServiceImpl(doodleDao, accountDao, htmlHelper, matchesDao, messageSource, mailService);
         resetAll();
     }
 
@@ -129,8 +135,60 @@ public class DoodleServiceImplTest extends JUnitTest {
         verifyAll();
     }
 
+    @Test
+    public void testSendDoodleNotificationsForSuccess() throws Exception {
+        Match m = DataFactory.createMatch();
+        Account a = DataFactory.createAccount();
+        a.getAccountSettings().setSendDoodleNotifications(true);
+        Account b = DataFactory.createAccount();
+
+        //Expect the messageSource to be called
+        expect(messageSource.getMessage(eq("email.doodle.subject"), anyObject(String[].class), eq(Locale.ENGLISH))).andReturn("Test");
+        expect(messageSource.getMessage(eq("email.doodle.body"), anyObject(String[].class), eq(Locale.ENGLISH))).andReturn("Test");
+        expect(mailService.sendMail(eq(a.getUsername()), anyString(), anyString())).andReturn(true);
+
+        replayAll();
+
+        doodleService.sendDoodleNotificationsFor(m, Sets.newHashSet(a, b));
+
+        verifyAll();
+    }
+
+    @Test
+    public void testSendDoodleNotificationsForMatchTooFarAway() throws Exception {
+        Match m = DataFactory.createMatch();
+        m.setDate(DateTime.now().plusDays(14));
+        Account a = DataFactory.createAccount();
+        a.getAccountSettings().setSendDoodleNotifications(true);
+        Account b = DataFactory.createAccount();
+
+        replayAll();
+
+        doodleService.sendDoodleNotificationsFor(m, Sets.newHashSet(a, b));
+
+        verifyAll();
+    }
+
+
+    @Test
+    public void testSendDoodleNotificationsEnoughPresences() throws Exception {
+        Match m = DataFactory.createMatch();
+        m.getMatchDoodle().setPresences(DataFactory.getPresences(13));
+        Account a = DataFactory.createAccount();
+        a.getAccountSettings().setSendDoodleNotifications(true);
+        Account b = DataFactory.createAccount();
+
+        replayAll();
+
+        doodleService.sendDoodleNotificationsFor(m, Sets.newHashSet(a, b));
+
+        verifyAll();
+    }
+
+
+
     @Override
     protected Object[] getMocks() {
-        return new Object[]{doodleDao, accountDao, htmlHelper, matchesDao};
+        return new Object[]{doodleDao, accountDao, htmlHelper, matchesDao, messageSource, mailService};
     }
 }

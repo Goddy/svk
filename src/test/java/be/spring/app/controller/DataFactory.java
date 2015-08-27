@@ -1,7 +1,10 @@
 package be.spring.app.controller;
 
 import be.spring.app.model.*;
+import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
+
+import java.util.List;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 
@@ -71,6 +74,17 @@ public class DataFactory {
         newsComment.setAccount(account);
         newsComment.setContent(getDefaultRandomString());
         return newsComment;
+    }
+
+    public static List<Presence> getPresences(int count) {
+        List<Presence> r = Lists.newArrayList();
+        for (int i = 0; i < count; i++) {
+            Presence p = new Presence();
+            p.setAccount(createAccount());
+            p.setPresent(true);
+            r.add(p);
+        }
+        return r;
     }
 
     public static String getDefaultRandomString() {

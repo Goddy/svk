@@ -67,11 +67,14 @@ public class DoodleController extends AbstractController {
     }
 
     @RequestMapping(value = "/getDoodle", method = RequestMethod.GET)
-    public String getOverView(@RequestParam long matchId, ModelMap map) {
-        Match m = matchesService.getMatch(matchId);
-        if (m == null) throw new ObjectNotFoundException(String.format("Match with id %s not found", matchId));
-        map.addAttribute("match", m);
-        return "/doodle/getDoodle";
+    public String getSingleDoodle(@RequestParam long matchId, ModelMap map) {
+        return getDoodle(matchId, map);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/getMembersDoodle", method = RequestMethod.GET)
+    public String getDoodleMembers(@RequestParam long matchId, ModelMap map) {
+        return getDoodle(matchId, map);
     }
     
     @PreAuthorize("isAuthenticated()")
@@ -80,6 +83,12 @@ public class DoodleController extends AbstractController {
         return getDoodle(map);
     }
 
+    private String getDoodle(long matchId, ModelMap map) {
+        Match m = matchesService.getMatch(matchId);
+        if (m == null) throw new ObjectNotFoundException(String.format("Match with id %s not found", matchId));
+        map.addAttribute("match", m);
+        return "/doodle/getDoodle";
+    }
     private String getDoodle(ModelMap map) {
         map.addAttribute("matches", matchesService.getUpcomingMatchesList());
         return "/doodle/doodle";

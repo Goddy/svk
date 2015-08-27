@@ -53,6 +53,7 @@
                     </ul>
                 </li>
                 <li><a href="/home.html"><spring:message code="nav.home"/></a></li>
+                <li><a href="/faq.html"><spring:message code="nav.faq"/></a></li>
 
                 <security:authorize access="hasRole('ADMIN')">
                 <li class="dropdown">

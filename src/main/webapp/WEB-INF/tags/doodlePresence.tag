@@ -4,6 +4,7 @@
 <%@ attribute name='account' required='false' type="be.spring.app.model.Account" %>
 <%@ attribute name='match' required='true' type="be.spring.app.model.Match" %>
 <%@ attribute name='isAdmin' required='true' %>
+<%@ attribute name='returnUrl' required='true' %>
 
 <c:set var="isPresent" value="${match.matchDoodle.isPresent(account)}"/>
 
@@ -12,7 +13,7 @@
         <c:set var="href" value="/doodle/changePresence.json?id=${account.id}&matchId=${match.id}"/>
     </c:when>
     <c:otherwise>
-        <c:set var="href" value="/membersDoodle.html"/>
+        <c:set var="href" value="${returnUrl}"/>
     </c:otherwise>
 </c:choose>
 
@@ -27,7 +28,7 @@
 
 <c:choose>
     <c:when test="${isPresent == 'NOT_FILLED_IN'}">
-        <c:set var="classes" value="btn btn-default presence glyphicon glyphicon-ok"/>
+        <c:set var="classes" value="btn btn-default presence glyphicon glyphicon-question-sign grey"/>
     </c:when>
     <c:when test="${isPresent == 'PRESENT'}">
         <c:set var="classes" value="btn btn-default presence glyphicon glyphicon-ok green "/>

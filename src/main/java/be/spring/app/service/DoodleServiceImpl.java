@@ -6,11 +6,19 @@ import be.spring.app.persistence.AccountDao;
 import be.spring.app.persistence.DoodleDao;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.utils.HtmlHelper;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Locale;
+import java.util.Set;
 
 /**
  * Created by u0090265 on 10/1/14.
@@ -27,14 +35,23 @@ public class DoodleServiceImpl implements DoodleService {
 
     MatchesDao matchesDao;
 
+    MessageSource messageSource;
+
+    MailService mailService;
+
     Logger log = LoggerFactory.getLogger(this.getClass());
 
+    @Value("${base.url}")
+    private String baseUrl;
+
     @Autowired
-    public DoodleServiceImpl(DoodleDao doodleDao, AccountDao accountDao, HtmlHelper htmlHelper, MatchesDao matchesDao) {
+    public DoodleServiceImpl(DoodleDao doodleDao, AccountDao accountDao, HtmlHelper htmlHelper, MatchesDao matchesDao, MessageSource messageSource, MailService mailService) {
         this.doodleDao = doodleDao;
         this.accountDao = accountDao;
         this.htmlHelper = htmlHelper;
         this.matchesDao = matchesDao;
+        this.mailService = mailService;
+        this.messageSource = messageSource;
     }
 
     @Override
@@ -91,6 +108,37 @@ public class DoodleServiceImpl implements DoodleService {
             log.error("Account {} is not entitled to change presence for accountId {}", account.getUsername(), accountId);
             throw new RuntimeException("Security error");
         }
+    }
+
+    @Override
+    public boolean sendDoodleNotificationsFor(Match match, Set<Account> accounts) {
+        //Do nothing if object are null or empty
+        if (match == null || accounts == null || accounts.isEmpty()) return false;
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+        String matchDate = dtf.print(match.getDate());
+
+        //Make sure the next match is this week and there are less than 13 players
+        if (match.getMatchDoodle().countPresences() < 13 && match.getDate().weekOfWeekyear().equals(DateTime.now().weekOfWeekyear())) {
+            //Loop all active accounts
+            for (Account account : accounts) {
+                //Make sure they enabled the notifications
+                if (account.getAccountSettings().isSendDoodleNotifications()) {
+                    //If they didn't fill in the doodle, send mail
+                    if (match.getMatchDoodle().isPresent(account).equals(Presence.PresenceType.NOT_FILLED_IN)) {
+                        String subject = messageSource.getMessage("email.doodle.subject", new String[]{match.getDescription(), matchDate}, Locale.ENGLISH);
+                        String body = messageSource.getMessage("email.doodle.body", new String[]{account.getFirstName(), baseUrl}, Locale.ENGLISH);
+                        mailService.sendMail(account.getUsername(), subject, body);
+                    } else {
+                        log.info("Account {} has filled in doodle", account.getUsername());
+                    }
+                } else {
+                    log.info("Account {} has disabled doodle notifications, not sending email", account.getUsername());
+                }
+            }
+        } else {
+            log.info("Match id {} not starting this week or has enough presences, aborting", match.getId());
+        }
+        return true;
     }
 
     private void changePresence(Doodle doodle, Presence p, boolean present, Account account) {

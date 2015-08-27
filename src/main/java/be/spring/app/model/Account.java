@@ -74,6 +74,7 @@ public class Account implements Comparable<Account> {
     }
 
     @NotNull
+    @JsonIgnore
     @Size(min = 1, max = 50)
     @Column(name = "firstname")
     public String getFirstName() {
@@ -84,6 +85,7 @@ public class Account implements Comparable<Account> {
         this.firstName = firstName;
     }
 
+    @JsonIgnore
     public String getLastName() {
         return lastName;
     }

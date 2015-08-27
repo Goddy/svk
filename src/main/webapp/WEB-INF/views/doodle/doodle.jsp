@@ -1,3 +1,4 @@
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ include file="../jspf/header.jspf" %>
 
@@ -8,7 +9,7 @@
 </c:if>
 <c:forEach var="match" items="${matches}">
   <div class="matchDoodle">
-    <%@ include file="../jspf/matchDoodle.jsp" %>
+    <tag:matchDoodle returnUrl="/membersDoodle.html" match="${match}" showUsers="${showUsers}"/>
   </div>
 </c:forEach>
 <%@ include file="../jspf/footer.jspf" %>

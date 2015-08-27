@@ -1,3 +1,4 @@
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ include file="../jspf/header.jspf" %>
 
@@ -6,7 +7,7 @@
 <c:set value="true" var="showUsers"/>
 
 <div class="matchDoodle">
-    <%@ include file="../jspf/matchDoodle.jsp" %>
+    <tag:matchDoodle returnUrl="/getMembersDoodle.html?matchId=${match.id}" match="${match}" showUsers="${showUsers}"/>
 </div>
 
 <%@ include file="../jspf/footer.jspf" %>
