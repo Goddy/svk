@@ -61,6 +61,11 @@ body {
     color: lightgreen;
 }
 
+.count-badge {
+    padding-left: 4px;
+    font-weight: bold;
+}
+
 .doodle-badge, .doodle-list{
     float: right;
 }

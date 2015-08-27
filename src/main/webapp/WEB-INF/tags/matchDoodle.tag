@@ -33,7 +33,7 @@
         <div class="doodle-badge btn-group btn-group-lg">
             <a class="btn btn-default glyphicon glyphicon-user doodle-users" data-toggle="tooltip" data-container="body"
                title="<spring:message code="title.doodlePresences"/>" aria-hidden="true"><span
-                    class="badge">${doodle.countPresences()}</span>
+                    class="count-badge">${doodle.countPresences()}</span>
             </a>
             <tag:doodlePresence account="${currentAccount}" match="${match}" isAdmin="${isAuthenticated}"
                                 extraClass="doodle-user-btn" returnUrl="${returnUrl}"/>
