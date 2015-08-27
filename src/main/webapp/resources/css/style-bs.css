@@ -61,14 +61,6 @@ body {
     color: lightgreen;
 }
 
-.doodle-users {
-    font-size: 2.1em;
-}
-
-.doodle-user-btn {
-    font-size: 2.3em;
-}
-
 .doodle-badge, .doodle-list{
     float: right;
 }
