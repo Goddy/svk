@@ -8,6 +8,7 @@ import be.spring.app.persistence.AccountDao;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.persistence.SeasonDao;
 import be.spring.app.persistence.TeamDao;
+import be.spring.app.utils.Constants;
 import be.spring.app.utils.GeneralUtils;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -69,9 +71,9 @@ public class MatchesServiceImpl implements MatchesService {
     }
 
     @Override
-    public List<Match> getUpcomingMatchesList() {
+    public Page<Match> getUpcomingMatchesPages(int start) {
         DateTime now = DateTime.now();
-        return matchesDao.findByDateAfterOrderByDateAsc(now.minusDays(1), new PageRequest(0, 10)).getContent();
+        return matchesDao.findByDateAfterOrderByDateAsc(now.minusDays(1), new PageRequest(start, Constants.TEN));
     }
 
     @Override

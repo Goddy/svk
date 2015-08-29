@@ -8,6 +8,7 @@ import be.spring.app.model.News;
 import be.spring.app.model.NewsComment;
 import be.spring.app.persistence.CommentDao;
 import be.spring.app.persistence.NewsDao;
+import be.spring.app.utils.Constants;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,7 +106,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public Page<News> getPagedNews(int start) {
-        return newsDao.findAll((new PageRequest(start, start + 10, Sort.Direction.DESC, "postDate")));
+        return newsDao.findAll((new PageRequest(start, Constants.TEN, Sort.Direction.DESC, "postDate")));
     }
 
     @Override
