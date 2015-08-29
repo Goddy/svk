@@ -71,7 +71,7 @@ public class AccountControllerTest extends AbstractTest {
 
         replay(jdbcTemplate, mailService, reCaptcha, reCaptchaResponse);
 
-        MvcResult r = performRegistration(firstName, name, newUsername, password, password, status().isFound());
+        MvcResult r = performRegistration(firstName, "'- äïéèçtest ", newUsername, password, password, status().isFound());
 
         verifyValidation(r, Arrays.asList(model().hasNoErrors()));
 
@@ -98,7 +98,7 @@ public class AccountControllerTest extends AbstractTest {
     }
 
     @Test
-    public void testPasswordValidation() throws Exception {
+    public void testValidation() throws Exception {
         reset(reCaptcha, reCaptchaResponse);
         expect(reCaptcha.checkAnswer(anyString(), anyString(), anyString())).andReturn(reCaptchaResponse);
         expectLastCall().anyTimes();
@@ -125,9 +125,15 @@ public class AccountControllerTest extends AbstractTest {
 
         //passwords do not match
         r = performRegistration(firstName, name, userName, password, "dummy", status().isOk());
-        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form")));
+        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form", "confirmPassword")));
 
-        verify(reCaptcha, reCaptchaResponse);
+        //Invalid name and lastName
+        r = performRegistration("$test", "$test", userName, password, password, status().isOk());
+        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form", "firstName"), model().attributeHasFieldErrors("form", "lastName")));
+
+        //Invalid name and lastName
+        r = performRegistration("a.", "a.", userName, password, password, status().isOk());
+        verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form", "firstName"), model().attributeHasFieldErrors("form", "lastName")));
     }
 
     @Test

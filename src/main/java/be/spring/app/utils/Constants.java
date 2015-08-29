@@ -9,9 +9,11 @@ package be.spring.app.utils;
 public class Constants {
     public static final String PASSWORD_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$";
     public static final String EMAIL_REGEX = "[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\\.[a-zA-Z]{2,4}";
+    public static final String NAME_REGEX = "^[\\p{IsLatin}-\\s']+$";
     public static final int MINUS_TEN = -10;
     public static final int TEN = 10;
     public static final int ONE = 1;
+    public static final int TWO = 2;
     public static final int ZERO = 0;
 
     public static final String DEFAULT_ROLE = "USER";

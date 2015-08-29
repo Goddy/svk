@@ -17,4 +17,8 @@ public class GeneralUtils {
     public static String generateRandomHex(int length) {
         return RandomStringUtils.randomAlphanumeric(length).toUpperCase();
     }
+
+    public static String trim(String input) {
+        return input == null ? "" : input.trim();
+    }
 }
