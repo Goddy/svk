@@ -1,4 +1,4 @@
-<%@tag description="Delete dialog" pageEncoding="UTF-8"%>
+<%@tag description="Map dialog" pageEncoding="UTF-8" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%@attribute name="dialogId" required="true" type="java.lang.String"%>
