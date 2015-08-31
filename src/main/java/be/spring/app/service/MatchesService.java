@@ -7,6 +7,7 @@ import be.spring.app.model.Account;
 import be.spring.app.model.ActionWrapper;
 import be.spring.app.model.Match;
 import be.spring.app.model.Season;
+import org.springframework.data.domain.Page;
 
 import java.text.ParseException;
 import java.util.List;
@@ -21,7 +22,7 @@ public interface MatchesService {
 
     List<Match> getMatchesListForSeason(Season season);
 
-    List<Match> getUpcomingMatchesList();
+    Page<Match> getUpcomingMatchesPages(int start);
 
     List<ActionWrapper<Match>> getMatchesWrappersForSeason(long seasonId, Account account, Locale locale);
 

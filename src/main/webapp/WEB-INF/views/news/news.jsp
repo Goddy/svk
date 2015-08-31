@@ -32,14 +32,7 @@
         </c:otherwise>
     </c:choose>
 
-    <div class="text-center">
-        <ul class="pagination blue">
-            <li><a href="<c:out value="${first}" />">&laquo;&nbsp;<spring:message code="text.first"/></a></li>
-            <li><a href="<c:out value="${previous}" />"><spring:message code="text.previous"/></a></li>
-            <li><a href="<c:out value="${next}" />"><spring:message code="text.next"/></a></li>
-            <li><a href="<c:out value="${last}" />"><spring:message code="text.last"/>&nbsp;&raquo;</a></li>
-        </ul>
-    </div>
+    <tag:pageComponent first="${first}" previous="${previous}" next="${next}" last="${last}"/>
 </div>
 <div id="loader" class="text-center"></div>
 <div id="searchResult" style="display: none;"></div>

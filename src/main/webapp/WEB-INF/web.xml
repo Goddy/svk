@@ -3,7 +3,25 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<!-- Processes application requests -->
+    <!-- Filter must be defined first!!!! -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Processes application requests -->
 	<servlet>
         <servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -41,31 +59,6 @@
     </filter>
     <filter-mapping>
         <filter-name>hiddenHttpMethodFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter>
-        <filter-name>encodingFilter</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-        <init-param>
-            <param-name>forceEncoding</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter>
-        <filter-name>UTFEncodingFilter</filter-name>
-        <filter-class>be.spring.app.filter.UTFEncodingFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>UTFEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 

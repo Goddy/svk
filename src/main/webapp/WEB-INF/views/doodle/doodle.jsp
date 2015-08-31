@@ -12,6 +12,7 @@
     <tag:matchDoodle returnUrl="/membersDoodle.html" match="${match}" showUsers="${showUsers}"/>
   </div>
 </c:forEach>
+<tag:pageComponent first="${first}" previous="${previous}" next="${next}" last="${last}"/>
 <%@ include file="../jspf/footer.jspf" %>
 
 <script type="text/javascript">

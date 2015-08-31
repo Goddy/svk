@@ -1,5 +1,6 @@
 package be.spring.app.form;
 
+import be.spring.app.utils.Constants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.text.WordUtils;
@@ -7,6 +8,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -23,7 +25,8 @@ public class AccountDetailsForm {
 
     @NotNull
     @NotEmpty(message = "{validation.notempty.message}")
-    @Size(max = 50)
+    @Size(max = 50, min = 2)
+    @Pattern(regexp = Constants.NAME_REGEX, message = "{validation.name.mismatch}")
     public String getFirstName() {
         return firstName;
     }
@@ -42,7 +45,8 @@ public class AccountDetailsForm {
 
     @NotNull
     @NotEmpty(message = "{validation.notempty.message}")
-    @Size(max = 50)
+    @Size(max = 50, min = 2)
+    @Pattern(regexp = Constants.NAME_REGEX, message = "{validation.name.mismatch}")
     public String getLastName() {
         return lastName;
     }

@@ -27,8 +27,9 @@ public abstract class AbstractTest {
     protected MockMvc mockMvc;
 
     protected String userName = "test@test.com";
+    protected String validUserName = "notInUse@test.com";
     protected String name = "testName";
-    protected String firstName = "testSurName";
+    protected String firstName = "testsurname";
     protected String password = "P3ssword";
 
     protected static final String ROLE_NONE = "NONE";

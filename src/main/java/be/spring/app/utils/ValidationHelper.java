@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 public class ValidationHelper {
     private static final Pattern emailPattern = Pattern.compile(Constants.EMAIL_REGEX);
     private static final Pattern passwordPattern = Pattern.compile(Constants.PASSWORD_REGEX);
+    private static final Pattern namePattern = Pattern.compile(Constants.NAME_REGEX);
 
     public static boolean isValidDate(String date) {
         try {
@@ -30,6 +31,14 @@ public class ValidationHelper {
 
     public static boolean isPasswordMatch(String input) {
         return input != null && passwordPattern.matcher(input).matches();
+    }
+
+    public static boolean isNameMatch(String input) {
+        return input != null && namePattern.matcher(input).matches();
+    }
+
+    public static boolean isLength(String input, int length) {
+        return input == null ? false : input.length() >= length;
     }
 
     public static boolean isEmailMatch(String input) {
