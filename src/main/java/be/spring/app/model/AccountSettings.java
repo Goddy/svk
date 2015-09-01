@@ -7,7 +7,8 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class AccountSettings {
-    private boolean sendDoodleNotifications;
+    //Set default value to true
+    private boolean sendDoodleNotifications = true;
 
     public boolean isSendDoodleNotifications() {
         return sendDoodleNotifications;

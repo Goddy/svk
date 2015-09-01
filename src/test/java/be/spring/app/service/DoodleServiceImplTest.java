@@ -139,8 +139,8 @@ public class DoodleServiceImplTest extends JUnitTest {
     public void testSendDoodleNotificationsForSuccess() throws Exception {
         Match m = DataFactory.createMatch();
         Account a = DataFactory.createAccount();
-        a.getAccountSettings().setSendDoodleNotifications(true);
         Account b = DataFactory.createAccount();
+        b.getAccountSettings().setSendDoodleNotifications(false);
 
         //Expect the messageSource to be called
         expect(messageSource.getMessage(eq("email.doodle.subject"), anyObject(String[].class), eq(Locale.ENGLISH))).andReturn("Test");

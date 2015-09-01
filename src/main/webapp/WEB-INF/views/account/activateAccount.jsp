@@ -5,7 +5,8 @@
 <%@ include file="../jspf/resultMessage.jspf" %>
 <div class="panel panel-default">
     <div class="panel-body">
-        <div class="alert alert-info"><spring:message code="text.activation" arguments="${account.fullName}"/></div>
+        <div class="alert alert-info"><spring:message code="text.activation"
+                                                      arguments="${account.firstName}, ${account.lastName}, ${account.username}  "/></div>
         <form:form action="activateAccount.html" modelAttribute="form" cssClass="form-horizontal">
             <form:hidden path="accountId"/>
             <tag:formField path="sendEmail" label="label.sendEmail" title="title.sendEmail" type="checkbox" optional="false"/>
