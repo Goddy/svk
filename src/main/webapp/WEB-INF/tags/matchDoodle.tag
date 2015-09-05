@@ -35,14 +35,15 @@
                title="<spring:message code="title.doodlePresences"/>" aria-hidden="true"><span
                     class="count-badge">${doodle.countPresences()}</span>
             </a>
-            <tag:doodlePresence account="${currentAccount}" match="${match}" isAdmin="${isAuthenticated}"
-                                extraClass="doodle-user-btn" returnUrl="${returnUrl}"/>
+            <tag:doodlePresence account="${currentAccount}" match="${match}" isAdmin="${isAdmin}"
+                                extraClass="doodle-user-btn" returnUrl="${returnUrl}" isOwnAccount="true"/>
         </div>
     </div>
     <div class="panel-body list" style="${display}">
         <c:forEach items="${accounts}" var="a">
             <div class="doodle-list">${a.fullName}
-                <tag:doodlePresence account="${a}" match="${match}" isAdmin="${isAdmin}" returnUrl="${returnUrl}"/>
+                <tag:doodlePresence account="${a}" isOwnAccount="${a.equals(currentAccount)}" match="${match}"
+                                    isAdmin="${isAdmin}" returnUrl="${returnUrl}"/>
             </div>
         </c:forEach>
     </div>

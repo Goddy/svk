@@ -79,8 +79,8 @@ public class DoodleServiceImpl implements DoodleService {
 
     @Override
     public Presence changePresence(Account account, long accountId, long matchId) {
-
-        if (account.getId().equals(accountId) || account.getRole().equals(Role.ADMIN)) {
+        boolean isAdmin = account.getRole().equals(Role.ADMIN);
+        if (account.getId().equals(accountId) || isAdmin) {
             //Set the account that needs to be changed
             Account accountInUse = account;
             if (!account.getId().equals(accountId)) {
@@ -90,6 +90,8 @@ public class DoodleServiceImpl implements DoodleService {
             }
             Match match = matchesDao.findOne(matchId);
             if (match == null) throw new ObjectNotFoundException(String.format("Match with id %s not found.", matchId));
+            if (!isAdmin && match.isPlayed())
+                throw new RuntimeException(String.format("Altering match with id %s not succeeded, match is finished.", matchId));
             Doodle d = match.getMatchDoodle();
 
             Presence presence = null;

@@ -4,9 +4,11 @@
 <%@ attribute name='account' required='false' type="be.spring.app.model.Account" %>
 <%@ attribute name='match' required='true' type="be.spring.app.model.Match" %>
 <%@ attribute name='isAdmin' required='true' %>
+<%@ attribute name='isOwnAccount' required='false' %>
 <%@ attribute name='returnUrl' required='true' %>
 
 <c:set var="isPresent" value="${match.matchDoodle.isPresent(account)}"/>
+<c:set var="isMatchPlayed" value="${match.played}"/>
 
 <c:choose>
     <c:when test="${not empty account}">
@@ -18,7 +20,7 @@
 </c:choose>
 
 <c:choose>
-    <c:when test="${isAdmin || empty account}">
+    <c:when test="${isAdmin || (isOwnAccount && !isMatchPlayed) || empty account}">
         <c:set var="disabled" value=""/>
     </c:when>
     <c:otherwise>

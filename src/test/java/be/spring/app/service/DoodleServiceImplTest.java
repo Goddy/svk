@@ -54,6 +54,37 @@ public class DoodleServiceImplTest extends JUnitTest {
     }
 
     @Test
+    public void testChangePresenceAdminUserMatchPlayed() throws Exception {
+        Match m = DataFactory.createMatch();
+        m.setPlayed(true);
+        Account a = DataFactory.createAccount();
+        a.setRole(Role.ADMIN);
+        expect(matchesDao.findOne(m.getId())).andReturn(m);
+        expect(doodleDao.save(anyObject(Doodle.class))).andReturn(new Doodle());
+
+        replayAll();
+
+        Presence presence = doodleService.changePresence(a, a.getId(), m.getId());
+
+        assertEquals(a, presence.getAccount());
+        assertTrue(presence.isPresent());
+
+        verifyAll();
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testChangePresenceNormalUserMatchPassed() throws Exception {
+        Match m = DataFactory.createMatch();
+        m.setPlayed(true);
+        Account a = DataFactory.createAccount();
+        expect(matchesDao.findOne(m.getId())).andReturn(m);
+
+        replayAll();
+
+        doodleService.changePresence(a, a.getId(), m.getId());
+    }
+
+    @Test
     public void testChangePresenceAdminUser() throws Exception {
         Match m = DataFactory.createMatch();
         Account a = DataFactory.createAccount();
