@@ -1,5 +1,6 @@
 package be.spring.app.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Set;
 
 /**
  * Created by u0090265 on 9/11/14.
@@ -54,6 +56,11 @@ public class MailServiceImpl  implements MailService {
     @Override
     public boolean sendMail(String to, String subject, String body) {
         return sendMail(to, defaultAdminFromTo, subject, body);
+    }
+
+    @Override
+    public boolean sendMail(Set<String> to, String subject, String body) {
+        return sendMail(StringUtils.join(to, ','), defaultAdminFromTo, subject, body);
     }
 
     /**

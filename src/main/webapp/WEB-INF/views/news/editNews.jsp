@@ -9,12 +9,18 @@
 <script type="text/javascript" src="/resources/js/he.js"></script>
 <script type="text/javascript" src="/resources/js/to-markdown.js"></script>
 
+<c:set var="update" value="${command == 'updateNews.html' ? true : false }"/>
+
 <div class="panel panel-default">
     <div class="panel-body">
         <form:form modelAttribute="form" action="${command}" cssClass="form-horizontal">
         <form:hidden path="id"/>
         <form:hidden path="body"/>
         <tag:formField path="title" label="label.title" title="title.title" type="input" optional="false"/>
+            <c:if test="${!update}">
+                <tag:formField path="sendEmail" label="label.news.sendEmail" title="label.news.sendEmail"
+                               type="checkbox" optional="false"/>
+            </c:if>
             <div data-toggle="tooltip" class="form-group ${status.error ? 'has-error has-feedback' : '' }"
                  title="<spring:message code='label.body'/>">
                 <label class="col-sm-2 col-sm-2 control-label" for="pagedownMe">

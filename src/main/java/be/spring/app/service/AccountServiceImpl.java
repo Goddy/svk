@@ -181,6 +181,7 @@ public class AccountServiceImpl implements AccountService {
         newAccount.setLastName(form.getLastName());
         newAccount.setUsername(form.getUsername());
         newAccount.getAccountSettings().setSendDoodleNotifications(form.isDoodleNotificationMails());
+        newAccount.getAccountSettings().setSendNewsNotifications(form.isNewsNotificationMails());
         return newAccount;
     }
 

@@ -1,8 +1,6 @@
 package be.spring.app.form;
 
 import be.spring.app.utils.Constants;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.text.WordUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -22,6 +20,7 @@ public class AccountDetailsForm {
     private boolean hasSignInProvider;
     private boolean hasPassword;
     private boolean doodleNotificationMails;
+    private boolean newsNotificationMails;
 
     @NotNull
     @NotEmpty(message = "{validation.notempty.message}")
@@ -41,6 +40,14 @@ public class AccountDetailsForm {
 
     public void setDoodleNotificationMails(boolean doodleNotificationMails) {
         this.doodleNotificationMails = doodleNotificationMails;
+    }
+
+    public boolean isNewsNotificationMails() {
+        return newsNotificationMails;
+    }
+
+    public void setNewsNotificationMails(boolean newsNotificationMails) {
+        this.newsNotificationMails = newsNotificationMails;
     }
 
     @NotNull
@@ -66,15 +73,6 @@ public class AccountDetailsForm {
         this.username = username;
     }
 
-    public String toString() {
-
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("firstName", firstName)
-                .append("lastName", lastName)
-                .append("username", username)
-                .toString();
-    }
-
     public boolean isHasSignInProvider() {
         return hasSignInProvider;
     }
@@ -89,6 +87,20 @@ public class AccountDetailsForm {
 
     public void setHasPassword(boolean hasPassword) {
         this.hasPassword = hasPassword;
+    }
+
+
+    @Override
+    public String toString() {
+        return "AccountDetailsForm{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", hasSignInProvider=" + hasSignInProvider +
+                ", hasPassword=" + hasPassword +
+                ", doodleNotificationMails=" + doodleNotificationMails +
+                ", newsNotificationMails=" + newsNotificationMails +
+                '}';
     }
 }
 

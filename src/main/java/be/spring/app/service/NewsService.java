@@ -38,4 +38,6 @@ public interface NewsService {
 
     @Transactional(readOnly = false)
     void deleteNews(long id, Account account);
+
+    boolean sendNewsEmail(News news);
 }

@@ -18,6 +18,7 @@ public class NewsForm {
 
     private long id;
 
+    private boolean sendEmail = false;
 
     public String getTitle() {
         return title;
@@ -41,5 +42,23 @@ public class NewsForm {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public boolean isSendEmail() {
+        return sendEmail;
+    }
+
+    public void setSendEmail(boolean sendEmail) {
+        this.sendEmail = sendEmail;
+    }
+
+    @Override
+    public String toString() {
+        return "NewsForm{" +
+                "title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", id=" + id +
+                ", sendEmail=" + sendEmail +
+                '}';
     }
 }

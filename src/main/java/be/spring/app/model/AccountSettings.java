@@ -1,5 +1,6 @@
 package be.spring.app.model;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -9,13 +10,24 @@ import javax.persistence.Embeddable;
 public class AccountSettings {
     //Set default value to true
     private boolean sendDoodleNotifications = true;
+    private boolean sendNewsNotifications = true;
 
+    @Column(name = "send_doodle_notifications")
     public boolean isSendDoodleNotifications() {
         return sendDoodleNotifications;
     }
 
     public void setSendDoodleNotifications(boolean sendDoodleNotifications) {
         this.sendDoodleNotifications = sendDoodleNotifications;
+    }
+
+    @Column(name = "send_news_notifications")
+    public boolean isSendNewsNotifications() {
+        return sendNewsNotifications;
+    }
+
+    public void setSendNewsNotifications(boolean sendNewsNotifications) {
+        this.sendNewsNotifications = sendNewsNotifications;
     }
 
     @Override
@@ -26,19 +38,23 @@ public class AccountSettings {
         AccountSettings that = (AccountSettings) o;
 
         if (sendDoodleNotifications != that.sendDoodleNotifications) return false;
+        if (sendNewsNotifications != that.sendNewsNotifications) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return (sendDoodleNotifications ? 1 : 0);
+        int result = (sendDoodleNotifications ? 1 : 0);
+        result = 31 * result + (sendNewsNotifications ? 1 : 0);
+        return result;
     }
 
     @Override
     public String toString() {
         return "AccountSettings{" +
                 "sendDoodleNotifications=" + sendDoodleNotifications +
+                ", sendNewsNotifications=" + sendNewsNotifications +
                 '}';
     }
 }

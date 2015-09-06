@@ -144,6 +144,11 @@ public class NewsController extends AbstractController {
             return VN_ADD_NEWS_PAGE;
         }
         News news = newsService.createNews(form, a);
+        if (form.isSendEmail()) {
+            newsService.sendNewsEmail(news);
+            log.info(String.format("Email was sent for newsitem %s", news.getId()));
+
+        }
         log.info(String.format("User %s created newsitem %s", a.getUsername(), news.getId()));
         return Constants.REDIRECT_NEWS_PAGE;
     }

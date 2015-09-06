@@ -162,6 +162,7 @@ public class AccountController extends AbstractController {
         accountDetailsForm.setHasSignInProvider(currentAccount.getSignInProvider() != null);
         accountDetailsForm.setHasPassword(!accountService.passwordIsNullOrEmpty(currentAccount));
         accountDetailsForm.setDoodleNotificationMails(currentAccount.getAccountSettings().isSendDoodleNotifications());
+        accountDetailsForm.setNewsNotificationMails(currentAccount.getAccountSettings().isSendNewsNotifications());
 
         model.addAttribute("Account", accountDetailsForm);
         model.addAttribute("changePassword", passwordForm);

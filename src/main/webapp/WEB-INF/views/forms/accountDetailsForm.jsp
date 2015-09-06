@@ -14,6 +14,8 @@
         <tag:formField path="lastName" label="label.lastName" title="label.lastName" type="input" optional="false"/>
         <tag:formField path="doodleNotificationMails" label="label.doodleNotificationMails"
                        title="label.doodleNotificationMails" type="checkbox" optional="false"/>
+        <tag:formField path="newsNotificationMails" label="label.newsNotificationMails"
+                       title="label.newsNotificationMails" type="checkbox" optional="false"/>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button id="btnSubmitDetails" type="submit" class="btn btn-primary"><spring:message

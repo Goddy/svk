@@ -6,13 +6,16 @@ import be.spring.app.model.Account;
 import be.spring.app.model.Comment;
 import be.spring.app.model.News;
 import be.spring.app.model.NewsComment;
+import be.spring.app.persistence.AccountDao;
 import be.spring.app.persistence.CommentDao;
 import be.spring.app.persistence.NewsDao;
 import be.spring.app.utils.Constants;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -20,6 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 /**
  * User: Tom De Dobbeleer
@@ -38,12 +43,21 @@ public class NewsServiceImpl implements NewsService {
     private CommentDao commentDao;
     @Autowired
     private AuthorizationService authorizationService;
+    @Autowired
+    private MailService mailService;
+    @Autowired
+    private AccountDao accountDao;
+    @Autowired
+    private MessageSource messageSource;
 
     @Override
     @Transactional(readOnly = false)
     public News createNews(NewsForm form, Account account) {
         News n = updateNews(new News(), form, account, true);
         newsDao.save(n);
+        if (form.isSendEmail()) {
+
+        }
         log.info(String.format("Newsitem %s created by %s", n, account));
         return n;
     }
@@ -126,6 +140,19 @@ public class NewsServiceImpl implements NewsService {
         authorizationService.isAuthorized(account, news);
         log.info(String.format("Newsitem %s deleted by %s", news, account));
         newsDao.delete(id);
+    }
+
+    @Override
+    public boolean sendNewsEmail(News news) {
+        Set<String> emails = Sets.newHashSet();
+        for (Account a : accountDao.findAllByActive(true)) {
+            if (a.getAccountSettings().isSendNewsNotifications()) {
+                emails.add(a.getUsername());
+            }
+        }
+        String title = messageSource.getMessage("email.news.title", new String[]{news.getAccount().getFullName(), news.getHeader()}, Locale.ENGLISH);
+        String body = messageSource.getMessage("email.news.body", new String[]{news.getContent()}, Locale.ENGLISH);
+        return mailService.sendMail(emails, title, body);
     }
 
     private News updateNews(News n, NewsForm f, Account a, boolean isNew) {
