@@ -150,7 +150,7 @@ public class NewsServiceImpl implements NewsService {
                 emails.add(a.getUsername());
             }
         }
-        String title = messageSource.getMessage("email.news.title", new String[]{news.getAccount().getFullName(), news.getHeader()}, Locale.ENGLISH);
+        String title = messageSource.getMessage("email.news.title", new String[]{news.getHeader(), news.getAccount().getFullName()}, Locale.ENGLISH);
         String body = messageSource.getMessage("email.news.body", new String[]{news.getContent()}, Locale.ENGLISH);
         return mailService.sendMail(emails, title, body);
     }
