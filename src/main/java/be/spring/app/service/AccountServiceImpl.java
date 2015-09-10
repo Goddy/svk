@@ -63,15 +63,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Transactional(readOnly = false)
-    public Account updateAccount(Account account, Errors errors, AccountDetailsForm form) {
+    public Account updateAccount(Account account, AccountDetailsForm form) {
         //To do: why is object detached when coming from security?
-        Account newAccount = getUpdatedAccount(account, form);
-        validateUsernameExcludeCurrentId(newAccount.getUsername(), newAccount.getId(), errors);
-        boolean valid = !errors.hasErrors();
-        if (valid) {
-            accountDao.save(newAccount);
-        }
-        return newAccount;
+        return accountDao.save(getUpdatedAccount(account, form));
     }
 
     @Override

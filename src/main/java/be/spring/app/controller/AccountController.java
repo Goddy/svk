@@ -131,8 +131,10 @@ public class AccountController extends AbstractController {
     @RequestMapping(value = "update_details", method = RequestMethod.POST)
     public String updateAccountDetails(@ModelAttribute("Account") @Valid AccountDetailsForm form, BindingResult result, Model model, Locale locale) {
         Account a = getAccountFromSecurity();
+        //Extra validation check!
+        accountService.validateUsernameExcludeCurrentId(form.getUsername(), a.getId(), result);
         if (!result.hasErrors()) {
-            accountService.updateAccount(a, result, form);
+            accountService.updateAccount(a, form);
             log.info(String.format("Updated account %s", a.getUsername()));
             if (!result.hasErrors()) {
                 setSuccessMessage(model, locale, "success.changedDetails", null);

@@ -12,7 +12,7 @@ import java.util.Locale;
 public interface AccountService {
     Account registerAccount(Account account, String password);
 
-    Account updateAccount(Account account, Errors errors, AccountDetailsForm form);
+    Account updateAccount(Account account, AccountDetailsForm form);
 
     @Transactional
     Account saveAccount(Account account);
