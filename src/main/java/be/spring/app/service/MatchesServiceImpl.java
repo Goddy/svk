@@ -122,13 +122,23 @@ public class MatchesServiceImpl implements MatchesService {
 
     @Override
     @Transactional(readOnly = false)
-    public Match updateMatchResult(ChangeResultForm form) {
+    public Match updateMatch(ChangeResultForm form) {
         Match m = matchesDao.findOne(form.getMatchId());
-        m.getGoals().clear();
-        m.getGoals().addAll(transFormGoals(form, m));
-        m.setAtGoals(form.getAtGoals());
-        m.setHtGoals(form.getHtGoals());
-        m.setPlayed(true);
+        m.setHomeTeam(teamDao.findOne(form.getHomeTeam()));
+        m.setAwayTeam(teamDao.findOne(form.getAwayTeam()));
+        m.setDate(form.getDate());
+        m.setSeason(seasonDao.findOne(form.getSeason()));
+
+        if (form.isContainsResult()) {
+            m.getGoals().clear();
+            m.getGoals().addAll(transFormGoals(form, m));
+            m.setAtGoals(form.getAtGoals());
+            m.setHtGoals(form.getHtGoals());
+            m.setPlayed(true);
+        } else {
+            m.getGoals().clear();
+            m.setPlayed(false);
+        }
         matchesDao.save(m);
         cacheAdapter.resetMatchCache();
         return m;

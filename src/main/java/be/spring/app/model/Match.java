@@ -5,7 +5,7 @@ import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Set;
 
 /**
  * User: Tom De Dobbeleer
@@ -32,7 +32,7 @@ public class Match {
     private News news;
     private int atGoals;
     private int htGoals;
-    private List<Goal> goals;
+    private Set<Goal> goals;
     private Doodle matchDoodle;
 
     public Match() {
@@ -113,11 +113,11 @@ public class Match {
     }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "match")
-    public List<Goal> getGoals() {
+    public Set<Goal> getGoals() {
         return goals;
     }
 
-    public void setGoals(List<Goal> goals) {
+    public void setGoals(Set<Goal> goals) {
         this.goals = goals;
     }
 

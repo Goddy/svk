@@ -68,7 +68,7 @@ public class HtmlHelper {
         Map<String, String> m = new HashMap<>();
         StringBuilder btns = new StringBuilder();
         if (isAdmin) {
-            btns.append(getBtn(EMPTY, EDIT, String.format("changeMatchResult.html?matchId=%s", match.getId()), messageSource.getMessage("title.changeMatchResult", null, locale)))
+            btns.append(getBtn(EMPTY, EDIT, String.format("changeMatch.html?matchId=%s", match.getId()), messageSource.getMessage("title.changeMatchResult", null, locale)))
                     .append(getBtn(DELETE_CLASS, DELETE, String.format("deleteMatch.html?matchId=%s", match.getId()), messageSource.getMessage("title.deleteMatch", null, locale)));
         }
 

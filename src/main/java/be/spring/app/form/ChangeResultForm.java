@@ -1,5 +1,8 @@
 package be.spring.app.form;
 
+import org.joda.time.DateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,9 +47,15 @@ public class ChangeResultForm {
         }
     }
 
+    private long awayTeam;
+    private long homeTeam;
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    private DateTime date;
+    private long season;
     private int htGoals;
     private int atGoals;
     private long matchId;
+    private boolean containsResult = false;
     private List<FormGoal> goals = new ArrayList<>();
 
     public int getHtGoals() {
@@ -71,5 +80,45 @@ public class ChangeResultForm {
 
     public void setGoals(List<FormGoal> goals) {
         this.goals = goals;
+    }
+
+    public long getSeason() {
+        return season;
+    }
+
+    public void setSeason(long season) {
+        this.season = season;
+    }
+
+    public long getHomeTeam() {
+        return homeTeam;
+    }
+
+    public void setHomeTeam(long homeTeam) {
+        this.homeTeam = homeTeam;
+    }
+
+    public long getAwayTeam() {
+        return awayTeam;
+    }
+
+    public void setAwayTeam(long awayTeam) {
+        this.awayTeam = awayTeam;
+    }
+
+    public DateTime getDate() {
+        return date;
+    }
+
+    public void setDate(DateTime date) {
+        this.date = date;
+    }
+
+    public boolean isContainsResult() {
+        return containsResult;
+    }
+
+    public void setContainsResult(boolean containsResult) {
+        this.containsResult = containsResult;
     }
 }

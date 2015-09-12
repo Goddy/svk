@@ -34,7 +34,7 @@ public interface MatchesService {
 
     Match createMatch(CreateMatchForm form) throws ParseException;
 
-    Match updateMatchResult(ChangeResultForm form);
+    Match updateMatch(ChangeResultForm form);
 
     void deleteMatch(long id) throws ObjectNotFoundException;
 }

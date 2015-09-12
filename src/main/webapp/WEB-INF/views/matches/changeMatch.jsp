@@ -3,14 +3,45 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <%@ include file="../jspf/header.jspf" %>
 
 <h2><spring:message code="title.goals" arguments="${match.description}"/></h2>
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <form:form id="form" modelAttribute="form" action="changeMatchResult.html" cssClass="form-horizontal">
+        <form:form id="form" modelAttribute="form" action="changeMatch.html" cssClass="form-horizontal">
             <form:hidden path="matchId"/>
+            <tag:formField path="homeTeam" label="text.homeTeam" title="text.homeTeam" type="empty" optional="false">
+                <form:select id="homeTeam" path="homeTeam" cssClass="form-control">
+                    <c:forEach items="${teams}" var="team">
+                        <form:option value="${team.id}" label="${team.name}"/>
+                    </c:forEach>
+                </form:select>
+            </tag:formField>
+            <tag:formField path="awayTeam" label="text.awayTeam" title="text.awayTeam" type="empty" optional="false">
+                <form:select id="awayTeam" path="awayTeam" cssClass="form-control">
+                    <c:forEach items="${teams}" var="team">
+                        <form:option value="${team.id}" label="${team.name}"/>
+                    </c:forEach>
+                </form:select>
+            </tag:formField>
+            <tag:formField path="season" label="text.season" title="text.season" type="empty" optional="false">
+                <form:select id="season" path="season" cssClass="form-control">
+                    <c:forEach items="${seasons}" var="season">
+                        <form:option value="${season.id}" label="${season.description}"/>
+                    </c:forEach>
+                </form:select>
+            </tag:formField>
+
+            <tag:formField path="date" label="text.date" title="text.date" type="empty" optional="false">
+                <joda:format var="parsed" pattern="dd/MM/yyyy HH:mm" value="${form.date}"/>
+                <input id="date" value="${parsed}" name="date" class="form-control date" placeholder="DD/MM/YYYY 00:00"
+                       type="text">
+            </tag:formField>
+            <tag:formField path="containsResult" label="label.match.played" title="label.match.played" type="checkbox"
+                           optional="false"/>
+            <div id="matchResult">
             <tag:formField path="htGoals" label="text.htGoals" title="text.htGoals" type="input" optional="false"/>
             <tag:formField path="atGoals" label="text.atGoals" title="text.atGoals" type="input" optional="false"/>
             <div id="goalsDiv">
@@ -43,6 +74,7 @@
                     </div>
                 </tag:formField>
             </div>
+            </div>
             <div class="form-group" id="buttons">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button id="submit" type="submit" class="btn btn-default"><spring:message
@@ -54,6 +86,7 @@
 </div>
 
 <%@ include file="../jspf/footer.jspf" %>
+<%@ include file="../jspf/datePickerDependencies.jspf" %>
 
 <script type="text/javascript">
     (function ($, utils) {
@@ -66,6 +99,12 @@
         var buttons = $('#buttons');
         var next = $('#next');
         var goalsForm = $("#goalsForm");
+        var changeMatchResult = $("#matchResult");
+        var containsResult = $("input[name='containsResult']");
+
+        showMatchResult();
+
+        containsResult.change(showMatchResult);
 
         function getRow(content, order) {
             content += '<span class="space-bottom"><input name="goals[' + order + '].order" class="goal-order" value="' + order + '" style="display: none"/>';
@@ -125,6 +164,15 @@
 
         function checkEmpty() {
             ($.trim(goalsForm.html()) === "") ? goals.hide() : goals.show();
+        }
+
+        function showMatchResult() {
+            if (containsResult.is(':checked')) {
+                changeMatchResult.show();
+            }
+            else {
+                changeMatchResult.hide();
+            }
         }
 
         $(document).ready(function () {

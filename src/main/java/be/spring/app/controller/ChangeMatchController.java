@@ -3,10 +3,14 @@ package be.spring.app.controller;
 import be.spring.app.form.ChangeResultForm;
 import be.spring.app.model.Account;
 import be.spring.app.model.Match;
+import be.spring.app.model.Season;
+import be.spring.app.model.Team;
 import be.spring.app.service.AccountService;
 import be.spring.app.service.MatchesService;
+import be.spring.app.service.SeasonService;
+import be.spring.app.service.TeamService;
 import be.spring.app.utils.Constants;
-import be.spring.app.validators.ResultValidator;
+import be.spring.app.validators.ChangeMatchValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -28,7 +32,7 @@ import java.util.Locale;
  */
 @Controller
 @RequestMapping("/")
-public class MatchResultController extends AbstractController {
+public class ChangeMatchController extends AbstractController {
 
     @Autowired
     private MatchesService matchesService;
@@ -37,7 +41,13 @@ public class MatchResultController extends AbstractController {
     private AccountService accountService;
 
     @Autowired
-    ResultValidator validator;
+    private SeasonService seasonService;
+
+    @Autowired
+    private TeamService teamService;
+
+    @Autowired
+    ChangeMatchValidator validator;
 
     @InitBinder("form")
     protected void initBinder(WebDataBinder binder) {
@@ -57,17 +67,20 @@ public class MatchResultController extends AbstractController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "changeMatchResult", method = RequestMethod.POST)
+    @RequestMapping(value = "changeMatch", method = RequestMethod.POST)
     public String postChangeMatchResult(@Valid @ModelAttribute("form") ChangeResultForm form, BindingResult result, Model model, Locale locale, final RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) return Constants.LANDING_MATCHES_CREATE_RESULT;
-        Match m = matchesService.updateMatchResult(form);
-        model.addAttribute("match", m);
+        if (result.hasErrors()) {
+            //Add match, otherwise information is lost
+            model.addAttribute("match", matchesService.getMatch(form.getMatchId()));
+            return Constants.LANDING_MATCHES_CHANGE_MATCH;
+        }
+        Match m = matchesService.updateMatch(form);
         setFlashSuccessMessage(redirectAttributes, locale, "text.match.result.update.success", new Object[]{m.getDescription()});
         return Constants.REDIRECT_MATCHES_PAGE;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "changeMatchResult", method = RequestMethod.GET)
+    @RequestMapping(value = "changeMatch", method = RequestMethod.GET)
     public ModelAndView newMatchResult(ModelMap model, @RequestParam long matchId, @ModelAttribute("form") ChangeResultForm form) {
         Match match = matchesService.getMatch(matchId);
         model.addAttribute("match", match);
@@ -77,10 +90,25 @@ public class MatchResultController extends AbstractController {
             resultForm.setAtGoals(match.getAtGoals());
             resultForm.setHtGoals(match.getHtGoals());
             resultForm.setMatchId(match.getId());
+            resultForm.setDate(match.getDate());
+            resultForm.setContainsResult(match.isPlayed());
+            resultForm.setSeason(match.getSeason().getId());
+            resultForm.setAwayTeam(match.getAwayTeam().getId());
+            resultForm.setHomeTeam(match.getHomeTeam().getId());
             model.addAttribute("form", resultForm);
         }
 
-        return new ModelAndView(Constants.LANDING_MATCHES_CREATE_RESULT);
+        return new ModelAndView(Constants.LANDING_MATCHES_CHANGE_MATCH);
+    }
+
+    @ModelAttribute("teams")
+    public List<Team> getAllTeams() {
+        return teamService.getAll();
+    }
+
+    @ModelAttribute("seasons")
+    public List<Season> getAllSeasons() {
+        return seasonService.getSeasons();
     }
 
     @RequestMapping(value = "getError", method = RequestMethod.GET)
