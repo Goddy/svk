@@ -35,7 +35,7 @@
             </tag:formField>
 
             <tag:formField path="date" label="text.date" title="text.date" type="empty" optional="false">
-                <joda:format var="parsed" pattern="dd/MM/yyyy HH:mm" value="${form.date}"/>
+                <joda:format var="parsed" pattern="dd/MM/yyyy HH:mm" value="${match.date}"/>
                 <input id="date" value="${parsed}" name="date" class="form-control date" placeholder="DD/MM/YYYY 00:00"
                        type="text">
             </tag:formField>
@@ -174,6 +174,12 @@
                 changeMatchResult.hide();
             }
         }
+
+        $("[class*='date']").datetimepicker({
+            pickTime: true,
+            pick12HourFormat: false,
+            format: "DD/MM/YYYY HH:mm"
+        });
 
         $(document).ready(function () {
             var elementToCheck = homeTeam === defaultTeam ? htGoals : atGoals;

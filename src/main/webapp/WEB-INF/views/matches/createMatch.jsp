@@ -51,3 +51,15 @@
 
 <%@ include file="../jspf/footer.jspf" %>
 <%@ include file="../jspf/datePickerDependencies.jspf" %>
+
+<script type="text/javascript">
+    (function ($) {
+        var d = new Date();
+
+        $("[class*='date']").datetimepicker({
+            pickTime: true,
+            pick12HourFormat: false,
+            format: "DD/MM/YYYY HH:mm"
+        }).data("DateTimePicker").setDate(new Date(d.getFullYear(), d.getMonth(), d.getDate(), 20, 30));
+    })(jQuery)
+</script>
