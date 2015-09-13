@@ -1,5 +1,6 @@
 package be.spring.app.model;
 
+import be.spring.app.utils.GeneralUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 
@@ -51,6 +52,7 @@ public class Match {
 
     @NotNull
     @Column(name = "date")
+    @JsonIgnore
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     public DateTime getDate() {
         return date;
@@ -58,6 +60,16 @@ public class Match {
 
     public void setDate(DateTime date) {
         this.date = date;
+    }
+
+    @Transient
+    public String getStringDate() {
+        return GeneralUtils.convertToStringDate(this.date);
+    }
+
+    @Transient
+    public String getStringHour() {
+        return GeneralUtils.convertToStringHour(this.date);
     }
 
     @JsonIgnore
@@ -146,6 +158,7 @@ public class Match {
         this.played = played;
     }
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "doodle_id", insertable = true, updatable = true, nullable = true)
     public Doodle getMatchDoodle() {

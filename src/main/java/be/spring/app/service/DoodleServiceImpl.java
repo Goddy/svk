@@ -129,7 +129,7 @@ public class DoodleServiceImpl implements DoodleService {
                     if (match.getMatchDoodle().isPresent(account).equals(Presence.PresenceType.NOT_FILLED_IN)) {
                         String subject = messageSource.getMessage("email.doodle.subject", new String[]{match.getDescription(), matchDate}, Locale.ENGLISH);
                         String body = messageSource.getMessage("email.doodle.body", new String[]{account.getFirstName(), baseUrl}, Locale.ENGLISH);
-                        mailService.sendMail(account.getUsername(), account.getFullName(), subject, body);
+                        mailService.sendMail(account.getUsername(), account.toString(), subject, body);
                     } else {
                         log.info("Account {} has filled in doodle", account.getUsername());
                     }

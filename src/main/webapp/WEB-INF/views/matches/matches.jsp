@@ -115,11 +115,10 @@
 
                                 $.each(json, function (i, o) {
                                     var result = o.object.played ? '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>' : '<td><spring:message code='text.notYetPlayed'/></td>';
-                                    var minute = o.object.date.minuteOfHour < 10 ? "0" + o.object.date.minuteOfHour :  o.object.date.minuteOfHour;
                                     var doodle = loggedIn == "true"? '<td><div id="presenceActions"> ' + o.additions['presenceActions'] + '<div></td>' : "";
                                     divContent +=
-                                            '<tr><td>' + o.object.date.dayOfMonth + '/' + o.object.date.monthOfYear + '/' + o.object.date.year  + '</td>' +
-                                                    '<td>' + o.object.date.hourOfDay + ':' + minute + '</td>' +
+                                            '<tr><td>' + o.object.stringDate + '</td>' +
+                                            '<td>' + o.object.stringHour + '</td>' +
                                                     '<td>' + o.object.homeTeam.name + '</td>' +
                                                     '<td>' + o.object.awayTeam.name + '</td>' +
                                                     result +
