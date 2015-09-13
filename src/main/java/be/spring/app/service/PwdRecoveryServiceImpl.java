@@ -81,6 +81,7 @@ public class PwdRecoveryServiceImpl implements PwdRecoveryService {
 
         if (!mailService.sendMail(
                 account.getUsername(),
+                account.getFullName(),
                 messageSource.getMessage("email.pwd.recovery.subject", null , locale),
                 messageSource.getMessage("email.pwd.recovery.body", args, locale))) {
             errors.rejectValue("email", "validation.email.not.sent");

@@ -176,7 +176,7 @@ public class DoodleServiceImplTest extends JUnitTest {
         //Expect the messageSource to be called
         expect(messageSource.getMessage(eq("email.doodle.subject"), anyObject(String[].class), eq(Locale.ENGLISH))).andReturn("Test");
         expect(messageSource.getMessage(eq("email.doodle.body"), anyObject(String[].class), eq(Locale.ENGLISH))).andReturn("Test");
-        expect(mailService.sendMail(eq(a.getUsername()), anyString(), anyString())).andReturn(true);
+        expect(mailService.sendMail(eq(a.getUsername()), eq(a.getFullName()), anyString(), anyString())).andReturn(true);
 
         replayAll();
 

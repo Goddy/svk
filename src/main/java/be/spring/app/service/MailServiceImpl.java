@@ -1,5 +1,6 @@
 package be.spring.app.service;
 
+import com.google.common.base.Strings;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,15 +33,16 @@ public class MailServiceImpl  implements MailService {
      * This method will send compose and send the message
      * */
     @Override
-    public boolean sendMail(String to, String from, String subject, String body) {
+    public boolean sendMail(String to, String name, String from, String subject, String body) {
         log.debug(String.format("Trying to send message %s to %s", subject, to ));
         final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
 
         try {
+            InternetAddress internetAddressTo = Strings.isNullOrEmpty(name) ? new InternetAddress(to) : new InternetAddress(to, name);
             final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false, "utf-8");
             mimeMessage.setContent(body, "text/html");
             mimeMessage.setFrom(new InternetAddress(from));
-            message.setTo(to);
+            message.setTo(internetAddressTo);
             message.setSubject(subject);
 
             this.mailSender.send(mimeMessage);
@@ -55,12 +57,17 @@ public class MailServiceImpl  implements MailService {
 
     @Override
     public boolean sendMail(String to, String subject, String body) {
-        return sendMail(to, defaultAdminFromTo, subject, body);
+        return sendMail(to, null, defaultAdminFromTo, subject, body);
+    }
+
+    @Override
+    public boolean sendMail(String to, String name, String subject, String body) {
+        return sendMail(to, name, defaultAdminFromTo, subject, body);
     }
 
     @Override
     public boolean sendMail(Set<String> to, String subject, String body) {
-        return sendMail(StringUtils.join(to, ','), defaultAdminFromTo, subject, body);
+        return sendMail(StringUtils.join(to, ','), null, defaultAdminFromTo, subject, body);
     }
 
     /**
@@ -69,6 +76,6 @@ public class MailServiceImpl  implements MailService {
 
     @Override
     public boolean sendPreConfiguredMail(String message) {
-        return sendMail(defaultAdminFromTo, defaultAdminSubject, message);
+        return sendMail(defaultAdminFromTo, null, defaultAdminSubject, message);
     }
 }
