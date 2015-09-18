@@ -110,24 +110,4 @@
 
 <%@ include file="../jspf/footer.jspf" %>
 
-<script type="text/javascript">
-    <%--
-    (function ($, pwd) {
-        $(document).ready(function () {
-            var noMatch = '<spring:message code="error.mismatch.account.password"/>';
-            var unknownError = '<spring:message code="error.unknown"/>';
-            $("#btnSubmitPwd").click(function (e) {
-                e.preventDefault();
-                pwd.changePassword($("#changePassword"), [noMatch, unknownError], $("#pwdResult"))
-            });
-            $("#btnSubmitSetPwd").click(function (e) {
-                e.preventDefault();
-                pwd.setPassword($("#changePassword"), [noMatch, unknownError], $("#pwdResult"))
-            });
-        });
-    })(jQuery, svk.updatePassword);
-    --%>
-</script>
-
-
 

@@ -85,7 +85,7 @@
     </div>
 </div>
 
-<%@ include file="../jspf/footer.jspf" %>
+<script src="<c:url value='/resources/js/svk-ui-1.3.js'/>"></script>
 <%@ include file="../jspf/datePickerDependencies.jspf" %>
 
 <script type="text/javascript">
@@ -203,3 +203,4 @@
 
 
 </script>
+<%@ include file="../jspf/footer.jspf" %>

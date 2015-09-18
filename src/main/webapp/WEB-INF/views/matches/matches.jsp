@@ -54,7 +54,8 @@
         </div>
     </c:forEach>
 </div>
-<%@ include file="../jspf/footer.jspf" %>
+<script src="<c:url value='/resources/js/svk-ui-1.3.js'/>"></script>
+
 <tag:deleteDialog dialogId="delete-match-modal"/>
 <tag:calendarDialog dialogId="download-calendar-modal"/>
 <tag:mapDialog dialogId="map-modal"/>
@@ -195,6 +196,7 @@
 
 
 </script>
+<%@ include file="../jspf/footer.jspf" %>
 
 
 

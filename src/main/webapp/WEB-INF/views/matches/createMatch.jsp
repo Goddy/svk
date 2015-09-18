@@ -48,8 +48,8 @@
         </form:form>
     </div>
 </div>
+<script src="<c:url value='/resources/js/svk-ui-1.3.js'/>"></script>
 
-<%@ include file="../jspf/footer.jspf" %>
 <%@ include file="../jspf/datePickerDependencies.jspf" %>
 
 <script type="text/javascript">
@@ -63,3 +63,4 @@
         }).data("DateTimePicker").setDate(new Date(d.getFullYear(), d.getMonth(), d.getDate(), 20, 30));
     })(jQuery)
 </script>
+<%@ include file="../jspf/footer.jspf" %>

@@ -24,7 +24,8 @@
         </table>
     </div>
 </div>
-<%@ include file="../jspf/footer.jspf" %>
+
+<script src="<c:url value='/resources/js/svk-ui-1.3.js'/>"></script>
 <tag:deleteDialog dialogId="delete-team-modal"/>
 <tag:mapDialog dialogId="map-modal"/>
 
@@ -51,5 +52,5 @@
         });
     })(jQuery, svk.deleteDialogs, svk.mapDialog);
 </script>
-
+<%@ include file="../jspf/footer.jspf" %>
 

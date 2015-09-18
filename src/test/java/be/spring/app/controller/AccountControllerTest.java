@@ -115,6 +115,7 @@ public class AccountControllerTest extends AbstractTest {
         r = performRegistration(firstName, name, userName, "P1ssIamTooLongForAPassword", "P1ssIamTooLongForAPassword", status().isOk());
         verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form", "password")));
 
+        /**
         //No Numbers
         r = performRegistration(firstName, name, userName, "IdontContainNrs", "IdontContainNrs", status().isOk());
         verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form", "password")));
@@ -122,6 +123,8 @@ public class AccountControllerTest extends AbstractTest {
         //No capitals
         r = performRegistration(firstName, name, userName, "idontc3ntaincap", "idontc3ntaincap", status().isOk());
         verifyValidation(r, Arrays.asList(model().attributeHasFieldErrors("form", "password")));
+
+         **/
 
         //passwords do not match
         r = performRegistration(firstName, name, userName, password, "dummy", status().isOk());

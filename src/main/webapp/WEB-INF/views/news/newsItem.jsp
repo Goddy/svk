@@ -5,8 +5,8 @@
 <div class="news-div">
     <%@ include file="../jspf/newsItem.jsp" %>
 </div>
-<%@ include file="../jspf/footer.jspf" %>
 
+<script src="<c:url value='/resources/js/svk-ui-1.3.js'/>"></script>
 <tag:deleteDialog dialogId="delete-modal"/>
 
 <script type="text/javascript">
@@ -24,5 +24,6 @@
 
     })(jQuery, svk.news, svk.utils);
 </script>
+<%@ include file="../jspf/footer.jspf" %>
 
 

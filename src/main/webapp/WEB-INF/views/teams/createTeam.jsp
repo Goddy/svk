@@ -56,7 +56,7 @@
     </div>
 </div>
 
-<%@ include file="../jspf/footer.jspf" %>
+
 <script type="text/javascript">
     var iFrame = $('#mapFrame');
     var mapDiv = $('#map');
@@ -126,3 +126,4 @@
 
 
 </script>
+<%@ include file="../jspf/footer.jspf" %>

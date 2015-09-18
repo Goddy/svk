@@ -10,14 +10,14 @@
         </p>
     </div>
 </div>
-<script src="<c:url value='/resources/js/svk-ui.js?v=1.3'/>"></script>
+
 <script type="text/javascript">
     /*activate bootstrap tool tips */
     $("body").tooltip({selector: '[data-toggle="tooltip"]', container: 'body', html: true});
 
     $(document).ready(function() {
         $("#changeLang").click(function() {
-            document.cookie = "clientlanguage=" + this.text.toLowerCase() + "; path=/"
+            document.cookie = "clientlanguage=" + this.text.toLowerCase() + "; path=/";
             window.location.reload();
         });
     });

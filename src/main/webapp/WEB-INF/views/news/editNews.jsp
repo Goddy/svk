@@ -43,8 +43,6 @@
         </div>
 </div>
 
-<%@ include file="../jspf/footer.jspf" %>
-
 <script type="text/javascript">
     $(document).ready(function () {
         var body  = $("#body").val();
@@ -79,3 +77,4 @@
         }
     });
 </script>
+<%@ include file="../jspf/footer.jspf" %>

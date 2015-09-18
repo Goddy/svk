@@ -10,9 +10,11 @@
 <tag:faq question="title.faq4" answer="text.faq4"/>
 <tag:faq question="title.faq5" answer="text.faq5"/>
 
-<%@ include file="jspf/footer.jspf" %>
+<script src="<c:url value='/resources/js/svk-ui-1.3.js'/>"></script>
 <script type="text/javascript">
     (function ($, faq) {
         faq.initialize();
     })(jQuery, svk.faq)
 </script>
+
+<%@ include file="jspf/footer.jspf" %>
