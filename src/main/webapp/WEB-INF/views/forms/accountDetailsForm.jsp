@@ -109,5 +109,10 @@
 </div>
 
 <%@ include file="../jspf/footer.jspf" %>
+<script type="text/javascript">
+    (function ($) {
+        $(".has-error:first input").focus();
+    })(jQuery)
+</script>
 
 
