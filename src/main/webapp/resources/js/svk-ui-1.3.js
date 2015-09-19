@@ -46,7 +46,11 @@ svk.utils = {
 
     focusDiv: function (element) {
         var div = "#" + element.attr("href");
-        var offset = $(div).offset().top - 100;
+        this.focusAndCenterElement($(div));
+    },
+
+    focusAndCenterElement: function (element) {
+        var offset = element.offset().top - 100;
         $('html, body').animate({ scrollTop: offset }, 'slow');
     }
 };

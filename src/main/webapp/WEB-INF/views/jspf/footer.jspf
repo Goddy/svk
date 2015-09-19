@@ -12,16 +12,18 @@
 </div>
 
 <script type="text/javascript">
-    /*activate bootstrap tool tips */
-    $("body").tooltip({selector: '[data-toggle="tooltip"]', container: 'body', html: true});
+    (function () {
+        $("body").tooltip({selector: '[data-toggle="tooltip"]', container: 'body', html: true});
 
-    $(document).ready(function() {
         $("#changeLang").click(function() {
             document.cookie = "clientlanguage=" + this.text.toLowerCase() + "; path=/";
             window.location.reload();
         });
-    });
 
+        //Always center on errors
+        var offset = $(".has-error:first input").offset().top - 100;
+        $('html, body').animate({scrollTop: offset}, 'slow');
+    })(jQuery);
 </script>
 </body>
 </html>
