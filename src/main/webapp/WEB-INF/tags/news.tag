@@ -9,7 +9,7 @@
 <sec:authentication var="principal" property="principal" />
 
 <div class="panel panel-info">
-<div class="panel-heading"><c:out value="${newsItem.header}"/>
+    <div class="panel-heading news-heading"><c:out value="${newsItem.header}"/>
     <div style="float: right;">
         <a href="comments_${newsItem.id}" class="commentBtn"><spring:message
                 code="text.reactions"/>&NonBreakingSpace;<span class="badge">${fn:length(newsItem.comments)}</span></a>
