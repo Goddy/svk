@@ -18,8 +18,6 @@
 <script type="text/javascript">
   (function ($, doodle) {
     $(document).on('click', 'a[class*="presence"]', function (e) {
-      //Hide tooltip otherwise it sticks
-      $(this).tooltip('hide');
       e.preventDefault();
       doodle.changePresence($(this));
     });

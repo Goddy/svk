@@ -16,7 +16,6 @@
     (function ($, doodle) {
         $(document).on('click', 'a[class*="presence"]', function (e) {
             e.preventDefault();
-            $(this).tooltip('hide');
             doodle.changePresence($(this));
         });
         $(document).on('click', 'a[class*="doodle-users"]', function (e) {

@@ -339,6 +339,8 @@ svk.doodle = (function ($, utils) {
 
             utils.jsonPost(button.attr("href"), {"showUsers": showUsers}, function (data) {
                 parent.html(data);
+                //Hide tooltips otherwise they stick
+                $(".tooltip").hide();
             })
         }
     }
