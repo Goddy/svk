@@ -16,13 +16,13 @@
             <c:forEach items="${teams}" var="team">
                 <tr>
                     <td style="display:none;">${team.object.address.googleLink}</td>
-                    <td data-th="<spring:message code="label.teamName"/>">
+                    <td>
                         <div>${team.object.name}</div>
                     </td>
                     <td data-th="<spring:message code="label.address"/>">
                         <div>${team.object.address}</div>
                     </td>
-                    <td>${team.additions['htmlActions']}</td>
+                    <td data-th="<spring:message code="text.actions"/>">${team.additions['htmlActions']}</td>
                 </tr>
             </c:forEach>
         </table>

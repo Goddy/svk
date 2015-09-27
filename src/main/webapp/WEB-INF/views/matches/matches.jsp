@@ -116,7 +116,7 @@
                                     var result = o.object.played ? '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>' : '<td><spring:message code='text.notYetPlayed'/></td>';
                                     var doodle = loggedIn == "true"? '<td><div id="presenceActions"> ' + o.additions['presenceActions'] + '<div></td>' : "";
                                     //Fix for dynamic odd rows
-                                    var trClass = count % 2 == 0 ? '' : 'class="odd"';
+                                    var trClass = count % 2 !== 0 ? '' : 'class="odd"';
                                     count++;
 
                                     divContent +=
@@ -128,7 +128,7 @@
                                             '<td>' + o.additions['htmlActions'] + ' </td></tr>';
 
                                     divContent += '<tr style="display: none" class="active" id="details' + o.object.id + '"><td colspan="5">';
-                                    divContent += '<spring:message code='text.goals'/>:<br/><ul>';
+                                    divContent += '<div><spring:message code='text.goals'/>:<br/><ul>';
                                      for (i = 0; i < o.object.goals.length; i++) {
                                          var scorer = !o.object.goals[i].scorer ? "<spring:message code="text.no.player"/>" : o.object.goals[i].scorer.fullName;
                                          var assist = !o.object.goals[i].assist ? "" : " (" + o.object.goals[i].assist.fullName + ")";
@@ -138,7 +138,7 @@
                                          divContent += "</li>";
                                     }
                                      divContent += "</ul>";
-                                     divContent += '<td></tr>';
+                                    divContent += '</td></div></tr>';
                                 });
                                 divContent += '</table></div>';
 
