@@ -42,8 +42,10 @@
             <tag:formField path="containsResult" label="label.match.played" title="label.match.played" type="checkbox"
                            optional="false"/>
             <div id="matchResult">
-                <tag:formField path="htGoals" label="text.htGoals" title="text.htGoals" type="number" optional="false"/>
-                <tag:formField path="atGoals" label="text.atGoals" title="text.atGoals" type="number" optional="false"/>
+                <tag:formField path="htGoals" label="text.htGoals" title="text.htGoals" type="number"
+                               value="${form.htGoals}" optional="false"/>
+                <tag:formField path="atGoals" label="text.atGoals" title="text.atGoals" type="number"
+                               value="${form.atGoals}" optional="false"/>
             <div id="goalsDiv">
                 <tag:formField path="goals" label="text.goals" title="text.goals.description" type="empty"
                                optional="false">

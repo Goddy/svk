@@ -12,6 +12,7 @@
 <%@attribute name="optional" required="true" type="java.lang.Boolean" %>
 <%@attribute name="placeholder" required="false" type="java.lang.String" %>
 <%@attribute name="rows" required="false" type="java.lang.String" %>
+<%@attribute name="value" required="false" type="java.lang.String" %>
 
 <spring:bind path="${path}">
     <c:choose>
@@ -42,7 +43,8 @@
                                            placeholder="${placeholder}" rows="${rows}"/>
                         </c:when>
                         <c:when test="${type=='number'}">
-                            <input class="form-control ${cssClass}" type="number" name="${path}"/>
+                            <input class="form-control ${cssClass}" type="number" id="${path}" name="${path}"
+                                   value="${value}"/>
                         </c:when>
                         <c:when test="${type=='empty'}">
                         </c:when>
