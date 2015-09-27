@@ -5,8 +5,8 @@
 <div class="alert alert-info"><spring:message code="info.teams"/></div>
 <%@ include file="../jspf/resultMessage.jspf" %>
 <div class="panel-group" id="accordion">
-    <div class="table-responsive">
-        <table class="table table-hover">
+    <div>
+        <table class="table table-hover rwd-table">
             <tr>
                 <th style="display:none;"></th>
                 <th><spring:message code="label.teamName"/></th>
@@ -16,8 +16,12 @@
             <c:forEach items="${teams}" var="team">
                 <tr>
                     <td style="display:none;">${team.object.address.googleLink}</td>
-                    <td>${team.object.name}</td>
-                    <td>${team.object.address}</td>
+                    <td data-th="<spring:message code="label.teamName"/>">
+                        <div>${team.object.name}</div>
+                    </td>
+                    <td data-th="<spring:message code="label.address"/>">
+                        <div>${team.object.address}</div>
+                    </td>
                     <td>${team.additions['htmlActions']}</td>
                 </tr>
             </c:forEach>

@@ -98,36 +98,37 @@
                             var message = "";
                             //Disabled
                             var loggedIn = "false";
+                            var count = 0;
                             if (json != null) {
-                                divContent += '<div class="table-responsive"><table class="table table-hover">'
-                                        + '<tr>' + '<td style="display:none"></td>'
-                                        + '<td><spring:message code='text.date'/></td>'
-                                        + '<td><spring:message code='text.hour'/></td>'
-                                        + '<td><spring:message code='text.homeTeam'/></td>'
-                                        + '<td><spring:message code='text.awayTeam'/></td>'
-                                        + '<td><spring:message code='text.result'/></td>';
+                                divContent += '<div class="table-responsive"><table class="table table-hover rwd-table">'
+                                        + '<th><spring:message code='text.match'/></th>'
+                                        + '<th><spring:message code='text.date'/></th>'
+                                        + '<th><spring:message code='text.result'/></th>';
 
                                 if (loggedIn == 'true') {
                                     divContent += '<td><spring:message code='text.presence'/></td>';
                                 }
 
 
-                                divContent += '<td><spring:message code='text.actions'/></td></tr>';
+                                divContent += '<th><spring:message code='text.actions'/></th></tr>';
 
                                 $.each(json, function (i, o) {
                                     var result = o.object.played ? '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>' : '<td><spring:message code='text.notYetPlayed'/></td>';
                                     var doodle = loggedIn == "true"? '<td><div id="presenceActions"> ' + o.additions['presenceActions'] + '<div></td>' : "";
+                                    //Fix for dynamic odd rows
+                                    var trClass = count % 2 == 0 ? '' : 'class="odd"';
+                                    count++;
+
                                     divContent +=
-                                            '<tr><td>' + o.object.stringDate + '</td>' +
-                                            '<td>' + o.object.stringHour + '</td>' +
-                                                    '<td>' + o.object.homeTeam.name + '</td>' +
-                                                    '<td>' + o.object.awayTeam.name + '</td>' +
-                                                    result +
-                                                    doodle +
-                                                    '<td>' + o.additions['htmlActions'] + ' </td></tr>';
+                                            '<tr ' + trClass + '>' +
+                                            '<td data-th="<spring:message code='text.match'/>">' + o.object.homeTeam.name + ' - ' + o.object.awayTeam.name + '</td>' +
+                                            '<td data-th="<spring:message code='text.date'/>">' + o.object.stringDate + ' : ' + o.object.stringHour + '</td>' +
+                                            result +
+                                            doodle +
+                                            '<td>' + o.additions['htmlActions'] + ' </td></tr>';
 
                                     divContent += '<tr style="display: none" class="active" id="details' + o.object.id + '"><td colspan="5">';
-                                    divContent += '<spring:message code='text.goals'/>:<br/><ul>'
+                                    divContent += '<spring:message code='text.goals'/>:<br/><ul>';
                                      for (i = 0; i < o.object.goals.length; i++) {
                                          var scorer = !o.object.goals[i].scorer ? "<spring:message code="text.no.player"/>" : o.object.goals[i].scorer.fullName;
                                          var assist = !o.object.goals[i].assist ? "" : " (" + o.object.goals[i].assist.fullName + ")";
