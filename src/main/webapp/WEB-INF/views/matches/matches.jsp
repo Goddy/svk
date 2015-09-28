@@ -101,8 +101,8 @@
                             var count = 0;
                             if (json != null) {
                                 divContent += '<div class="table-responsive"><table class="table table-hover rwd-table">'
-                                        + '<th><spring:message code='text.match'/></th>'
                                         + '<th><spring:message code='text.date'/></th>'
+                                        + '<th><spring:message code='text.match'/></th>'
                                         + '<th><spring:message code='text.result'/></th>';
 
                                 if (loggedIn == 'true') {
@@ -121,8 +121,8 @@
 
                                     divContent +=
                                             '<tr ' + trClass + '>' +
-                                            '<td data-th="<spring:message code='text.match'/>">' + o.object.homeTeam.name + ' - ' + o.object.awayTeam.name + '</td>' +
                                             '<td data-th="<spring:message code='text.date'/>">' + o.object.stringDate + ' : ' + o.object.stringHour + '</td>' +
+                                            '<td data-th="<spring:message code='text.match'/>">' + o.object.homeTeam.name + ' - ' + o.object.awayTeam.name + '</td>' +
                                             result +
                                             doodle +
                                             '<td>' + o.additions['htmlActions'] + ' </td></tr>';
