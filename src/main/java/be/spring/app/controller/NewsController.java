@@ -8,6 +8,7 @@ import be.spring.app.service.NewsService;
 import be.spring.app.utils.Constants;
 import be.spring.app.utils.GeneralUtils;
 import be.spring.app.utils.PageObject;
+import be.spring.app.validators.SanitizeUtils;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
@@ -100,14 +101,14 @@ public class NewsController extends AbstractController {
     @RequestMapping(value = "addComment", method = RequestMethod.POST)
     public String createCommentNews(@RequestParam(value="newsId") long newsId,
                                                     @RequestParam(value="comment") String comment, ModelMap model) {
-        model.addAttribute("newsItem", newsService.addNewsComment(newsId, comment, getAccountFromSecurity()));
+        model.addAttribute("newsItem", newsService.addNewsComment(newsId, SanitizeUtils.SanitizeHtml(comment), getAccountFromSecurity()));
         return NEWS_ITEM;
     }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "editComment", method = RequestMethod.POST)
     public String editCommentNews(@RequestParam(value = "commentId") long commentId, @RequestParam(value = "comment") String comment, @RequestParam(value = "newsId") long newsId, ModelMap model) {
-        model.addAttribute("newsItem", newsService.changeNewsComment(commentId, newsId, comment, getAccountFromSecurity()));
+        model.addAttribute("newsItem", newsService.changeNewsComment(commentId, newsId, SanitizeUtils.SanitizeHtml(comment), getAccountFromSecurity()));
         return NEWS_ITEM;
     }
 

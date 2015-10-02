@@ -9,6 +9,6 @@ import org.owasp.html.Sanitizers;
 public class SanitizeUtils {
     public static String SanitizeHtml(String text) {
         if (Strings.isNullOrEmpty(text)) return text;
-        return Sanitizers.FORMATTING.sanitize(text);
+        return Sanitizers.FORMATTING.and(Sanitizers.IMAGES).and(Sanitizers.LINKS).and(Sanitizers.BLOCKS).sanitize(text);
     }
 }

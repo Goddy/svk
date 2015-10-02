@@ -14,6 +14,7 @@
     <sec:global-method-security pre-post-annotations="enabled"/>
     <context:component-scan base-package="be.spring.app.validators"/>
     <context:component-scan base-package="be.spring.app.controller"/>
+    <context:component-scan base-package="be.spring.app.dto.helper"/>
 
     <mvc:interceptors>
         <bean class="be.spring.app.handler.PropertiesAddingHandlerInterceptor">
@@ -49,5 +50,7 @@
             </list>
         </property>
     </bean>
+
+    <bean class="be.spring.app.config.SwaggerConfig"/>
 
 </beans>

@@ -13,4 +13,6 @@ import java.util.List;
 public interface SeasonDao extends PagingAndSortingRepository<Season, Long>, JpaSpecificationExecutor<Season> {
     @Query("select s from Season s order by s.description desc")
     List<Season> findAllOrderByDescriptionAsc();
+
+    Season findByDescription(String description);
 }

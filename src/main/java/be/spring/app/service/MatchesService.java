@@ -28,6 +28,8 @@ public interface MatchesService {
 
     List<Match> getMatchesForSeason(long seasonId);
 
+    List<Match> getMatchesForSeason(String description);
+
     Match getLatestMatch();
 
     Match getMatch(long id);

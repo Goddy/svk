@@ -144,6 +144,7 @@ public class Account implements Comparable<Account> {
         this.pwdRecovery = pwdRecovery;
     }
 
+    @JsonIgnore
     @Embedded
     public AccountSettings getAccountSettings() {
         if (accountSettings == null) accountSettings = new AccountSettings();

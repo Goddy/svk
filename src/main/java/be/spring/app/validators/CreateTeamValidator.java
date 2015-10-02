@@ -20,6 +20,8 @@ public class CreateTeamValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         CreateAndUpdateTeamForm form = (CreateAndUpdateTeamForm) o;
+        sanitizeAll(form);
+
         ValidationUtils.rejectIfEmpty(errors, "teamName", "validation.notempty.message");
         if (!form.isUseExistingAddress()) {
             ValidationUtils.rejectIfEmpty(errors, "address", "validation.notempty.message");
@@ -27,5 +29,12 @@ public class CreateTeamValidator implements Validator {
             ValidationUtils.rejectIfEmpty(errors, "city", "validation.notempty.message");
             if (!StringUtils.isNumeric(form.getPostalCode())) errors.rejectValue("postalCode","validation.number.postalCode");
         }
+    }
+
+    private void sanitizeAll(CreateAndUpdateTeamForm form) {
+        form.setTeamName(SanitizeUtils.SanitizeHtml(form.getTeamName()));
+        form.setAddress(SanitizeUtils.SanitizeHtml(form.getAddress()));
+        form.setPostalCode(SanitizeUtils.SanitizeHtml(form.getPostalCode()));
+        form.setCity(SanitizeUtils.SanitizeHtml(form.getCity()));
     }
 }

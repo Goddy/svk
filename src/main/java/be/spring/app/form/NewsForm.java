@@ -1,5 +1,6 @@
 package be.spring.app.form;
 
+import be.spring.app.validators.SanitizeUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
@@ -25,7 +26,7 @@ public class NewsForm {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = SanitizeUtils.SanitizeHtml(title);
     }
 
     public String getBody() {
@@ -33,7 +34,7 @@ public class NewsForm {
     }
 
     public void setBody(String body) {
-        this.body = body;
+        this.body = SanitizeUtils.SanitizeHtml(body);
     }
 
     public long getId() {
