@@ -14,6 +14,6 @@ import java.util.List;
  * Remarks: none
  */
 public interface NewsDao extends PagingAndSortingRepository<News, Long>, JpaSpecificationExecutor<News> {
-    @Query("select n from News n where n.header like ?1 OR n.content like ?1")
+    @Query("select n from News n where n.header like ?1 OR n.content like ?1 order by n.postDate desc")
     List<News> getSearch(String term);
 }
