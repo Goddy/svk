@@ -31,7 +31,7 @@ public class SwaggerConfig {
                 .title("SVK API")
                 .description("Can be used to collect information about SVK")
                 .version("1.0")
-                .contact("svkvoetbal@gmail.com")
+                .contact("voetbalsvk@gmail.com")
                 .build();
     }
 
