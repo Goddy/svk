@@ -15,6 +15,7 @@ import com.google.common.collect.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,6 +38,9 @@ import java.util.Set;
 public class NewsServiceImpl implements NewsService {
     Logger log = LoggerFactory.getLogger(this.getClass());
 
+    @Value("${base.url}")
+    private String baseUrl;
+
     @Autowired
     private NewsDao newsDao;
     @Autowired
@@ -55,9 +59,6 @@ public class NewsServiceImpl implements NewsService {
     public News createNews(NewsForm form, Account account) {
         News n = updateNews(new News(), form, account, true);
         newsDao.save(n);
-        if (form.isSendEmail()) {
-
-        }
         log.info(String.format("Newsitem %s created by %s", n, account));
         return n;
     }
@@ -150,8 +151,9 @@ public class NewsServiceImpl implements NewsService {
                 emails.add(a.getUsername());
             }
         }
+        String newsItemUrl = String.format("%s/newsItem.html?newsId=%s", baseUrl, news.getId());
         String title = messageSource.getMessage("email.news.title", new String[]{news.getHeader(), news.getAccount().getFullName()}, Locale.ENGLISH);
-        String body = messageSource.getMessage("email.news.body", new String[]{news.getContent()}, Locale.ENGLISH);
+        String body = messageSource.getMessage("email.news.body", new String[]{news.getContent(), newsItemUrl}, Locale.ENGLISH);
         return mailService.sendMail(emails, title, body);
     }
 

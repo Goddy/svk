@@ -76,10 +76,10 @@
 
     <!-- SET default mail properties -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.gmail.com"/>
-        <property name="port" value="587"/>
-        <property name="username" value="voetbalsvk@gmail.com"/>
-        <property name="password" value="${gmail.smtp.password}"/>
+        <property name="host" value="${mail.smtp.host}"/>
+        <property name="port" value="${mail.smtp.port}"/>
+        <property name="username" value="${mail.smtp.userName}"/>
+        <property name="password" value="${mail.smtp.password}"/>
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.smtp.timeout">3000</prop>
