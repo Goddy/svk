@@ -5,6 +5,7 @@ import be.spring.app.controller.DataFactory;
 import be.spring.app.data.MatchStatisticsObject;
 import be.spring.app.model.Account;
 import be.spring.app.model.Match;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +34,7 @@ public class StatisticsServiceImplTest extends AbstractTest {
     public void testGetGoalsPerPlayerForSeason() throws Exception {
         Account account = accountDao.findByUsername(userName);
         Match m = DataFactory.createMatch();
-        m.setGoals(Sets.newHashSet(DataFactory.createGoal(account, m)));
+        m.setGoals(Sets.newTreeSet(Lists.newArrayList(DataFactory.createGoal(account, m))));
 
         matchesDao.save(m);
 
@@ -50,7 +51,7 @@ public class StatisticsServiceImplTest extends AbstractTest {
     public void testGetAssistsPerPlayerForSeason() throws Exception {
         Account account = accountDao.findByUsername(userName);
         Match m = DataFactory.createMatch();
-        m.setGoals(Sets.newHashSet(DataFactory.createGoal(account, m)));
+        m.setGoals(Sets.newTreeSet(Lists.newArrayList(DataFactory.createGoal(account, m))));
 
         matchesDao.save(m);
 

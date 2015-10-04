@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "goals")
-public class Goal {
+public class Goal implements Comparable<Goal> {
     private Long id;
     private int order;
     private Account scorer;
@@ -70,5 +70,10 @@ public class Goal {
 
     public void setMatch(Match match) {
         this.match = match;
+    }
+
+    @Override
+    public int compareTo(Goal o) {
+        return Integer.compare(order, o.order);
     }
 }
