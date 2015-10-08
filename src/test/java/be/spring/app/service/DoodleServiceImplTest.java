@@ -7,7 +7,6 @@ import be.spring.app.persistence.AccountDao;
 import be.spring.app.persistence.DoodleDao;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.utils.HtmlHelper;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.easymock.EasyMock;
 import org.joda.time.DateTime;
@@ -112,7 +111,7 @@ public class DoodleServiceImplTest extends JUnitTest {
         Presence p = new Presence();
         p.setPresent(true);
         p.setAccount(a);
-        m.getMatchDoodle().setPresences(Lists.newArrayList(p));
+        m.getMatchDoodle().setPresences(Sets.newHashSet(p));
 
         expect(matchesDao.findOne(m.getId())).andReturn(m);
         expect(doodleDao.save(anyObject(Doodle.class))).andReturn(new Doodle());
@@ -136,7 +135,7 @@ public class DoodleServiceImplTest extends JUnitTest {
         Presence p = new Presence();
         p.setPresent(true);
         p.setAccount(b);
-        m.getMatchDoodle().setPresences(Lists.newArrayList(p));
+        m.getMatchDoodle().setPresences(Sets.newHashSet(p));
 
         expect(matchesDao.findOne(m.getId())).andReturn(m);
         expect(accountDao.findOne(b.getId())).andReturn(b);
@@ -204,7 +203,7 @@ public class DoodleServiceImplTest extends JUnitTest {
     @Test
     public void testSendDoodleNotificationsEnoughPresences() throws Exception {
         Match m = DataFactory.createMatch();
-        m.getMatchDoodle().setPresences(DataFactory.getPresences(13));
+        m.getMatchDoodle().setPresences(Sets.newHashSet(DataFactory.getPresences(13)));
         Account a = DataFactory.createAccount();
         a.getAccountSettings().setSendDoodleNotifications(true);
         Account b = DataFactory.createAccount();

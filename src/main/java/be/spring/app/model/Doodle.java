@@ -1,9 +1,9 @@
 package be.spring.app.model;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by u0090265 on 10/1/14.
@@ -13,7 +13,7 @@ import java.util.List;
 public class Doodle {
 
     private long id;
-    private List<Presence> presences;
+    private Set<Presence> presences;
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -28,12 +28,12 @@ public class Doodle {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "doodle_id")
-    public List<Presence> getPresences() {
-        if (presences == null) presences = Lists.newArrayList();
+    public Set<Presence> getPresences() {
+        if (presences == null) presences = Sets.newHashSet();
         return presences;
     }
 
-    public void setPresences(List<Presence> presences) {
+    public void setPresences(Set<Presence> presences) {
         this.presences = presences;
     }
 
