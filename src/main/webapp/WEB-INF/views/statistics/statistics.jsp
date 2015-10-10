@@ -27,7 +27,7 @@
         <table class="table table-hover table-bordered" id="statisticsTable">
             <thead>
             <tr>
-                <th><spring:message code="text.scorer"/></th>
+                <th></th>
                 <th><spring:message code="label.goals"/></th>
                 <th><spring:message code="label.assists"/></th>
                 <th><spring:message code="label.presences"/></th>
