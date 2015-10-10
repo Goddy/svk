@@ -1,5 +1,6 @@
 package be.spring.app.service;
 
+import be.spring.app.data.AccountStatistic;
 import be.spring.app.model.Account;
 import be.spring.app.model.ActionWrapper;
 import be.spring.app.model.Match;
@@ -15,7 +16,13 @@ import java.util.concurrent.ExecutionException;
  */
 public interface CacheAdapter {
     @Cacheable("matchActionWrappers")
-    List<ActionWrapper<Match>> getMatchActionWrappers(long seasonId, Account account, Locale locale) throws ExecutionException, InterruptedException;
+    List<ActionWrapper<Match>> getAccountStatistics(long seasonId, Account account, Locale locale) throws ExecutionException, InterruptedException;
+
+    @Cacheable("accountStatistics")
+    List<AccountStatistic> getAccountStatistics(long seasonId) throws ExecutionException, InterruptedException;
+
+    @CacheEvict(value = {"accountStatistics"}, allEntries = true)
+    void resetStatisticsCache();
 
     @CacheEvict(value={"matchActionWrappers"}, allEntries = true)
     void resetMatchCache();

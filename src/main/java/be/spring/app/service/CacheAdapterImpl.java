@@ -7,6 +7,7 @@
  */
 package be.spring.app.service;
 
+import be.spring.app.data.AccountStatistic;
 import be.spring.app.model.Account;
 import be.spring.app.model.ActionWrapper;
 import be.spring.app.model.Match;
@@ -31,14 +32,27 @@ public class CacheAdapterImpl implements CacheAdapter {
 
     @Override
     @Cacheable("matchActionWrappers")
-    public List<ActionWrapper<Match>> getMatchActionWrappers(long seasonId, Account account, Locale locale) throws ExecutionException, InterruptedException {
+    public List<ActionWrapper<Match>> getAccountStatistics(long seasonId, Account account, Locale locale) throws ExecutionException, InterruptedException {
         log.debug("Getting matchActionWrappers");
         return dataService.getMatchForSeasonActionWrappers(seasonId, account, locale).get();
+    }
+
+    @Override
+    @Cacheable("accountStatistics")
+    public List<AccountStatistic> getAccountStatistics(long seasonId) throws ExecutionException, InterruptedException {
+        log.debug("Getting account statistics");
+        return dataService.getAccountStatisticsForSeason(seasonId).get();
+    }
+
+    @Override
+    @CacheEvict(value = {"accountStatistics"}, allEntries = true)
+    public void resetStatisticsCache() {
+        log.debug("resetCache - statistics");
     }
     
     @Override
     @CacheEvict(value={"matchActionWrappers"}, allEntries = true)
     public void resetMatchCache() {
-        log.debug("resetCache");
+        log.debug("resetCache - matchWrappers");
     }
 }

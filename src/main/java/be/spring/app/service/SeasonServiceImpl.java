@@ -21,11 +21,11 @@ public class SeasonServiceImpl implements SeasonService {
 
     @Override
     public List<Season> getSeasons() {
-        return Lists.newArrayList(seasonDao.findAllOrderByDescriptionAsc());
+        return Lists.newArrayList(seasonDao.findAllOrderByDescriptionDesc());
     }
 
     @Override
     public Season getLatestSeason() {
-        return Iterables.getLast(seasonDao.findAllOrderByDescriptionAsc(), null);
+        return Iterables.getFirst(seasonDao.findAllOrderByDescriptionDesc(), null);
     }
 }

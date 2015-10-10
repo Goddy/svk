@@ -1,5 +1,7 @@
 package be.spring.app.service;
 
+import be.spring.app.controller.exceptions.ObjectNotFoundException;
+import be.spring.app.data.AccountStatistic;
 import be.spring.app.model.*;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.persistence.SeasonDao;
@@ -39,16 +41,42 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
     private SeasonDao seasonDao;
     private HtmlHelper htmlHelper;
     private SecurityUtils securityUtils;
+    private StatisticsService statisticsService;
+    AccountService accountService;
 
 
     @Autowired
-    public ConcurrentDataServiceImpl(MatchesDao matchesDao, TeamDao teamDao, SeasonDao seasonDao, SecurityUtils securityUtils, HtmlHelper htmlHelper) {
+    public ConcurrentDataServiceImpl(MatchesDao matchesDao, TeamDao teamDao, SeasonDao seasonDao, SecurityUtils securityUtils, HtmlHelper htmlHelper, StatisticsService statisticsService, AccountService accountService) {
         this.matchesDao = matchesDao;
         this.teamDao = teamDao;
         this.seasonDao = seasonDao;
         this.htmlHelper = htmlHelper;
         this.securityUtils = securityUtils;
+        this.statisticsService = statisticsService;
+        this.accountService = accountService;
         executorService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(N_THREADS));
+    }
+
+    @Override
+    public ListenableFuture<List<AccountStatistic>> getAccountStatisticsForSeason(long seasonId) {
+        Season season = seasonDao.findOne(seasonId);
+        if (season == null) throw new ObjectNotFoundException(String.format("Season with id %s not found", seasonId));
+        List<Match> matches = matchesDao.getMatchesForSeason(season);
+        List<ListenableFuture<AccountStatistic>> stats = Lists.newArrayList();
+
+        for (Account account : accountService.getAccountsByActivationStatus(true)) {
+            stats.add(getAccountStatisticFor(matches, account));
+        }
+        return Futures.allAsList(stats);
+    }
+
+    private com.google.common.util.concurrent.ListenableFuture<AccountStatistic> getAccountStatisticFor(final List<Match> matches, final Account account) {
+        return executorService.submit(new Callable<AccountStatistic>() {
+            @Override
+            public AccountStatistic call() throws Exception {
+                return statisticsService.getAccountStatistic(matches, account);
+            }
+        });
     }
 
     //Todo: duplicated behaviour, should be avoided

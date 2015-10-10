@@ -22,6 +22,9 @@
                 <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
                     <property name="name" value="matchActionWrappers"/>
                 </bean>
+                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+                    <property name="name" value="accountStatistics"/>
+                </bean>
             </set>
         </property>
     </bean>

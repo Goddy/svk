@@ -41,7 +41,15 @@
     </div>
     <div class="panel-body list" style="${display}">
         <c:forEach items="${accounts}" var="a">
-            <div class="doodle-list">${a.fullName}
+            <div class="doodle-list">
+                <c:choose>
+                    <c:when test="${isAuthenticated}">
+                        ${a.toString()}
+                    </c:when>
+                    <c:otherwise>
+                        ${a.fullName}
+                    </c:otherwise>
+                </c:choose>
                 <tag:doodlePresence account="${a}" isOwnAccount="${a.equals(currentAccount)}" match="${match}"
                                     isAdmin="${isAdmin}" returnUrl="${returnUrl}"/>
             </div>

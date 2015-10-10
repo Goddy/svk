@@ -1,7 +1,11 @@
 package be.spring.app.service;
 
+import be.spring.app.data.AccountStatistic;
 import be.spring.app.data.MatchStatisticsObject;
 import be.spring.app.model.Account;
+import be.spring.app.model.Goal;
+import be.spring.app.model.Match;
+import be.spring.app.model.Presence;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
@@ -65,5 +69,35 @@ public class StatisticsServiceImpl implements StatisticsService {
             l.add(m);
         }
         return l;
+    }
+
+    @Override
+    public AccountStatistic getAccountStatistic(List<Match> matches, Account account) {
+        AccountStatistic accountStatistic = new AccountStatistic(account);
+        setMatchData(matches, account, accountStatistic);
+        return accountStatistic;
+    }
+
+    private void setMatchData(List<Match> matches, Account account, AccountStatistic accountStatistic) {
+        int goals = 0;
+        int assists = 0;
+        int presences = 0;
+        for (Match match : matches) {
+            //Only gather info on played match
+            if (match.isPlayed()) {
+                if (match.getMatchDoodle().isPresent(account).equals(Presence.PresenceType.PRESENT)) presences++;
+                for (Goal goal : match.getGoals()) {
+                    if (goal.getScorer() != null && goal.getScorer().equals(account)) {
+                        goals++;
+                    }
+                    if (goal.getAssist() != null && goal.getAssist().equals(account)) {
+                        assists++;
+                    }
+                }
+            }
+        }
+        accountStatistic.setGoals(goals);
+        accountStatistic.setAssists(assists);
+        accountStatistic.setPlayed(presences);
     }
 }

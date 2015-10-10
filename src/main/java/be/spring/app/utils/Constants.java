@@ -22,6 +22,7 @@ public class Constants {
 
     public static final String LANDING_CREATE_TEAM = "/teams/createTeam";
     public static final String LANDING_TEAMS = "/teams/teams";
+    public static final String LANDING_STATISTICS = "/statistics/statistics";
     public static final String REDIRECT_LANDING_TEAMS = "redirect:/teams.html";
     public static final String LANDING_MATCHES_CHANGE_MATCH = "/matches/changeMatch";
     public static final String LANDING_MATCHES_PAGE = "/matches/matches";

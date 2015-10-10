@@ -58,7 +58,7 @@ public class ChangeMatchController extends AbstractController {
 
     @ModelAttribute("players")
     public List<Account> getPerson() {
-        return accountService.getAll();
+        return accountService.getAccountsByActivationStatus(true);
     }
 
     @ModelAttribute("defaultTeam")

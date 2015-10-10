@@ -13,7 +13,9 @@
     <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/style-bs.css?v=1.1'/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/social-buttons.css'/>"/>
     <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap-datetimepicker.min.css"/>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -53,6 +55,7 @@
                                 code="nav.extDoodle"/></a></li>
                     </ul>
                 </li>
+                <li><a href="/statistics.html"><spring:message code="nav.statistics"/></a></li>
                 <li><a href="/home.html"><spring:message code="nav.home"/></a></li>
                 <li><a href="/faq.html"><spring:message code="nav.faq"/></a></li>
 

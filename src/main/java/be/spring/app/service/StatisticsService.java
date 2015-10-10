@@ -1,7 +1,9 @@
 package be.spring.app.service;
 
+import be.spring.app.data.AccountStatistic;
 import be.spring.app.data.MatchStatisticsObject;
 import be.spring.app.model.Account;
+import be.spring.app.model.Match;
 
 import java.util.List;
 
@@ -17,4 +19,6 @@ public interface StatisticsService {
     List<MatchStatisticsObject> getAssistsFor(Account account, long seasonId);
 
     List<MatchStatisticsObject> getGoalsFor(Account account, long seasonId);
+
+    AccountStatistic getAccountStatistic(List<Match> matches, Account account);
 }

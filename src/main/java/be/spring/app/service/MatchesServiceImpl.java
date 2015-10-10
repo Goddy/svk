@@ -79,7 +79,7 @@ public class MatchesServiceImpl implements MatchesService {
     @Override
     public List<ActionWrapper<Match>> getMatchesWrappersForSeason(long seasonId, final Account account, final Locale locale) {
         try {
-            return cacheAdapter.getMatchActionWrappers(seasonId, account, locale);
+            return cacheAdapter.getAccountStatistics(seasonId, account, locale);
         } catch (InterruptedException | ExecutionException e) {
             log.error("getMatchesWrappersForSeason failed: {}", e.getMessage());
             return Lists.newArrayList();
@@ -148,6 +148,7 @@ public class MatchesServiceImpl implements MatchesService {
         }
         matchesDao.save(m);
         cacheAdapter.resetMatchCache();
+        cacheAdapter.resetStatisticsCache();
         return m;
     }
 
