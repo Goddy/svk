@@ -8,6 +8,20 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <sec:authentication var="principal" property="principal" />
 
+
+<sec:authorize access="isAuthenticated()">
+    <c:set var="isAuthenticated" value="true"/>
+</sec:authorize>
+<c:choose>
+    <c:when test="${isAuthenticated}">
+        <c:set var="accountName" value="${newsItem.account.toString()}"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="accountName" value="${newsItem.account.fullName}"/>
+    </c:otherwise>
+</c:choose>
+
+
 <div class="panel panel-info">
     <div class="panel-heading news-heading"><c:out value="${newsItem.header}"/>
     <div style="float: right;">
@@ -19,7 +33,7 @@
     <p align="left">${newsItem.content}</p>
 
     <div style="text-align: right"><spring:message code="text.postedby"/> <c:out
-            value="${newsItem.account.fullName}"/> <spring:message code="text.on"/>
+            value="${accountName}"/> <spring:message code="text.on"/>
         <fmt:formatDate value="${newsItem.postDate}"/>
         <sec:authorize access="hasRole('ADMIN')">
             <div class="btn-group">

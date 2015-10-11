@@ -7,12 +7,25 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <sec:authentication var="principal" property="principal"/>
 
+<sec:authorize access="isAuthenticated()">
+    <c:set var="isAuthenticated" value="true"/>
+</sec:authorize>
+
 <div id="comments_${newsItem.id}" style="display: none">
     <c:forEach var="comment" items="${newsItem.comments}">
+        <c:choose>
+            <c:when test="${isAuthenticated}">
+                <c:set var="accountName" value="${comment.account.toString()}"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="accountName" value="${comment.account.fullName}"/>
+            </c:otherwise>
+        </c:choose>
+
         <fmt:formatDate value="${comment.postDate}" var="postDate"/>
         <div class="comment">
             <p><c:out value="${comment.content}"/> -
-                <spring:message code="text.commentPostedBy" arguments="${comment.account.fullName},${postDate}"
+                <spring:message code="text.commentPostedBy" arguments="${accountName},${postDate}"
                                 argumentSeparator=","/>
 
                 <sec:authorize access="hasRole('ADMIN')">
