@@ -44,7 +44,15 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/news.html"><spring:message code="nav.news"/></a></li>
-                <li><a href="/matches.html"><spring:message code="nav.matches"/></a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="nav.matches"/> <b
+                            class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/matches.html"><spring:message code="nav.overview"/></a></li>
+                        <li><a href="/statistics.html"><spring:message code="nav.statistics"/></a></li>
+                    </ul>
+                </li>
                 <li><a href="/teams.html"><spring:message code="nav.teams"/></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="nav.doodle"/> <b
@@ -55,7 +63,7 @@
                                 code="nav.extDoodle"/></a></li>
                     </ul>
                 </li>
-                <li><a href="/statistics.html"><spring:message code="nav.statistics"/></a></li>
+
                 <li><a href="/home.html"><spring:message code="nav.home"/></a></li>
                 <li><a href="/faq.html"><spring:message code="nav.faq"/></a></li>
 
