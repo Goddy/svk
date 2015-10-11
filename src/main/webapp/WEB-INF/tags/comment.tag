@@ -24,7 +24,7 @@
 
         <fmt:formatDate value="${comment.postDate}" var="postDate"/>
         <div class="comment">
-            <p><c:out value="${comment.content}"/> -
+            <p>${comment.content} -
                 <spring:message code="text.commentPostedBy" arguments="${accountName},${postDate}"
                                 argumentSeparator=","/>
 
