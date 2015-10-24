@@ -28,9 +28,12 @@
             <thead>
             <tr>
                 <th></th>
-                <th><spring:message code="label.goals"/></th>
-                <th><spring:message code="label.assists"/></th>
-                <th><spring:message code="label.presences"/></th>
+                <th data-toggle="tooltip" title="<spring:message code="label.goals"/>"><spring:message
+                        code="label.goals.short"/></th>
+                <th data-toggle="tooltip" title="<spring:message code="label.assists"/>"><spring:message
+                        code="label.assists.short"/></th>
+                <th data-toggle="tooltip" title="<spring:message code="label.presences"/>"><spring:message
+                        code="label.presences.short"/></th>
             </tr>
             </thead>
             <tbody>
