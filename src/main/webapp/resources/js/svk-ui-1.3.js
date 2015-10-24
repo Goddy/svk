@@ -334,6 +334,8 @@ svk.doodle = (function ($, utils) {
 
     return {
         changePresence: function (button) {
+            //Disable btn on submit
+            button.attr("disabled", "disabled");
             var parent = button.closest("div.matchDoodle");
             var showUsers = parent.find("div.list").is(':visible');
 

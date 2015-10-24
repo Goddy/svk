@@ -104,7 +104,7 @@ public class DoodleServiceImpl implements DoodleService {
             presence = changePresence(d, presence, accountInUse);
             doodleDao.save(d);
 
-            log.info("Account {} changed presence ({}) for doodle {} for account {}", accountInUse.getUsername(), presence.isPresent(), matchId, accountInUse.getUsername());
+            log.info("Account {} changed presence (id:{}, value: {}) for doodle {} for account {}", account.getUsername(), presence.getId(), presence.isPresent(), matchId, accountInUse.getUsername());
             return presence;
         } else {
             log.error("Account {} is not entitled to change presence for accountId {}", account.getUsername(), accountId);
@@ -150,6 +150,7 @@ public class DoodleServiceImpl implements DoodleService {
             p.setAccount(account);
             p.setPresent(true);
             doodle.getPresences().add(p);
+            log.info(String.format("New presence created for account %s and doodle id %s", account.getUsername(), doodle.getId()));
         } else {
             //Otherwise, set the opposite
             p.setPresent(!p.isPresent());
