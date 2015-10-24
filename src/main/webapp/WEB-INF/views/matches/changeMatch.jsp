@@ -59,14 +59,14 @@
                                     <option value=""><spring:message code="text.scorer"/></option>
                                     </option>
                                     <c:forEach items="${players}" var="player">
-                                        <option value="${player.id}" ${goal.scorer.id==player.id?'selected':''}>${player.fullName}</option>
+                                        <option value="${player.id}" ${goal.scorer.id==player.id?'selected':''}>${player}</option>
                                     </c:forEach>
                                 </select>
                                 <select class="form-control" name="goals[${goal.order}].assist">
                                     <option value=""><spring:message code="text.assist"/></option>
                                     </option>
                                     <c:forEach items="${players}" var="player">
-                                        <option value="${player.id}" ${goal.assist.id==player.id?'selected':''}>${player.fullName}</option>
+                                        <option value="${player.id}" ${goal.assist.id==player.id?'selected':''}>${player}</option>
                                     </c:forEach>
                                 </select>
                                 </span>

@@ -152,7 +152,7 @@ public class NewsServiceImpl implements NewsService {
             }
         }
         String newsItemUrl = String.format("%s/newsItem.html?newsId=%s", baseUrl, news.getId());
-        String title = messageSource.getMessage("email.news.title", new String[]{news.getHeader(), news.getAccount().getFullName()}, Locale.ENGLISH);
+        String title = messageSource.getMessage("email.news.title", new String[]{news.getHeader(), news.getAccount().toString()}, Locale.ENGLISH);
         String body = messageSource.getMessage("email.news.body", new String[]{news.getContent(), newsItemUrl}, Locale.ENGLISH);
         return mailService.sendMail(emails, title, body);
     }

@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by u0090265 on 10/1/14.
  */
 @Entity
-@Table(name = "presences")
+@Table(name = "presences", uniqueConstraints = @UniqueConstraint(columnNames = {"doodle_id", "account_id"}))
 public class Presence {
     private long id;
     private Account account;

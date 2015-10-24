@@ -143,17 +143,6 @@ public class DoodleServiceImpl implements DoodleService {
         return true;
     }
 
-    private void changePresence(Doodle doodle, Presence p, boolean present, Account account) {
-        if (p == null) {
-            p = new Presence();
-            p.setAccount(account);
-            p.setPresent(present);
-            doodle.getPresences().add(p);
-
-        }
-        p.setPresent(present);
-    }
-
     private Presence changePresence(Doodle doodle, Presence p, Account account) {
         //If not created, create and set present
         if (p == null) {
