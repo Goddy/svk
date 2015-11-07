@@ -1,13 +1,10 @@
 </div>
 <div id="footer">
     <div class="container">
-        <div class="linkToMother">
-            <a href="http://www.svk-oh.be"><img src="/resources/images/home.png"/></a>
-        </div>
-        <p style="text-align: right">
+        <span class="pull-right">
             <spring:message code="text.footer"/>
             <br/>
-        </p>
+        </span>
     </div>
 </div>
 
