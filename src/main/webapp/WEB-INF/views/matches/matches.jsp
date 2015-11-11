@@ -102,7 +102,6 @@
                             if (json != null) {
                                 divContent += '<div class="table-responsive"><table class="table table-hover rwd-table">'
                                         + '<th><spring:message code='text.date'/></th>'
-                                        + '<th><spring:message code='text.match'/></th>'
                                         + '<th><spring:message code='text.result'/></th>';
 
                                 if (loggedIn == 'true') {
@@ -113,7 +112,7 @@
                                 divContent += '<th><spring:message code='text.actions'/></th></tr>';
 
                                 $.each(json, function (i, o) {
-                                    var result = o.object.played ? '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>' : '<td><spring:message code='text.notYetPlayed'/></td>';
+                                    var result = o.object.played ? '<td><span class="resultWrapper"><span class="resultTeam">' + o.object.homeTeam.name + '</span><span class="resultGoals">' + o.object.htGoals + ' - ' + o.object.atGoals + '</span><span class="resultTeam">' + o.object.awayTeam.name + '</span></td>' : '<td><spring:message code='text.notYetPlayed'/></td>';
                                     var doodle = loggedIn == "true"? '<td><div id="presenceActions"> ' + o.additions['presenceActions'] + '<div></td>' : "";
                                     //Fix for dynamic odd rows
                                     var trClass = count % 2 !== 0 ? '' : 'class="odd"';
@@ -122,7 +121,6 @@
                                     divContent +=
                                             '<tr ' + trClass + '>' +
                                             '<td data-th="<spring:message code='text.date'/>">' + o.object.stringDate + ' : ' + o.object.stringHour + '</td>' +
-                                            '<td data-th="<spring:message code='text.match'/>">' + o.object.homeTeam.name + ' - ' + o.object.awayTeam.name + '</td>' +
                                             result +
                                             doodle +
                                             '<td>' + o.additions['htmlActions'] + ' </td></tr>';

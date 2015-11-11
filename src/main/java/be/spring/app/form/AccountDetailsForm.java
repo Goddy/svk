@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
  * Remarks: none
  */
 public class AccountDetailsForm {
-    protected String firstName, lastName, username;
+    protected String firstName, lastName, username, phone, mobilePhone, avatar;
     private boolean hasSignInProvider;
     private boolean hasPassword;
     private boolean doodleNotificationMails;
@@ -101,6 +101,30 @@ public class AccountDetailsForm {
                 ", doodleNotificationMails=" + doodleNotificationMails +
                 ", newsNotificationMails=" + newsNotificationMails +
                 '}';
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
 

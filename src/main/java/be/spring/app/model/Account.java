@@ -29,6 +29,8 @@ public class Account implements Comparable<Account> {
     private boolean active = false;
     private AccountSettings accountSettings;
 
+    private AccountProfile accountProfile;
+
     public Account(String firstName, String lastName, String username) {
         //Default values: null as password
         this.firstName = firstName;
@@ -153,6 +155,17 @@ public class Account implements Comparable<Account> {
 
     public void setAccountSettings(AccountSettings accountSettings) {
         this.accountSettings = accountSettings;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnore
+    @PrimaryKeyJoinColumn
+    public AccountProfile getAccountProfile() {
+        return accountProfile;
+    }
+
+    public void setAccountProfile(AccountProfile accountProfile) {
+        this.accountProfile = accountProfile;
     }
 
     @Override

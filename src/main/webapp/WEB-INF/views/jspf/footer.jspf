@@ -18,8 +18,11 @@
         });
 
         //Always center on errors
-        var offset = $(".has-error:first input").offset().top - 100;
-        $('html, body').animate({scrollTop: offset}, 'slow');
+        var firstErrorInput = $(".has-error:first input");
+        if (firstErrorInput.offset() !== undefined) {
+            var offset = firstErrorInput.offset().top - 100;
+            $('html, body').animate({scrollTop: offset}, 'slow');
+        }
     })(jQuery);
 </script>
 </body>

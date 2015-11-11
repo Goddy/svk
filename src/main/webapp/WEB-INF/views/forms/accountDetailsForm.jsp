@@ -12,6 +12,14 @@
         <tag:formField path="firstName" label="label.firstName" title="label.firstName" type="input"
                        optional="false"/>
         <tag:formField path="lastName" label="label.lastName" title="label.lastName" type="input" optional="false"/>
+        <tag:formField path="phone" label="label.phone" title="label.phone" type="input" optional="true"/>
+        <tag:formField path="mobilePhone" label="label.mobilePhone" title="label.mobilePhone" type="input"
+                       optional="true"/>
+        <tag:formField path="avatar" label="label.avatar" title="label.avatar" type="empty" optional="true">
+            <div class="kv-avatar center-block" style="width:200px">
+                <input id="avatar" name="avatar" type="file" class="file-loading">
+            </div>
+        </tag:formField>
         <tag:formField path="doodleNotificationMails" label="label.doodleNotificationMails"
                        title="label.doodleNotificationMails" type="checkbox" optional="false"/>
         <tag:formField path="newsNotificationMails" label="label.newsNotificationMails"
@@ -107,7 +115,29 @@
         </c:choose>
     </div>
 </div>
-
+<script src="<c:url value='/resources/js/fileinput.min.js'/>"></script>
+<script src="<c:url value='/resources/js/fileinput_locale_nl.js'/>"></script>
+<script type="text/javascript">
+    (function ($) {
+        alert('hello');
+        $("#avatar").fileinput({
+            overwriteInitial: true,
+            maxFileSize: 150,
+            showClose: false,
+            showCaption: false,
+            browseLabel: '',
+            removeLabel: '',
+            browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+            removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#kv-avatar-errors',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img src="http://placehold.it/100x100" alt="Your Avatar" style="width:100px">',
+            layoutTemplates: {main2: '{preview} {remove} {browse}'},
+            allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+    })(jQuery)
+</script>
 <%@ include file="../jspf/footer.jspf" %>
 
 
