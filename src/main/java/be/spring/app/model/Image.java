@@ -7,7 +7,7 @@ import java.util.Arrays;
  * Created by u0090265 on 11/8/15.
  */
 @Entity
-@Table(name = "address")
+@Table(name = "image")
 public class Image {
     private long id;
     private byte[] image;

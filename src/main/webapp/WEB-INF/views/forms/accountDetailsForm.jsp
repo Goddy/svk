@@ -5,7 +5,8 @@
 
 <h2><spring:message code="text.userdetails"/></h2>
 <div class="panel panel-default">
-<form:form action="update_details" modelAttribute="Account" cssClass="form-horizontal">
+<form:form action="update_details" modelAttribute="accountProfileForm" cssClass="form-horizontal"
+           enctype="multipart/form-data">
     <div class="panel-heading"></div>
     <div class="panel-body">
         <tag:formField path="username" label="label.email" title="label.email" type="input" optional="false"/>
@@ -119,7 +120,6 @@
 <script src="<c:url value='/resources/js/fileinput_locale_nl.js'/>"></script>
 <script type="text/javascript">
     (function ($) {
-        alert('hello');
         $("#avatar").fileinput({
             overwriteInitial: true,
             maxFileSize: 150,

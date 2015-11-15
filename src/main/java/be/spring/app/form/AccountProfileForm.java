@@ -1,13 +1,7 @@
 package be.spring.app.form;
 
-import be.spring.app.utils.Constants;
 import org.apache.commons.lang3.text.WordUtils;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * User: Tom De Dobbeleer
@@ -15,17 +9,14 @@ import javax.validation.constraints.Size;
  * Time: 2:52 PM
  * Remarks: none
  */
-public class AccountDetailsForm {
-    protected String firstName, lastName, username, phone, mobilePhone, avatar;
+public class AccountProfileForm {
+    protected String firstName, lastName, username, phone, mobilePhone;
+    private MultipartFile avatar;
     private boolean hasSignInProvider;
     private boolean hasPassword;
     private boolean doodleNotificationMails;
     private boolean newsNotificationMails;
 
-    @NotNull
-    @NotEmpty(message = "{validation.notempty.message}")
-    @Size(max = 50, min = 2)
-    @Pattern(regexp = Constants.NAME_REGEX, message = "{validation.name.mismatch}")
     public String getFirstName() {
         return firstName;
     }
@@ -50,10 +41,6 @@ public class AccountDetailsForm {
         this.newsNotificationMails = newsNotificationMails;
     }
 
-    @NotNull
-    @NotEmpty(message = "{validation.notempty.message}")
-    @Size(max = 50, min = 2)
-    @Pattern(regexp = Constants.NAME_REGEX, message = "{validation.name.mismatch}")
     public String getLastName() {
         return lastName;
     }
@@ -62,9 +49,6 @@ public class AccountDetailsForm {
         this.lastName = WordUtils.capitalize(lastName);
     }
 
-    @Email
-    @NotEmpty(message = "{validation.notempty.message}")
-    @NotNull
     public String getUsername() {
         return username;
     }
@@ -89,20 +73,6 @@ public class AccountDetailsForm {
         this.hasPassword = hasPassword;
     }
 
-
-    @Override
-    public String toString() {
-        return "AccountDetailsForm{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", hasSignInProvider=" + hasSignInProvider +
-                ", hasPassword=" + hasPassword +
-                ", doodleNotificationMails=" + doodleNotificationMails +
-                ", newsNotificationMails=" + newsNotificationMails +
-                '}';
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -119,12 +89,25 @@ public class AccountDetailsForm {
         this.mobilePhone = mobilePhone;
     }
 
-    public String getAvatar() {
+    public MultipartFile getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(MultipartFile avatar) {
         this.avatar = avatar;
+    }
+
+    @Override
+    public String toString() {
+        return "AccountDetailsForm{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", hasSignInProvider=" + hasSignInProvider +
+                ", hasPassword=" + hasPassword +
+                ", doodleNotificationMails=" + doodleNotificationMails +
+                ", newsNotificationMails=" + newsNotificationMails +
+                '}';
     }
 }
 

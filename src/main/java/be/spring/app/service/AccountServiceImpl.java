@@ -1,9 +1,10 @@
 package be.spring.app.service;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
-import be.spring.app.form.AccountDetailsForm;
+import be.spring.app.form.AccountProfileForm;
 import be.spring.app.form.ActivateAccountForm;
 import be.spring.app.model.Account;
+import be.spring.app.model.Image;
 import be.spring.app.persistence.AccountDao;
 import be.spring.app.utils.GeneralUtils;
 import com.google.common.collect.Lists;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -63,7 +65,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Transactional(readOnly = false)
-    public Account updateAccount(Account account, AccountDetailsForm form) {
+    public Account updateAccount(Account account, AccountProfileForm form) {
         //To do: why is object detached when coming from security?
         return accountDao.save(getUpdatedAccount(account, form));
     }
@@ -169,11 +171,18 @@ public class AccountServiceImpl implements AccountService {
         return accountDao.findByActivationCodeNotNull();
     }
 
-    private Account getUpdatedAccount(Account account, AccountDetailsForm form) {
+    private Account getUpdatedAccount(Account account, AccountProfileForm form) {
         Account newAccount = accountDao.findOne(account.getId());
         newAccount.setFirstName(form.getFirstName());
         newAccount.setLastName(form.getLastName());
         newAccount.setUsername(form.getUsername());
+        try {
+            Image image = new Image();
+            image.setImage(form.getAvatar().getBytes());
+            newAccount.getAccountProfile().setAvatar(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         newAccount.getAccountSettings().setSendDoodleNotifications(form.isDoodleNotificationMails());
         newAccount.getAccountSettings().setSendNewsNotifications(form.isNewsNotificationMails());
         return newAccount;

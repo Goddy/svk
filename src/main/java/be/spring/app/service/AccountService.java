@@ -1,6 +1,6 @@
 package be.spring.app.service;
 
-import be.spring.app.form.AccountDetailsForm;
+import be.spring.app.form.AccountProfileForm;
 import be.spring.app.form.ActivateAccountForm;
 import be.spring.app.model.Account;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +12,7 @@ import java.util.Locale;
 public interface AccountService {
     Account registerAccount(Account account, String password);
 
-    Account updateAccount(Account account, AccountDetailsForm form);
+    Account updateAccount(Account account, AccountProfileForm form);
 
     @Transactional
     Account saveAccount(Account account);
