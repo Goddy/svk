@@ -479,12 +479,7 @@
                 <id>openshift</id>
                 <properties>
                     <baseUrl>BASEURL</baseUrl>
-                    <gmail.password>PASSWORD</gmail.password>
                     <properties.location>classpath:openshift.properties</properties.location>
-                    <recatchpa.privateKey></recatchpa.privateKey>
-                    <recatchpa.publicKey></recatchpa.publicKey>
-                    <facebook.id>ID</facebook.id>
-                    <facebook.secret>SECRET</facebook.secret>
                 </properties>
                 <build>
                     <finalName>svk</finalName>
