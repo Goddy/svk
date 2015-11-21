@@ -478,7 +478,6 @@
             <profile>
                 <id>openshift</id>
                 <properties>
-                    <baseUrl>BASEURL</baseUrl>
                     <properties.location>classpath:openshift.properties</properties.location>
                 </properties>
                 <build>
