@@ -16,6 +16,7 @@ public class AccountProfileForm {
     private boolean hasPassword;
     private boolean doodleNotificationMails;
     private boolean newsNotificationMails;
+    private String avatarUrl;
 
     public String getFirstName() {
         return firstName;
@@ -97,16 +98,28 @@ public class AccountProfileForm {
         this.avatar = avatar;
     }
 
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
     @Override
     public String toString() {
-        return "AccountDetailsForm{" +
+        return "AccountProfileForm{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
+                ", phone='" + phone + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", avatar=" + avatar +
                 ", hasSignInProvider=" + hasSignInProvider +
                 ", hasPassword=" + hasPassword +
                 ", doodleNotificationMails=" + doodleNotificationMails +
                 ", newsNotificationMails=" + newsNotificationMails +
+                ", avatarUrl='" + avatarUrl + '\'' +
                 '}';
     }
 }

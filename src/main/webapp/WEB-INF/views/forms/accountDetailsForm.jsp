@@ -16,11 +16,24 @@
         <tag:formField path="phone" label="label.phone" title="label.phone" type="input" optional="true"/>
         <tag:formField path="mobilePhone" label="label.mobilePhone" title="label.mobilePhone" type="input"
                        optional="true"/>
+
         <tag:formField path="avatar" label="label.avatar" title="label.avatar" type="empty" optional="true">
-            <div class="kv-avatar center-block" style="width:200px">
-                <input id="avatar" name="avatar" type="file" class="file-loading">
+            <div id="uploadAvatar">
+                <div class="kv-avatar center-block" style="width:200px">
+                    <input id="avatar" name="avatar" type="file" class="file-loading">
+                </div>
+            </div>
+            <div id="currentAvatar">
+                <div class="center-block" style="width: 200px;">
+                    <img src="${accountProfileForm.avatarUrl}" class="img-thumbnail"/>
+
+                    <div class="btn btn-primary center-block" id="editAvatar"><i
+                            class="glyphicon glyphicon glyphicon-edit"></i></div>
+                </div>
+
             </div>
         </tag:formField>
+
         <tag:formField path="doodleNotificationMails" label="label.doodleNotificationMails"
                        title="label.doodleNotificationMails" type="checkbox" optional="false"/>
         <tag:formField path="newsNotificationMails" label="label.newsNotificationMails"
@@ -120,6 +133,31 @@
 <script src="<c:url value='/resources/js/fileinput_locale_nl.js'/>"></script>
 <script type="text/javascript">
     (function ($) {
+        var currentAvatar = $("#currentAvatar");
+        var uploadAvatar = $("#uploadAvatar");
+        var editAvatar = $("#editAvatar");
+
+        if (currentAvatar.find('img').first().attr("src") == "") {
+            showUploadAvatar()
+        }
+        else {
+            showCurrentAvatar();
+        }
+
+        editAvatar.click(function () {
+            showUploadAvatar();
+        });
+
+        function showCurrentAvatar() {
+            currentAvatar.show();
+            uploadAvatar.hide();
+        }
+
+        function showUploadAvatar() {
+            currentAvatar.hide();
+            uploadAvatar.show();
+        }
+
         $("#avatar").fileinput({
             overwriteInitial: true,
             maxFileSize: 150,
@@ -129,10 +167,9 @@
             removeLabel: '',
             browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
             removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-            removeTitle: 'Cancel or reset changes',
             elErrorContainer: '#kv-avatar-errors',
             msgErrorClass: 'alert alert-block alert-danger',
-            defaultPreviewContent: '<img src="http://placehold.it/100x100" alt="Your Avatar" style="width:100px">',
+            defaultPreviewContent: "<img src=\"http://placehold.it/100x100\" style=\"width:150px\">",
             layoutTemplates: {main2: '{preview} {remove} {browse}'},
             allowedFileExtensions: ["jpg", "png", "gif"]
         });

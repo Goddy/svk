@@ -4,10 +4,13 @@ import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.AccountProfileForm;
 import be.spring.app.form.ActivateAccountForm;
 import be.spring.app.model.Account;
+import be.spring.app.model.AccountProfile;
 import be.spring.app.model.Image;
 import be.spring.app.persistence.AccountDao;
 import be.spring.app.utils.GeneralUtils;
 import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -16,8 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -25,6 +28,8 @@ import java.util.Locale;
 @Service
 @Transactional(readOnly = true)
 public class AccountServiceImpl implements AccountService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 
     private static final String UPDATE_PASSWORD_SQL = "update account set password = ? where id = ?";
     private static final String GET_PASSWORD = "select password from account where id = ?";
@@ -45,6 +50,8 @@ public class AccountServiceImpl implements AccountService {
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private ImageService imageService;
 
     @Override
     public Account registerAccount(Account account, String password) {
@@ -176,13 +183,7 @@ public class AccountServiceImpl implements AccountService {
         newAccount.setFirstName(form.getFirstName());
         newAccount.setLastName(form.getLastName());
         newAccount.setUsername(form.getUsername());
-        try {
-            Image image = new Image();
-            image.setImage(form.getAvatar().getBytes());
-            newAccount.getAccountProfile().setAvatar(image);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setAccountProfile(account, newAccount, form);
         newAccount.getAccountSettings().setSendDoodleNotifications(form.isDoodleNotificationMails());
         newAccount.getAccountSettings().setSendNewsNotifications(form.isNewsNotificationMails());
         return newAccount;
@@ -190,5 +191,26 @@ public class AccountServiceImpl implements AccountService {
 
     private String getCurrentEncodedPasswordFor(Account account) {
         return jdbcTemplate.queryForObject(GET_PASSWORD, String.class, account.getId());
+    }
+
+    private void setAccountProfile(Account oldAccount, Account updatedAccount, AccountProfileForm form) {
+        updatedAccount.setAccountProfile(oldAccount.getAccountProfile() == null ?
+                new AccountProfile() : oldAccount.getAccountProfile());
+        updatedAccount.getAccountProfile().setAvatar(createProfileImage(updatedAccount.getAccountProfile().getAvatar(), form.getAvatar()));
+    }
+
+    private Image createProfileImage(Image image, MultipartFile file) {
+        if (!file.isEmpty()) {
+            try {
+                return imageService.uploadProfileImage(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.error("Could not upload image");
+                //Fail if image cannot be uploaded
+                throw new RuntimeException(e.getMessage(), e.getCause());
+            }
+        } else {
+            return image;
+        }
     }
 }

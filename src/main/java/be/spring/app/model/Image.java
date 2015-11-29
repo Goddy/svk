@@ -1,7 +1,6 @@
 package be.spring.app.model;
 
 import javax.persistence.*;
-import java.util.Arrays;
 
 /**
  * Created by u0090265 on 11/8/15.
@@ -10,7 +9,8 @@ import java.util.Arrays;
 @Table(name = "image")
 public class Image {
     private long id;
-    private byte[] image;
+    private String imageId;
+    private String imageUrl;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,40 +23,21 @@ public class Image {
         this.id = id;
     }
 
-    @Lob
-    @Column(name = "image")
-    public byte[] getImage() {
-        return image;
+    @Column(name = "image_id")
+    public String getImageId() {
+        return imageId;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 
-    @Override
-    public String toString() {
-        return "Image{" +
-                "id=" + id +
-                ", image=" + Arrays.toString(image) +
-                '}';
+    @Column(name = "image_url")
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Image image1 = (Image) o;
-
-        if (id != image1.id) return false;
-        return Arrays.equals(image, image1.image);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + Arrays.hashCode(image);
-        return result;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

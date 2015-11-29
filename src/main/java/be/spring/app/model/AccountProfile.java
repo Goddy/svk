@@ -3,7 +3,6 @@ package be.spring.app.model;
 import be.spring.app.data.PositionsEnum;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -29,8 +28,7 @@ public class AccountProfile {
         this.account = account;
     }
 
-    @NotNull
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "avatar_id", insertable = true, updatable = true, nullable = true)
     public Image getAvatar() {
         return avatar;

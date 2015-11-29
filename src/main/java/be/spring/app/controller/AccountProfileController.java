@@ -3,7 +3,9 @@ package be.spring.app.controller;
 import be.spring.app.form.AccountProfileForm;
 import be.spring.app.form.ChangePwdForm;
 import be.spring.app.model.Account;
+import be.spring.app.model.AccountProfile;
 import be.spring.app.service.AccountService;
+import be.spring.app.service.ImageService;
 import be.spring.app.validators.AccountProfileFormValidator;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
@@ -36,6 +38,9 @@ public class AccountProfileController extends AbstractController {
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    ImageService imageService;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
@@ -120,6 +125,13 @@ public class AccountProfileController extends AbstractController {
         accountProfileForm.setHasPassword(!accountService.passwordIsNullOrEmpty(currentAccount));
         accountProfileForm.setDoodleNotificationMails(currentAccount.getAccountSettings().isSendDoodleNotifications());
         accountProfileForm.setNewsNotificationMails(currentAccount.getAccountSettings().isSendNewsNotifications());
+
+        if (account.getAccountProfile() != null) {
+            AccountProfile accountProfile = account.getAccountProfile();
+            accountProfileForm.setMobilePhone(accountProfile.getMobilePhone());
+            accountProfileForm.setPhone(accountProfile.getPhone());
+            accountProfileForm.setAvatarUrl(accountProfile.getAvatar() != null ? accountProfile.getAvatar().getImageUrl() : null);
+        }
 
         model.addAttribute("accountProfileForm", accountProfileForm);
         model.addAttribute("changePassword", passwordForm);

@@ -16,6 +16,15 @@
     <context:component-scan base-package="be.spring.app.controller"/>
     <context:component-scan base-package="be.spring.app.dto.helper"/>
 
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- max upload size in bytes -->
+        <property name="maxUploadSize" value="20971520"/> <!-- 20MB -->
+        <!-- max size of file in memory (in bytes) -->
+        <property name="maxInMemorySize" value="1048576"/> <!-- 1MB -->
+
+    </bean>
+
     <mvc:interceptors>
         <bean class="be.spring.app.handler.PropertiesAddingHandlerInterceptor">
             <constructor-arg value="${baseUrl}"/>
