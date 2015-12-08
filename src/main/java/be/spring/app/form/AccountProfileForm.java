@@ -17,6 +17,7 @@ public class AccountProfileForm {
     private boolean doodleNotificationMails;
     private boolean newsNotificationMails;
     private String avatarUrl;
+    private boolean removeAvatar;
 
     public String getFirstName() {
         return firstName;
@@ -106,6 +107,14 @@ public class AccountProfileForm {
         this.avatarUrl = avatarUrl;
     }
 
+    public boolean isRemoveAvatar() {
+        return removeAvatar;
+    }
+
+    public void setRemoveAvatar(boolean removeAvatar) {
+        this.removeAvatar = removeAvatar;
+    }
+
     @Override
     public String toString() {
         return "AccountProfileForm{" +
@@ -120,6 +129,7 @@ public class AccountProfileForm {
                 ", doodleNotificationMails=" + doodleNotificationMails +
                 ", newsNotificationMails=" + newsNotificationMails +
                 ", avatarUrl='" + avatarUrl + '\'' +
+                ", removeAvatar=" + removeAvatar +
                 '}';
     }
 }

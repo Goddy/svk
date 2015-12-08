@@ -2,6 +2,7 @@ package be.spring.app.service;
 
 import be.spring.app.model.Image;
 import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
@@ -50,6 +51,12 @@ public class CloudinaryImageServiceImpl implements ImageService {
         image.setImageId((String) result.get("public_id"));
         image.setImageUrl((String) result.get("url"));
         return image;
+    }
+
+    @Override
+    public String getImage(String imageId, String format, int width, int height) {
+        return cloudinary.url().transformation(new Transformation().width(width).height(height)).format(format)
+                .imageTag(imageId);
     }
 
     @Override

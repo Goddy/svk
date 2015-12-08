@@ -91,7 +91,9 @@ public class AccountProfileController extends AbstractController {
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public String getAccountDetails(Model model) {
         log.info("Method edit called");
-        Account activeAccount = getAccountFromSecurity();
+        //Refresh account, the account in security is not accurate.
+        //Todo: workaround?
+        Account activeAccount = accountService.getAccount(getAccountFromSecurity().getId());
         setAccountDetailsModel(activeAccount, model, new AccountProfileForm(), new ChangePwdForm());
 
         log.info("Created AccountDetailsForm");

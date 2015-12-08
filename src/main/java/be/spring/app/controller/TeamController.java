@@ -1,13 +1,16 @@
 package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
+import be.spring.app.data.PositionsEnum;
 import be.spring.app.form.CreateAndUpdateTeamForm;
+import be.spring.app.model.Account;
 import be.spring.app.model.ActionWrapper;
-import be.spring.app.model.Address;
 import be.spring.app.model.Team;
+import be.spring.app.service.AccountService;
 import be.spring.app.service.AddressService;
 import be.spring.app.service.TeamService;
 import be.spring.app.validators.CreateTeamValidator;
+import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import static be.spring.app.utils.Constants.*;
 
@@ -38,6 +42,9 @@ public class TeamController extends AbstractController {
     AddressService addressService;
 
     @Autowired
+    AccountService accountService;
+
+    @Autowired
     private CreateTeamValidator validator;
 
     private static final Logger log = LoggerFactory.getLogger(TeamController.class);
@@ -49,10 +56,6 @@ public class TeamController extends AbstractController {
         binder.setValidator(validator);
     }
 
-    @ModelAttribute("addresses")
-    public List<Address> getAddresses() {
-        return addressService.getAllAddresses();
-    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "createTeam", method = RequestMethod.GET)
@@ -150,6 +153,15 @@ public class TeamController extends AbstractController {
         }
         model.addAttribute("teams", getTeams(locale));
         return LANDING_TEAMS;
+
+    }
+
+    @RequestMapping(value = "team", method = RequestMethod.GET)
+    public String getTeam(ModelMap model, Locale locale) {
+        Map<String, List<Account>> players = Maps.newLinkedHashMap();
+        players.put(PositionsEnum.GOALKEEPER.name(), accountService.getAllActivateAccounts());
+        model.put("players", players);
+        return LANDING_TEAM;
 
     }
 

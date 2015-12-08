@@ -196,7 +196,10 @@ public class AccountServiceImpl implements AccountService {
     private void setAccountProfile(Account oldAccount, Account updatedAccount, AccountProfileForm form) {
         updatedAccount.setAccountProfile(oldAccount.getAccountProfile() == null ?
                 new AccountProfile() : oldAccount.getAccountProfile());
-        updatedAccount.getAccountProfile().setAvatar(createProfileImage(updatedAccount.getAccountProfile().getAvatar(), form.getAvatar()));
+        //Set image as a null value to remove, else set profile image with provided image.
+        updatedAccount.getAccountProfile().setAvatar(form.isRemoveAvatar() ?
+                null :
+                createProfileImage(updatedAccount.getAccountProfile().getAvatar(), form.getAvatar()));
     }
 
     private Image createProfileImage(Image image, MultipartFile file) {

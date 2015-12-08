@@ -309,6 +309,18 @@ header h3 {
     }
 }
 
+/* Profile
+-------------------------------------------------- */
+
+div.team-row img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+div.team-row .row {
+    padding-left: 10px;
+}
+
 /* Media queries
 -------------------------------------------------- */
 @media (max-width: 768px) {

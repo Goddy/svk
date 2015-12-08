@@ -1,6 +1,5 @@
 package be.spring.app.controller;
 
-import be.spring.app.form.UploadForm;
 import be.spring.app.service.ImageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +44,6 @@ public class HomeController extends AbstractController {
 
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	public String testGet(ModelMap map) {
-		UploadForm form = new UploadForm();
-		map.put("form", form);
 		return "test";
 	}
 }

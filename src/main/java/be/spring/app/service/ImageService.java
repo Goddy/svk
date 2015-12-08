@@ -12,6 +12,8 @@ public interface ImageService {
 
     Image uploadProfileImage(MultipartFile file) throws Exception;
 
+    String getImage(String imageId, String format, int width, int height);
+
     String getImage(String imageId, String format);
 
     String getImage(String imageId);
