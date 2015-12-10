@@ -12,6 +12,7 @@
 
 <c:if test="${not empty value}">
     <div data-toggle="tooltip" class="row" title="<spring:message code='${title}'/>">
+        <p>
         <c:choose>
             <c:when test="${type=='email'}">
                 <i class="glyphicon glyphicon-envelope"></i>&nbsp;
@@ -39,9 +40,10 @@
             </c:when>
 
             <c:otherwise>
-                <p>${value}</p>
+                ${value}
             </c:otherwise>
         </c:choose>
+        </p>
         <jsp:doBody/>
     </div>
 </c:if>

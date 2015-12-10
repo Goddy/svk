@@ -32,8 +32,10 @@
                                               type="email"/>
                         <tag:static-formField label="label.phone" title="label.phone" value="${p.accountProfile.phone}"
                                               type="phone"/>
-                        <tag:static-formField label="label.mobile" title="label.mobile"
+                        <tag:static-formField label="label.mobilePhone" title="label.mobilePhone"
                                               value="${p.accountProfile.mobilePhone}" type="mobile"/>
+                        <tag:static-formField label="label.address" title="label.address" type="address"
+                                              value='${p.accountProfile.address.address}<br/>${p.accountProfile.address.postalCode} ${p.accountProfile.address.city}'/>
                     </c:if>
                 </div>
             </div>
@@ -44,8 +46,16 @@
 <script src="<c:url value='/resources/js/svk-ui-1.3.js'/>"></script>
 
 <script type="text/javascript">
-    (function ($, dd, md) {
+    (function ($) {
+        var teamItem = $(".thumbnail");
+        var height = 0;
+        teamItem.each(function () {
+            if ($(this).height() > height) {
+                height = $(this).height();
+            }
+        });
 
-    })(jQuery, svk.deleteDialogs, svk.mapDialog);
+        teamItem.height(height);
+    })(jQuery);
 </script>
 <%@ include file="../jspf/footer.jspf" %>
