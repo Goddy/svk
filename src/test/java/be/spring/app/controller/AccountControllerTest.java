@@ -189,7 +189,7 @@ public class AccountControllerTest extends AbstractTest {
     }
 
     private MvcResult performUpdate(String firstName, String lastName, String username, ResultMatcher status) throws Exception {
-        return mockMvc.perform(post("/account/update_details.html")
+        return mockMvc.perform(post("/account/update.html")
                 .param("firstName", firstName)
                 .param("lastName", lastName)
                 .param("username", username)

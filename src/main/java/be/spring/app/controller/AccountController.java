@@ -47,7 +47,7 @@ public class AccountController extends AbstractController {
 
     @Autowired
     private AccountService accountService;
-    private static final String LANDING_REG_FORM = "forms/registrationForm";
+    private static final String LANDING_REG_FORM = "account/register";
     private static final String REDIRECT_REGISTRATION_OK = "redirect:registration_ok.html";
     private static final String LANDING_REGISTRATION_OK = "/account/registration_ok";
     private static final String LANDING_ADD_SOCIAL_CONNECTION = "/account/addSocialConnection";

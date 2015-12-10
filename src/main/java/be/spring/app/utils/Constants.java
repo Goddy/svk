@@ -8,6 +8,7 @@ package be.spring.app.utils;
  */
 public class Constants {
     public static final String PASSWORD_REGEX = "^[0-9a-zA-Z\\._-]{5,15}$";
+    public static final String PHONE_REGEX = "^[0-9a-zA-Z+]{9,13}$";
     public static final String EMAIL_REGEX = "[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\\.[a-zA-Z]{2,4}";
     public static final String NAME_REGEX = "^[\\p{IsLatin}-\\s']+$";
     public static final int MINUS_TEN = -10;

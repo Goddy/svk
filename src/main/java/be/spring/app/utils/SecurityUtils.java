@@ -3,6 +3,8 @@ package be.spring.app.utils;
 import be.spring.app.model.Account;
 import be.spring.app.model.Role;
 import be.spring.app.persistence.UserDetailsAdapter;
+import be.spring.app.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +16,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class SecurityUtils {
+    @Autowired
+    AccountService accountService;
+
     public Account getAccountFromSecurity()
     {
         UserDetailsAdapter details;
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetailsAdapter) {
             details = (UserDetailsAdapter)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return details.getAccount();
+            //Always refresh the account
+            return accountService.getAccount(details.getAccount().getId());
         }
         else {
             return null;

@@ -5,9 +5,11 @@ import be.spring.app.form.AccountProfileForm;
 import be.spring.app.form.ActivateAccountForm;
 import be.spring.app.model.Account;
 import be.spring.app.model.AccountProfile;
+import be.spring.app.model.Address;
 import be.spring.app.model.Image;
 import be.spring.app.persistence.AccountDao;
 import be.spring.app.utils.GeneralUtils;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -196,10 +198,27 @@ public class AccountServiceImpl implements AccountService {
     private void setAccountProfile(Account oldAccount, Account updatedAccount, AccountProfileForm form) {
         updatedAccount.setAccountProfile(oldAccount.getAccountProfile() == null ?
                 new AccountProfile() : oldAccount.getAccountProfile());
+        AccountProfile accountProfile = updatedAccount.getAccountProfile();
+        //Set enum
+        accountProfile.setFavouritePosition(form.getPosition());
+        //Set mobile, phone, address, etc
+        accountProfile.setPhone(form.getPhone());
+        accountProfile.setMobilePhone(form.getMobilePhone());
+        accountProfile.setAddress(createAddress(accountProfile.getAddress(), form));
         //Set image as a null value to remove, else set profile image with provided image.
         updatedAccount.getAccountProfile().setAvatar(form.isRemoveAvatar() ?
                 null :
                 createProfileImage(updatedAccount.getAccountProfile().getAvatar(), form.getAvatar()));
+    }
+
+    private Address createAddress(Address address, AccountProfileForm form) {
+        if (!Strings.isNullOrEmpty(form.getAddress()) && !Strings.isNullOrEmpty(form.getPostalCode()) && !Strings.isNullOrEmpty(form.getCity())) {
+            if (address == null) address = new Address();
+            address.setAddress(form.getAddress());
+            address.setCity(form.getCity());
+            address.setPostalCode(Integer.parseInt(form.getPostalCode()));
+        }
+        return address;
     }
 
     private Image createProfileImage(Image image, MultipartFile file) {

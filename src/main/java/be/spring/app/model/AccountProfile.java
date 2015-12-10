@@ -18,6 +18,7 @@ public class AccountProfile {
     private String phone;
     private PositionsEnum favouritePosition;
     private String description;
+    private Address address;
 
     @OneToOne(mappedBy = "accountProfile")
     public Account getAccount() {
@@ -74,6 +75,16 @@ public class AccountProfile {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "adrress_id", insertable = true, updatable = true, nullable = true)
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Id

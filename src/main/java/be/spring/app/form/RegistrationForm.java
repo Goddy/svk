@@ -1,13 +1,10 @@
 package be.spring.app.form;
 
 import be.spring.app.data.SocialMediaEnum;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.commons.lang3.text.WordUtils;
 
-public class RegistrationForm {
+public class RegistrationForm extends AccountForm {
 
-    protected String firstName, lastName, username, password, confirmPassword;
+    protected String password, confirmPassword;
     protected SocialMediaEnum signInProvider;
 
     public String getPassword() {
@@ -26,30 +23,6 @@ public class RegistrationForm {
         this.confirmPassword = confirmPassword;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = WordUtils.capitalize(firstName);
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = WordUtils.capitalize(lastName);
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public SocialMediaEnum getSignInProvider() {
         return signInProvider;
     }
@@ -66,12 +39,12 @@ public class RegistrationForm {
         return signInProvider != null;
     }
 
+    @Override
     public String toString() {
-
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("firstName", firstName)
-                .append("lastName", lastName)
-                .append("username", username)
-                .toString();
+        return "RegistrationForm{" +
+                "password=***'" + '\'' +
+                ", confirmPassword=***'" + '\'' +
+                ", signInProvider=" + signInProvider +
+                "} " + super.toString();
     }
 }

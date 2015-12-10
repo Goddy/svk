@@ -1,5 +1,6 @@
 package be.spring.app.form;
 
+import be.spring.app.data.PositionsEnum;
 import org.apache.commons.lang3.text.WordUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,23 +10,19 @@ import org.springframework.web.multipart.MultipartFile;
  * Time: 2:52 PM
  * Remarks: none
  */
-public class AccountProfileForm {
-    protected String firstName, lastName, username, phone, mobilePhone;
+public class AccountProfileForm extends AccountForm {
+    private String phone, mobilePhone;
     private MultipartFile avatar;
+    private PositionsEnum position;
     private boolean hasSignInProvider;
     private boolean hasPassword;
     private boolean doodleNotificationMails;
     private boolean newsNotificationMails;
     private String avatarUrl;
     private boolean removeAvatar;
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = WordUtils.capitalize(firstName);
-    }
+    private String address;
+    private String postalCode;
+    private String city;
 
     public boolean isDoodleNotificationMails() {
         return doodleNotificationMails;
@@ -41,22 +38,6 @@ public class AccountProfileForm {
 
     public void setNewsNotificationMails(boolean newsNotificationMails) {
         this.newsNotificationMails = newsNotificationMails;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = WordUtils.capitalize(lastName);
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public boolean isHasSignInProvider() {
@@ -115,22 +96,55 @@ public class AccountProfileForm {
         this.removeAvatar = removeAvatar;
     }
 
+    public PositionsEnum getPosition() {
+        return position;
+    }
+
+    public void setPosition(PositionsEnum position) {
+        this.position = position;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = WordUtils.capitalize(address);
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = WordUtils.capitalize(city);
+    }
+
     @Override
     public String toString() {
         return "AccountProfileForm{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", phone='" + phone + '\'' +
+                "phone='" + phone + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
                 ", avatar=" + avatar +
+                ", position=" + position +
                 ", hasSignInProvider=" + hasSignInProvider +
                 ", hasPassword=" + hasPassword +
                 ", doodleNotificationMails=" + doodleNotificationMails +
                 ", newsNotificationMails=" + newsNotificationMails +
                 ", avatarUrl='" + avatarUrl + '\'' +
                 ", removeAvatar=" + removeAvatar +
-                '}';
+                ", address='" + address + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", city='" + city + '\'' +
+                "} " + super.toString();
     }
 }
 

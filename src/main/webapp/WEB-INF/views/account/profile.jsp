@@ -5,11 +5,12 @@
 
 <h2><spring:message code="text.userdetails"/></h2>
 <div class="panel panel-default">
-<form:form action="update_details" modelAttribute="accountProfileForm" cssClass="form-horizontal"
+<form:form action="update" modelAttribute="accountProfileForm" cssClass="form-horizontal"
            enctype="multipart/form-data">
     <div class="panel-heading"></div>
     <div class="panel-body">
         <form:hidden path="removeAvatar"/>
+        <form:hidden path="avatarUrl"/>
         <tag:formField path="username" label="label.email" title="label.email" type="input" optional="false"/>
         <tag:formField path="firstName" label="label.firstName" title="label.firstName" type="input"
                        optional="false"/>
@@ -168,7 +169,7 @@
     var uploadAvatar = $("#uploadAvatarDiv");
     var avatarEditBtn = $("#avatarEditBtn");
     var removeAvatarDiv = $("#removeAvatarDiv");
-    var hasAvatar = !currentAvatar.find('img').first().attr("src") == "";
+    var hasAvatar = ${not empty accountProfileForm.avatarUrl ? 'true' : 'false'};
     var avatarBackRemoveBtn = $('#avatarBackRemoveBtn');
     var avatarRemoveBtn = $('#avatarRemoveBtn');
     var avatarRemoveField = $('#removeAvatar');
