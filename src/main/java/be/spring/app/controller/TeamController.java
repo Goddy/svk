@@ -10,7 +10,9 @@ import be.spring.app.service.AccountService;
 import be.spring.app.service.AddressService;
 import be.spring.app.service.TeamService;
 import be.spring.app.validators.CreateTeamValidator;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.sun.org.apache.bcel.internal.generic.SWITCH;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -158,14 +160,54 @@ public class TeamController extends AbstractController {
 
     @RequestMapping(value = "team", method = RequestMethod.GET)
     public String getTeam(ModelMap model, Locale locale) {
-        Map<String, List<Account>> players = Maps.newLinkedHashMap();
-        players.put(PositionsEnum.GOALKEEPER.name(), accountService.getAllActivateAccounts());
-        model.put("players", players);
+        model.put("players", getSortedAccounts());
         return LANDING_TEAM;
 
     }
 
     private List<ActionWrapper<Team>> getTeams(Locale locale) {
         return teamService.getTeams(getAccountFromSecurity(), locale);
+    }
+
+    private Map<String, List<Account>> getSortedAccounts() {
+        Map<String, List<Account>> players = Maps.newLinkedHashMap();
+        List<Account> goalKeepers = Lists.newArrayList();
+        List<Account> defenders = Lists.newArrayList();
+        List<Account> midfielders = Lists.newArrayList();
+        List<Account> fordwards = Lists.newArrayList();
+        List<Account> unknown = Lists.newArrayList();
+
+        for (Account account : accountService.getAllActivateAccounts()) {
+            if (account.getAccountProfile() == null || account.getAccountProfile().getFavouritePosition() == null) {
+                //No account profile, no position
+                unknown.add(account);
+            }
+            else {
+                switch (account.getAccountProfile().getFavouritePosition()) {
+                    case GOALKEEPER:
+                        goalKeepers.add(account);
+                        break;
+                    case DEFENDER:
+                        defenders.add(account);
+                        break;
+                    case MIDFIELDER:
+                        midfielders.add(account);
+                        break;
+                    case FORWARD:
+                        fordwards.add(account);
+                        break;
+                    default:
+                        unknown.add(account);
+                        break;
+                }
+            }
+
+        }
+        players.put(PositionsEnum.GOALKEEPER.name(), goalKeepers);
+        players.put(PositionsEnum.DEFENDER.name(), defenders);
+        players.put(PositionsEnum.MIDFIELDER.name(), midfielders);
+        players.put(PositionsEnum.FORWARD.name(), fordwards);
+        players.put("UNKNOWN", unknown);
+        return players;
     }
 }
