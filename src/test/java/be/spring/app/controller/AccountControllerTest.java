@@ -166,6 +166,7 @@ public class AccountControllerTest extends AbstractTest {
         accountDao.save(existingAccount);
         reset(securityUtils, jdbcTemplate);
         expect(securityUtils.getAccountFromSecurity()).andReturn(existingAccount);
+        expectLastCall().times(2);
         expectQueryForPassword("notEmpty");
         replay(securityUtils, jdbcTemplate);
 

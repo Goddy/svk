@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
  * Remarks: none
  */
 public class AccountProfileForm extends AccountForm {
+    private Long accountId;
     private String phone, mobilePhone;
     private MultipartFile avatar;
     private PositionsEnum position;
@@ -128,10 +129,19 @@ public class AccountProfileForm extends AccountForm {
         this.city = WordUtils.capitalize(city);
     }
 
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
+
     @Override
     public String toString() {
         return "AccountProfileForm{" +
-                "phone='" + phone + '\'' +
+                "accountId=" + accountId +
+                ", phone='" + phone + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
                 ", avatar=" + avatar +
                 ", position=" + position +

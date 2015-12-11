@@ -1,6 +1,8 @@
 package be.spring.app.validators;
 
 import be.spring.app.form.AccountProfileForm;
+import be.spring.app.model.Account;
+import be.spring.app.model.Role;
 import be.spring.app.service.AccountService;
 import be.spring.app.utils.GeneralUtils;
 import be.spring.app.utils.SecurityUtils;
@@ -53,7 +55,9 @@ public class AccountProfileFormValidator extends AccountFormValidator implements
 
         //Check for username issues
         if (!errors.hasFieldErrors("username")) {
-            accountService.validateUsernameExcludeCurrentId(form.getUsername(), securityUtils.getAccountFromSecurity().getId(), errors);
+            Account currentAccount = securityUtils.getAccountFromSecurity();
+            Account accountToCheck = currentAccount.getRole().equals(Role.ADMIN) && form.getAccountId() != null ? accountService.getAccount(form.getAccountId()) : currentAccount;
+            accountService.validateUsernameExcludeCurrentId(form.getUsername(), accountToCheck.getId(), errors);
         }
     }
 

@@ -17,14 +17,19 @@ public abstract class AbstractAccountController extends AbstractController {
     AccountService accountService;
 
     protected void setAccountDetailsModel(Account account, Model model, AccountProfileForm accountProfileForm, ChangePwdForm passwordForm) {
-        Account currentAccount = accountService.getAccount(account.getId());
-        accountProfileForm.setFirstName(currentAccount.getFirstName());
-        accountProfileForm.setUsername(currentAccount.getUsername());
-        accountProfileForm.setLastName(currentAccount.getLastName());
-        accountProfileForm.setHasSignInProvider(currentAccount.getSignInProvider() != null);
-        accountProfileForm.setHasPassword(!accountService.passwordIsNullOrEmpty(currentAccount));
-        accountProfileForm.setDoodleNotificationMails(currentAccount.getAccountSettings().isSendDoodleNotifications());
-        accountProfileForm.setNewsNotificationMails(currentAccount.getAccountSettings().isSendNewsNotifications());
+        setAccountDetailsModel(account, model, accountProfileForm);
+        model.addAttribute("accountProfileForm", accountProfileForm);
+        model.addAttribute("changePassword", passwordForm);
+    }
+
+    protected void setAccountDetailsModel(Account account, Model model, AccountProfileForm accountProfileForm) {
+        accountProfileForm.setFirstName(account.getFirstName());
+        accountProfileForm.setUsername(account.getUsername());
+        accountProfileForm.setLastName(account.getLastName());
+        accountProfileForm.setHasSignInProvider(account.getSignInProvider() != null);
+        accountProfileForm.setHasPassword(!accountService.passwordIsNullOrEmpty(account));
+        accountProfileForm.setDoodleNotificationMails(account.getAccountSettings().isSendDoodleNotifications());
+        accountProfileForm.setNewsNotificationMails(account.getAccountSettings().isSendNewsNotifications());
 
         if (account.getAccountProfile() != null) {
             AccountProfile accountProfile = account.getAccountProfile();
@@ -42,6 +47,5 @@ public abstract class AbstractAccountController extends AbstractController {
         }
 
         model.addAttribute("accountProfileForm", accountProfileForm);
-        model.addAttribute("changePassword", passwordForm);
     }
 }

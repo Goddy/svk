@@ -65,16 +65,26 @@
                     </ul>
                 </li>
 
-                <li><a href="/home.html"><spring:message code="nav.home"/></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="nav.info"/> <b
+                            class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/home.html"><spring:message code="nav.home"/></a></li>
+                        <li><a href="/team.html"><spring:message code="nav.team"/></a></li>
+                    </ul>
+                </li>
                 <li><a href="/faq.html"><spring:message code="nav.faq"/></a></li>
 
-                <security:authorize access="hasRole('ADMIN')">
+                <security:authorize access="isAuthenticated()">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="nav.admin"/> <b
                             class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/createMatch.html"><spring:message code="nav.createMatch"/></a></li>
-                        <li><a href="/createTeam.html"><spring:message code="nav.createTeam"/></a></li>
+                        <security:authorize access="hasRole('ADMIN')">
+                            <li><a href="/createMatch.html"><spring:message code="nav.createMatch"/></a></li>
+                            <li><a href="/createTeam.html"><spring:message code="nav.createTeam"/></a></li>
+                            <li><a href="/account/overview.html"><spring:message code="nav.accounts"/></a></li>
+                        </security:authorize>
                         <li><a href="/editNews.html"><spring:message code="nav.createNews"/></a></li>
                     </ul>
                 </li>

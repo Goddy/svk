@@ -222,7 +222,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private Image createProfileImage(Image image, MultipartFile file) {
-        if (!file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
             try {
                 return imageService.uploadProfileImage(file);
             } catch (Exception e) {
