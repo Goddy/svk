@@ -125,7 +125,7 @@
                 content += '<option value=""><spring:message code="text.scorer"/></option>';
             }
             <c:forEach items="${players}" var="player">
-            content += '<option value="${player.id}">${player.fullName}</option>';
+            content += '<option value="${player.id}">${player}</option>';
             </c:forEach>
             content += '</select>';
             return content;
