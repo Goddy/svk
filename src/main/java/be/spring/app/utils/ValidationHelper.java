@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class ValidationHelper {
     private static final Pattern EMAIL_PATTERN = Pattern.compile(Constants.EMAIL_REGEX);
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(Constants.PASSWORD_REGEX);
-    private static final Pattern PHONE_PATTERN = Pattern.compile(Constants.PASSWORD_REGEX);
+    private static final Pattern PHONE_PATTERN = Pattern.compile(Constants.PHONE_REGEX);
     private static final Pattern NAME_PATTERN = Pattern.compile(Constants.NAME_REGEX);
 
     public static boolean isValidDate(String date) {
