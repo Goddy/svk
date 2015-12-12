@@ -159,8 +159,9 @@ public class Account implements Comparable<Account> {
 
     @OneToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonIgnore
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "profile_id", insertable = true, updatable = true, nullable = true)
     public AccountProfile getAccountProfile() {
+        if (accountProfile == null) accountProfile = new AccountProfile();
         return accountProfile;
     }
 
