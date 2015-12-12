@@ -9,12 +9,15 @@
                             http://www.springframework.org/schema/security      http://www.springframework.org/schema/security/spring-security.xsd
                             http://www.springframework.org/schema/mvc           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <context:property-placeholder location="${properties.location}"/>
+
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven/>
     <sec:global-method-security pre-post-annotations="enabled"/>
     <context:component-scan base-package="be.spring.app.validators"/>
     <context:component-scan base-package="be.spring.app.controller"/>
     <context:component-scan base-package="be.spring.app.dto.helper"/>
+    <context:component-scan base-package="be.spring.app.handler" />
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -26,9 +29,7 @@
     </bean>
 
     <mvc:interceptors>
-        <bean class="be.spring.app.handler.PropertiesAddingHandlerInterceptor">
-            <constructor-arg value="${baseUrl}"/>
-        </bean>
+        <bean class="be.spring.app.handler.PropertiesAddingHandlerInterceptor"/>
     </mvc:interceptors>
 
     <!--Enables JSON integration-->

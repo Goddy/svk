@@ -1,6 +1,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="login_error" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="jspf/header.jspf" %>
+<%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!--
 If the user is anonymous (not logged in), show the login form
 and social sign in buttons.
@@ -37,6 +39,15 @@ and social sign in buttons.
                         <label class="control-label" for="j_password"><spring:message                              code="label.password"/>:</label>
                         <!-- Add password field to the login form -->
                         <input type="password" name="j_password" id="j_password" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="remember-me" /> <spring:message code="label.remember.me"/>
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

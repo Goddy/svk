@@ -25,7 +25,7 @@
                         </label>
                     </div>
                 </div>
-                </div>
+            </div>
         </c:when>
         <c:otherwise>
             <div data-toggle="tooltip" class="form-group ${status.error ? 'has-error has-feedback' : '' }"
