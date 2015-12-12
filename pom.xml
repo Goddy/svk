@@ -482,7 +482,7 @@
         <id>local</id>
         <properties>
             <baseUrl>http://localhost:8080</baseUrl>
-            <gmail.password>o878bOAaTzP8ZMydjPQz</gmail.password>
+            <gmail.password>PASSWORD</gmail.password>
             <facebook.id>ID</facebook.id>
             <facebook.secret>SECRET</facebook.secret>
             <url>jdbc:mysql://localhost:3306/svk</url>
@@ -498,7 +498,7 @@
             <profile>
                 <id>openshift</id>
                 <properties>
-                    <baseUrl>BASEURL</baseUrl>
+                    <baseUrl>${BASE_URL}</baseUrl>
                     <properties.location>classpath:openshift.properties</properties.location>
                 </properties>
                 <build>
