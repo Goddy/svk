@@ -359,3 +359,90 @@ svk.faq = (function ($, utils) {
         }
     }
 })(jQuery, svk.utils);
+
+svk.profile = (function ($, utils) {
+    var currentAvatar = $("#currentAvatarDiv");
+    var uploadAvatar = $("#uploadAvatarDiv");
+    var avatarEditBtn = $("#avatarEditBtn");
+    var removeAvatarDiv = $("#removeAvatarDiv");
+    var avatarBackRemoveBtn = $('#avatarBackRemoveBtn');
+    var avatarRemoveBtn = $('#avatarRemoveBtn');
+    var avatarRemoveField = $('#removeAvatar');
+
+    function showCurrentAvatar() {
+        currentAvatar.show();
+        uploadAvatar.hide();
+        removeAvatarDiv.hide();
+    }
+
+    function showUploadAvatar() {
+        currentAvatar.hide();
+        uploadAvatar.show();
+        removeAvatarDiv.hide();
+    }
+
+    function showRemoveAvatar() {
+        removeAvatarDiv.show();
+        currentAvatar.hide();
+        uploadAvatar.hide();
+    }
+
+    function initButtons(hasAvatar) {
+        avatarEditBtn.click(showUploadAvatar);
+        avatarBackRemoveBtn.click(function () {
+            if (hasAvatar) {
+                showCurrentAvatar();
+            }
+            else {
+                showUploadAvatar();
+            }
+            avatarRemoveField.val("false");
+        });
+
+        avatarRemoveBtn.click(function () {
+            showRemoveAvatar();
+            avatarRemoveField.val("true");
+
+        });
+    }
+
+    function initFileInput(lang, hasAvatar) {
+        //Init back btn
+        var btnBack = hasAvatar ? '<button type="button" id="avatarBackBtn" class="btn btn-default">' +
+        '<i class="glyphicon glyphicon-arrow-left"></i></button>' : '';
+
+        $("#avatar").fileinput({
+            language: lang,
+            overwriteInitial: true,
+            maxFileSize: 350,
+            showClose: false,
+            showCaption: false,
+            browseLabel: '',
+            removeLabel: '',
+            browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+            removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+            elErrorContainer: '#kv-avatar-errors',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: "<img src=\"http://placehold.it/200x200\">",
+            layoutTemplates: {main2: '{preview} ' + btnBack + ' {remove} {browse}'},
+            allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+
+        $("#avatarBackBtn").click(showCurrentAvatar);
+
+    }
+
+    return {
+        initialize: function (hasAvatar, lang) {
+            initButtons(hasAvatar);
+            initFileInput(lang, hasAvatar);
+
+            if (!hasAvatar) {
+                showUploadAvatar()
+            }
+            else {
+                showCurrentAvatar();
+            }
+        }
+    }
+})(jQuery, svk.utils);

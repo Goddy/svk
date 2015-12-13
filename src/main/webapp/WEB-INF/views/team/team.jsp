@@ -30,7 +30,7 @@
 <tag:position title="title.unknown" players="${players['UNKNOWN']}"/>
 
 <script src="<c:url value='/resources/js/waitForImages.js'/>"></script>
-<script src="<c:url value='/resources/js/svk-ui-1.3.js'/>"></script>
+<script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
 
 <script type="text/javascript">
     var teamItem = $(".avatar");

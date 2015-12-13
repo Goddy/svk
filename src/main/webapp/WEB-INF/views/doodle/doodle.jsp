@@ -14,7 +14,7 @@
 </c:forEach>
 <tag:pageComponent first="${first}" previous="${previous}" next="${next}" last="${last}"/>
 
-<script src="<c:url value='/resources/js/svk-ui-1.3.js'/>"></script>
+<script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
 <script type="text/javascript">
   (function ($, doodle) {
     $(document).on('click', 'a[class*="presence"]', function (e) {

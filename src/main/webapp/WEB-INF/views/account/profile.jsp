@@ -60,8 +60,7 @@
                 <div><spring:message code="text.removeAvatar"/></div>
                 <div class="btn-group">
                     <button type="button" id="avatarBackRemoveBtn" data-toggle="tooltip"
-                            data-original-title="<spring:message code="button.reset"/>" class="btn btn-default"
-                            onclick="showCurrentAvatar()">
+                            data-original-title="<spring:message code="button.reset"/>" class="btn btn-default">
                         <i class="glyphicon glyphicon-repeat"></i></button>
                 </div>
             </div>
@@ -164,83 +163,14 @@
 </div>
 <script src="<c:url value='/resources/js/fileinput.min.js'/>"></script>
 <script src="<c:url value='/resources/js/fileinput_locale_nl.js'/>"></script>
+<script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
 <script type="text/javascript">
-    var currentAvatar = $("#currentAvatarDiv");
-    var uploadAvatar = $("#uploadAvatarDiv");
-    var avatarEditBtn = $("#avatarEditBtn");
-    var removeAvatarDiv = $("#removeAvatarDiv");
-    var hasAvatar = ${not empty accountProfileForm.avatarUrl ? 'true' : 'false'};
-    var avatarBackRemoveBtn = $('#avatarBackRemoveBtn');
-    var avatarRemoveBtn = $('#avatarRemoveBtn');
-    var avatarRemoveField = $('#removeAvatar');
+    (function ($, profile) {
+        var hasAvatar = ${not empty accountProfileForm.avatarUrl ? 'true' : 'false'};
+        var lang = "${pageContext.response.locale}";
 
-    avatarEditBtn.click(showUploadAvatar);
-    avatarBackRemoveBtn.click(function () {
-        if (hasAvatar) {
-            showCurrentAvatar();
-        }
-        else {
-            showUploadAvatar();
-        }
-        avatarRemoveField.val("false");
-    });
-
-    avatarRemoveBtn.click(function () {
-        showRemoveAvatar();
-        avatarRemoveField.val("true");
-
-    });
-
-    function showCurrentAvatar() {
-        currentAvatar.show();
-        uploadAvatar.hide();
-        removeAvatarDiv.hide();
-    }
-
-    function showUploadAvatar() {
-        currentAvatar.hide();
-        uploadAvatar.show();
-        removeAvatarDiv.hide();
-    }
-
-    function showRemoveAvatar() {
-        removeAvatarDiv.show();
-        currentAvatar.hide();
-        uploadAvatar.hide();
-    }
-
-    (function ($) {
-        if (!hasAvatar) {
-            showUploadAvatar()
-        }
-        else {
-            showCurrentAvatar();
-        }
-
-        var btnBack = hasAvatar ? '<button type="button" id="avatarBackBtn" class="btn btn-default" onclick="showCurrentAvatar()">' +
-        '<i class="glyphicon glyphicon-arrow-left"></i></button>' : '';
-        var btnReset = '<button type="button" tabindex="500" data-toggle="tooltip" data-original-title="<spring:message code="button.reset"/>" class="btn btn-default fileinput-remove fileinput-remove-button"><i class="glyphicon glyphicon-remove"></i></button>';
-        var btnBrowse = '<div tabindex="500" class="btn btn-primary btn-file" data-toggle="tooltip" data-original-title="<spring:message code="button.browse"/>"><i class="glyphicon glyphicon-folder-open"></i><input id="avatar" name="avatar" class="" type="file"></div>';
-
-        $("#avatar").fileinput({
-            language: "${pageContext.response.locale}",
-            overwriteInitial: true,
-            maxFileSize: 150,
-            showClose: false,
-            showCaption: false,
-            browseLabel: '',
-            removeLabel: '',
-            browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
-            removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-            elErrorContainer: '#kv-avatar-errors',
-            msgErrorClass: 'alert alert-block alert-danger',
-            defaultPreviewContent: "<img src=\"http://placehold.it/200x200\">",
-            layoutTemplates: {main2: '{preview} ' + btnBack + ' {remove} {browse}'},
-            allowedFileExtensions: ["jpg", "png", "gif"]
-        });
-    })(jQuery)
-
-
+        profile.initialize(hasAvatar, lang);
+    })(jQuery, svk.profile)
 </script>
 <%@ include file="../jspf/footer.jspf" %>
 

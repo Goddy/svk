@@ -10,7 +10,7 @@
 <tag:faq question="title.faq4" answer="text.faq4"/>
 <tag:faq question="title.faq5" answer="text.faq5"/>
 
-<script src="<c:url value='/resources/js/svk-ui-1.3.js'/>"></script>
+<script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
 <script type="text/javascript">
     (function ($, faq) {
         faq.initialize();

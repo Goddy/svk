@@ -48,7 +48,7 @@
         </form:form>
     </div>
 </div>
-<script src="<c:url value='/resources/js/svk-ui-1.3.js'/>"></script>
+<script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
 
 <%@ include file="../jspf/datePickerDependencies.jspf" %>
 
