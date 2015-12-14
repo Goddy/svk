@@ -14,7 +14,7 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <div class="item active thumbnail">
-                <img src="http://res.cloudinary.com/dtwkkwtee/image/upload/v1449832072/public/team.jpg">
+                <img src="https://res.cloudinary.com/dtwkkwtee/image/upload/v1449832072/public/team.jpg">
                 <div class="carousel-caption">
                 </div>
             </div>
