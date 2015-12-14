@@ -49,7 +49,7 @@ public class CloudinaryImageServiceImpl implements ImageService {
         Image image = new Image();
         Map result = cloudinary.uploader().uploadLarge(file.getInputStream(), options);
         image.setImageId((String) result.get("public_id"));
-        image.setImageUrl((String) result.get("url"));
+        image.setImageUrl((String) result.get("secure_url"));
         return image;
     }
 

@@ -29,20 +29,22 @@
 <tag:position title="title.forwards" players="${players['FORWARD']}"/>
 <tag:position title="title.unknown" players="${players['UNKNOWN']}"/>
 
-<script src="<c:url value='/resources/js/waitForImages.js'/>"></script>
 <script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
 
 <script type="text/javascript">
     var teamItem = $(".avatar");
-    var height = 0;
-    teamItem.waitForImages(function() {
-        teamItem.each(function () {
-            if ($(this).height() > height) {
-                height = $(this).height();
-            }
-        });
+    (function() {
+        $(window).on("load", function() {
+            var height = 0;
+            teamItem.each(function () {
+                if ($(this).height() > height) {
+                    height = $(this).height();
+                }
+            });
 
-        teamItem.height(height);
-    });
+            teamItem.height(height);
+        });
+    })(jQuery);
+
 </script>
 <%@ include file="../jspf/footer.jspf" %>
