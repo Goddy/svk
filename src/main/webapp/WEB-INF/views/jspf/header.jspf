@@ -7,6 +7,7 @@
 <title><spring:message code="title.google.svk"/></title>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="4IvY5cTnMzGX6La1QSjJ_YT3CGCWer8hhHVvi8RfeVk" />
 
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 
