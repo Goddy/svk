@@ -10,7 +10,9 @@
     <joda:format value="${nextMatch.date}" var="nextMatchDate" pattern="dd-MM-yyyy HH:mm"/>
     <div class="panel panel-danger">
     <div class="panel-heading">
-        <h3 class="panel-title"><spring:message code="text.next.match"/></h3>
+        <h3 class="panel-title"><spring:message code="text.next.match"/><c:if test="${nextMatch.status == 'CANCELLED'}">
+            <b>(<spring:message code='label.match.status.cancelled'/>!)</b>
+        </c:if></h3>
     </div>
     <div class="panel-body">
         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
@@ -27,7 +29,6 @@
                 <c:out value="${nextMatch.homeTeam.address}"/>
             </c:otherwise>
         </c:choose>
-
     </div>
 </div>
 </c:if>
@@ -113,7 +114,19 @@
                                 divContent += '<th><spring:message code='text.actions'/></th></tr>';
 
                                 $.each(json, function (i, o) {
-                                    var result = o.object.played ? '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>' : '<td><spring:message code='text.notYetPlayed'/></td>';
+                                    var result = "";
+
+                                    switch (o.object.status) {
+                                        case "PLAYED":
+                                            result = '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>';
+                                            break;
+                                        case "NOT_PLAYED":
+                                            result = '<td><spring:message code='label.match.status.not_played'/></td>';
+                                            break;
+                                        case "CANCELLED":
+                                            result = '<td><b><spring:message code='label.match.status.cancelled'/></b></td>';
+                                            break;
+                                    }
                                     var doodle = loggedIn == "true"? '<td><div id="presenceActions"> ' + o.additions['presenceActions'] + '<div></td>' : "";
                                     //Fix for dynamic odd rows
                                     var trClass = count % 2 !== 0 ? '' : 'class="odd"';

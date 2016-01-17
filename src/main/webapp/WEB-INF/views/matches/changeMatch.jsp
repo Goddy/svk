@@ -39,8 +39,25 @@
                 <input id="date" value="${parsed}" name="date" class="form-control date" placeholder="DD/MM/YYYY 00:00"
                        type="text">
             </tag:formField>
-            <tag:formField path="containsResult" label="label.match.played" title="label.match.played" type="checkbox"
-                           optional="false"/>
+            <tag:formField path="status" label="label.status" title="label.status" type="empty"
+                           optional="false">
+                <label class="radio">
+                    <input class="matchStatus" type="radio" id="notPlayed" name="status"
+                           value="NOT_PLAYED"/><spring:message code="label.match.status.not_played"/>
+                </label>
+                <label class="radio">
+                    <input class="matchStatus" type="radio" id="played" name="status" value="PLAYED"/><spring:message
+                        code="label.match.status.played"/>
+                </label>
+                <label class="radio">
+                    <input class="matchStatus" type="radio" id="cancelled" name="status"
+                           value="CANCELLED"/><spring:message code="label.match.status.cancelled"/>
+                </label>
+            </tag:formField>
+            <div id="statusText">
+                <tag:formField path="statusText" label="text.htGoals" title="text.htGoals" type="textarea"
+                               value="${form.statusText}" optional="true" rows="10"/>
+            </div>
             <div id="matchResult">
                 <tag:formField path="htGoals" label="text.htGoals" title="text.htGoals" type="number"
                                value="${form.htGoals}" optional="false"/>
@@ -102,11 +119,13 @@
         var next = $('#next');
         var goalsForm = $("#goalsForm");
         var changeMatchResult = $("#matchResult");
-        var containsResult = $("input[name='containsResult']");
+        var matchStatusText = $("#statusText");
+        var matchPlayed = $("#played");
+        var matchCancelled = $("#cancelled");
 
         showMatchResult();
 
-        containsResult.change(showMatchResult);
+        $('.matchStatus').change(showMatchResult);
 
         function getRow(content, order) {
             content += '<span class="space-bottom"><input name="goals[' + order + '].order" class="goal-order" value="' + order + '" style="display: none"/>';
@@ -169,11 +188,17 @@
         }
 
         function showMatchResult() {
-            if (containsResult.is(':checked')) {
+            changeMatchResult.hide();
+            matchStatusText.hide();
+
+            if (matchPlayed.is(':checked')) {
                 changeMatchResult.show();
             }
+            else if (matchCancelled.is(':checked')) {
+                matchStatusText.show();
+            }
             else {
-                changeMatchResult.hide();
+
             }
         }
 

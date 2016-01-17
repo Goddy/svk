@@ -34,27 +34,22 @@ import java.util.Locale;
 @RequestMapping("/")
 public class ChangeMatchController extends AbstractController {
 
-    @Autowired
-    private MatchesService matchesService;
-
-    @Autowired
-    private AccountService accountService;
-
-    @Autowired
-    private SeasonService seasonService;
-
-    @Autowired
-    private TeamService teamService;
-
+    private static final String DEFAULT_TEAM = "SVK";
     @Autowired
     ChangeMatchValidator validator;
+    @Autowired
+    private MatchesService matchesService;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private SeasonService seasonService;
+    @Autowired
+    private TeamService teamService;
 
     @InitBinder("form")
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(validator);
     }
-
-    private static final String DEFAULT_TEAM = "SVK";
 
     @ModelAttribute("players")
     public List<Account> getPerson() {
@@ -91,7 +86,7 @@ public class ChangeMatchController extends AbstractController {
             resultForm.setHtGoals(match.getHtGoals());
             resultForm.setMatchId(match.getId());
             resultForm.setDate(match.getDate());
-            resultForm.setContainsResult(match.isPlayed());
+            resultForm.setStatus(match.getStatus());
             resultForm.setSeason(match.getSeason().getId());
             resultForm.setAwayTeam(match.getAwayTeam().getId());
             resultForm.setHomeTeam(match.getHomeTeam().getId());

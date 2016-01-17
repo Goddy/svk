@@ -2,6 +2,7 @@ package be.spring.app.service;
 
 import be.spring.app.data.AccountStatistic;
 import be.spring.app.data.MatchStatisticsObject;
+import be.spring.app.data.MatchStatusEnum;
 import be.spring.app.model.Account;
 import be.spring.app.model.Goal;
 import be.spring.app.model.Match;
@@ -84,7 +85,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         int presences = 0;
         for (Match match : matches) {
             //Only gather info on played match
-            if (match.isPlayed()) {
+            if (match.getStatus().equals(MatchStatusEnum.PLAYED)) {
                 if (match.getMatchDoodle().isPresent(account).equals(Presence.PresenceType.PRESENT)) presences++;
                 for (Goal goal : match.getGoals()) {
                     if (goal.getScorer() != null && goal.getScorer().equals(account)) {

@@ -2,6 +2,7 @@ package be.spring.app.service;
 
 import be.spring.app.common.JUnitTest;
 import be.spring.app.controller.DataFactory;
+import be.spring.app.data.MatchStatusEnum;
 import be.spring.app.model.*;
 import be.spring.app.persistence.AccountDao;
 import be.spring.app.persistence.DoodleDao;
@@ -55,7 +56,7 @@ public class DoodleServiceImplTest extends JUnitTest {
     @Test
     public void testChangePresenceAdminUserMatchPlayed() throws Exception {
         Match m = DataFactory.createMatch();
-        m.setPlayed(true);
+        m.setStatus(MatchStatusEnum.PLAYED);
         Account a = DataFactory.createAccount();
         a.setRole(Role.ADMIN);
         expect(matchesDao.findOne(m.getId())).andReturn(m);
@@ -74,7 +75,7 @@ public class DoodleServiceImplTest extends JUnitTest {
     @Test(expected = RuntimeException.class)
     public void testChangePresenceNormalUserMatchPassed() throws Exception {
         Match m = DataFactory.createMatch();
-        m.setPlayed(true);
+        m.setStatus(MatchStatusEnum.PLAYED);
         Account a = DataFactory.createAccount();
         expect(matchesDao.findOne(m.getId())).andReturn(m);
 
