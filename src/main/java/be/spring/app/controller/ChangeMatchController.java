@@ -1,5 +1,6 @@
 package be.spring.app.controller;
 
+import be.spring.app.data.MatchStatusEnum;
 import be.spring.app.form.ChangeResultForm;
 import be.spring.app.model.Account;
 import be.spring.app.model.Match;
@@ -11,6 +12,7 @@ import be.spring.app.service.SeasonService;
 import be.spring.app.service.TeamService;
 import be.spring.app.utils.Constants;
 import be.spring.app.validators.ChangeMatchValidator;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -56,6 +58,13 @@ public class ChangeMatchController extends AbstractController {
         return accountService.getAccountsByActivationStatus(true);
     }
 
+    @ModelAttribute("matchStatus")
+    public List<String> getMatchStatus() {
+        return Lists.newArrayList(MatchStatusEnum.NOT_PLAYED.name(),
+                MatchStatusEnum.PLAYED.name(),
+                MatchStatusEnum.CANCELLED.name());
+    }
+
     @ModelAttribute("defaultTeam")
     public String getDefaultTeam() {
         return DEFAULT_TEAM;
@@ -90,6 +99,7 @@ public class ChangeMatchController extends AbstractController {
             resultForm.setSeason(match.getSeason().getId());
             resultForm.setAwayTeam(match.getAwayTeam().getId());
             resultForm.setHomeTeam(match.getHomeTeam().getId());
+            resultForm.setStatusText(match.getStatusText());
             model.addAttribute("form", resultForm);
         }
 

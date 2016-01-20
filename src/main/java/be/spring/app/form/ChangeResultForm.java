@@ -19,7 +19,7 @@ public class ChangeResultForm {
     private int htGoals;
     private int atGoals;
     private long matchId;
-    private MatchStatusEnum matchStatus = MatchStatusEnum.NOT_PLAYED;
+    private MatchStatusEnum status = MatchStatusEnum.NOT_PLAYED;
     private String statusText;
     private List<FormGoal> goals = new ArrayList<>();
 
@@ -96,11 +96,11 @@ public class ChangeResultForm {
     }
 
     public MatchStatusEnum getStatus() {
-        return matchStatus;
+        return status;
     }
 
     public void setStatus(MatchStatusEnum matchStatus) {
-        this.matchStatus = matchStatus;
+        this.status = matchStatus;
     }
 
     public static class FormGoal {

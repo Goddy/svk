@@ -41,22 +41,17 @@
             </tag:formField>
             <tag:formField path="status" label="label.status" title="label.status" type="empty"
                            optional="false">
-                <label class="radio">
-                    <input class="matchStatus" type="radio" id="notPlayed" name="status"
-                           value="NOT_PLAYED"/><spring:message code="label.match.status.not_played"/>
-                </label>
-                <label class="radio">
-                    <input class="matchStatus" type="radio" id="played" name="status" value="PLAYED"/><spring:message
-                        code="label.match.status.played"/>
-                </label>
-                <label class="radio">
-                    <input class="matchStatus" type="radio" id="cancelled" name="status"
-                           value="CANCELLED"/><spring:message code="label.match.status.cancelled"/>
-                </label>
+                <select class="form-control" name="status" id="status">
+                    <c:forEach items="${matchStatus}" var="s">
+                        <option value="${s}" ${form.status == s ?'selected':''}><spring:message
+                                code="label.match.status.${s}"/></option>
+                    </c:forEach>
+                </select>
             </tag:formField>
             <div id="statusText">
-                <tag:formField path="statusText" label="text.htGoals" title="text.htGoals" type="textarea"
-                               value="${form.statusText}" optional="true" rows="10"/>
+                <tag:formField path="statusText" label="label.match.status.cancelled"
+                               title="label.match.status.cancelled" type="textarea"
+                               value="${form.statusText}" optional="true" rows="5"/>
             </div>
             <div id="matchResult">
                 <tag:formField path="htGoals" label="text.htGoals" title="text.htGoals" type="number"
@@ -120,12 +115,13 @@
         var goalsForm = $("#goalsForm");
         var changeMatchResult = $("#matchResult");
         var matchStatusText = $("#statusText");
-        var matchPlayed = $("#played");
-        var matchCancelled = $("#cancelled");
+        var matchStatus = $("#status");
 
-        showMatchResult();
+        statusChanged(matchStatus);
 
-        $('.matchStatus').change(showMatchResult);
+        matchStatus.change(function () {
+            statusChanged(matchStatus);
+        });
 
         function getRow(content, order) {
             content += '<span class="space-bottom"><input name="goals[' + order + '].order" class="goal-order" value="' + order + '" style="display: none"/>';
@@ -187,18 +183,17 @@
             ($.trim(goalsForm.html()) === "") ? goals.hide() : goals.show();
         }
 
-        function showMatchResult() {
+        function statusChanged(element) {
             changeMatchResult.hide();
             matchStatusText.hide();
 
-            if (matchPlayed.is(':checked')) {
-                changeMatchResult.show();
-            }
-            else if (matchCancelled.is(':checked')) {
-                matchStatusText.show();
-            }
-            else {
-
+            switch (element.val()) {
+                case "CANCELLED":
+                    matchStatusText.show();
+                    break;
+                case "PLAYED":
+                    changeMatchResult.show();
+                    break;
             }
         }
 

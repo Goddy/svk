@@ -11,7 +11,7 @@
     <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title"><spring:message code="text.next.match"/><c:if test="${nextMatch.status == 'CANCELLED'}">
-            <b>(<spring:message code='label.match.status.cancelled'/>!)</b>
+            <b>(<spring:message code='label.match.status.CANCELLED'/>!)</b>
         </c:if></h3>
     </div>
     <div class="panel-body">
@@ -121,10 +121,10 @@
                                             result = '<td>' + o.object.htGoals + ' - ' + o.object.atGoals + '</td>';
                                             break;
                                         case "NOT_PLAYED":
-                                            result = '<td><spring:message code='label.match.status.not_played'/></td>';
+                                            result = '<td><spring:message code='label.match.status.NOT_PLAYED'/></td>';
                                             break;
                                         case "CANCELLED":
-                                            result = '<td><b><spring:message code='label.match.status.cancelled'/></b></td>';
+                                            result = '<td title="' + $('<div/>').text(o.object.statusText).html() + '" data-toggle="tooltip" data-placement="top"><b><spring:message code='label.match.status.CANCELLED'/></b></td>';
                                             break;
                                     }
                                     var doodle = loggedIn == "true"? '<td><div id="presenceActions"> ' + o.additions['presenceActions'] + '<div></td>' : "";
