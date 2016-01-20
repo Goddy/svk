@@ -165,6 +165,7 @@ public class Match {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20)
+    @NotNull
     public MatchStatusEnum getStatus() {
         return status;
     }
