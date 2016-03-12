@@ -26,12 +26,9 @@
 </sec:authorize>
 <div class="panel panel-default">
     <div class="panel-heading"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;<joda:format
-            pattern="dd-MM-yyyy HH:mm" value="${match.date}" style="L-"/>
-    </div>
+            pattern="dd-MM-yyyy HH:mm" value="${match.date}" style="L-"/></div>
     <div class="panel-body">
-        <div class="doodle-title"><h3>${match.description}
-        <c:if test="${match.status == 'CANCELLED'}">
-            <b>(<spring:message code='label.match.status.CANCELLED'/>!)</b></c:if></h3>
+        <div class="doodle-title"><h3>${match.description}</h3>
         </div>
         <div class="doodle-badge btn-group btn-group-lg">
             <a class="btn btn-default glyphicon glyphicon-user doodle-users" data-toggle="tooltip" data-container="body"

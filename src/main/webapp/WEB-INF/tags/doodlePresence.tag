@@ -8,7 +8,7 @@
 <%@ attribute name='returnUrl' required='true' %>
 
 <c:set var="isPresent" value="${match.matchDoodle.isPresent(account)}"/>
-<c:set var="isNotPlayed" value="${match.status == 'NOT_PLAYED'}"/>
+<c:set var="isMatchPlayed" value="${match.played}"/>
 
 <c:choose>
     <c:when test="${not empty account}">
@@ -20,7 +20,7 @@
 </c:choose>
 
 <c:choose>
-    <c:when test="${isAdmin || (isOwnAccount && isNotPlayed) || empty account}">
+    <c:when test="${isAdmin || (isOwnAccount && !isMatchPlayed) || empty account}">
         <c:set var="disabled" value=""/>
     </c:when>
     <c:otherwise>

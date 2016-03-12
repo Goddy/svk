@@ -5,4 +5,4 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<tag:matchDoodle returnUrl="${baseUrl}/membersDoodle.html" match="${match}" showUsers="${showUsers}"/>
+<tag:matchDoodle returnUrl="/membersDoodle.html" match="${match}" showUsers="${showUsers}"/>

@@ -1,6 +1,5 @@
 package be.spring.app.model;
 
-import be.spring.app.data.MatchStatusEnum;
 import be.spring.app.utils.GeneralUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
@@ -26,6 +25,7 @@ import java.util.SortedSet;
 @Table(name = "matches")
 public class Match {
     private long id;
+    private boolean played = false;
     private DateTime date;
     private Season season;
     private Team homeTeam;
@@ -35,8 +35,6 @@ public class Match {
     private int htGoals;
     private SortedSet<Goal> goals;
     private Doodle matchDoodle;
-    private MatchStatusEnum status = MatchStatusEnum.NOT_PLAYED; //Default value
-    private String StatusText;
 
     public Match() {
     }
@@ -151,6 +149,16 @@ public class Match {
         return String.format("%s - %s", homeTeam.getName(), awayTeam.getName());
     }
 
+    @NotNull
+    @Column(name = "played")
+    public boolean isPlayed() {
+        return played;
+    }
+
+    public void setPlayed(boolean played) {
+        this.played = played;
+    }
+
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "doodle_id", insertable = true, updatable = true, nullable = true)
@@ -161,25 +169,5 @@ public class Match {
 
     public void setMatchDoodle(Doodle matchDoodle) {
         this.matchDoodle = matchDoodle;
-    }
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 20)
-    @NotNull
-    public MatchStatusEnum getStatus() {
-        return status;
-    }
-
-    public void setStatus(MatchStatusEnum status) {
-        this.status = status;
-    }
-
-    @Column(name = "status_text")
-    public String getStatusText() {
-        return StatusText;
-    }
-
-    public void setStatusText(String statusText) {
-        StatusText = statusText;
     }
 }
