@@ -1,6 +1,7 @@
 package be.spring.app.service;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
+import be.spring.app.data.MatchStatusEnum;
 import be.spring.app.model.*;
 import be.spring.app.persistence.AccountDao;
 import be.spring.app.persistence.DoodleDao;
@@ -90,8 +91,8 @@ public class DoodleServiceImpl implements DoodleService {
             }
             Match match = matchesDao.findOne(matchId);
             if (match == null) throw new ObjectNotFoundException(String.format("Match with id %s not found.", matchId));
-            if (!isAdmin && match.isPlayed())
-                throw new RuntimeException(String.format("Altering match with id %s not succeeded, match is finished.", matchId));
+            if (!isAdmin && !match.getStatus().equals(MatchStatusEnum.NOT_PLAYED))
+                throw new RuntimeException(String.format("Altering match with id %s not succeeded, match is finished/Cancelled.", matchId));
             Doodle d = match.getMatchDoodle();
 
             Presence presence = null;

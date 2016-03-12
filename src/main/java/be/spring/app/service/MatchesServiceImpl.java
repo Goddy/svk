@@ -1,6 +1,7 @@
 package be.spring.app.service;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
+import be.spring.app.data.MatchStatusEnum;
 import be.spring.app.form.ChangeResultForm;
 import be.spring.app.form.CreateMatchForm;
 import be.spring.app.model.*;
@@ -135,16 +136,16 @@ public class MatchesServiceImpl implements MatchesService {
         m.setAwayTeam(teamDao.findOne(form.getAwayTeam()));
         m.setDate(form.getDate());
         m.setSeason(seasonDao.findOne(form.getSeason()));
+        m.setStatus(form.getStatus());
+        m.setStatusText(form.getStatus().equals(MatchStatusEnum.CANCELLED) ? form.getStatusText() : null);
 
-        if (form.isContainsResult()) {
+        if (form.getStatus().equals(MatchStatusEnum.PLAYED)) {
             m.getGoals().clear();
             m.getGoals().addAll(transFormGoals(form, m));
             m.setAtGoals(form.getAtGoals());
             m.setHtGoals(form.getHtGoals());
-            m.setPlayed(true);
         } else {
             m.getGoals().clear();
-            m.setPlayed(false);
         }
         matchesDao.save(m);
         cacheAdapter.resetMatchCache();
