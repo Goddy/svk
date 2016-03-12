@@ -1,5 +1,6 @@
 package be.spring.app.validators;
 
+import be.spring.app.data.MatchStatusEnum;
 import be.spring.app.form.ChangeResultForm;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -24,7 +25,14 @@ public class ChangeMatchValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "homeTeam", "validation.notempty.message");
         ValidationUtils.rejectIfEmpty(errors, "awayTeam", "validation.notempty.message");
         ValidationUtils.rejectIfEmpty(errors, "season", "validation.notempty.message");
-        ValidationUtils.rejectIfEmpty(errors, "atGoals", "validation.notempty.message");
-        ValidationUtils.rejectIfEmpty(errors, "htGoals", "validation.notempty.message");
+
+        if (form.getStatus().equals(MatchStatusEnum.PLAYED)) {
+            ValidationUtils.rejectIfEmpty(errors, "atGoals", "validation.notempty.message");
+            ValidationUtils.rejectIfEmpty(errors, "htGoals", "validation.notempty.message");
+        }
+
+        if (form.getStatus().equals(MatchStatusEnum.CANCELLED)) {
+            SanitizeUtils.SanitizeHtml(form.getStatusText());
+        }
     }
 }

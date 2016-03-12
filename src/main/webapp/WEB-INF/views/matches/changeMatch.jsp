@@ -39,8 +39,20 @@
                 <input id="date" value="${parsed}" name="date" class="form-control date" placeholder="DD/MM/YYYY 00:00"
                        type="text">
             </tag:formField>
-            <tag:formField path="containsResult" label="label.match.played" title="label.match.played" type="checkbox"
-                           optional="false"/>
+            <tag:formField path="status" label="label.status" title="label.status" type="empty"
+                           optional="false">
+                <select class="form-control" name="status" id="status">
+                    <c:forEach items="${matchStatus}" var="s">
+                        <option value="${s}" ${form.status == s ?'selected':''}><spring:message
+                                code="label.match.status.${s}"/></option>
+                    </c:forEach>
+                </select>
+            </tag:formField>
+            <div id="statusText">
+                <tag:formField path="statusText" label="label.match.status.cancelled"
+                               title="label.match.status.cancelled" type="textarea"
+                               value="${form.statusText}" optional="true" rows="5"/>
+            </div>
             <div id="matchResult">
                 <tag:formField path="htGoals" label="text.htGoals" title="text.htGoals" type="number"
                                value="${form.htGoals}" optional="false"/>
@@ -102,11 +114,14 @@
         var next = $('#next');
         var goalsForm = $("#goalsForm");
         var changeMatchResult = $("#matchResult");
-        var containsResult = $("input[name='containsResult']");
+        var matchStatusText = $("#statusText");
+        var matchStatus = $("#status");
 
-        showMatchResult();
+        statusChanged(matchStatus);
 
-        containsResult.change(showMatchResult);
+        matchStatus.change(function () {
+            statusChanged(matchStatus);
+        });
 
         function getRow(content, order) {
             content += '<span class="space-bottom"><input name="goals[' + order + '].order" class="goal-order" value="' + order + '" style="display: none"/>';
@@ -168,12 +183,17 @@
             ($.trim(goalsForm.html()) === "") ? goals.hide() : goals.show();
         }
 
-        function showMatchResult() {
-            if (containsResult.is(':checked')) {
-                changeMatchResult.show();
-            }
-            else {
-                changeMatchResult.hide();
+        function statusChanged(element) {
+            changeMatchResult.hide();
+            matchStatusText.hide();
+
+            switch (element.val()) {
+                case "CANCELLED":
+                    matchStatusText.show();
+                    break;
+                case "PLAYED":
+                    changeMatchResult.show();
+                    break;
             }
         }
 

@@ -1,5 +1,6 @@
 package be.spring.app.controller;
 
+import be.spring.app.data.MatchStatusEnum;
 import be.spring.app.form.ChangeResultForm;
 import be.spring.app.model.Account;
 import be.spring.app.model.Match;
@@ -11,6 +12,7 @@ import be.spring.app.service.SeasonService;
 import be.spring.app.service.TeamService;
 import be.spring.app.utils.Constants;
 import be.spring.app.validators.ChangeMatchValidator;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -34,31 +36,33 @@ import java.util.Locale;
 @RequestMapping("/")
 public class ChangeMatchController extends AbstractController {
 
-    @Autowired
-    private MatchesService matchesService;
-
-    @Autowired
-    private AccountService accountService;
-
-    @Autowired
-    private SeasonService seasonService;
-
-    @Autowired
-    private TeamService teamService;
-
+    private static final String DEFAULT_TEAM = "SVK";
     @Autowired
     ChangeMatchValidator validator;
+    @Autowired
+    private MatchesService matchesService;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private SeasonService seasonService;
+    @Autowired
+    private TeamService teamService;
 
     @InitBinder("form")
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(validator);
     }
 
-    private static final String DEFAULT_TEAM = "SVK";
-
     @ModelAttribute("players")
     public List<Account> getPerson() {
         return accountService.getAccountsByActivationStatus(true);
+    }
+
+    @ModelAttribute("matchStatus")
+    public List<String> getMatchStatus() {
+        return Lists.newArrayList(MatchStatusEnum.NOT_PLAYED.name(),
+                MatchStatusEnum.PLAYED.name(),
+                MatchStatusEnum.CANCELLED.name());
     }
 
     @ModelAttribute("defaultTeam")
@@ -91,10 +95,11 @@ public class ChangeMatchController extends AbstractController {
             resultForm.setHtGoals(match.getHtGoals());
             resultForm.setMatchId(match.getId());
             resultForm.setDate(match.getDate());
-            resultForm.setContainsResult(match.isPlayed());
+            resultForm.setStatus(match.getStatus());
             resultForm.setSeason(match.getSeason().getId());
             resultForm.setAwayTeam(match.getAwayTeam().getId());
             resultForm.setHomeTeam(match.getHomeTeam().getId());
+            resultForm.setStatusText(match.getStatusText());
             model.addAttribute("form", resultForm);
         }
 
