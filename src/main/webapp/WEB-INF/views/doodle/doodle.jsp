@@ -9,7 +9,7 @@
 </c:if>
 <c:forEach var="match" items="${matches}">
   <div class="matchDoodle">
-    <tag:matchDoodle returnUrl="/membersDoodle.html" match="${match}" showUsers="${showUsers}"/>
+    <tag:matchDoodle returnUrl="${baseUrl}/membersDoodle.html" match="${match}" showUsers="${showUsers}"/>
   </div>
 </c:forEach>
 <tag:pageComponent first="${first}" previous="${previous}" next="${next}" last="${last}"/>

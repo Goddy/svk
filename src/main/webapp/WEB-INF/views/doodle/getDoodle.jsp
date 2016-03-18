@@ -7,7 +7,8 @@
 <c:set value="true" var="showUsers"/>
 
 <div class="matchDoodle">
-    <tag:matchDoodle returnUrl="/getMembersDoodle.html?matchId=${match.id}" match="${match}" showUsers="${showUsers}"/>
+    <tag:matchDoodle returnUrl="${baseUrl}/getMembersDoodle.html?matchId=${match.id}" match="${match}"
+                     showUsers="${showUsers}"/>
 </div>
 
 
