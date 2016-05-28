@@ -360,6 +360,32 @@ svk.faq = (function ($, utils) {
     }
 })(jQuery, svk.utils);
 
+svk.imageUploadModal = (function ($, utils) {
+    var fileInput;
+    var form;
+
+    function upload() {
+        utils.jsonPost("/images", form.serialize() , function(data) {
+            return data;
+        })
+    }
+    return {
+        initialize: function (dialog) {
+            form = dialog.find("form").first();
+            //Init file input
+            fileInput = dialog.find("input[type='file']");
+            fileInput.fileinput();
+
+            dialog.find("button[name='upload']").click(
+                function(e) {
+                    e.preventDefault();
+                    upload();
+                }
+            );
+        }
+    }
+})(jQuery, svk.utils);
+
 svk.profile = (function ($, utils) {
     var currentAvatar = $("#currentAvatarDiv");
     var uploadAvatar = $("#uploadAvatarDiv");

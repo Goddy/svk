@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        parent="common"
+      xmlns="http://www.springframework.org/schema/webflow"
+      xsi:schemaLocation="
+      	http://www.springframework.org/schema/webflow
+      	http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+        <on-start>
+            <set name="flowScope.newsId" value="requestParameters.newsId"/>
+        </on-start>
+
+        <decision-state id="checkStartConditions">
+            <if test="newsId == null" then="InitializeCreate" else="initializeEdit"/>
+        </decision-state>
+
+        <action-state id="InitializeCreate">
+            <evaluate expression="createVouchersController.authorizeVoucherCreation(applicationId)" result="requestScope.application"/>
+            <transition to="createVouchers">
+                <evaluate expression="createVouchersController.initializeForm(application)" result="flowScope.voucherRequestForm" result-type="be.kuleuven.ccis.application.forms.VoucherRequestForm"/>
+                <evaluate expression="mailVouchersController.initializeForm()" result="flowScope.voucherMailForm" result-type="be.kuleuven.ccis.application.forms.VoucherMailForm"/>
+                <set name="flowScope.applicationType" value="application.getType().name()"/>
+            </transition>
+        </action-state>
+
+        <view-state id="createVouchers" view="createVouchers.jsp" model="voucherRequestForm">
+            <on-render>
+                <evaluate expression="createVouchersController.getApplications()" result="viewScope.applications"/>
+            </on-render>
+            <transition on="next" to="evaluateVoucherForm"/>
+            <transition on="cancel" to="cancel" bind="false"/>
+        </view-state>
+
+        <decision-state id="evaluateVoucherForm">
+            <if test="voucherRequestForm.isSendMail()" then="createVoucherMailForm" else="createVouchersPost"/>
+        </decision-state>
+
+        <action-state id="createVoucherMailForm">
+            <evaluate expression="voucherMailForm.setEmailAddresses(voucherRequestForm.getEmailAddresses())" />
+            <transition to="createVouchersMail" />
+        </action-state>
+
+        <action-state id="createVouchersPost">
+            <evaluate expression="createVouchersController.postForm(voucherRequestForm, flowRequestContext)" result="flowScope.resultMessageMap" result-type="java.util.HashMap"/>
+            <transition to="finish" />
+        </action-state>
+
+        <view-state id="createVouchersMail" view="createVouchersMail.jsp" model="voucherMailForm">
+            <transition on="cancel" to="cancel" bind="false"/>
+            <transition on="back" to="createVouchers" bind="false"/>
+            <transition on="next" to="createVouchersMailPost"/>
+        </view-state>
+
+        <action-state id="createVouchersMailPost">
+            <evaluate expression="mailVouchersController.postForm(voucherRequestForm, voucherMailForm, flowRequestContext)" result="flowScope.resultMessageMap" result-type="java.util.HashMap"/>
+            <transition to="finish" />
+        </action-state>
+
+        <end-state id="cancel" view="externalRedirect:applications.html"/>
+
+        <end-state id="finish" view="externalRedirect:requestDetails.html?id=#{flowScope.voucherRequestForm.requestId}">
+            <output name="divClass" value="flowScope.resultMessageMap['divClass']"/>
+            <output name="resultMessage" value="flowScope.resultMessageMap['resultMessage']"/>
+        </end-state>
+</flow>
+

@@ -51,6 +51,10 @@
                         <c:when test="${type=='password'}">
                             <form:password cssClass="form-control ${cssClass}" path="${path}"/>
                         </c:when>
+                        <c:when test="${type=='file'}">
+                            <input class="form-control ${cssClass} file" type="file" id="${path}" name="${path}"
+                                   value="${value}"/>
+                        </c:when>
                         <c:otherwise>
                             <form:input cssClass="form-control ${cssClass}" path="${path}" autocomplete="false"/>
                         </c:otherwise>

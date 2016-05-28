@@ -2,6 +2,7 @@ package be.spring.app.form;
 
 import be.spring.app.validators.SanitizeUtils;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 
@@ -16,6 +17,8 @@ public class NewsForm {
     @NotNull
     @NotEmpty
     private String body;
+
+    private MultipartFile image;
 
     private long id;
 

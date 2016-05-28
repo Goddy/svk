@@ -3,17 +3,19 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf" %>
 
-<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+<link href="/resources/css/bootstrap-markdown.min.css" rel="stylesheet">
 <!-- Le script -->
+<script type="text/javascript" src="/resources/js/markdown.js"></script>
 <script type="text/javascript" src="/resources/js/jquery.pagedown-bootstrap.combined.min.js"></script>
 <script type="text/javascript" src="/resources/js/he.js"></script>
 <script type="text/javascript" src="/resources/js/to-markdown.js"></script>
+<script type="text/javascript" src="/resources/js/bootstrap-markdown.js"></script>
 
 <c:set var="update" value="${command == 'updateNews.html' ? true : false }"/>
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <form:form modelAttribute="form" action="${command}" cssClass="form-horizontal">
+        <form:form modelAttribute="form" action="${command}" cssClass="form-horizontal" enctype="multipart/form-data">
         <form:hidden path="id"/>
         <form:hidden path="body"/>
         <tag:formField path="title" label="label.title" title="title.title" type="input" optional="false"/>
@@ -21,6 +23,9 @@
                 <tag:formField path="sendEmail" label="label.news.sendEmail" title="label.news.sendEmail"
                                type="checkbox" optional="false"/>
             </c:if>
+            <div class="alert alert-info">
+                <tag:formField path="image" label="button.select" title="button.select" type="file" optional="true"/>
+            </div>
             <div data-toggle="tooltip" class="form-group ${status.error ? 'has-error has-feedback' : '' }"
                  title="<spring:message code='label.body'/>">
                 <label class="col-sm-2 col-sm-2 control-label" for="pagedownMe">
@@ -42,39 +47,26 @@
         </form:form>
         </div>
 </div>
+<tag:imageDialog dialogId="image-upload-modal"/>
+
+<script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    (function($, utils, markdown) {
         var body  = $("#body").val();
         var pageDownMe =  $("textarea#pagedownMe");
-
+        var dialog = $("#image-upload-modal");
+        var imageDialogForm = $("#imageUploadForm");
         pageDownMe.val('');
 
-        if (body !== '') {
-            var bodyText = toMarkdown(body);
-            pageDownMe.val(bodyText);
-        }
-
-        pageDownMe.pagedownBootstrap();
-
-        var pageDownInput = $("textarea#wmd-input-0");
-        var preview = $("#wmd-preview-0");
-
-        setWellClass();
-
-        pageDownInput.on("change keyup paste", function() {
-            $("#body").val(preview.html());
-            setWellClass();
+        pageDownMe.markdown({
+            autofocus:true,
+            savable:false
         });
 
-        function setWellClass() {
-            if ($.trim(pageDownInput.val()) !== "") {
-                preview.addClass("well");
-            }
-            else {
-                preview.removeClass("well")
-            }
-        }
-    });
+        $("#btnSubmit").click(function(e) {
+            $("#body").val(markdown.toHTML($(this).val()));
+        });
+    })(jQuery, svk.utils, markdown)
 </script>
 <%@ include file="../jspf/footer.jspf" %>
