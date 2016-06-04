@@ -1,6 +1,10 @@
 package be.spring.app.model;
 
+import com.google.common.collect.Lists;
+
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -8,7 +12,7 @@ import java.util.Set;
  * Class for poll which has players (id's) as options. Not using a generic String makes it a bit less generic but
  * more type safe.
  */
-public class PlayersPoll extends Poll {
+public class PlayersPoll extends Poll<List<Ranking>> {
     private Set<Option<Long>> players;
     private Set<MultipleChoiceVote<Long>> votes;
 
@@ -37,5 +41,22 @@ public class PlayersPoll extends Poll {
 
     public void setVotes(Set<MultipleChoiceVote<Long>> votes) {
         this.votes = votes;
+    }
+
+    @Override
+    @Transient
+    public List<Ranking> getResult() {
+        List<Ranking> rankings = Lists.newArrayList();
+        for (Option<Long> p : players) {
+            Ranking r = new Ranking();
+            for (MultipleChoiceVote<Long> v : votes) {
+                if (v.getAnswer().equals(p.getOption())) {
+                    r.setPoints(r.getPonts() + 1);
+                }
+            }
+            rankings.add(r);
+        }
+        Collections.sort(rankings, Collections.reverseOrder());
+        return rankings;
     }
 }
