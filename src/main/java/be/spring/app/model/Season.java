@@ -16,22 +16,10 @@ import javax.validation.constraints.NotNull;
 })
 @Entity
 @Table(name = "season")
-public class Season {
-    private long id;
+public class Season extends BaseClass {
     private String description;
 
     public Season() {
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     @NotNull

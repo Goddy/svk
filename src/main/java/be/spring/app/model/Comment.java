@@ -11,8 +11,7 @@ import java.util.Date;
 @Entity
 @Table(name = "comment")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Comment {
-    private long id;
+public abstract class Comment extends BaseClass {
     private Account account;
     private String content;
     private Date postDate = new Date();
@@ -22,17 +21,6 @@ public abstract class Comment {
     public Comment(String content, Account account) {
         this.content = content;
         this.account = account;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

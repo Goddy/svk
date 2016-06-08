@@ -12,9 +12,12 @@ import java.util.Set;
  * Class for poll which has players (id's) as options. Not using a generic String makes it a bit less generic but
  * more type safe.
  */
+@Entity
+@Table(name = "players_poll")
+@PrimaryKeyJoinColumn(name = "poll_id", referencedColumnName = "id")
 public class PlayersPoll extends Poll<List<Ranking>> {
-    private Set<Option<Long>> players;
-    private Set<MultipleChoiceVote<Long>> votes;
+    private Set<IdentityOption> players;
+    private Set<MultipleChoicePlayerVote> votes;
 
     public PlayersPoll() {
     }
@@ -26,20 +29,23 @@ public class PlayersPoll extends Poll<List<Ranking>> {
             )}
     )
     @OrderColumn
-    public Set<Option<Long>> getPlayers() {
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true,
+            mappedBy = "poll")
+    public Set<IdentityOption> getPlayers() {
         return players;
     }
 
-    public void setPlayers(Set<Option<Long>> players) {
+    public void setPlayers(Set<IdentityOption> players) {
         this.players = players;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "poll")
-    public Set<MultipleChoiceVote<Long>> getVotes() {
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true,
+            mappedBy = "poll", targetEntity = Vote.class)
+    public Set<MultipleChoicePlayerVote> getVotes() {
         return votes;
     }
 
-    public void setVotes(Set<MultipleChoiceVote<Long>> votes) {
+    public void setVotes(Set<MultipleChoicePlayerVote> votes) {
         this.votes = votes;
     }
 

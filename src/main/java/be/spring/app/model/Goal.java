@@ -10,8 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "goals")
-public class Goal implements Comparable<Goal> {
-    private Long id;
+public class Goal extends BaseClass implements Comparable<Goal> {
     private int order;
     private Account scorer;
     private Account assist;
@@ -48,18 +47,6 @@ public class Goal implements Comparable<Goal> {
     public void setAssist(Account assist) {
         this.assist = assist;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 
     @JsonIgnore
     @ManyToOne

@@ -55,6 +55,9 @@ public class MatchesServiceImpl implements MatchesService {
     @Autowired
     private CacheAdapter cacheAdapter;
 
+    @Autowired
+    PollService pollService;
+
     @Override
     public Map<Integer, List<Match>> getMatchesForLastSeasons() {
         int count = 1;
@@ -138,6 +141,11 @@ public class MatchesServiceImpl implements MatchesService {
         m.setSeason(seasonDao.findOne(form.getSeason()));
         m.setStatus(form.getStatus());
         m.setStatusText(form.getStatus().equals(MatchStatusEnum.CANCELLED) ? form.getStatusText() : null);
+
+        //If status has changed, check if the motm poll should be added
+        if (!form.getStatus().equals(m.getStatus())) {
+            pollService.setMotmPoll(m);
+        }
 
         if (form.getStatus().equals(MatchStatusEnum.PLAYED)) {
             m.getGoals().clear();

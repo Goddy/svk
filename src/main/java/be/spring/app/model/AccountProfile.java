@@ -10,8 +10,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "account_profile")
-public class AccountProfile {
-    private long id;
+public class AccountProfile extends BaseClass{
     private Account account;
     private Image avatar;
     private String mobilePhone;
@@ -85,16 +84,5 @@ public class AccountProfile {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 }

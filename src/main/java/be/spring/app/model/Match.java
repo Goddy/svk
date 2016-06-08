@@ -24,12 +24,12 @@ import java.util.SortedSet;
 
 @Entity
 @Table(name = "matches")
-public class Match {
-    private long id;
+public class Match extends BaseClass {
     private DateTime date;
     private Season season;
     private Team homeTeam;
     private Team awayTeam;
+    private PlayersPoll motmPoll;
     private News news;
     private int atGoals;
     private int htGoals;
@@ -39,17 +39,6 @@ public class Match {
     private String StatusText;
 
     public Match() {
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     @NotNull
@@ -181,5 +170,15 @@ public class Match {
 
     public void setStatusText(String statusText) {
         StatusText = statusText;
+    }
+
+    @OneToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="motmpoll_id")
+    public PlayersPoll getMotmPoll() {
+        return motmPoll;
+    }
+
+    public void setMotmPoll(PlayersPoll motmPoll) {
+        this.motmPoll = motmPoll;
     }
 }

@@ -18,8 +18,7 @@ import javax.validation.constraints.Size;
 })
 @Entity
 @Table(name = "account")
-public class Account implements Comparable<Account> {
-    private Long id;
+public class Account extends BaseClass implements Comparable<Account> {
     private String firstName;
     private String lastName;
     private String username;
@@ -50,17 +49,6 @@ public class Account implements Comparable<Account> {
 
     public void setSignInProvider(SocialMediaEnum signInProvider) {
         this.signInProvider = signInProvider;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @NotNull

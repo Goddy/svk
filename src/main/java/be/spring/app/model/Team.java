@@ -19,23 +19,11 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "teams")
-public class Team {
-    private long id;
+public class Team extends BaseClass {
     private String name;
     private Address address;
 
     public Team() {
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     @NotNull

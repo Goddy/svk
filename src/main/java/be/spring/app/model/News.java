@@ -18,8 +18,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "news")
-public class News {
-    private Long id;
+public class News extends BaseClass {
     private Date postDate;
     private String header;
     private String content;
@@ -35,17 +34,6 @@ public class News {
 
     public News() {
         postDate = new Date();
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @NotNull

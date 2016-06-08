@@ -12,23 +12,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "polls")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Poll <T>{
-    private Long id;
+public abstract class Poll <T> extends BaseClass {
     private String question;
     private DateTime startDate;
     private DateTime endDate;
     private PollStatusEnum status = PollStatusEnum.WAITING;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @NotNull
     @Column(name = "question")
