@@ -13,6 +13,8 @@ public class Vote extends BaseClass {
     private Account voter;
     private Poll poll;
 
+    public Vote() {}
+
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "voter", nullable = false)

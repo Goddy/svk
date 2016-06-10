@@ -19,8 +19,7 @@ public class PlayersPoll extends Poll<List<Ranking>> {
     private Set<IdentityOption> players;
     private Set<MultipleChoicePlayerVote> votes;
 
-    public PlayersPoll() {
-    }
+    public PlayersPoll() { super(); }
 
     @CollectionTable(
             name = "poll_options",

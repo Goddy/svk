@@ -172,8 +172,9 @@ public class Match extends BaseClass {
         StatusText = statusText;
     }
 
-    @OneToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="motmpoll_id")
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name="motmpoll_id", insertable = true, updatable = true, nullable = true)
     public PlayersPoll getMotmPoll() {
         return motmPoll;
     }

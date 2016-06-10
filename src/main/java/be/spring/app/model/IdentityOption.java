@@ -9,6 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "identity_option")
 public class IdentityOption extends Option<Long> {
+    public IdentityOption() {super();}
     public IdentityOption(Long option, Poll poll) {
         this.setOption(option);
         this.setPoll(poll);

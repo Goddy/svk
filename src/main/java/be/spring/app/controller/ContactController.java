@@ -46,7 +46,7 @@ public class ContactController extends AbstractController {
                               ServletRequest servletRequest,
                               Locale locale) {
 
-        ReCaptchaResponse r = catchPaService.checkResponse(servletRequest, challangeField, responseField);
+        ReCaptchaResponse r = captchaService.checkResponse(servletRequest, challangeField, responseField);
 
         if (r.isValid() && !result.hasErrors()) {
             if (!mailService.sendPreConfiguredMail(String.format("%s</br></br>Van/From: %s", form.getMessage(), form.getEmail()))) {

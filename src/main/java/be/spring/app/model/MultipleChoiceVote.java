@@ -12,6 +12,7 @@ public abstract class MultipleChoiceVote<T> extends Vote {
     private T answer;
 
     public MultipleChoiceVote() {
+        super();
     }
 
     @NotNull

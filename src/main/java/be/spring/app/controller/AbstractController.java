@@ -3,7 +3,7 @@ package be.spring.app.controller;
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.controller.exceptions.UnauthorizedAccessException;
 import be.spring.app.model.Account;
-import be.spring.app.service.CatchPaService;
+import be.spring.app.service.CaptchaService;
 import be.spring.app.service.MailService;
 import be.spring.app.utils.SecurityUtils;
 import org.slf4j.Logger;
@@ -34,7 +34,7 @@ public abstract class AbstractController {
     protected MailService mailService;
 
     @Autowired
-    protected CatchPaService catchPaService;
+    protected CaptchaService captchaService;
 
     @Autowired
     private MessageSource messageSource;
@@ -150,8 +150,8 @@ public abstract class AbstractController {
     }
 
     protected void populateRecatchPa(Model model, boolean b) {
-        model.addAttribute("privateKey", catchPaService.getPrivateKey());
-        model.addAttribute("publicKey", catchPaService.getPublicKey());
+        model.addAttribute("privateKey", captchaService.getPrivateKey());
+        model.addAttribute("publicKey", captchaService.getPublicKey());
         model.addAttribute("invalidRecaptcha", !b);
     }
 }

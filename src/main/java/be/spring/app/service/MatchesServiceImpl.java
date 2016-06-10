@@ -139,11 +139,15 @@ public class MatchesServiceImpl implements MatchesService {
         m.setAwayTeam(teamDao.findOne(form.getAwayTeam()));
         m.setDate(form.getDate());
         m.setSeason(seasonDao.findOne(form.getSeason()));
+
+        //Get original match status
+        MatchStatusEnum originalMatchStatus = m.getStatus();
+        //Set matchstatus
         m.setStatus(form.getStatus());
         m.setStatusText(form.getStatus().equals(MatchStatusEnum.CANCELLED) ? form.getStatusText() : null);
 
         //If status has changed, check if the motm poll should be added
-        if (!form.getStatus().equals(m.getStatus())) {
+        if (!form.getStatus().equals(originalMatchStatus)) {
             pollService.setMotmPoll(m);
         }
 

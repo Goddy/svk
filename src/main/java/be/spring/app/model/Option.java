@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
  * Created by u0090265 on 31/05/16.
  */
 @MappedSuperclass
-public class Option<T> extends BaseClass {
+public abstract class Option<T> extends BaseClass {
     private T option;
     private Poll poll;
 
@@ -18,10 +18,7 @@ public class Option<T> extends BaseClass {
         this.option = option;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-    @Column(name = "option")
+    @Column(name = "opt")
     public T getOption() {
         return option;
     }

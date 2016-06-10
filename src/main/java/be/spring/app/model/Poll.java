@@ -18,6 +18,8 @@ public abstract class Poll <T> extends BaseClass {
     private DateTime endDate;
     private PollStatusEnum status = PollStatusEnum.WAITING;
 
+    public Poll(){}
+
     @NotNull
     @Column(name = "question")
     public String getQuestion() {

@@ -11,4 +11,5 @@ import javax.persistence.Table;
 @Table(name = "multiple_choice_player_vote")
 @PrimaryKeyJoinColumn(name = "vote_id", referencedColumnName = "id")
 public class MultipleChoicePlayerVote extends MultipleChoiceVote<Long>{
+    public MultipleChoicePlayerVote(){super();}
 }

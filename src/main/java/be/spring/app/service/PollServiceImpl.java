@@ -4,6 +4,7 @@ import be.spring.app.data.MatchStatusEnum;
 import be.spring.app.model.*;
 import be.spring.app.persistence.MatchesDao;
 import com.google.common.collect.Sets;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,10 @@ public class PollServiceImpl implements PollService {
                     if (p.isPresent()) players.add(new IdentityOption(p.getAccount().getId(), playersPoll));
                 }
                 playersPoll.setPlayers(players);
+                playersPoll.setStartDate(DateTime.now());
+                playersPoll.setEndDate(DateTime.now().plusDays(3));
+                playersPoll.setQuestion("Automatically generated: Who will be man of the match?");
+                match.setMotmPoll(playersPoll);
                 return true;
             }
         }
