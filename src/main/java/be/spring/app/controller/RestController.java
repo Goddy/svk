@@ -1,8 +1,11 @@
 package be.spring.app.controller;
 
+import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.dto.MatchDTO;
+import be.spring.app.dto.MatchPollDTO;
 import be.spring.app.dto.TeamDTO;
 import be.spring.app.dto.helper.ConversionHelper;
+import be.spring.app.model.Match;
 import be.spring.app.service.MatchesService;
 import be.spring.app.service.TeamService;
 import io.swagger.annotations.Api;
@@ -33,7 +36,7 @@ public class RestController extends AbstractController {
     @Autowired
     private TeamService teamService;
 
-    @RequestMapping(value = "/matches/{seasonDescription}", method = RequestMethod.GET)
+    @RequestMapping(value = "/match/list/{seasonDescription}", method = RequestMethod.GET)
     @ApiOperation(value = "List all matches for a specific season", nickname = "matches")
     @ApiResponses({
             @ApiResponse(code = 404, message = "Not found"),
@@ -44,11 +47,21 @@ public class RestController extends AbstractController {
         return conversionHelper.convertMatches(matchesService.getMatchesForSeason(seasonDescription));
     }
 
-    @RequestMapping(value = "/teams", method = RequestMethod.GET)
+    @RequestMapping(value = "/team/list", method = RequestMethod.GET)
     @ApiOperation(value = "List all teams", nickname = "teams")
     public
     @ResponseBody
     List<TeamDTO> getTeams() {
         return conversionHelper.convertTeams(teamService.getAll());
+    }
+
+    @RequestMapping(value = "/match/{id}/poll", method = RequestMethod.GET)
+    @ApiOperation(value = "Get poll for match", nickname = "matchpoll")
+    public
+    @ResponseBody
+    MatchPollDTO getMatchPoll(@PathVariable Long id) {
+        Match m = matchesService.getMatch(id);
+        if (m == null) throw new ObjectNotFoundException(String.format("Match with id %s not found", id));
+        return conversionHelper.convertMatchPoll(m.getMotmPoll(), isLoggedIn());
     }
 }

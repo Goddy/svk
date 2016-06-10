@@ -48,12 +48,14 @@ public class PlayersPoll extends Poll<List<Ranking>> {
         this.votes = votes;
     }
 
+
     @Override
     @Transient
     public List<Ranking> getResult() {
         List<Ranking> rankings = Lists.newArrayList();
         for (Option<Long> p : players) {
             Ranking r = new Ranking();
+            r.setPlayer(p.getOption());
             for (MultipleChoiceVote<Long> v : votes) {
                 if (v.getAnswer().equals(p.getOption())) {
                     r.setPoints(r.getPonts() + 1);

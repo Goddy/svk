@@ -1,19 +1,23 @@
 package be.spring.app.dto.helper;
 
-import be.spring.app.dto.MatchDTO;
-import be.spring.app.dto.TeamDTO;
-import be.spring.app.model.Match;
-import be.spring.app.model.Team;
+import be.spring.app.dto.*;
+import be.spring.app.model.*;
+import be.spring.app.persistence.AccountDao;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by u0090265 on 10/2/15.
  */
 @Component
 public class ConversionHelperImpl implements ConversionHelper {
+    @Autowired
+    AccountDao accountDao;
 
     @Override
     public List<MatchDTO> convertMatches(List<Match> matchList) {
@@ -38,5 +42,24 @@ public class ConversionHelperImpl implements ConversionHelper {
                     t.getAddress().getGoogleLink()));
         }
         return teamDTOs;
+    }
+
+    @Override
+    public MatchPollDTO convertMatchPoll(PlayersPoll playersPoll, boolean isLoggedIn) {
+        Set<RankingDTO> votes = Sets.newConcurrentHashSet();
+        for (Ranking ranking : playersPoll.getResult()) {
+            votes.add(new RankingDTO(
+                    convertAccount(accountDao.findOne(ranking.getPlayer()), isLoggedIn),
+                    ranking.getPonts()));
+        }
+        return new MatchPollDTO(playersPoll.getId(), votes);
+    }
+
+    @Override
+    public AccountDTO convertAccount(Account account, boolean isLoggedIn) {
+        AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setName(isLoggedIn ? account.toString() : account.getFullName());
+        accountDTO.setId(account.getId());
+        return accountDTO;
     }
 }

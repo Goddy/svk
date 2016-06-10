@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Created by u0090265 on 10/2/15.
  */
-public class MatchDTO {
+public class MatchDTO extends DTOBaseClass {
     String date;
     String hour;
     String homeTeam;
