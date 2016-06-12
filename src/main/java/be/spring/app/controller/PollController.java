@@ -19,7 +19,7 @@ public class PollController extends AbstractController {
      * Simply selects the home view to render by returning its name.
      */
     @RequestMapping(value = "/matchPoll", method = RequestMethod.GET)
-    public String home() {
+    public String getMatchPoll() {
         return "/poll/matchPoll";
     }
 }

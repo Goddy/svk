@@ -3,7 +3,6 @@ package be.spring.app.model;
 import com.google.common.collect.Lists;
 
 import javax.persistence.*;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "players_poll")
 @PrimaryKeyJoinColumn(name = "poll_id", referencedColumnName = "id")
-public class PlayersPoll extends Poll<List<Ranking>> {
+public class PlayersPoll extends Poll<RankingList> {
     private Set<IdentityOption> players;
     private Set<MultipleChoicePlayerVote> votes;
 
@@ -51,19 +50,20 @@ public class PlayersPoll extends Poll<List<Ranking>> {
 
     @Override
     @Transient
-    public List<Ranking> getResult() {
+    public RankingList getResult() {
         List<Ranking> rankings = Lists.newArrayList();
+        int totalVotes = 0;
         for (Option<Long> p : players) {
             Ranking r = new Ranking();
             r.setPlayer(p.getOption());
             for (MultipleChoiceVote<Long> v : votes) {
                 if (v.getAnswer().equals(p.getOption())) {
                     r.setPoints(r.getPonts() + 1);
+                    totalVotes++;
                 }
             }
             rankings.add(r);
         }
-        Collections.sort(rankings, Collections.reverseOrder());
-        return rankings;
+        return new RankingList(rankings, totalVotes);
     }
 }

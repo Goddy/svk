@@ -5,21 +5,49 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ include file="../jspf/header.jspf" %>
 
-<div ng-app="pollApp">
-    <div ng-controller="PollCtrl">
-        <p> Click <a ng-click="loadPeople()">here</a> to load data.</p>
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-            </tr>
-            <tr ng-repeat="person in people">
-                <td>{{person.id}}</td>
-                <td>{{person.firstName}}</td>
-                <td>{{person.lastName}}</td>
-            </tr>
-        </table>
+<div class="row" ng-app="soccerApp" ng-controller="matchPollCtrl">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="user-poll-section">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Question : </strong>Which is the best responsive framework to start web designing ?
+                </div>
+                <div class="panel-body">
+                    <div class="radio" ng-repeat="x in votes">
+                        <label>
+                            <input name="group-poll" ng-value="{{x.account}}" type="radio"  ng-model="$parent.selectedAccount">
+                            {{x.account.name}}
+                        </label>
+                    </div>
+                    Selected value {{selectedAccount}}
+                </div>
+
+                <hr>
+                <h5 class="text-danger">Result Of User Votes :</h5>
+                <hr>
+                <div ng-if="totalVotes > 1">
+                    <div ng-repeat="x in votes">
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{getPercentage(x.votes)}}"
+                                 aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage(x.votes) + '%' ) }">
+                                <span class="sr-only">{{x.account.name}} {{getPercentage(x.votes)}}%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="totalVotes == 0">
+                    No votes yet.
+                </div>
+
+
+                <div class="panel-footer">
+                    <a href="#" ng-click="vote(selectedAccount)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> Mark Your Vote</a>
+                </div>
+
+                {{message}}
+            </div>
+        </div>
+        <!-- POLL DIV END-->
     </div>
 </div>
 
@@ -27,39 +55,36 @@
 
 <script type="text/javascript">
     (function ($, angular) {
-        var mockDataForThisTest = "json=" + encodeURI(JSON.stringify([
-                    {
-                        id: 1,
-                        firstName: "Peter",
-                        lastName: "Jhons"
-                    },
-                    {
-                        id: 2,
-                        firstName: "David",
-                        lastName: "Bowie"
-                    }
-                ]));
+        var app = angular.module('soccerApp', []);
+        app.controller('matchPollCtrl', function($scope, $http) {
+            $scope.selectedAccount = "Test";
+            $http.get('/api/v1/match/3/poll').
+            success(function(data) {
+                $scope.votes = data.votes;
+                $scope.totalVotes = data.totalVotes;
+            });
 
-
-        var app = angular.module('polApp', []);
-
-        function PollCtrl($scope, $http) {
-
-            $scope.people = [];
-
-            $scope.loadPeople = function () {
-                var httpRequest = $http({
-                    method: 'POST',
-                    url: '/echo/json/',
-                    data: mockDataForThisTest
-
-                }).success(function (data, status) {
-                    $scope.people = data;
-                });
-
+            $scope.getPercentage = function (votes) {
+                if ($scope.totalVotes === 0) {
+                    return 0;
+                }
+                else {
+                    return ((votes / $scope.total) * 100).toFixed(2);
+                }
             };
 
-        }
+            $scope.vote = function(selectedAccount) {
+                $http({
+                    url: '/api/v1/match/poll/vote/3',
+                    method: "POST",
+                    data: {answer: selectedAccount.id},
+                }).success(function (data, status, headers, config) {
+                    $scope.message = "Vote recorded"; // assign  $scope.persons here as promise is resolved here
+                }).error(function (data, status, headers, config) {
+                    $scope.message = "Vote failed";
+                });
+            };
+        });
     })(jQuery, angular);
 
 
