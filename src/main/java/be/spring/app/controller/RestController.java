@@ -1,12 +1,8 @@
 package be.spring.app.controller;
 
-import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.dto.MatchDTO;
-import be.spring.app.dto.MatchPollDTO;
-import be.spring.app.dto.MultipleChoiceVoteDTO;
 import be.spring.app.dto.TeamDTO;
 import be.spring.app.dto.helper.ConversionHelper;
-import be.spring.app.model.Match;
 import be.spring.app.service.MatchesService;
 import be.spring.app.service.TeamService;
 import io.swagger.annotations.Api;
@@ -16,8 +12,10 @@ import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -56,23 +54,5 @@ public class RestController extends AbstractController {
     @ResponseBody
     List<TeamDTO> getTeams() {
         return conversionHelper.convertTeams(teamService.getAll());
-    }
-
-    @RequestMapping(value = "/match/{id}/poll", method = RequestMethod.GET)
-    @ApiOperation(value = "Get poll for match", nickname = "matchpoll")
-    public
-    @ResponseBody
-    MatchPollDTO getMatchPoll(@PathVariable Long id) {
-        Match m = matchesService.getMatch(id);
-        if (m == null) throw new ObjectNotFoundException(String.format("Match with id %s not found", id));
-        return conversionHelper.convertMatchPoll(m.getMotmPoll(), isLoggedIn());
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/match/poll/vote/{id}", method = RequestMethod.POST)
-    @ResponseBody
-    public String postMatchPoll(@RequestBody Long id, @RequestBody MultipleChoiceVoteDTO<Long> vote) {
-        logger.debug(vote.toString());
-        return "/poll/matchPoll/{id}";
     }
 }

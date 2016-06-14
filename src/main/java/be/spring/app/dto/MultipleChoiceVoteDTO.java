@@ -6,6 +6,13 @@ package be.spring.app.dto;
 public class MultipleChoiceVoteDTO<T> {
     private T answer;
 
+    public MultipleChoiceVoteDTO(T answer) {
+        this.answer = answer;
+    }
+
+    public MultipleChoiceVoteDTO() {
+    }
+
     public T getAnswer() {
         return answer;
     }

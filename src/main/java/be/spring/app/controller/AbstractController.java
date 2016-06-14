@@ -2,10 +2,8 @@ package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.controller.exceptions.UnauthorizedAccessException;
-import be.spring.app.model.Account;
 import be.spring.app.service.CaptchaService;
 import be.spring.app.service.MailService;
-import be.spring.app.utils.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +24,28 @@ import java.util.Locale;
  * Time: 1:43 PM
  * Remarks: none
  */
-public abstract class AbstractController {
+public abstract class AbstractController extends AbstractSecurityController {
 
     private static final String DIV_CLASS_SUCCESS = "alert alert-success";
     private static final String DIV_CLASS_ERROR = "alert alert-danger";
+    /**
+     * Blocks spring security exceptions
+     *
+     * @param e
+     * @return
+     * @ExceptionHandler(RuntimeException.class) public String handleRuntimeException(Exception e) {
+     * log.error(e.getMessage());
+     * return "error-500";
+     * }
+     **/
+
+    private static final Logger log = LoggerFactory.getLogger(AbstractController.class);
     @Autowired
     protected MailService mailService;
-
     @Autowired
     protected CaptchaService captchaService;
-
     @Autowired
     private MessageSource messageSource;
-
-    @Autowired
-    private SecurityUtils securityUtils;
 
     @ExceptionHandler(ObjectNotFoundException.class)
     public String handleException(Exception e, HttpServletRequest request) {
@@ -53,28 +58,6 @@ public abstract class AbstractController {
     public String handleUnauthorizedException(Exception e) {
         log.error(e.getMessage());
         return "error-403";
-    }
-
-    /**
-     * Blocks spring security exceptions
-     * @param e
-     * @return
-    @ExceptionHandler(RuntimeException.class)
-    public String handleRuntimeException(Exception e) {
-        log.error(e.getMessage());
-        return "error-500";
-    }
-     **/
-
-    private static final Logger log = LoggerFactory.getLogger(AbstractController.class);
-
-    public Account getAccountFromSecurity() {
-        return securityUtils.getAccountFromSecurity();
-    }
-
-
-    public boolean isLoggedIn() {
-        return securityUtils.isloggedIn();
     }
 
     /**
