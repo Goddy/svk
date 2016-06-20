@@ -3,16 +3,16 @@ package be.spring.app.model;
 /**
  * Created by u0090265 on 04/06/16.
  */
-public class Ranking implements Comparable<Ranking> {
+public class Ranking<T> implements Comparable<Ranking<T>> {
     private int points;
-    private Long player;
+    private T option;
 
-    public Long getPlayer() {
-        return player;
+    public T getOption() {
+        return option;
     }
 
-    public void setPlayer(Long player) {
-        this.player = player;
+    public void setOption(T option) {
+        this.option = option;
     }
 
     public int getPonts() {
@@ -24,7 +24,7 @@ public class Ranking implements Comparable<Ranking> {
     }
 
     @Override
-    public int compareTo(Ranking ranking) {
+    public int compareTo(Ranking<T> ranking) {
         return points > ranking.points ? 1 : points < ranking.points ? -1 : 0;
     }
 }

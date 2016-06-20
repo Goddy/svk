@@ -9,11 +9,19 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "vote")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Vote extends BaseClass {
+public abstract class Vote<T> extends BaseClass {
+    protected T answer;
     private Account voter;
     private Poll poll;
 
     public Vote() {}
+
+    @Transient
+    public abstract T getAnswer();
+
+    public void setAnswer(T answer) {
+        this.answer = answer;
+    }
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)

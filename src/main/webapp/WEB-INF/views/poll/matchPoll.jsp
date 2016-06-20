@@ -77,7 +77,7 @@
 
             $scope.vote = function(selectedAccount) {
                 $http({
-                    url: '/api/v1/match/poll/3/vote',
+                    url: '/api/v1/match/poll/1/vote',
                     method: "POST",
                     data: {answer: selectedAccount.id},
                 }).success(function (data, status, headers, config) {

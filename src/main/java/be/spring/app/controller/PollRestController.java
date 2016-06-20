@@ -1,13 +1,13 @@
 package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
-import be.spring.app.dto.AccountDTO;
 import be.spring.app.dto.MatchPollDTO;
 import be.spring.app.dto.MultipleChoiceVoteDTO;
-import be.spring.app.dto.VotesDTO;
 import be.spring.app.dto.helper.ConversionHelper;
 import be.spring.app.model.Match;
+import be.spring.app.model.MultipleChoicePlayerVote;
 import be.spring.app.service.MatchesService;
+import be.spring.app.service.PollService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -33,6 +33,9 @@ public class PollRestController extends AbstractController {
     private MatchesService matchesService;
 
     @Autowired
+    private PollService pollService;
+
+    @Autowired
     private ConversionHelper conversionHelper;
 
     @RequestMapping(value = "/api/v1/match/{id}/poll", method = RequestMethod.GET)
@@ -45,9 +48,12 @@ public class PollRestController extends AbstractController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/api/v1/match/poll/{id}/vote", method = RequestMethod.POST)
-    public ResponseEntity<VotesDTO> postMatchPoll(@PathVariable Long id, @RequestBody MultipleChoiceVoteDTO<Long>
+    public ResponseEntity<MultipleChoiceVoteDTO<Long>> postMatchPoll(@PathVariable Long id, @RequestBody
+            MultipleChoiceVoteDTO<Long>
             vote) {
         logger.debug(vote.toString());
-        return new ResponseEntity<>(new VotesDTO(new AccountDTO(), 1), HttpStatus.OK);
+        pollService.vote(id, new MultipleChoicePlayerVote(getAccountFromSecurity(), vote.getAnswer()));
+        vote.setAccount(getAccountFromSecurity());
+        return new ResponseEntity<>(vote, HttpStatus.OK);
     }
 }

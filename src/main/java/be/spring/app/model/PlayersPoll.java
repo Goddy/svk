@@ -14,12 +14,13 @@ import java.util.Set;
 @Entity
 @Table(name = "players_poll")
 @PrimaryKeyJoinColumn(name = "poll_id", referencedColumnName = "id")
-public class PlayersPoll extends Poll<RankingList> {
-    private Set<IdentityOption> players;
+public class PlayersPoll extends Poll<Long> implements MultipleChoicePoll<Long> {
+    private Set<IdentityOption> options;
     private Set<MultipleChoicePlayerVote> votes;
 
     public PlayersPoll() { super(); }
 
+    @Override
     @CollectionTable(
             name = "poll_options",
             joinColumns = {@JoinColumn(
@@ -29,14 +30,15 @@ public class PlayersPoll extends Poll<RankingList> {
     @OrderColumn
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true,
             mappedBy = "poll")
-    public Set<IdentityOption> getPlayers() {
-        return players;
+    public Set<IdentityOption> getOptions() {
+        return options;
     }
 
-    public void setPlayers(Set<IdentityOption> players) {
-        this.players = players;
+    public void setOptions(Set<IdentityOption> options) {
+        this.options = options;
     }
 
+    @Override
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true,
             mappedBy = "poll", targetEntity = Vote.class)
     public Set<MultipleChoicePlayerVote> getVotes() {
@@ -50,13 +52,13 @@ public class PlayersPoll extends Poll<RankingList> {
 
     @Override
     @Transient
-    public RankingList getResult() {
-        List<Ranking> rankings = Lists.newArrayList();
+    public RankingList<Long> getResult() {
+        List<Ranking<Long>> rankings = Lists.newArrayList();
         int totalVotes = 0;
-        for (Option<Long> p : players) {
+        for (Option<Long> p : options) {
             Ranking r = new Ranking();
-            r.setPlayer(p.getOption());
-            for (MultipleChoiceVote<Long> v : votes) {
+            r.setOption(p.getOption());
+            for (Vote<Long> v : votes) {
                 if (v.getAnswer().equals(p.getOption())) {
                     r.setPoints(r.getPonts() + 1);
                     totalVotes++;

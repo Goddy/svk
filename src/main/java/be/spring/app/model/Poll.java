@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 /**
  * Created by u0090265 on 29/05/16.
@@ -64,7 +65,10 @@ public abstract class Poll <T> extends BaseClass {
     }
 
     @Transient
-    public abstract T getResult();
+    public abstract Set<? extends Vote<T>> getVotes();
+
+    @Transient
+    public abstract Set<? extends Option<T>> getOptions();
 
     @Override
     public String toString() {
