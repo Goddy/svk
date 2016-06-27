@@ -46,14 +46,31 @@ public class ConversionHelperImpl implements ConversionHelper {
 
     @Override
     public MatchPollDTO convertMatchPoll(PlayersPoll playersPoll, boolean isLoggedIn) {
-        Set<VotesDTO> votes = Sets.newConcurrentHashSet();
         RankingList<Long> rankingList = playersPoll.getResult();
+        return new MatchPollDTO(playersPoll.getId(),
+                convertIdentityRankings(rankingList, isLoggedIn),
+                convertIdentityOptions(playersPoll.getOptions(), isLoggedIn),
+                rankingList.getTotalVotes());
+    }
+
+    @Override
+    public Set<AccountDTO> convertIdentityOptions(Set<IdentityOption> identityOptions, boolean isLoggedIn) {
+        Set<AccountDTO> accountDTOs = Sets.newConcurrentHashSet();
+        for (IdentityOption account : identityOptions) {
+            accountDTOs.add(convertAccount(accountDao.findOne(account.getOption()), isLoggedIn));
+        }
+        return accountDTOs;
+    }
+
+    @Override
+    public Set<VotesDTO> convertIdentityRankings(RankingList<Long> rankingList, boolean isLoggedIn) {
+        Set<VotesDTO> votes = Sets.newConcurrentHashSet();
         for (Ranking<Long> ranking : rankingList.getRankings()) {
             votes.add(new VotesDTO(
                     convertAccount(accountDao.findOne(ranking.getOption()), isLoggedIn),
                     ranking.getPonts()));
         }
-        return new MatchPollDTO(playersPoll.getId(), votes, rankingList.getTotalVotes());
+        return votes;
     }
 
     @Override

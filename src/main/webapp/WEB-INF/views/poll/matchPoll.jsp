@@ -25,12 +25,12 @@
                 <hr>
                 <h5 class="text-danger">Result Of User Votes :</h5>
                 <hr>
-                <div ng-if="totalVotes > 1">
+                <div ng-if="totalVotes > 0">
                     <div ng-repeat="x in votes">
                         <div class="progress progress-striped active">
                             <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{getPercentage(x.votes)}}"
                                  aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage(x.votes) + '%' ) }">
-                                <span class="sr-only">{{x.account.name}} {{getPercentage(x.votes)}}%</span>
+                                {{x.account.name}} {{getPercentage(x.votes)}}%
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                     return 0;
                 }
                 else {
-                    return ((votes / $scope.total) * 100).toFixed(2);
+                    return ((votes / $scope.totalVotes) * 100).toFixed(2);
                 }
             };
 

@@ -1,6 +1,7 @@
 package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
+import be.spring.app.dto.AccountDTO;
 import be.spring.app.dto.MatchPollDTO;
 import be.spring.app.dto.MultipleChoiceVoteDTO;
 import be.spring.app.dto.helper.ConversionHelper;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Set;
 
 /**
  * Created by u0090265 on 10/2/15.
@@ -55,5 +58,19 @@ public class PollRestController extends AbstractController {
         pollService.vote(id, new MultipleChoicePlayerVote(getAccountFromSecurity(), vote.getAnswer()));
         vote.setAccount(getAccountFromSecurity());
         return new ResponseEntity<>(vote, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('admin')")
+    @RequestMapping(value = "/api/v1/poll/{id}/reset", method = RequestMethod.POST)
+    public ResponseEntity resetPoll(@PathVariable Long id) {
+        pollService.reset(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('admin')")
+    @RequestMapping(value = "/api/v1/match/poll/{id}/refresh", method = RequestMethod.POST)
+    public ResponseEntity<Set<AccountDTO>> refreshMatchPoll(@PathVariable Long id) {
+        return new ResponseEntity<>(conversionHelper.convertIdentityOptions(pollService.refreshPlayerOptions(id),
+                isLoggedIn()), HttpStatus.OK);
     }
 }

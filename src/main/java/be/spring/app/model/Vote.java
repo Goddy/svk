@@ -44,4 +44,23 @@ public abstract class Vote<T> extends BaseClass {
     public void setPoll(Poll poll) {
         this.poll = poll;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Vote<?> vote = (Vote<?>) o;
+
+        if (voter != null ? !voter.equals(vote.voter) : vote.voter != null) return false;
+        return poll != null ? poll.equals(vote.poll) : vote.poll == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = voter != null ? voter.hashCode() : 0;
+        result = 31 * result + (poll != null ? poll.hashCode() : 0);
+        return result;
+    }
 }
