@@ -34,35 +34,84 @@
 </c:if>
 
 <%@ include file="../jspf/resultMessage.jspf" %>
-<div class="panel-group" id="accordion">
+
+<div class="panel-group" id="accordion" ng-app="soccerApp" ng-controller="matchCtrl">
     <c:forEach items="${seasons}" var="season">
-        <div class="panel panel-default">
+        <div class="panel panel-default" ng-repeat="season in seasons">>
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-target="#collapse${season.id}"
-                       href="#collapse${season.id}" class="collapsed" id="${season.id}">
-                        <spring:message code="text.season"/> ${season.description}
+                    <a data-toggle="collapse" data-target="#collapse{{season.id}}"
+                       href="#collapse{{season.id}}" class="collapsed" id="{{season.id}}" ng-click="getMatches(season.id)">
+                        <spring:message code="text.season"/> {{season.description}}
                     </a>
                     <a class="pull-right downloadCalendar"
-                       href="/calendar/getMatchesCalendar.html?seasonId=${season.id}"><span
+                       href="/calendar/getMatchesCalendar.html?seasonId={{season.id}}"><span
                             class="glyphicon glyphicon-calendar"><spring:message code="text.export"/></span></a>
                 </h4>
             </div>
-            <div id="collapse${season.id}" class="panel-collapse collapse">
+            <div id="collapse{{season.id}}" class="panel-collapse collapse">
                 <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover rwd-table">
+                            <tr>
+                                <th><spring:message code='text.date'/></th>
+                                <th><spring:message code='text.match'/></th>
+                                <th><spring:message code='text.result'/></th>
+                                <th><spring:message code='text.actions'/></th>
+                            </tr>
+                            <tr ng-if="!matchesMap"><spring:message code='text.noMatches'/></tr>
+                            <tr ng-repeat="match in matchesMap">
+                                <td data-th="<spring:message code='text.date'/>">{{match.stringDate}} - {{match.stringHour}}</td>
+                                <td data-th="<spring:message code='text.match'/>">{{match.homeTeam.name}} - {{match.awayTeam.name}}</td>
+                                <td ng-switch="match.status">
+                                    <span class="animate-switch" ng-switch-when="PLAYED">{{match.htGoals}} - {{match.atGooals}}</span>
+                                    <span class="animate-switch" ng-switch-when="NOT_PLAYED"><spring:message code='label.match.status.NOT_PLAYED'/></span>
+                                    <span class="animate-switch" title="{{match.statusText}}" ng-switch-when="CANCELLED" data-toggle="tooltip" data-placement="top"><b><spring:message code='label.match.status.CANCELLED'/></b></span>
+                                </td>
+                                <td>{{match.additions['htmlActions']}}</td>
+                            </tr>
+                            <tr style="display: none" class="active" id="details' + o.object.id + '">
+                                <td colspan="5">
+                                <spring:message code='text.goals'/>:<br/>
+                                    <ul>
+                                        <li ng-repeat="g in match.goals)">test {{n}}
+                                            <span ng-if="g.scorer">g.scorer.fullName</span>
+                                            <span ng-if="!g.scorer"><spring:message code="text.no.player"/></span>
+                                            <span ng-if="g.assist">({{g.assist.fullName}})</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
                 </div>
             </div>
         </div>
     </c:forEach>
 </div>
 <script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 
 <tag:deleteDialog dialogId="delete-match-modal"/>
 <tag:calendarDialog dialogId="download-calendar-modal"/>
 <tag:mapDialog dialogId="map-modal"/>
 <script type="text/javascript">
 
-    (function ($, dd, md, dc, utils) {
+    (function ($, dd, md, dc, utils, angular) {
+        var app = angular.module('soccerApp', []);
+        app.controller('matchPollCtrl', function($scope, $http) {
+            $scope.getMatches = function (season) {
+                $http({
+                    url: '/matchesForSeason.json',
+                    method: "GET",
+                    data: {seasonId: season},
+                }).success(function (data, status, headers, config) {
+                    $scope.season[season] = data; // assign  $scope.persons here as promise is resolved here
+                }).error(function (data, status, headers, config) {
+                    console.log("Error getting matches")
+                });
+            };
+        });
+
         var deleteMsg = "<spring:message code="text.delete.match"/>";
         var deleteTitle = "<spring:message code="title.delete.match"/>";
         var deleteMatchModal = $("#delete-match-modal");
@@ -206,7 +255,7 @@
             });
         });
 
-    })(jQuery, svk.deleteDialogs, svk.mapDialog, svk.calendarDialog, svk.utils);
+    })(jQuery, svk.deleteDialogs, svk.mapDialog, svk.calendarDialog, svk.utils, angular);
 
 
 </script>
