@@ -1,15 +1,15 @@
-package be.spring.app.model;
+package be.spring.app.dto;
 
 import java.util.Map;
 
 /**
  * Created by u0090265 on 8/30/14.
  */
-public class ActionWrapper<K> {
+public class ActionWrapperDTO<K> {
     private K object;
     private Map<String, String> additions;
 
-    public ActionWrapper(K object) {
+    public ActionWrapperDTO(K object) {
         this.object = object;
     }
 

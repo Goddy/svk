@@ -2,6 +2,7 @@ package be.spring.app.service;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.data.AccountStatistic;
+import be.spring.app.dto.ActionWrapperDTO;
 import be.spring.app.model.*;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.persistence.SeasonDao;
@@ -81,23 +82,23 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
 
     //Todo: duplicated behaviour, should be avoided
     @Override
-    public ListenableFuture<List<ActionWrapper<Match>>> getMatchForSeasonActionWrappers(long seasonId, Account account, Locale locale) {
+    public ListenableFuture<List<ActionWrapperDTO<Match>>> getMatchForSeasonActionWrappers(long seasonId, Account account, Locale locale) {
         Season season = seasonDao.findOne(seasonId);
         List<Match> matches = matchesDao.getMatchesForSeason(season);
-        List<ListenableFuture<ActionWrapper<Match>>> r = new ArrayList<>();
+        List<ListenableFuture<ActionWrapperDTO<Match>>> r = new ArrayList<>();
 
-        for (ActionWrapper<Match> matchActionWrapper : getActionWrappers(matches)) {
+        for (ActionWrapperDTO<Match> matchActionWrapper : getActionWrappers(matches)) {
             r.add(setMatchHtmlActions(matchActionWrapper, locale, account));
         }
         return Futures.allAsList(r);
     }
 
     @Override
-    public ListenableFuture<List<ActionWrapper<Team>>> getTeamsActionWrappers(Account account, Locale locale) {
+    public ListenableFuture<List<ActionWrapperDTO<Team>>> getTeamsActionWrappers(Account account, Locale locale) {
         List<Team> teams = Lists.newArrayList(teamDao.findAll());
-        List<ListenableFuture<ActionWrapper<Team>>> r = new ArrayList<>();
+        List<ListenableFuture<ActionWrapperDTO<Team>>> r = new ArrayList<>();
 
-        for (ActionWrapper<Team> teamActionWrapper : getActionWrappers(teams)) {
+        for (ActionWrapperDTO<Team> teamActionWrapper : getActionWrappers(teams)) {
             r.add(setTeamHtmlActions(teamActionWrapper, locale, account));
         }
         /**
@@ -107,10 +108,10 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
         return Futures.allAsList(r);
     }
 
-    private com.google.common.util.concurrent.ListenableFuture<ActionWrapper<Match>> setMatchHtmlActions(final ActionWrapper<Match> matchActionWrapper, final Locale locale, final Account account) {
-        return executorService.submit(new Callable<ActionWrapper<Match>>() {
+    private com.google.common.util.concurrent.ListenableFuture<ActionWrapperDTO<Match>> setMatchHtmlActions(final ActionWrapperDTO<Match> matchActionWrapper, final Locale locale, final Account account) {
+        return executorService.submit(new Callable<ActionWrapperDTO<Match>>() {
             @Override
-            public ActionWrapper<Match> call() throws Exception {
+            public ActionWrapperDTO<Match> call() throws Exception {
                 try {
                     HashMap<String, String> map = new HashMap<>();
                     map.putAll(htmlHelper.getMatchesButtons(matchActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
@@ -132,20 +133,20 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
          */
     }
 
-    private com.google.common.util.concurrent.ListenableFuture<ActionWrapper<Team>> setTeamHtmlActions(final ActionWrapper<Team> teamActionWrapper, final Locale locale, final Account account) {
-        return executorService.submit(new Callable<ActionWrapper<Team>>() {
+    private com.google.common.util.concurrent.ListenableFuture<ActionWrapperDTO<Team>> setTeamHtmlActions(final ActionWrapperDTO<Team> teamActionWrapper, final Locale locale, final Account account) {
+        return executorService.submit(new Callable<ActionWrapperDTO<Team>>() {
             @Override
-            public ActionWrapper<Team> call() throws Exception {
+            public ActionWrapperDTO<Team> call() throws Exception {
                 teamActionWrapper.setAdditions(htmlHelper.getTeamButtons(teamActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
                 return teamActionWrapper;
             }
         });
     }
 
-    private <T> List<ActionWrapper<T>> getActionWrappers(List<T> objects) {
-        final List<ActionWrapper<T>> actionWrappers = new ArrayList<>();
+    private <T> List<ActionWrapperDTO<T>> getActionWrappers(List<T> objects) {
+        final List<ActionWrapperDTO<T>> actionWrappers = new ArrayList<>();
         for (T o : objects) {
-            actionWrappers.add(new ActionWrapper<>(o));
+            actionWrappers.add(new ActionWrapperDTO<>(o));
         }
         return actionWrappers;
     }

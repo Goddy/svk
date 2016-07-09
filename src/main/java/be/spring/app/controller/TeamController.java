@@ -4,7 +4,7 @@ import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.data.PositionsEnum;
 import be.spring.app.form.CreateAndUpdateTeamForm;
 import be.spring.app.model.Account;
-import be.spring.app.model.ActionWrapper;
+import be.spring.app.dto.ActionWrapperDTO;
 import be.spring.app.model.Team;
 import be.spring.app.service.AccountService;
 import be.spring.app.service.AddressService;
@@ -12,7 +12,6 @@ import be.spring.app.service.TeamService;
 import be.spring.app.validators.CreateTeamValidator;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.sun.org.apache.bcel.internal.generic.SWITCH;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,7 +164,7 @@ public class TeamController extends AbstractController {
 
     }
 
-    private List<ActionWrapper<Team>> getTeams(Locale locale) {
+    private List<ActionWrapperDTO<Team>> getTeams(Locale locale) {
         return teamService.getTeams(getAccountFromSecurity(), locale);
     }
 

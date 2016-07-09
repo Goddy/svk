@@ -3,7 +3,7 @@ package be.spring.app.service;
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.CreateAndUpdateTeamForm;
 import be.spring.app.model.Account;
-import be.spring.app.model.ActionWrapper;
+import be.spring.app.dto.ActionWrapperDTO;
 import be.spring.app.model.Address;
 import be.spring.app.model.Team;
 import be.spring.app.persistence.AddressDao;
@@ -95,11 +95,11 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public List<ActionWrapper<Team>> getTeams(final Account account, final Locale locale) {
+    public List<ActionWrapperDTO<Team>> getTeams(final Account account, final Locale locale) {
         try {
             return concurrentDataService.getTeamsActionWrappers(account, locale).get();
         } catch (InterruptedException | ExecutionException e) {
-            log.error("getTeams error: {}", e.getMessage());
+            log.error("getAllTeams error: {}", e.getMessage());
             return Lists.newArrayList();
         }
     }

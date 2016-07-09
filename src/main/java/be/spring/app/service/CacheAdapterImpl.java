@@ -9,7 +9,7 @@ package be.spring.app.service;
 
 import be.spring.app.data.AccountStatistic;
 import be.spring.app.model.Account;
-import be.spring.app.model.ActionWrapper;
+import be.spring.app.dto.ActionWrapperDTO;
 import be.spring.app.model.Match;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class CacheAdapterImpl implements CacheAdapter {
 
     @Override
     @Cacheable("matchActionWrappers")
-    public List<ActionWrapper<Match>> getAccountStatistics(long seasonId, Account account, Locale locale) throws ExecutionException, InterruptedException {
+    public List<ActionWrapperDTO<Match>> getAccountStatistics(long seasonId, Account account, Locale locale) throws ExecutionException, InterruptedException {
         log.debug("Getting matchActionWrappers");
         return dataService.getMatchForSeasonActionWrappers(seasonId, account, locale).get();
     }

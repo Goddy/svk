@@ -20,5 +20,7 @@ public interface ConversionHelper {
 
     Set<VotesDTO> convertIdentityRankings(RankingList<Long> rankingList, boolean isLoggedIn);
 
+    List<SeasonDTO> convertSeasons(List<Season> seasons);
+
     AccountDTO convertAccount(Account account, boolean isLoggedIn);
 }

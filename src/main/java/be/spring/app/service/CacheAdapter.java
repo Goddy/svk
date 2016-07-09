@@ -2,7 +2,7 @@ package be.spring.app.service;
 
 import be.spring.app.data.AccountStatistic;
 import be.spring.app.model.Account;
-import be.spring.app.model.ActionWrapper;
+import be.spring.app.dto.ActionWrapperDTO;
 import be.spring.app.model.Match;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException;
  */
 public interface CacheAdapter {
     @Cacheable("matchActionWrappers")
-    List<ActionWrapper<Match>> getAccountStatistics(long seasonId, Account account, Locale locale) throws ExecutionException, InterruptedException;
+    List<ActionWrapperDTO<Match>> getAccountStatistics(long seasonId, Account account, Locale locale) throws ExecutionException, InterruptedException;
 
     @Cacheable("accountStatistics")
     List<AccountStatistic> getAccountStatistics(long seasonId) throws ExecutionException, InterruptedException;

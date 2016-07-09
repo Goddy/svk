@@ -4,7 +4,7 @@ import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.form.ChangeResultForm;
 import be.spring.app.form.CreateMatchForm;
 import be.spring.app.model.Account;
-import be.spring.app.model.ActionWrapper;
+import be.spring.app.dto.ActionWrapperDTO;
 import be.spring.app.model.Match;
 import be.spring.app.model.Season;
 import org.springframework.data.domain.Page;
@@ -24,7 +24,7 @@ public interface MatchesService {
 
     Page<Match> getUpcomingMatchesPages(int start);
 
-    List<ActionWrapper<Match>> getMatchesWrappersForSeason(long seasonId, Account account, Locale locale);
+    List<ActionWrapperDTO<Match>> getMatchesWrappersForSeason(long seasonId, Account account, Locale locale);
 
     List<Match> getMatchesForSeason(long seasonId);
 

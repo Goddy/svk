@@ -74,6 +74,15 @@ public class ConversionHelperImpl implements ConversionHelper {
     }
 
     @Override
+    public List<SeasonDTO> convertSeasons(List<Season> seasons) {
+        List<SeasonDTO> list = Lists.newArrayList();
+        for (Season s : seasons) {
+            list.add(new SeasonDTO(s.getId(), s.getDescription()));
+        }
+        return list;
+    }
+
+    @Override
     public AccountDTO convertAccount(Account account, boolean isLoggedIn) {
         AccountDTO accountDTO = new AccountDTO();
         accountDTO.setName(isLoggedIn ? account.toString() : account.getFullName());
