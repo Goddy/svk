@@ -3,6 +3,7 @@ package be.spring.app.service;
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.data.MatchStatusEnum;
 import be.spring.app.dto.ActionWrapperDTO;
+import be.spring.app.dto.MatchDTO;
 import be.spring.app.form.ChangeResultForm;
 import be.spring.app.form.CreateMatchForm;
 import be.spring.app.model.*;
@@ -82,9 +83,9 @@ public class MatchesServiceImpl implements MatchesService {
     }
 
     @Override
-    public List<ActionWrapperDTO<Match>> getMatchesWrappersForSeason(long seasonId, final Account account, final Locale locale) {
+    public List<ActionWrapperDTO<MatchDTO>> getMatchesWrappersForSeason(long seasonId, final Locale locale, Account account) {
         try {
-            return cacheAdapter.getAccountStatistics(seasonId, account, locale);
+            return cacheAdapter.getMatchActionWrappers(seasonId, locale, account);
         } catch (InterruptedException | ExecutionException e) {
             log.error("getMatchesWrappersForSeason failed: {}", e.getMessage());
             return Lists.newArrayList();

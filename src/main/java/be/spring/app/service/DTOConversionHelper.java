@@ -1,4 +1,4 @@
-package be.spring.app.dto.helper;
+package be.spring.app.service;
 
 import be.spring.app.dto.*;
 import be.spring.app.model.*;
@@ -9,8 +9,10 @@ import java.util.Set;
 /**
  * Created by u0090265 on 10/2/15.
  */
-public interface ConversionHelper {
-    List<MatchDTO> convertMatches(List<Match> matchList);
+public interface DTOConversionHelper {
+    List<MatchDTO> convertMatches(List<Match> matchList, boolean isLoggedIn);
+
+    MatchDTO convertMatch(Match match, boolean isLoggedIn);
 
     List<TeamDTO> convertTeams(List<Team> teamList);
 

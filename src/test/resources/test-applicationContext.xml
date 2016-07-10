@@ -13,7 +13,7 @@
     </bean>
 
     <bean id="conversionHelper" class="org.easymock.EasyMock" factory-method="createStrictMock">
-        <constructor-arg value="be.spring.app.dto.helper.ConversionHelper"/>
+        <constructor-arg value="be.spring.app.service.DTOConversionHelper"/>
     </bean>
     <!-- SET default mail properties -->
     <bean id="mailService" class="org.easymock.EasyMock" factory-method="createStrictMock">

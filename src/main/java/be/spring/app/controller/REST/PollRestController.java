@@ -2,7 +2,7 @@ package be.spring.app.controller.REST;
 
 import be.spring.app.controller.AbstractController;
 import be.spring.app.dto.AccountDTO;
-import be.spring.app.dto.helper.ConversionHelper;
+import be.spring.app.service.DTOConversionHelper;
 import be.spring.app.service.PollService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public class PollRestController extends AbstractController {
     private PollService pollService;
 
     @Autowired
-    private ConversionHelper conversionHelper;
+    private DTOConversionHelper DTOConversionHelper;
 
     @PreAuthorize("hasRole('admin')")
     @RequestMapping(value = "/poll/{id}/reset", method = RequestMethod.POST)
@@ -41,7 +41,6 @@ public class PollRestController extends AbstractController {
     @PreAuthorize("hasRole('admin')")
     @RequestMapping(value = "/match/poll/{id}/refresh", method = RequestMethod.POST)
     public ResponseEntity<Set<AccountDTO>> refreshMatchPoll(@PathVariable Long id) {
-        return new ResponseEntity<>(conversionHelper.convertIdentityOptions(pollService.refreshPlayerOptions(id),
-                isLoggedIn()), HttpStatus.OK);
+        return new ResponseEntity<>(DTOConversionHelper.convertIdentityOptions(pollService.refreshPlayerOptions(id), isLoggedIn()), HttpStatus.OK);
     }
 }

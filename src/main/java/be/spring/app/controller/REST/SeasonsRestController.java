@@ -1,7 +1,7 @@
 package be.spring.app.controller.REST;
 
 import be.spring.app.dto.SeasonDTO;
-import be.spring.app.dto.helper.ConversionHelper;
+import be.spring.app.service.DTOConversionHelper;
 import be.spring.app.service.SeasonService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,11 +24,11 @@ public class SeasonsRestController extends AbstractRestController {
     SeasonService seasonService;
 
     @Autowired
-    private ConversionHelper conversionHelper;
+    private DTOConversionHelper DTOConversionHelper;
 
     @RequestMapping(value = "/seasons", method = RequestMethod.GET)
     @ApiOperation(value = "Get all seasons")
     public ResponseEntity<List<SeasonDTO>> getSeasons() {
-        return new ResponseEntity<>(conversionHelper.convertSeasons(seasonService.getSeasons()), HttpStatus.OK);
+        return new ResponseEntity<>(DTOConversionHelper.convertSeasons(seasonService.getSeasons()), HttpStatus.OK);
     }
 }

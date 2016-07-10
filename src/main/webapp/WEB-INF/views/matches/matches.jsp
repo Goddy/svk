@@ -61,8 +61,8 @@
                             <tbody ng-hide="!isNull(matchWrapper[season.id])"><tr><td colspan="4"><spring:message code='text.noMatches'/></td></tr></tbody>
                             <tbody ng-repeat="wrapper in matchWrapper[season.id]">
                             <tr>
-                                <td data-th="<spring:message code='text.date'/>">{{wrapper.object.stringDate}} - {{wrapper.object.stringHour}}</td>
-                                <td data-th="<spring:message code='text.match'/>">{{wrapper.object.homeTeam.name}} - {{wrapper.object.awayTeam.name}}</td>
+                                <td data-th="<spring:message code='text.date'/>">{{wrapper.object.date}} - {{wrapper.object.hour}}</td>
+                                <td data-th="<spring:message code='text.match'/>">{{wrapper.object.homeTeam}} - {{wrapper.object.awayTeam}}</td>
                                 <td ng-switch="wrapper.object.status">
                                     <span class="animate-switch" ng-switch-when="PLAYED">{{wrapper.object.htGoals}} - {{wrapper.object.atGoals}}</span>
                                     <span class="animate-switch" ng-switch-when="NOT_PLAYED"><spring:message code='label.match.status.NOT_PLAYED'/></span>
@@ -82,6 +82,33 @@
                                     </ul>
                                 </td>
                             </tr>
+                            <tr style="display: none" class="active" id="motm{{wrapper.object.id}}">
+                                <td colspan="5">
+                                    <div class="radio" ng-repeat="x in votes">
+                                        <label>
+                                            <input name="group-poll" ng-value="{{x.account}}" type="radio"  ng-model="$parent.selectedAccount">
+                                            {{x.account.name}}
+                                        </label>
+                                    </div>
+
+                                    <hr>
+                                    <h5 class="text-danger">Result Of User Votes :</h5>
+                                    <hr>
+                                    <div ng-if="totalVotes > 0">
+                                        <div ng-repeat="x in votes">
+                                            <div class="progress progress-striped active">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{getPercentage(x.votes)}}"
+                                                     aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage(x.votes) + '%' ) }">
+                                                    {{x.account.name}} {{getPercentage(x.votes)}}%
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="totalVotes == 0">
+                                        No votes yet.
+                                    </div>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                 </div>
@@ -90,71 +117,21 @@
     </div>
 </div>
 <script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+<script src="<c:url value='/resources/angular/controllers/matches.js'/>"></script>
 
 <tag:deleteDialog dialogId="delete-match-modal"/>
 <tag:calendarDialog dialogId="download-calendar-modal"/>
 <tag:mapDialog dialogId="map-modal"/>
 <script type="text/javascript">
 
-    (function ($, dd, md, dc, utils, angular) {
+    (function ($, dd, md, dc, utils) {
         var deleteMsg = "<spring:message code="text.delete.match"/>";
         var deleteTitle = "<spring:message code="title.delete.match"/>";
         var deleteMatchModal = $("#delete-match-modal");
         var mapModal = $("#map-modal");
         var downloadCalendarModal = $("#download-calendar-modal");
         var loggedIn = "${loggedIn}";
-
-        var app = angular.module('soccerApp', []);
-        app.controller('matchCtrl', function($scope, $http, $sce) {
-            $scope.cached = {};
-
-            var getSeasons = function() {
-                $http({
-                    url: '/api/v1/seasons',
-                    method: "GET"
-                }).success(function (data, status, headers, config) {
-                    $scope.seasons = data;
-                    //Get matches
-                    getMatches(data[0].id);
-                }).error(function (data, status, headers, config) {
-                    console.log("Error getting seasons")
-                });
-            };
-
-            $scope.isNull = function(element) {
-                return element == null || element == undefined;
-            };
-
-            var getMatches = function (season) {
-                if (!$scope.cached[season]) {
-                    $http({
-                        url: '/api/v1/matches/season/' + season,
-                        method: "GET"
-                    }).success(function (data, status, headers, config) {
-                        $scope.matchWrapper = {};
-                        $scope.matchWrapper[season] = data;
-                        //Mark as cached
-                        $scope.cached[season] = true;
-                    }).error(function (data, status, headers, config) {
-                        console.log("Error getting matches")
-                    });
-                }
-            };
-
-            $scope.getMatches = function(season) {
-                getMatches(season)
-            };
-
-            $scope.renderHtml = function (htmlCode) {
-                return $sce.trustAsHtml(htmlCode);
-            };
-
-            $scope.init = function () {
-                //Get all seasons
-                getSeasons();
-            };
-        });
 
         $(document).on('click', 'a[class*="delete"]', function (e) {
             console.log("Clicked delete");
@@ -192,7 +169,7 @@
             });
         });
 
-    })(jQuery, svk.deleteDialogs, svk.mapDialog, svk.calendarDialog, svk.utils, angular);
+    })(jQuery, svk.deleteDialogs, svk.mapDialog, svk.calendarDialog, svk.utils);
 
 
 </script>

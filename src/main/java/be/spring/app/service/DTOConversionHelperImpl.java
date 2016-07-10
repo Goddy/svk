@@ -1,4 +1,4 @@
-package be.spring.app.dto.helper;
+package be.spring.app.service;
 
 import be.spring.app.dto.*;
 import be.spring.app.model.*;
@@ -6,7 +6,7 @@ import be.spring.app.persistence.AccountDao;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
@@ -14,13 +14,13 @@ import java.util.Set;
 /**
  * Created by u0090265 on 10/2/15.
  */
-@Component
-public class ConversionHelperImpl implements ConversionHelper {
+@Service
+public class DTOConversionHelperImpl implements DTOConversionHelper {
     @Autowired
     AccountDao accountDao;
 
     @Override
-    public List<MatchDTO> convertMatches(List<Match> matchList) {
+    public List<MatchDTO> convertMatches(List<Match> matchList, boolean isLoggedIn) {
         List<MatchDTO> matchDTOs = Lists.newArrayList();
         for (Match m : matchList) {
             matchDTOs.add(new MatchDTO(m.getStringDate(),
@@ -28,9 +28,26 @@ public class ConversionHelperImpl implements ConversionHelper {
                     m.getHomeTeam().getName(),
                     m.getAwayTeam().getName(),
                     Integer.toString(m.getHtGoals()),
-                    Integer.toString(m.getAtGoals())));
+                    Integer.toString(m.getAtGoals()),
+                    m.getStatus().name(),
+                    convertMatchPoll(m.getMotmPoll(), isLoggedIn)));
         }
         return matchDTOs;
+    }
+
+    @Override
+    public MatchDTO convertMatch(Match match, boolean isLoggedIn) {
+        if (match != null) {
+            return new MatchDTO(match.getStringDate(),
+                    match.getStringHour(),
+                    match.getHomeTeam().getName(),
+                    match.getAwayTeam().getName(),
+                    Integer.toString(match.getHtGoals()),
+                    Integer.toString(match.getAtGoals()),
+                    match.getStatus().name(),
+                    convertMatchPoll(match.getMotmPoll(), isLoggedIn));
+        }
+        return null;
     }
 
     @Override
@@ -46,11 +63,14 @@ public class ConversionHelperImpl implements ConversionHelper {
 
     @Override
     public MatchPollDTO convertMatchPoll(PlayersPoll playersPoll, boolean isLoggedIn) {
-        RankingList<Long> rankingList = playersPoll.getResult();
-        return new MatchPollDTO(playersPoll.getId(),
-                convertIdentityRankings(rankingList, isLoggedIn),
-                convertIdentityOptions(playersPoll.getOptions(), isLoggedIn),
-                rankingList.getTotalVotes());
+        if (playersPoll != null) {
+            RankingList<Long> rankingList = playersPoll.getResult();
+            return new MatchPollDTO(playersPoll.getId(),
+                    convertIdentityRankings(rankingList, isLoggedIn),
+                    convertIdentityOptions(playersPoll.getOptions(), isLoggedIn),
+                    rankingList.getTotalVotes());
+        }
+        return null;
     }
 
     @Override
@@ -84,9 +104,12 @@ public class ConversionHelperImpl implements ConversionHelper {
 
     @Override
     public AccountDTO convertAccount(Account account, boolean isLoggedIn) {
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setName(isLoggedIn ? account.toString() : account.getFullName());
-        accountDTO.setId(account.getId());
-        return accountDTO;
+        if (account != null) {
+            AccountDTO accountDTO = new AccountDTO();
+            accountDTO.setName(isLoggedIn ? account.toString() : account.getFullName());
+            accountDTO.setId(account.getId());
+            return accountDTO;
+        }
+        return null;
     }
 }

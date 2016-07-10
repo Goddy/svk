@@ -19,22 +19,24 @@ public class HtmlHelper {
     @Autowired
     private MessageSource messageSource;
 
-    private static String EDIT = "glyphicon glyphicon-edit edit";
-    private static String DELETE = "glyphicon glyphicon-trash delete";
-    private static String MAP = "glyphicon glyphicon-map-marker";
-    private static String DOODLE = "glyphicon glyphicon-th-list";
-    private static String OK = "glyphicon glyphicon-ok green presence";
-    private static String REMOVE = "glyphicon glyphicon-remove red presence";
-    private static String DETAILS = "glyphicon glyphicon-eye-open";
-    private static String DELETE_CLASS = "delete";
-    private static String PRESENCE_CLASS = "presence";
-    private static String PRESENCE_BOX = "presenceBox";
-    private static String MAP_CLASS = "map";
-    private static String DETAILS_CLASS = "details";
-    private static String DOODLE_CLASS = "doodle";
-    private static String EMPTY = "";
-    private static String HTML_ACTIONS = "htmlActions";
-    private static String PRESENCE_ACTIONS = "presenceActions";
+    private static final String EDIT = "glyphicon glyphicon-edit edit";
+    private static final String DELETE = "glyphicon glyphicon-trash delete";
+    private static final String MAP = "glyphicon glyphicon-map-marker";
+    private static final String DOODLE = "glyphicon glyphicon-th-list";
+    private static final String MOTM = "glyphicon glyphicon-user";
+    private static final String OK = "glyphicon glyphicon-ok green presence";
+    private static final String REMOVE = "glyphicon glyphicon-remove red presence";
+    private static final String DETAILS = "glyphicon glyphicon-eye-open";
+    private static final String DELETE_CLASS = "delete";
+    private static final String PRESENCE_CLASS = "presence";
+    private static final String PRESENCE_BOX = "presenceBox";
+    private static final String MAP_CLASS = "map";
+    private static final String DETAILS_CLASS = "details";
+    private static final String DOODLE_CLASS = "doodle";
+    private static final String MOTM_CLASS = "motm";
+    private static final String EMPTY = "";
+    private static final String HTML_ACTIONS = "htmlActions";
+    private static final String PRESENCE_ACTIONS = "presenceActions";
 
     public Map<String, String> getMatchesAdditions(Match match, Account account, Locale locale) {
         Map<String, String> r = new HashMap<>();
@@ -80,6 +82,7 @@ public class HtmlHelper {
             btns.append(getBtn(DETAILS_CLASS, DETAILS, "details" + match.getId(), messageSource.getMessage("title.matchDetails", null, locale)));
 
         btns.append(getBtn(DOODLE_CLASS, DOODLE, String.format("getDoodle.html?matchId=%s", match.getId()), messageSource.getMessage("title.matchDoodle", null, locale)));
+        btns.append(getBtn(MOTM_CLASS, MOTM, "#", messageSource.getMessage("title.manOfTheMatchPoll", null, locale)));
 
         m.put(HTML_ACTIONS, btns.toString().isEmpty() ? messageSource.getMessage("text.noActions", null, locale) : wrapIntoBtnGroup(btns.toString()));
         return m;

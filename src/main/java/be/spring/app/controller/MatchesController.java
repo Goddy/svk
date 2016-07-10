@@ -2,6 +2,7 @@ package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.dto.ActionWrapperDTO;
+import be.spring.app.dto.MatchDTO;
 import be.spring.app.form.CreateMatchForm;
 import be.spring.app.model.*;
 import be.spring.app.service.AccountService;
@@ -113,9 +114,9 @@ public class MatchesController extends AbstractController {
     @RequestMapping(value = "matchesForSeason.json", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<ActionWrapperDTO<Match>> getMatchesForSeason(@RequestParam long seasonId, Locale locale) {
+    List<ActionWrapperDTO<MatchDTO>> getMatchesForSeason(@RequestParam long seasonId, Locale locale) {
         Account account = getAccountFromSecurity();
-        List<ActionWrapperDTO<Match>> r = matchesService.getMatchesWrappersForSeason(seasonId, account, locale);
+        List<ActionWrapperDTO<MatchDTO>> r = matchesService.getMatchesWrappersForSeason(seasonId, locale, getAccountFromSecurity());
         return r;
     }
 }

@@ -35,7 +35,7 @@ public class StatisticsController extends AbstractController {
             seasonId = seasonService.getLatestSeason().getId();
         }
         try {
-            model.addAttribute("stats", cacheAdapter.getAccountStatistics(seasonId));
+            model.addAttribute("stats", cacheAdapter.getMatchActionWrappers(seasonId));
             model.addAttribute("seasons", seasonService.getSeasons());
             model.addAttribute("selectedSeason", seasonId);
         } catch (ExecutionException | InterruptedException e) {

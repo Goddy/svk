@@ -1,9 +1,10 @@
 package be.spring.app.controller.REST;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
+import be.spring.app.dto.MatchDTO;
 import be.spring.app.dto.MatchPollDTO;
 import be.spring.app.dto.MultipleChoiceVoteDTO;
-import be.spring.app.dto.helper.ConversionHelper;
+import be.spring.app.service.DTOConversionHelper;
 import be.spring.app.model.Account;
 import be.spring.app.dto.ActionWrapperDTO;
 import be.spring.app.model.Match;
@@ -38,14 +39,14 @@ public class MatchesRestController extends AbstractRestController {
     private PollService pollService;
 
     @Autowired
-    private ConversionHelper conversionHelper;
+    private DTOConversionHelper DTOConversionHelper;
 
     @RequestMapping(value = "/matches/season/{id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<ActionWrapperDTO<Match>> getMatchesForSeason(@PathVariable Long id, Locale locale) {
+    List<ActionWrapperDTO<MatchDTO>> getMatchesForSeason(@PathVariable Long id, Locale locale) {
         Account account = getAccountFromSecurity();
-        List<ActionWrapperDTO<Match>> r = matchesService.getMatchesWrappersForSeason(id, account, locale);
+        List<ActionWrapperDTO<MatchDTO>> r = matchesService.getMatchesWrappersForSeason(id, locale, getAccountFromSecurity());
         return r;
     }
 
@@ -54,7 +55,7 @@ public class MatchesRestController extends AbstractRestController {
     public ResponseEntity<MatchPollDTO> getMatchPoll(@PathVariable Long id) {
         Match m = matchesService.getMatch(id);
         if (m == null) throw new ObjectNotFoundException(String.format("Match with id %s not found", id));
-        return new ResponseEntity<>(conversionHelper.convertMatchPoll(m.getMotmPoll(), isLoggedIn()), HttpStatus.OK);
+        return new ResponseEntity<>(DTOConversionHelper.convertMatchPoll(m.getMotmPoll(), isLoggedIn()), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")

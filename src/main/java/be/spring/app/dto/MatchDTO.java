@@ -12,14 +12,18 @@ public class MatchDTO extends DTOBaseClass {
     String awayTeam;
     String atGoals;
     String htGoals;
+    String status;
+    MatchPollDTO poll;
 
-    public MatchDTO(String date, String hour, String homeTeam, String awayTeam, String atGoals, String htGoals) {
+    public MatchDTO(String date, String hour, String homeTeam, String awayTeam, String atGoals, String htGoals, String status, MatchPollDTO matchPollDTO) {
         this.date = date;
         this.hour = hour;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.atGoals = atGoals;
         this.htGoals = htGoals;
+        this.poll = matchPollDTO;
+        this.status = status;
     }
 
     @ApiModelProperty(value = "Date when match will be played, formatted dd/mm/YYYY", name = "date")
@@ -74,5 +78,23 @@ public class MatchDTO extends DTOBaseClass {
 
     public void setHtGoals(String htGoals) {
         this.htGoals = htGoals;
+    }
+
+    @ApiModelProperty(value = "Motm poll", name = "poll")
+    public MatchPollDTO getPoll() {
+        return poll;
+    }
+
+    public void setPoll(MatchPollDTO poll) {
+        this.poll = poll;
+    }
+
+    @ApiModelProperty(value = "Match status", name = "status")
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

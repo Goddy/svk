@@ -3,6 +3,7 @@ package be.spring.app.service;
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.data.AccountStatistic;
 import be.spring.app.dto.ActionWrapperDTO;
+import be.spring.app.dto.MatchDTO;
 import be.spring.app.model.*;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.persistence.SeasonDao;
@@ -43,11 +44,13 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
     private HtmlHelper htmlHelper;
     private SecurityUtils securityUtils;
     private StatisticsService statisticsService;
+    private DTOConversionHelper DTOConversionHelper;
     AccountService accountService;
 
 
+
     @Autowired
-    public ConcurrentDataServiceImpl(MatchesDao matchesDao, TeamDao teamDao, SeasonDao seasonDao, SecurityUtils securityUtils, HtmlHelper htmlHelper, StatisticsService statisticsService, AccountService accountService) {
+    public ConcurrentDataServiceImpl(MatchesDao matchesDao, TeamDao teamDao, SeasonDao seasonDao, SecurityUtils securityUtils, HtmlHelper htmlHelper, StatisticsService statisticsService, AccountService accountService, DTOConversionHelper DTOConversionHelper) {
         this.matchesDao = matchesDao;
         this.teamDao = teamDao;
         this.seasonDao = seasonDao;
@@ -55,6 +58,7 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
         this.securityUtils = securityUtils;
         this.statisticsService = statisticsService;
         this.accountService = accountService;
+        this.DTOConversionHelper = DTOConversionHelper;
         executorService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(N_THREADS));
     }
 
@@ -82,13 +86,13 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
 
     //Todo: duplicated behaviour, should be avoided
     @Override
-    public ListenableFuture<List<ActionWrapperDTO<Match>>> getMatchForSeasonActionWrappers(long seasonId, Account account, Locale locale) {
+    public ListenableFuture<List<ActionWrapperDTO<MatchDTO>>> getMatchForSeasonActionWrappers(long seasonId, Locale locale, Account account) {
         Season season = seasonDao.findOne(seasonId);
         List<Match> matches = matchesDao.getMatchesForSeason(season);
-        List<ListenableFuture<ActionWrapperDTO<Match>>> r = new ArrayList<>();
+        List<ListenableFuture<ActionWrapperDTO<MatchDTO>>> r = new ArrayList<>();
 
-        for (ActionWrapperDTO<Match> matchActionWrapper : getActionWrappers(matches)) {
-            r.add(setMatchHtmlActions(matchActionWrapper, locale, account));
+        for (Match m : matches) {
+            r.add(prepareMatchDTO(account, m, locale));
         }
         return Futures.allAsList(r);
     }
@@ -108,27 +112,30 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
         return Futures.allAsList(r);
     }
 
-    private com.google.common.util.concurrent.ListenableFuture<ActionWrapperDTO<Match>> setMatchHtmlActions(final ActionWrapperDTO<Match> matchActionWrapper, final Locale locale, final Account account) {
-        return executorService.submit(new Callable<ActionWrapperDTO<Match>>() {
+    private com.google.common.util.concurrent.ListenableFuture<ActionWrapperDTO<MatchDTO>> prepareMatchDTO(final Account account, final Match match, final Locale locale) {
+        return executorService.submit(new Callable<ActionWrapperDTO<MatchDTO>>() {
             @Override
-            public ActionWrapperDTO<Match> call() throws Exception {
+            public ActionWrapperDTO<MatchDTO> call() throws Exception {
+                ActionWrapperDTO<MatchDTO> wrapperDTO = null;
                 try {
+                    wrapperDTO = new ActionWrapperDTO<>(DTOConversionHelper.convertMatch(match, account != null));
+                    //Get account from security
                     HashMap<String, String> map = new HashMap<>();
-                    map.putAll(htmlHelper.getMatchesButtons(matchActionWrapper.getObject(), securityUtils.isAdmin(account), locale));
+                    map.putAll(htmlHelper.getMatchesButtons(match, securityUtils.isAdmin(account), locale));
                     //Todo: uncomment after finishing
-                    map.putAll(htmlHelper.getMatchesAdditions(matchActionWrapper.getObject(), account, locale));
-                    matchActionWrapper.setAdditions(map);
+                    map.putAll(htmlHelper.getMatchesAdditions(match, account, locale));
+                    wrapperDTO.setAdditions(map);
                 } catch (Exception e) {
                     log.error("Could not create Matches btns. Exception: {}", e.getMessage());
                     e.printStackTrace();
                 }
-                return matchActionWrapper;
+                return wrapperDTO;
             }
         });
 
         /**
          *  return matches.parallelStream()
-         .map(t -> setMatchHtmlActions(new ActionWrapper<>(t), locale, account))
+         .map(t -> prepareMatchDTO(new ActionWrapper<>(t), locale, account))
          .collect(Collectors.toList());
          */
     }

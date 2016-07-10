@@ -8,9 +8,9 @@
 package be.spring.app.service;
 
 import be.spring.app.data.AccountStatistic;
-import be.spring.app.model.Account;
 import be.spring.app.dto.ActionWrapperDTO;
-import be.spring.app.model.Match;
+import be.spring.app.dto.MatchDTO;
+import be.spring.app.model.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +32,14 @@ public class CacheAdapterImpl implements CacheAdapter {
 
     @Override
     @Cacheable("matchActionWrappers")
-    public List<ActionWrapperDTO<Match>> getAccountStatistics(long seasonId, Account account, Locale locale) throws ExecutionException, InterruptedException {
+    public List<ActionWrapperDTO<MatchDTO>> getMatchActionWrappers(long seasonId, Locale locale, Account account) throws ExecutionException, InterruptedException {
         log.debug("Getting matchActionWrappers");
-        return dataService.getMatchForSeasonActionWrappers(seasonId, account, locale).get();
+        return dataService.getMatchForSeasonActionWrappers(seasonId, locale, account).get();
     }
 
     @Override
     @Cacheable("accountStatistics")
-    public List<AccountStatistic> getAccountStatistics(long seasonId) throws ExecutionException, InterruptedException {
+    public List<AccountStatistic> getMatchActionWrappers(long seasonId) throws ExecutionException, InterruptedException {
         log.debug("Getting account statistics");
         return dataService.getAccountStatisticsForSeason(seasonId).get();
     }
