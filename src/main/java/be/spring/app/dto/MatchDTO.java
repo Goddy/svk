@@ -2,6 +2,8 @@ package be.spring.app.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.List;
+
 /**
  * Created by u0090265 on 10/2/15.
  */
@@ -14,8 +16,9 @@ public class MatchDTO extends DTOBaseClass {
     String htGoals;
     String status;
     MatchPollDTO poll;
+    List<GoalDTO> goals;
 
-    public MatchDTO(String date, String hour, String homeTeam, String awayTeam, String atGoals, String htGoals, String status, MatchPollDTO matchPollDTO) {
+    public MatchDTO(Long id, String date, String hour, String homeTeam, String awayTeam, String atGoals, String htGoals, String status, MatchPollDTO matchPollDTO, List<GoalDTO> goals) {
         this.date = date;
         this.hour = hour;
         this.homeTeam = homeTeam;
@@ -24,7 +27,19 @@ public class MatchDTO extends DTOBaseClass {
         this.htGoals = htGoals;
         this.poll = matchPollDTO;
         this.status = status;
+        this.setId(id);
+        this.goals = goals;
     }
+
+    @ApiModelProperty(value = "Goals of this match, orederd", name = "goals")
+    public List<GoalDTO> getGoals() {
+        return goals;
+    }
+
+    public void setGoals(List<GoalDTO> goals) {
+        this.goals = goals;
+    }
+
 
     @ApiModelProperty(value = "Date when match will be played, formatted dd/mm/YYYY", name = "date")
     public String getDate() {

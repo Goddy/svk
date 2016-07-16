@@ -65,6 +65,9 @@ public abstract class Poll <T> extends BaseClass {
     }
 
     @Transient
+    public abstract void replaceVote(Vote vote);
+
+    @Transient
     public abstract Set<? extends Vote<T>> getVotes();
 
     @Transient

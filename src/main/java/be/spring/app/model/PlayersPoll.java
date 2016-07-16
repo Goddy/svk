@@ -3,6 +3,7 @@ package be.spring.app.model;
 import com.google.common.collect.Lists;
 
 import javax.persistence.*;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +20,18 @@ public class PlayersPoll extends Poll<Long> implements MultipleChoicePoll<Long> 
     private Set<MultipleChoicePlayerVote> votes;
 
     public PlayersPoll() { super(); }
+
+    @Override
+    public void replaceVote(Vote vote) {
+        for (final Iterator<MultipleChoicePlayerVote> i = getVotes().iterator(); i.hasNext();) {
+            final Vote element = i.next();
+            //If the vote already exists, remove it.
+            if (element.getVoter().equals(vote.getVoter())) {
+                i.remove();
+            }
+        }
+        this.getVotes().add((MultipleChoicePlayerVote) vote);
+    }
 
     @Override
     @CollectionTable(

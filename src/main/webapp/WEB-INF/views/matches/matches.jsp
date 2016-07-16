@@ -70,42 +70,53 @@
                                 </td>
                                 <td ng-bind-html="renderHtml(wrapper.additions['htmlActions'])"></td>
                             </tr>
-                            <tr style="display: none" class="active" id="details{{wrapper.object.id}}">
+                            <tr style="display: none" class="active" ng-attr-id="{{'details' + wrapper.object.id}}">
                                 <td colspan="5">
                                     <spring:message code='text.goals'/>:<br/>
                                     <ul>
                                         <li ng-repeat="g in wrapper.object.goals">
-                                            <span ng-if="g.scorer">{{g.scorer.fullName}}</span>
+                                            <span ng-if="g.scorer">{{g.scorer.name}}</span>
                                             <span ng-if="!g.scorer"><spring:message code="text.no.player"/></span>
-                                            <span ng-if="g.assist">({{g.assist.fullName}})</span>
+                                            <span ng-if="g.assist">({{g.assist.name}})</span>
                                         </li>
                                     </ul>
                                 </td>
                             </tr>
-                            <tr style="display: none" class="active" id="motm{{wrapper.object.id}}">
+                            <tr style="display: none" class="active" ng-attr-id="{{'motm' + wrapper.object.id}}">
                                 <td colspan="5">
-                                    <div class="radio" ng-repeat="x in votes">
-                                        <label>
-                                            <input name="group-poll" ng-value="{{x.account}}" type="radio"  ng-model="$parent.selectedAccount">
-                                            {{x.account.name}}
-                                        </label>
-                                    </div>
-
-                                    <hr>
-                                    <h5 class="text-danger">Result Of User Votes :</h5>
-                                    <hr>
-                                    <div ng-if="totalVotes > 0">
-                                        <div ng-repeat="x in votes">
-                                            <div class="progress progress-striped active">
-                                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{getPercentage(x.votes)}}"
-                                                     aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage(x.votes) + '%' ) }">
-                                                    {{x.account.name}} {{getPercentage(x.votes)}}%
+                                    <div class="panel">
+                                        <div class="panel-heading"><spring:message code="title.manOfTheMatchPoll"/> </div>
+                                        <security:authorize access="isAuthenticated()">
+                                        <div class="panel-body">
+                                            <ul class="list-group" ng-repeat="x in wrapper.object.poll.votes">
+                                                <li class="list-group item">
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input name="group-poll" ng-value="{{x.account}}" type="radio"  ng-model="$parent.selectedAccount">
+                                                            {{x.account.name}}
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <a href="#" ng-click="vote(wrapper.object, selectedAccount, wrapper.object.poll.id)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/></a>
+                                        </div>
+                                        </security:authorize>
+                                        <div class="panel-footer">
+                                            <div ng-if="wrapper.object.poll.totalVotes > 0">
+                                                <div ng-repeat="x in wrapper.object.poll.votes">
+                                                    {{x.account.name}}
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" aria-valuenow="{{getPercentage(x.votes, wrapper.object.poll.totalVotes)}}"
+                                                             aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage(x.votes, wrapper.object.poll.totalVotes) + '%' ) }">
+                                                            {{getPercentage(x.votes, wrapper.object.poll.totalVotes)}}%
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div ng-if="wrapper.object.poll.totalVotes == 0">
+                                                <spring:message code="text.no.votes"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div ng-if="totalVotes == 0">
-                                        No votes yet.
                                     </div>
                                 </td>
                             </tr>
@@ -156,6 +167,12 @@
         });
 
         $(document).on('click', 'a[class*="details"]', function (e) {
+            e.preventDefault();
+            var href = $(this).attr("href");
+            $('#' + href).toggle();
+        });
+
+        $(document).on('click', 'a[class*="motm"]', function (e) {
             e.preventDefault();
             var href = $(this).attr("href");
             $('#' + href).toggle();

@@ -38,6 +38,13 @@ public class PollServiceImpl implements PollService {
     }
 
     @Override
+    public Poll get(Long pollId) {
+        Poll poll = pollDao.findOne(pollId);
+        GeneralUtils.throwObjectNotFoundException(poll, pollId ,Poll.class);
+        return poll;
+    }
+
+    @Override
     public Set<IdentityOption> refreshPlayerOptions(Long matchId) {
         Match match = matchesDao.findOne(matchId);
         GeneralUtils.throwObjectNotFoundException(match, matchId, Match.class);
@@ -62,9 +69,15 @@ public class PollServiceImpl implements PollService {
         GeneralUtils.throwObjectNotFoundException(poll, pollId, Poll.class);
         //Add vote to poll and make sure poll is added to vote
         vote.setPoll(poll);
-        poll.getVotes().add(vote);
+        poll.replaceVote(vote);
         pollDao.save(poll);
         return vote;
+    }
+
+    private void addVote(Poll poll, Vote vote) {
+        for (Object v : poll.getVotes()) {
+
+        }
     }
 
     private Set<IdentityOption> getPlayerOptionsFor(Match match) {

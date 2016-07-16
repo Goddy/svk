@@ -13,6 +13,8 @@ import java.util.Set;
 public interface PollService {
     boolean setMotmPoll(Match match);
 
+    Poll get(Long pollId);
+
     Set<IdentityOption> refreshPlayerOptions(Long id);
 
     Poll reset(Long id);

@@ -47,6 +47,7 @@
     <!-- Main angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="<c:url value='/resources/angular/app.js'/>"></script>
+    <script src="<c:url value='/resources/angular/services/pollService.js'/>"></script>
 </head>
 <body>
 <!--[if lt IE 10]>

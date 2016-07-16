@@ -9,18 +9,18 @@ app.controller('matchPollCtrl', function($scope, $http) {
         });
     };
 
-    $scope.getPercentage = function (votes) {
-        if ($scope.totalVotes === 0) {
+    $scope.getPercentage = function (votes, totalVotes) {
+        if (totalVotes === 0) {
             return 0;
         }
         else {
-            return ((votes / $scope.totalVotes) * 100).toFixed(2);
+            return ((votes / totalVotes) * 100).toFixed(2);
         }
     };
 
-    $scope.vote = function(selectedAccount) {
+    $scope.vote = function(selectedAccount, matchPollId) {
         $http({
-            url: '/api/v1/match/poll/1/vote',
+            url: '/api/v1/matchPoll/' + matchPollId +'/vote',
             method: "POST",
             data: {answer: selectedAccount.id},
         }).success(function (data, status, headers, config) {
@@ -30,7 +30,4 @@ app.controller('matchPollCtrl', function($scope, $http) {
             $scope.message = "Vote failed";
         });
     };
-
-    //Init votes
-    $scope.getVotes();
 });

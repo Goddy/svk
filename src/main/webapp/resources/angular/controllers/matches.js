@@ -1,5 +1,5 @@
 'use strict'
-app.controller('matchCtrl', function($scope, $http, $sce) {
+app.controller('matchCtrl', function($scope, $http, $sce, pollService) {
     $scope.cached = {};
 
     var getSeasons = function () {
@@ -41,6 +41,20 @@ app.controller('matchCtrl', function($scope, $http, $sce) {
 
     $scope.renderHtml = function (htmlCode) {
         return $sce.trustAsHtml(htmlCode);
+    };
+
+    $scope.getPercentage = pollService.getPercentage;
+
+    $scope.vote = function(matchObject, account, pollId) {
+        pollService.vote(account, pollId).success(function (data, status, headers, config) {
+            $scope.message = "Vote recorded";
+            pollService.getMatchPoll(pollId).success(function(data) {
+                matchObject.poll = data;
+                console.log('voted');
+            });
+        }).error(function (data, status, headers, config) {
+            $scope.message = "Vote failed";
+        });
     };
 
     $scope.init = function () {

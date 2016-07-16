@@ -82,7 +82,10 @@ public class HtmlHelper {
             btns.append(getBtn(DETAILS_CLASS, DETAILS, "details" + match.getId(), messageSource.getMessage("title.matchDetails", null, locale)));
 
         btns.append(getBtn(DOODLE_CLASS, DOODLE, String.format("getDoodle.html?matchId=%s", match.getId()), messageSource.getMessage("title.matchDoodle", null, locale)));
-        btns.append(getBtn(MOTM_CLASS, MOTM, "#", messageSource.getMessage("title.manOfTheMatchPoll", null, locale)));
+
+        if (match.getMotmPoll() != null) {
+            btns.append(getBtn(MOTM_CLASS, MOTM, "motm" + match.getId().toString(), messageSource.getMessage("title.manOfTheMatchPoll", null, locale)));
+        }
 
         m.put(HTML_ACTIONS, btns.toString().isEmpty() ? messageSource.getMessage("text.noActions", null, locale) : wrapIntoBtnGroup(btns.toString()));
         return m;

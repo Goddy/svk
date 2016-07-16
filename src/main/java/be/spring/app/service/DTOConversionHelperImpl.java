@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 
 /**
  * Created by u0090265 on 10/2/15.
@@ -23,14 +24,16 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
     public List<MatchDTO> convertMatches(List<Match> matchList, boolean isLoggedIn) {
         List<MatchDTO> matchDTOs = Lists.newArrayList();
         for (Match m : matchList) {
-            matchDTOs.add(new MatchDTO(m.getStringDate(),
+            matchDTOs.add(new MatchDTO(m.getId(),
+                    m.getStringDate(),
                     m.getStringHour(),
                     m.getHomeTeam().getName(),
                     m.getAwayTeam().getName(),
                     Integer.toString(m.getHtGoals()),
                     Integer.toString(m.getAtGoals()),
                     m.getStatus().name(),
-                    convertMatchPoll(m.getMotmPoll(), isLoggedIn)));
+                    convertMatchPoll(m.getMotmPoll(), isLoggedIn),
+                    convertGoals(m.getGoals(), isLoggedIn)));
         }
         return matchDTOs;
     }
@@ -38,14 +41,16 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
     @Override
     public MatchDTO convertMatch(Match match, boolean isLoggedIn) {
         if (match != null) {
-            return new MatchDTO(match.getStringDate(),
+            return new MatchDTO(match.getId(),
+                    match.getStringDate(),
                     match.getStringHour(),
                     match.getHomeTeam().getName(),
                     match.getAwayTeam().getName(),
                     Integer.toString(match.getHtGoals()),
                     Integer.toString(match.getAtGoals()),
                     match.getStatus().name(),
-                    convertMatchPoll(match.getMotmPoll(), isLoggedIn));
+                    convertMatchPoll(match.getMotmPoll(), isLoggedIn),
+                    convertGoals(match.getGoals(), isLoggedIn));
         }
         return null;
     }
@@ -100,6 +105,15 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
             list.add(new SeasonDTO(s.getId(), s.getDescription()));
         }
         return list;
+    }
+
+    @Override
+    public List<GoalDTO> convertGoals(SortedSet<Goal> goals, boolean isLoggedIn) {
+        List<GoalDTO> result = Lists.newArrayList();
+        for (Goal g : goals) {
+            result.add(new GoalDTO(convertAccount(g.getScorer(), isLoggedIn), convertAccount(g.getAssist(), isLoggedIn)));
+        }
+        return result;
     }
 
     @Override
