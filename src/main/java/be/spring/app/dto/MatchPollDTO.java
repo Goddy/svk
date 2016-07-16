@@ -9,12 +9,22 @@ public class MatchPollDTO extends DTOBaseClass {
     private Set<VotesDTO> votes;
     private Set<AccountDTO> options;
     private int totalVotes;
+    private String status;
 
-    public MatchPollDTO(Long id, Set<VotesDTO> votes, Set<AccountDTO> accounts, int totalVotes) {
+    public MatchPollDTO(Long id, Set<VotesDTO> votes, Set<AccountDTO> accounts, int totalVotes, String status) {
         this.votes = votes;
         this.totalVotes = totalVotes;
+        this.status = status;
         this.setId(id);
         this.setOptions(accounts);
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String open) {
+        status = open;
     }
 
     public Set<VotesDTO> getVotes() {

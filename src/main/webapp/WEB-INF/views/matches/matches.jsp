@@ -87,7 +87,7 @@
                                     <div class="panel">
                                         <div class="panel-heading"><spring:message code="title.manOfTheMatchPoll"/> </div>
                                         <security:authorize access="isAuthenticated()">
-                                        <div class="panel-body">
+                                        <div class="panel-body" ng-if="wrapper.object.poll.status == 'OPEN'" >
                                             <ul class="list-group" ng-repeat="x in wrapper.object.poll.votes">
                                                 <li class="list-group item">
                                                     <div class="radio">

@@ -73,7 +73,7 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
             return new MatchPollDTO(playersPoll.getId(),
                     convertIdentityRankings(rankingList, isLoggedIn),
                     convertIdentityOptions(playersPoll.getOptions(), isLoggedIn),
-                    rankingList.getTotalVotes());
+                    rankingList.getTotalVotes(), playersPoll.getStatus().name());
         }
         return null;
     }

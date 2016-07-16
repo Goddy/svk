@@ -1,6 +1,7 @@
 package be.spring.app.service;
 
 import be.spring.app.data.MatchStatusEnum;
+import be.spring.app.data.PollStatusEnum;
 import be.spring.app.model.*;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.persistence.PollDao;
@@ -31,6 +32,7 @@ public class PollServiceImpl implements PollService {
             playersPoll.setStartDate(DateTime.now());
             playersPoll.setEndDate(DateTime.now().plusDays(3));
             playersPoll.setQuestion("Automatically generated: Who will be man of the match?");
+            playersPoll.setStatus(PollStatusEnum.OPEN);
             match.setMotmPoll(playersPoll);
             return true;
         }
@@ -67,17 +69,14 @@ public class PollServiceImpl implements PollService {
         //Get poll
         Poll poll = pollDao.findOne(pollId);
         GeneralUtils.throwObjectNotFoundException(poll, pollId, Poll.class);
-        //Add vote to poll and make sure poll is added to vote
-        vote.setPoll(poll);
-        poll.replaceVote(vote);
-        pollDao.save(poll);
-        return vote;
-    }
-
-    private void addVote(Poll poll, Vote vote) {
-        for (Object v : poll.getVotes()) {
-
+        //Only vote if poll is open
+        if (poll.getStatus().equals(PollStatusEnum.OPEN)) {
+            //Add vote to poll and make sure poll is added to vote
+            vote.setPoll(poll);
+            poll.replaceVote(vote);
+            pollDao.save(poll);
         }
+        return vote;
     }
 
     private Set<IdentityOption> getPlayerOptionsFor(Match match) {
