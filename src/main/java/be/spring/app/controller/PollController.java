@@ -17,8 +17,8 @@ public class PollController extends AbstractController {
     private static final Logger logger = LoggerFactory.getLogger(PollController.class);
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/matchPoll", method = RequestMethod.GET)
+    @RequestMapping(value = "/matchPolls", method = RequestMethod.GET)
     public String getMatchPoll() {
-        return "/poll/matchPoll";
+        return "/poll/matchPolls";
     }
 }

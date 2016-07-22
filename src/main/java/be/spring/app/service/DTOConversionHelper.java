@@ -19,6 +19,10 @@ public interface DTOConversionHelper {
 
     MatchPollDTO convertMatchPoll(PlayersPoll playersPoll, boolean isLoggedIn);
 
+    MatchPollDTO convertMatchPoll(Match match, boolean isLoggedIn);
+
+    PageDTO<MatchPollDTO> convertMatchPolls(List<Match> matches, boolean isLoggedIn);
+
     Set<AccountDTO> convertIdentityOptions(Set<IdentityOption> identityOptions, boolean isLoggedIn);
 
     Set<VotesDTO> convertIdentityRankings(RankingList<Long> rankingList, boolean isLoggedIn);

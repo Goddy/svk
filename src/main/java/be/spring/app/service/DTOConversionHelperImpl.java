@@ -67,6 +67,19 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
     }
 
     @Override
+    public MatchPollDTO convertMatchPoll(Match match, boolean isLoggedIn) {
+        PlayersPoll playersPoll = match.getMotmPoll();
+        if (playersPoll != null) {
+            RankingList<Long> rankingList = playersPoll.getResult();
+            return new MatchPollDTO(playersPoll.getId(),
+                    convertIdentityRankings(rankingList, isLoggedIn),
+                    convertIdentityOptions(playersPoll.getOptions(), isLoggedIn),
+                    rankingList.getTotalVotes(), playersPoll.getStatus().name(), match.getDescription(), match.getStringDate());
+        }
+        return null;
+    }
+
+    @Override
     public MatchPollDTO convertMatchPoll(PlayersPoll playersPoll, boolean isLoggedIn) {
         if (playersPoll != null) {
             RankingList<Long> rankingList = playersPoll.getResult();
@@ -76,6 +89,16 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
                     rankingList.getTotalVotes(), playersPoll.getStatus().name());
         }
         return null;
+    }
+
+    @Override
+    public PageDTO<MatchPollDTO> convertMatchPolls(List<Match> matches, boolean isLoggedIn) {
+        List<MatchPollDTO> matchPollDTOs = Lists.newArrayList();
+        for (Match m : matches) {
+            matchPollDTOs.add(convertMatchPoll(m, isLoggedIn));
+        }
+        return new PageDTO<>(matchPollDTOs);
+
     }
 
     @Override

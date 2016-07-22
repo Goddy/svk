@@ -1,33 +1,25 @@
 'use strict'
-app.controller('matchPollCtrl', function($scope, $http) {
-    $scope.selectedAccount = "Test";
+app.controller('matchPollCtrl', function($scope, $http, pollService) {
+    var getPolls = pollService.getMatchPollPage(0);
 
-    $scope.getVotes = function () {
-        $http.get('/api/v1/match/3/poll').success(function (data) {
-            $scope.votes = data.votes;
-            $scope.totalVotes = data.totalVotes;
+    $scope.getPercentage = pollService.getPercentage;
+
+    $scope.vote = function(account, pollId) {
+        pollService.vote(account, pollId).success(function (data, status, headers, config) {
+            $scope.message = "Vote recorded";
+            pollService.getMatchPoll(pollId).success(function(data) {
+                matchPoll.votes = data.votes;
+                console.log('voted');
+            });
+        }).error(function (data, status, headers, config) {
+            $scope.message = "Vote failed";
         });
     };
 
-    $scope.getPercentage = function (votes, totalVotes) {
-        if (totalVotes === 0) {
-            return 0;
-        }
-        else {
-            return ((votes / totalVotes) * 100).toFixed(2);
-        }
-    };
-
-    $scope.vote = function(selectedAccount, matchPollId) {
-        $http({
-            url: '/api/v1/matchPoll/' + matchPollId +'/vote',
-            method: "POST",
-            data: {answer: selectedAccount.id},
-        }).success(function (data, status, headers, config) {
-            $scope.message = "Vote recorded"; // assign  $scope.persons here as promise is resolved here
-            $scope.getVotes();
-        }).error(function (data, status, headers, config) {
-            $scope.message = "Vote failed";
+    $scope.init = function () {
+        //Get all seasons
+        pollService.getMatchPollPage(0).success(function (data) {
+            $scope.matchPolls = data;
         });
     };
 });

@@ -55,6 +55,13 @@ public class MatchesRestController extends AbstractRestController {
     public ResponseEntity<MatchPollDTO> getMatchPoll(@PathVariable Long id) {
         Match m = matchesService.getMatch(id);
         if (m == null) throw new ObjectNotFoundException(String.format("Match with id %s not found", id));
-        return new ResponseEntity<>(DTOConversionHelper.convertMatchPoll(m.getMotmPoll(), isLoggedIn()), HttpStatus.OK);
+        return new ResponseEntity<>(DTOConversionHelper.convertMatchPoll(m, isLoggedIn()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/match/latest/poll", method = RequestMethod.GET)
+    @ApiOperation(value = "Get poll for match", nickname = "matchpoll")
+    public ResponseEntity<MatchPollDTO> getLatestMatchPoll() {
+        Match m = matchesService.getLatestMatchWithPoll();
+        return new ResponseEntity<>(DTOConversionHelper.convertMatchPoll(m, isLoggedIn()), HttpStatus.OK);
     }
 }

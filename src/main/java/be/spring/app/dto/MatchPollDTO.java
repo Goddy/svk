@@ -10,6 +10,18 @@ public class MatchPollDTO extends DTOBaseClass {
     private Set<AccountDTO> options;
     private int totalVotes;
     private String status;
+    private String matchDescription;
+    private String matchDate;
+
+    public MatchPollDTO(Long id, Set<VotesDTO> votes, Set<AccountDTO> accounts, int totalVotes, String status, String matchDescription, String matchDate) {
+        this.votes = votes;
+        this.totalVotes = totalVotes;
+        this.status = status;
+        this.setId(id);
+        this.setOptions(accounts);
+        this.matchDate = matchDate;
+        this.matchDescription = matchDescription;
+    }
 
     public MatchPollDTO(Long id, Set<VotesDTO> votes, Set<AccountDTO> accounts, int totalVotes, String status) {
         this.votes = votes;
@@ -17,6 +29,22 @@ public class MatchPollDTO extends DTOBaseClass {
         this.status = status;
         this.setId(id);
         this.setOptions(accounts);
+    }
+
+    public String getMatchDescription() {
+        return matchDescription;
+    }
+
+    public void setMatchDescription(String matchDescription) {
+        this.matchDescription = matchDescription;
+    }
+
+    public String getMatchDate() {
+        return matchDate;
+    }
+
+    public void setMatchDate(String matchDate) {
+        this.matchDate = matchDate;
     }
 
     public String getStatus() {

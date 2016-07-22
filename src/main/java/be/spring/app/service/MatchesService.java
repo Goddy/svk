@@ -8,7 +8,9 @@ import be.spring.app.form.CreateMatchForm;
 import be.spring.app.model.Account;
 import be.spring.app.model.Match;
 import be.spring.app.model.Season;
+import com.google.common.base.Optional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 
 import java.text.ParseException;
 import java.util.List;
@@ -32,6 +34,10 @@ public interface MatchesService {
     List<Match> getMatchesForSeason(String description);
 
     Match getLatestMatch();
+
+    Match getLatestMatchWithPoll();
+
+    List<Match> getMatchesWithPolls(int page, int pageSize, Optional<Sort> sort, Optional<String> searchTerm);
 
     Match getMatch(long id);
 

@@ -3,22 +3,25 @@ package be.spring.app.controller.REST;
 import be.spring.app.dto.AccountDTO;
 import be.spring.app.dto.MatchPollDTO;
 import be.spring.app.dto.MultipleChoiceVoteDTO;
+import be.spring.app.dto.PageDTO;
+import be.spring.app.model.Match;
 import be.spring.app.model.MultipleChoicePlayerVote;
 import be.spring.app.model.PlayersPoll;
 import be.spring.app.service.DTOConversionHelper;
+import be.spring.app.service.MatchesService;
 import be.spring.app.service.PollService;
+import com.google.common.base.Optional;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,6 +34,9 @@ public class PollRestController extends AbstractRestController {
 
     @Autowired
     private PollService pollService;
+
+    @Autowired
+    private MatchesService matchesService;
 
     @Autowired
     private DTOConversionHelper DTOConversionHelper;
@@ -63,5 +69,12 @@ public class PollRestController extends AbstractRestController {
         pollService.vote(id, new MultipleChoicePlayerVote(getAccountFromSecurity(), vote.getAnswer()));
         vote.setAccount(getAccountFromSecurity());
         return new ResponseEntity<>(vote, HttpStatus.OK);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/matchPoll", method = RequestMethod.GET)
+    public ResponseEntity<PageDTO<MatchPollDTO>> getAllMatchPolls(@RequestParam int start, @RequestParam(required = false) int size, @RequestParam(required = false) String sort) {
+        List<Match> playersPolls = matchesService.getMatchesWithPolls(start, size, Optional.<Sort>absent(), Optional.<String>absent());
+        return new ResponseEntity<>(DTOConversionHelper.convertMatchPolls(playersPolls, isLoggedIn()), HttpStatus.OK);
     }
 }

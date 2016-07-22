@@ -6,6 +6,7 @@ import be.spring.app.model.Team;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -27,4 +28,10 @@ public interface MatchesDao extends PagingAndSortingRepository<Match, Long>, Jpa
     List<Match> findByDate(DateTime date);
 
     Page<Match> findByDateAfterOrderByDateAsc(DateTime date, Pageable pageable);
+
+    Page<Match> findAll(Pageable pageable);
+
+    Page<Match> findByMotmPollNotNull(Pageable pageable);
+
+    Match findFirstByDateBeforeAndMotmPollIsNotNullOrderByDateDesc(DateTime date);
 }

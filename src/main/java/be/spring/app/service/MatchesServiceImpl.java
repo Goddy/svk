@@ -6,13 +6,17 @@ import be.spring.app.dto.ActionWrapperDTO;
 import be.spring.app.dto.MatchDTO;
 import be.spring.app.form.ChangeResultForm;
 import be.spring.app.form.CreateMatchForm;
-import be.spring.app.model.*;
+import be.spring.app.model.Account;
+import be.spring.app.model.Goal;
+import be.spring.app.model.Match;
+import be.spring.app.model.Season;
 import be.spring.app.persistence.AccountDao;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.persistence.SeasonDao;
 import be.spring.app.persistence.TeamDao;
 import be.spring.app.utils.Constants;
 import be.spring.app.utils.GeneralUtils;
+import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
@@ -22,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -110,7 +115,19 @@ public class MatchesServiceImpl implements MatchesService {
     @Override
     public Match getLatestMatch() {
         List<Match> matches = matchesDao.findByDate(DateTime.now());
-        return matches.isEmpty() ? null : matchesDao.findByDate(DateTime.now()).get(0);
+        return matches.isEmpty() ? null :matches.get(0);
+    }
+
+    @Override
+    public Match getLatestMatchWithPoll() {
+        return matchesDao.findFirstByDateBeforeAndMotmPollIsNotNullOrderByDateDesc(DateTime.now());
+    }
+
+    @Override
+    public List<Match> getMatchesWithPolls(int page, int pageSize, Optional<Sort> sort, Optional<String> searchTerm) {
+        Sort s = sort.isPresent() ? sort.get() : new Sort(Sort.Direction.DESC, "date");
+        Pageable pageable = new PageRequest(page, pageSize, s);
+        return matchesDao.findByMotmPollNotNull(pageable).getContent();
     }
 
     @Override

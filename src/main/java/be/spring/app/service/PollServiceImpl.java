@@ -18,6 +18,7 @@ import java.util.Set;
  */
 @Service
 public class PollServiceImpl implements PollService {
+
     @Autowired
     MatchesDao matchesDao;
 

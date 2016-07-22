@@ -6,8 +6,16 @@ app.factory('pollService', function($http) {
             return $http.get('/api/v1/match/' + matchId + '/poll');
         },
 
+        getMatchPollPage: function (page) {
+            return $http.get('/api/v1/matchPoll?start=' + page + '&size=10');
+        },
+
         getMatchPoll: function (pollId) {
             return $http.get('/api/v1/matchPoll/' + pollId);
+        },
+
+        getLatestMatchPoll: function () {
+            return $http.get('/api/v1//match/latest/poll');
         },
 
         getPercentage: function (votes, totalVotes) {
