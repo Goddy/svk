@@ -6,42 +6,101 @@
 <%@ include file="../jspf/header.jspf" %>
 
 <div class="m-t-1" ng-app="soccerApp" ng-controller="matchPollCtrl" data-ng-init="init()">
-    <div class="col-md-6" ng-repeat="poll in matchPolls.list">
-        <div class="panel panel-info">
-            <div>
-                <div class="panel-heading"><h2><spring:message code="title.manOfTheMatchPoll"/></h2><h3>{{poll.matchDescription}} - {{poll.matchDate}}</h3></div>
-                <security:authorize access="isAuthenticated()">
-                    <div class="panel-body" ng-if="poll.status == 'OPEN'" >
-                        <ul class="list-group" ng-repeat="x in poll.votes">
-                            <li class="list-group item">
-                                <div class="radio">
-                                    <label>
-                                        <input name="group-poll" ng-value="{{x.account}}" type="radio"  ng-model="$parent.selectedAccount">
-                                        {{x.account.name}}
-                                    </label>
-                                </div>
-                            </li>
-                        </ul>
-                        <a href="#" ng-click="vote(selectedAccount, poll)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/></a>
+    <div class="row m-b-1">
+        <div class="text-center">
+            <ul class="pagination blue">
+                <li>
+                    <a ng-click="getPage(currentPage - 1)" ng-if="matchPolls.hasPrevious">
+                        &laquo;
+                    </a>
+                </li>
+                <li ng-repeat="n in [].constructor(matchPolls.totalPages) track by $index" ng-class="{'active': $index==currentPage}">
+                    <a ng-click="getPage($index)">
+                        {{$index + 1}}
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="getPage(currentPage + 1)" ng-if="matchPolls.hasNext">
+                        &raquo;
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div ng-repeat="(key, value) in matchPolls.list">
+        <div class="clearfix" ng-if="$index % 2 == 0"></div>
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div>
+                    <div class="panel-heading">
+                        <h2><span class="glyphicon glyphicon-user"></span>&nbsp;<spring:message code="title.manOfTheMatchPoll"/></h2><h3>{{value.matchDescription}} - {{value.matchDate}}</h3>
+                        <security:authorize access="hasRole('ADMIN')">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button ng-click="refresh(value)" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="<spring:message code="title.refresh.matchPoll"/>">
+                                    <spring:message code="button.refresh"/>
+                                </button>
+                                <button ng-click="reset(value)" type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="<spring:message code="title.reset.matchPoll"/>">
+                                    <spring:message code="button.reset"/>
+                                </button>
+                            </div>
+                        </security:authorize>
                     </div>
-                </security:authorize>
-                <div class="panel-footer">
-                    <div ng-if="poll.totalVotes > 0">
-                        <div ng-repeat="x in poll.votes">
-                            {{x.account.name}}
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="{{getPercentage(x.votes, poll.totalVotes)}}"
-                                     aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage(x.votes, poll.totalVotes) + '%' ) }">
-                                    {{getPercentage(x.votes, poll.totalVotes)}}%
+                    <security:authorize access="isAuthenticated()">
+                        <div class="panel-body" ng-if="value.status == 'OPEN'" >
+                            <ul class="list-group" ng-repeat="x in value.options">
+                                <li class="list-group item">
+                                    <div class="radio">
+                                        <label>
+                                            <input name="group-poll" ng-value="{{x}}" type="radio"  ng-model="$parent.selectedAccount">
+                                            {{x.name}}
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <button ng-click="vote(selectedAccount, value)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/></button>
+                        </div>
+                    </security:authorize>
+                    <div class="panel-footer">
+                        <div ng-if="value.totalVotes > 0">
+                            <div ng-repeat="x in value.votes">
+                                {{x.account.name}}
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{getPercentage(x.votes, value.totalVotes)}}"
+                                         aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage(x.votes, value.totalVotes) + '%' ) }">
+                                        {{getPercentage(x.votes, value.totalVotes)}}%
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div ng-if="poll.totalVotes == 0">
-                        <spring:message code="text.no.votes"/>
+                        <div ng-if="value.totalVotes == 0">
+                            <spring:message code="text.no.votes"/>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="text-center">
+            <ul class="pagination blue">
+                <li>
+                    <a ng-click="getPage(currentPage - 1)" ng-if="matchPolls.hasPrevious">
+                        &laquo;
+                    </a>
+                </li>
+                <li ng-repeat="n in [].constructor(matchPolls.totalPages) track by $index" ng-class="{'active': $index==currentPage}">
+                    <a ng-click="getPage($index)">
+                        {{$index + 1}}
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="getPage(currentPage + 1)" ng-if="matchPolls.hasNext">
+                        &raquo;
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

@@ -7,7 +7,15 @@ app.factory('pollService', function($http) {
         },
 
         getMatchPollPage: function (page) {
-            return $http.get('/api/v1/matchPoll?start=' + page + '&size=10');
+            return $http.get('/api/v1/matchPoll?page=' + page + '&size=5');
+        },
+
+        refresh: function(poll) {
+            return $http.put('/api/v1/matchPoll/match/' + poll.matchId +'/refresh');
+        },
+
+        reset: function(poll) {
+            return $http.put('/api/v1/poll/' + poll.id +'/reset');
         },
 
         getMatchPoll: function (pollId) {
@@ -23,7 +31,7 @@ app.factory('pollService', function($http) {
                 return 0;
             }
             else {
-                return ((votes / totalVotes) * 100).toFixed(2);
+                return ((votes / totalVotes) * 100);
             }
         },
 

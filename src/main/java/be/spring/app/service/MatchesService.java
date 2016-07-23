@@ -37,7 +37,7 @@ public interface MatchesService {
 
     Match getLatestMatchWithPoll();
 
-    List<Match> getMatchesWithPolls(int page, int pageSize, Optional<Sort> sort, Optional<String> searchTerm);
+    Page<Match> getMatchesWithPolls(int page, int pageSize, Optional<Sort> sort, Optional<String> searchTerm);
 
     Match getMatch(long id);
 

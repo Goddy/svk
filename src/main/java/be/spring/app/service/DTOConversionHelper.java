@@ -2,6 +2,7 @@ package be.spring.app.service;
 
 import be.spring.app.dto.*;
 import be.spring.app.model.*;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Set;
@@ -21,11 +22,11 @@ public interface DTOConversionHelper {
 
     MatchPollDTO convertMatchPoll(Match match, boolean isLoggedIn);
 
-    PageDTO<MatchPollDTO> convertMatchPolls(List<Match> matches, boolean isLoggedIn);
+    PageDTO<MatchPollDTO> convertMatchPolls(Page<Match> matches, boolean isLoggedIn);
 
-    Set<AccountDTO> convertIdentityOptions(Set<IdentityOption> identityOptions, boolean isLoggedIn);
+    List<AccountDTO> convertIdentityOptions(Set<IdentityOption> identityOptions, boolean isLoggedIn);
 
-    Set<VotesDTO> convertIdentityRankings(RankingList<Long> rankingList, boolean isLoggedIn);
+    List<VotesDTO> convertIdentityRankings(RankingList<Long> rankingList, boolean isLoggedIn);
 
     List<SeasonDTO> convertSeasons(List<Season> seasons);
 

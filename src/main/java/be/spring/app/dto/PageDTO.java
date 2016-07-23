@@ -10,11 +10,24 @@ import java.util.List;
 public class PageDTO<T> {
     private List<T> list;
     private int totalPages;
+    private int totalSize;
+    private boolean hasNext;
+    private boolean hasPrevious;
 
-    public PageDTO(List<T> list) {
+    public PageDTO(List<T> list, int totalPages, boolean hasNext, boolean hasPrevious) {
         Assert.notNull(list);
         this.list = list;
-        this.totalPages = list.size();
+        this.totalPages = totalPages;
+        this.hasNext = hasNext;
+        this.hasPrevious = hasPrevious;
+    }
+
+    public int getTotalSize() {
+        return totalSize;
+    }
+
+    public void setTotalSize(int totalSize) {
+        this.totalSize = totalSize;
     }
 
     public List<T> getList() {
@@ -33,11 +46,30 @@ public class PageDTO<T> {
         this.totalPages = totalPages;
     }
 
+    public boolean isHasPrevious() {
+        return hasPrevious;
+    }
+
+    public void setHasPrevious(boolean hasPrevious) {
+        this.hasPrevious = hasPrevious;
+    }
+
+    public boolean isHasNext() {
+        return hasNext;
+    }
+
+    public void setHasNext(boolean hasNext) {
+        this.hasNext = hasNext;
+    }
+
     @Override
     public String toString() {
         return "PageDTO{" +
                 "list=" + list +
                 ", totalPages=" + totalPages +
+                ", totalSize=" + totalSize +
+                ", hasNext=" + hasNext +
+                ", hasPrevious=" + hasPrevious +
                 '}';
     }
 }

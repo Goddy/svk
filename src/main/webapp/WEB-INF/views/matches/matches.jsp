@@ -88,17 +88,17 @@
                                         <div class="panel-heading"><spring:message code="title.manOfTheMatchPoll"/> </div>
                                         <security:authorize access="isAuthenticated()">
                                         <div class="panel-body" ng-if="wrapper.object.poll.status == 'OPEN'" >
-                                            <ul class="list-group" ng-repeat="x in wrapper.object.poll.votes">
+                                            <ul class="list-group" ng-repeat="x in wrapper.object.poll.options">
                                                 <li class="list-group item">
                                                     <div class="radio">
                                                         <label>
-                                                            <input name="group-poll" ng-value="{{x.account}}" type="radio"  ng-model="$parent.selectedAccount">
-                                                            {{x.account.name}}
+                                                            <input name="group-poll" ng-value="{{x}}" type="radio"  ng-model="$parent.selectedAccount">
+                                                            {{x.name}}
                                                         </label>
                                                     </div>
                                                 </li>
                                             </ul>
-                                            <a href="#" ng-click="vote(wrapper.object, selectedAccount, wrapper.object.poll.id)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/></a>
+                                            <button ng-click="vote(wrapper.object, selectedAccount, wrapper.object.poll.id)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/></button>
                                         </div>
                                         </security:authorize>
                                         <div class="panel-footer">

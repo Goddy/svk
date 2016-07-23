@@ -124,10 +124,10 @@ public class MatchesServiceImpl implements MatchesService {
     }
 
     @Override
-    public List<Match> getMatchesWithPolls(int page, int pageSize, Optional<Sort> sort, Optional<String> searchTerm) {
+    public Page<Match> getMatchesWithPolls(int page, int pageSize, Optional<Sort> sort, Optional<String> searchTerm) {
         Sort s = sort.isPresent() ? sort.get() : new Sort(Sort.Direction.DESC, "date");
         Pageable pageable = new PageRequest(page, pageSize, s);
-        return matchesDao.findByMotmPollNotNull(pageable).getContent();
+        return matchesDao.findByMotmPollNotNull(pageable);
     }
 
     @Override

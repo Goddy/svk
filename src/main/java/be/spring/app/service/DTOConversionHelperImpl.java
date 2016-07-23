@@ -4,10 +4,11 @@ import be.spring.app.dto.*;
 import be.spring.app.model.*;
 import be.spring.app.persistence.AccountDao;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -71,7 +72,7 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
         PlayersPoll playersPoll = match.getMotmPoll();
         if (playersPoll != null) {
             RankingList<Long> rankingList = playersPoll.getResult();
-            return new MatchPollDTO(playersPoll.getId(),
+            return new MatchPollDTO(playersPoll.getId(),match.getId(),
                     convertIdentityRankings(rankingList, isLoggedIn),
                     convertIdentityOptions(playersPoll.getOptions(), isLoggedIn),
                     rankingList.getTotalVotes(), playersPoll.getStatus().name(), match.getDescription(), match.getStringDate());
@@ -92,27 +93,28 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
     }
 
     @Override
-    public PageDTO<MatchPollDTO> convertMatchPolls(List<Match> matches, boolean isLoggedIn) {
-        List<MatchPollDTO> matchPollDTOs = Lists.newArrayList();
-        for (Match m : matches) {
-            matchPollDTOs.add(convertMatchPoll(m, isLoggedIn));
+    public PageDTO<MatchPollDTO> convertMatchPolls(Page<Match> matches, boolean isLoggedIn) {
+        List<MatchPollDTO> matchPollDTOMap = Lists.newLinkedList();
+        for (Match m : matches.getContent()) {
+            matchPollDTOMap.add(convertMatchPoll(m, isLoggedIn));
         }
-        return new PageDTO<>(matchPollDTOs);
+        return new PageDTO<MatchPollDTO>(matchPollDTOMap, matches.getTotalPages(), matches.hasNext(), matches.hasPrevious());
 
     }
 
     @Override
-    public Set<AccountDTO> convertIdentityOptions(Set<IdentityOption> identityOptions, boolean isLoggedIn) {
-        Set<AccountDTO> accountDTOs = Sets.newConcurrentHashSet();
+    public List<AccountDTO> convertIdentityOptions(Set<IdentityOption> identityOptions, boolean isLoggedIn) {
+        List<AccountDTO> accountDTOs = Lists.newArrayList();
         for (IdentityOption account : identityOptions) {
             accountDTOs.add(convertAccount(accountDao.findOne(account.getOption()), isLoggedIn));
         }
+        Collections.sort(accountDTOs);
         return accountDTOs;
     }
 
     @Override
-    public Set<VotesDTO> convertIdentityRankings(RankingList<Long> rankingList, boolean isLoggedIn) {
-        Set<VotesDTO> votes = Sets.newConcurrentHashSet();
+    public List<VotesDTO> convertIdentityRankings(RankingList<Long> rankingList, boolean isLoggedIn) {
+        List<VotesDTO> votes = Lists.newArrayList();
         for (Ranking<Long> ranking : rankingList.getRankings()) {
             votes.add(new VotesDTO(
                     convertAccount(accountDao.findOne(ranking.getOption()), isLoggedIn),

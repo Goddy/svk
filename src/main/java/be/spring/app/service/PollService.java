@@ -19,5 +19,5 @@ public interface PollService {
 
     Poll reset(Long id);
 
-    Vote vote(Long pollId, Vote vote);
+    Poll vote(Long pollId, Vote vote);
 }

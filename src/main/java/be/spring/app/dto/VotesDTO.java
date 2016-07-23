@@ -3,7 +3,7 @@ package be.spring.app.dto;
 /**
  * Created by u0090265 on 10/06/16.
  */
-public class VotesDTO {
+public class VotesDTO implements Comparable<VotesDTO>{
     private AccountDTO account;
     private int votes;
 
@@ -26,5 +26,12 @@ public class VotesDTO {
 
     public void setVotes(int votes) {
         this.votes = votes;
+    }
+
+    @Override
+    public int compareTo(VotesDTO o) {
+        if (this.votes < o.votes) return 1;
+        else if (this.votes == o.votes) return 0;
+        else return -1;
     }
 }

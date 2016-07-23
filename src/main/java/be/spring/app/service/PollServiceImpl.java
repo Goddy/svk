@@ -10,6 +10,7 @@ import com.google.common.collect.Sets;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -66,7 +67,8 @@ public class PollServiceImpl implements PollService {
     }
 
     @Override
-    public Vote vote(Long pollId, Vote vote) {
+    @Transactional
+    public Poll vote(Long pollId, Vote vote) {
         //Get poll
         Poll poll = pollDao.findOne(pollId);
         GeneralUtils.throwObjectNotFoundException(poll, pollId, Poll.class);
@@ -75,9 +77,8 @@ public class PollServiceImpl implements PollService {
             //Add vote to poll and make sure poll is added to vote
             vote.setPoll(poll);
             poll.replaceVote(vote);
-            pollDao.save(poll);
         }
-        return vote;
+        return pollDao.save(poll);
     }
 
     private Set<IdentityOption> getPlayerOptionsFor(Match match) {

@@ -15,6 +15,7 @@ import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by u0090265 on 10/2/15.
@@ -41,16 +41,16 @@ public class PollRestController extends AbstractRestController {
     @Autowired
     private DTOConversionHelper DTOConversionHelper;
 
-    @PreAuthorize("hasRole('admin')")
-    @RequestMapping(value = "/poll/{id}/reset", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/poll/{id}/reset", method = RequestMethod.PUT)
     public ResponseEntity resetPoll(@PathVariable Long id) {
         pollService.reset(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('admin')")
-    @RequestMapping(value = "/matchPoll/{id}/refresh", method = RequestMethod.POST)
-    public ResponseEntity<Set<AccountDTO>> refreshMatchPoll(@PathVariable Long id) {
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/matchPoll/match/{id}/refresh", method = RequestMethod.PUT)
+    public ResponseEntity<List<AccountDTO>> refreshMatchPoll(@PathVariable Long id) {
         return new ResponseEntity<>(DTOConversionHelper.convertIdentityOptions(pollService.refreshPlayerOptions(id), isLoggedIn()), HttpStatus.OK);
     }
 
@@ -67,14 +67,13 @@ public class PollRestController extends AbstractRestController {
             vote) {
         logger.debug(vote.toString());
         pollService.vote(id, new MultipleChoicePlayerVote(getAccountFromSecurity(), vote.getAnswer()));
-        vote.setAccount(getAccountFromSecurity());
-        return new ResponseEntity<>(vote, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/matchPoll", method = RequestMethod.GET)
-    public ResponseEntity<PageDTO<MatchPollDTO>> getAllMatchPolls(@RequestParam int start, @RequestParam(required = false) int size, @RequestParam(required = false) String sort) {
-        List<Match> playersPolls = matchesService.getMatchesWithPolls(start, size, Optional.<Sort>absent(), Optional.<String>absent());
+    public ResponseEntity<PageDTO<MatchPollDTO>> getAllMatchPolls(@RequestParam int page, @RequestParam(required = false) int size, @RequestParam(required = false) String sort) {
+        Page<Match> playersPolls = matchesService.getMatchesWithPolls(page, size, Optional.<Sort>absent(), Optional.<String>absent());
         return new ResponseEntity<>(DTOConversionHelper.convertMatchPolls(playersPolls, isLoggedIn()), HttpStatus.OK);
     }
 }
