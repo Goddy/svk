@@ -14,46 +14,6 @@
         </div>
     </div>
 </div>
-<div class="row m-t-1" ng-app="soccerApp" ng-controller="newsCtrl" data-ng-init="init()">
-    <div class="col-md-6 col-md-offset-3">
-        <div class="panel panel-info" ng-if="motmPoll !== null">
-            <div>
-                <div class="panel-heading"><h2><spring:message code="title.manOfTheMatchPoll"/></h2></div>
-                <security:authorize access="isAuthenticated()">
-                    <div class="panel-body" ng-if="motmPoll.status == 'OPEN'" >
-                        <ul class="list-group" ng-repeat="x in motmPoll.poll.votes">
-                            <li class="list-group item">
-                                <div class="radio">
-                                    <label>
-                                        <input name="group-poll" ng-value="{{x.account}}" type="radio"  ng-model="$parent.selectedAccount">
-                                        {{x.account.name}}
-                                    </label>
-                                </div>
-                            </li>
-                        </ul>
-                        <a href="#" ng-click="vote(selectedAccount, motmPoll)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/></a>
-                    </div>
-                </security:authorize>
-                <div class="panel-footer">
-                    <div ng-if="motmPoll.totalVotes > 0">
-                        <div ng-repeat="x in motmPoll.votes">
-                            {{x.account.name}}
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="{{getPercentage(x.votes, motmPoll.totalVotes)}}"
-                                     aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage(x.votes, motmPoll.totalVotes) + '%' ) }">
-                                    {{getPercentage(x.votes, motmPoll.totalVotes)}}%
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div ng-if="motmPoll.totalVotes == 0">
-                        <spring:message code="text.no.votes"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <h1><p><spring:message code="text.news" /></h1>
 <div id="default">
     <c:choose>
@@ -77,8 +37,6 @@
 <tag:deleteDialog dialogId="delete-modal"/>
 
 <script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
-
-<script src="<c:url value='/resources/angular/controllers/news.js'/>"></script>
 
 <script type="text/javascript">
 
