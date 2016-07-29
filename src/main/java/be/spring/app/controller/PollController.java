@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Handles requests for the polls.
  */
 @Controller
-@RequestMapping("/poll")
+@RequestMapping("/")
 public class PollController extends AbstractController {
 
     private static final Logger logger = LoggerFactory.getLogger(PollController.class);

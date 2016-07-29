@@ -44,6 +44,9 @@
                                     <spring:message code="button.reset"/>
                                 </button>
                             </div>
+                            <div class="m-t-1" ng-if="actionResultMessage[value.id]">
+                                <b>{{actionResultMessage[value.id]}}</b>
+                            </div>
                         </security:authorize>
                     </div>
                     <security:authorize access="isAuthenticated()">
@@ -59,6 +62,9 @@
                                 </li>
                             </ul>
                             <button ng-click="vote(selectedAccount, value)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/></button>
+                            <div class="m-t-1" ng-if="voteResultMessage[value.id]">
+                                <b>{{voteResultMessage[value.id]}}</b>
+                            </div>
                         </div>
                     </security:authorize>
                     <div class="panel-footer">

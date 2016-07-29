@@ -45,9 +45,11 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     <!-- Main angular -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.min.js"></script>
     <script src="<c:url value='/resources/angular/app.js'/>"></script>
     <script src="<c:url value='/resources/angular/services/pollService.js'/>"></script>
+    <script src="<c:url value='/resources/angular/services/messageService.js'/>"></script>
 </head>
 <body>
 <!--[if lt IE 10]>
@@ -79,6 +81,7 @@
                             class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/matches.html"><spring:message code="nav.overview"/></a></li>
+                        <li><a href="/matchPolls.html"><spring:message code="nav.matchPolls"/></a></li>
                         <li><a href="/statistics.html"><spring:message code="nav.statistics"/></a></li>
                     </ul>
                 </li>
