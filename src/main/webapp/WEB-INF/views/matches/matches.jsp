@@ -99,6 +99,9 @@
                                                 </li>
                                             </ul>
                                             <button ng-click="vote(wrapper.object, selectedAccount, wrapper.object.poll.id)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/></button>
+                                            <div class="m-t-1" ng-if="voteResultMessage[wrapper.object.poll.id]">
+                                                <b>{{voteResultMessage[wrapper.object.poll.id]}}</b>
+                                            </div>
                                         </div>
                                         </security:authorize>
                                         <div class="panel-footer">

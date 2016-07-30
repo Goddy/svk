@@ -1,6 +1,7 @@
-'use strict'
-app.controller('matchCtrl', function($scope, $http, $sce, pollService) {
+'use strict';
+app.controller('matchCtrl', function ($scope, $http, $sce, pollService, messageService) {
     $scope.cached = {};
+    $scope.voteResultMessage = [];
 
     var getSeasons = function () {
         $http({
@@ -50,10 +51,14 @@ app.controller('matchCtrl', function($scope, $http, $sce, pollService) {
             $scope.message = "Vote recorded";
             pollService.getMatchPoll(pollId).success(function(data) {
                 matchObject.poll = data;
-                console.log('voted');
+                messageService.showMessage(function (message) {
+                    $scope.voteResultMessage[pollId] = message;
+                }, 'alert.vote.success');
             });
         }).error(function (data, status, headers, config) {
-            $scope.message = "Vote failed";
+            messageService.showMessage(function (message) {
+                $scope.voteResultMessage[pollId] = message;
+            }, 'alert.vote.fail');
         });
     };
 
