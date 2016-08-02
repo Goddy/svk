@@ -34,7 +34,8 @@
             <div class="panel panel-info">
                 <div>
                     <div class="panel-heading">
-                        <h2><span class="glyphicon glyphicon-user"></span>&nbsp;<spring:message code="title.manOfTheMatchPoll"/></h2><h3>{{value.matchDescription}} - {{value.matchDate}}</h3>
+                        <h3 class="text-center">{{value.matchDescription}}</h3>
+                        <p class="text-center">{{value.matchDate}}</p>
                         <security:authorize access="hasRole('ADMIN')">
                             <div class="btn-group" role="group" aria-label="...">
                                 <button ng-click="refresh(value)" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="<spring:message code="title.refresh.matchPoll"/>">
