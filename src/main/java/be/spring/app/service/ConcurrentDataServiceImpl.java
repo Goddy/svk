@@ -4,7 +4,10 @@ import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.data.AccountStatistic;
 import be.spring.app.dto.ActionWrapperDTO;
 import be.spring.app.dto.MatchDTO;
-import be.spring.app.model.*;
+import be.spring.app.model.Account;
+import be.spring.app.model.Match;
+import be.spring.app.model.Season;
+import be.spring.app.model.Team;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.persistence.SeasonDao;
 import be.spring.app.persistence.TeamDao;
@@ -21,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Callable;
@@ -120,11 +122,11 @@ public class ConcurrentDataServiceImpl implements ConcurrentDataService {
                 try {
                     wrapperDTO = new ActionWrapperDTO<>(DTOConversionHelper.convertMatch(match, account != null));
                     //Get account from security
-                    HashMap<String, String> map = new HashMap<>();
-                    map.putAll(htmlHelper.getMatchesButtons(match, securityUtils.isAdmin(account), locale));
+                    //HashMap<String, String> map = new HashMap<>();
+                    //map.putAll(htmlHelper.getMatchesButtons(match, securityUtils.isAdmin(account), locale));
                     //Todo: uncomment after finishing
-                    map.putAll(htmlHelper.getMatchesAdditions(match, account, locale));
-                    wrapperDTO.setAdditions(map);
+                    //map.putAll(htmlHelper.getMatchesAdditions(match, account, locale));
+                    //wrapperDTO.setAdditions(map);
                 } catch (Exception e) {
                     log.error("Could not create Matches btns. Exception: {}", e.getMessage());
                     e.printStackTrace();

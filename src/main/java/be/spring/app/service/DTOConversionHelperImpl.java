@@ -34,7 +34,9 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
                     Integer.toString(m.getAtGoals()),
                     m.getStatus().name(),
                     convertMatchPoll(m.getMotmPoll(), isLoggedIn),
-                    convertGoals(m.getGoals(), isLoggedIn)));
+                    convertGoals(m.getGoals(), isLoggedIn),
+                    m.getHomeTeam().getAddress().getGoogleLink(),
+                    m.getMatchDoodle() != null));
         }
         return matchDTOs;
     }
@@ -51,7 +53,9 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
                     Integer.toString(match.getAtGoals()),
                     match.getStatus().name(),
                     convertMatchPoll(match.getMotmPoll(), isLoggedIn),
-                    convertGoals(match.getGoals(), isLoggedIn));
+                    convertGoals(match.getGoals(), isLoggedIn),
+                    match.getHomeTeam().getAddress().getGoogleLink(),
+                    match.getMatchDoodle() != null);
         }
         return null;
     }

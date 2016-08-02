@@ -15,10 +15,12 @@ public class MatchDTO extends DTOBaseClass {
     String atGoals;
     String htGoals;
     String status;
+    String locationUrl;
+    boolean hasDoodle;
     MatchPollDTO poll;
     List<GoalDTO> goals;
 
-    public MatchDTO(Long id, String date, String hour, String homeTeam, String awayTeam, String atGoals, String htGoals, String status, MatchPollDTO matchPollDTO, List<GoalDTO> goals) {
+    public MatchDTO(Long id, String date, String hour, String homeTeam, String awayTeam, String atGoals, String htGoals, String status, MatchPollDTO matchPollDTO, List<GoalDTO> goals, String locationUrl, boolean hasDoodle) {
         this.date = date;
         this.hour = hour;
         this.homeTeam = homeTeam;
@@ -29,6 +31,8 @@ public class MatchDTO extends DTOBaseClass {
         this.status = status;
         this.setId(id);
         this.goals = goals;
+        this.hasDoodle = hasDoodle;
+        this.locationUrl = locationUrl;
     }
 
     @ApiModelProperty(value = "Goals of this match, orederd", name = "goals")
@@ -111,5 +115,23 @@ public class MatchDTO extends DTOBaseClass {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @ApiModelProperty(value = "Match location", name = "location")
+    public String getLocationUrl() {
+        return locationUrl;
+    }
+
+    public void setLocationUrl(String locationUrl) {
+        this.locationUrl = locationUrl;
+    }
+
+    @ApiModelProperty(value = "Match doodle", name = "doodle")
+    public boolean isHasDoodle() {
+        return hasDoodle;
+    }
+
+    public void setHasDoodle(boolean hasDoodle) {
+        this.hasDoodle = hasDoodle;
     }
 }
