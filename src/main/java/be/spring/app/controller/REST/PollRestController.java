@@ -70,7 +70,6 @@ public class PollRestController extends AbstractRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/matchPoll", method = RequestMethod.GET)
     public ResponseEntity<PageDTO<MatchPollDTO>> getAllMatchPolls(@RequestParam int page, @RequestParam(required = false) int size, @RequestParam(required = false) String sort) {
         Page<Match> playersPolls = matchesService.getMatchesWithPolls(page, size, Optional.<Sort>absent(), Optional.<String>absent());
