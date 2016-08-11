@@ -5,6 +5,7 @@ import be.spring.app.data.PositionsEnum;
 import be.spring.app.form.CreateAndUpdateTeamForm;
 import be.spring.app.model.Account;
 import be.spring.app.dto.ActionWrapperDTO;
+import be.spring.app.model.Address;
 import be.spring.app.model.Team;
 import be.spring.app.service.AccountService;
 import be.spring.app.service.AddressService;
@@ -55,6 +56,11 @@ public class TeamController extends AbstractController {
     @InitBinder("form")
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(validator);
+    }
+
+    @ModelAttribute("addresses")
+    public List<Address> addressList() {
+        return addressService.getAllAddresses();
     }
 
 
