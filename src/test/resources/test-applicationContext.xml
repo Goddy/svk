@@ -12,9 +12,10 @@
         <constructor-arg value="org.springframework.jdbc.core.JdbcTemplate"/>
     </bean>
 
-    <bean id="conversionHelper" class="org.easymock.EasyMock" factory-method="createStrictMock">
+    <bean id="conversionHelper" class="org.easymock.EasyMock" factory-method="createStrictMock" primary="true">
         <constructor-arg value="be.spring.app.service.DTOConversionHelper"/>
     </bean>
+
     <!-- SET default mail properties -->
     <bean id="mailService" class="org.easymock.EasyMock" factory-method="createStrictMock">
         <constructor-arg value="be.spring.app.service.MailService"/>
