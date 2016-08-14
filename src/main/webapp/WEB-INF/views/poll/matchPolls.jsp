@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div ng-if="!hasMatchPolls">
+    <div ng-if="!hasMatchPolls" class="alert alert-warning">
         <spring:message code="text.noMatchPolls"/>
     </div>
     <div ng-repeat="(key, value) in matchPolls.list">
