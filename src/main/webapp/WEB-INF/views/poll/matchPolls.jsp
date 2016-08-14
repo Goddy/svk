@@ -28,6 +28,9 @@
         </div>
     </div>
 
+    <div ng-if="!hasMatchPolls">
+        <spring:message code="text.noMatchPolls"/>
+    </div>
     <div ng-repeat="(key, value) in matchPolls.list">
         <div class="clearfix" ng-if="$index % 2 == 0"></div>
         <div class="col-md-6">

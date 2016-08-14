@@ -7,6 +7,7 @@ app.controller('matchPollCtrl', function($scope, $http, pollService, messageServ
         return pollService.getMatchPollPage(page).success(function(data){
             $scope.matchPolls = data;
             $scope.currentPage = page;
+            $scope.hasMatchPolls=data.list.length;
         });
     };
 
