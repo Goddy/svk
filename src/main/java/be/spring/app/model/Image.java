@@ -7,21 +7,9 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "image")
-public class Image {
-    private long id;
+public class Image extends BaseClass {
     private String imageId;
     private String imageUrl;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     @Column(name = "image_id")
     public String getImageId() {

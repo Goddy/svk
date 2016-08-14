@@ -2,7 +2,7 @@ package be.spring.app.service;
 
 import be.spring.app.form.CreateAndUpdateTeamForm;
 import be.spring.app.model.Account;
-import be.spring.app.model.ActionWrapper;
+import be.spring.app.dto.ActionWrapperDTO;
 import be.spring.app.model.Team;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public interface TeamService {
 
     Team updateTeam(CreateAndUpdateTeamForm form);
 
-    List<ActionWrapper<Team>> getTeams(Account account, Locale locale);
+    List<ActionWrapperDTO<Team>> getTeams(Account account, Locale locale);
 
     boolean deleteTeam(long id, Account a);
 }

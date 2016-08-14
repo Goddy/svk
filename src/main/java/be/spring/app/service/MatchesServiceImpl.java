@@ -2,15 +2,21 @@ package be.spring.app.service;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.data.MatchStatusEnum;
+import be.spring.app.dto.ActionWrapperDTO;
+import be.spring.app.dto.MatchDTO;
 import be.spring.app.form.ChangeResultForm;
 import be.spring.app.form.CreateMatchForm;
-import be.spring.app.model.*;
+import be.spring.app.model.Account;
+import be.spring.app.model.Goal;
+import be.spring.app.model.Match;
+import be.spring.app.model.Season;
 import be.spring.app.persistence.AccountDao;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.persistence.SeasonDao;
 import be.spring.app.persistence.TeamDao;
 import be.spring.app.utils.Constants;
 import be.spring.app.utils.GeneralUtils;
+import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
@@ -20,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,6 +62,9 @@ public class MatchesServiceImpl implements MatchesService {
     @Autowired
     private CacheAdapter cacheAdapter;
 
+    @Autowired
+    PollService pollService;
+
     @Override
     public Map<Integer, List<Match>> getMatchesForLastSeasons() {
         int count = 1;
@@ -78,9 +88,9 @@ public class MatchesServiceImpl implements MatchesService {
     }
 
     @Override
-    public List<ActionWrapper<Match>> getMatchesWrappersForSeason(long seasonId, final Account account, final Locale locale) {
+    public List<ActionWrapperDTO<MatchDTO>> getMatchesWrappersForSeason(long seasonId, final Locale locale, Account account) {
         try {
-            return cacheAdapter.getAccountStatistics(seasonId, account, locale);
+            return cacheAdapter.getMatchActionWrappers(seasonId, locale, account);
         } catch (InterruptedException | ExecutionException e) {
             log.error("getMatchesWrappersForSeason failed: {}", e.getMessage());
             return Lists.newArrayList();
@@ -105,7 +115,19 @@ public class MatchesServiceImpl implements MatchesService {
     @Override
     public Match getLatestMatch() {
         List<Match> matches = matchesDao.findByDate(DateTime.now());
-        return matches.isEmpty() ? null : matchesDao.findByDate(DateTime.now()).get(0);
+        return matches.isEmpty() ? null :matches.get(0);
+    }
+
+    @Override
+    public Match getLatestMatchWithPoll() {
+        return matchesDao.findFirstByDateBeforeAndMotmPollIsNotNullOrderByDateDesc(DateTime.now());
+    }
+
+    @Override
+    public Page<Match> getMatchesWithPolls(int page, int pageSize, Optional<Sort> sort, Optional<String> searchTerm) {
+        Sort s = sort.isPresent() ? sort.get() : new Sort(Sort.Direction.DESC, "date");
+        Pageable pageable = new PageRequest(page, pageSize, s);
+        return matchesDao.findByMotmPollNotNull(pageable);
     }
 
     @Override
@@ -136,8 +158,17 @@ public class MatchesServiceImpl implements MatchesService {
         m.setAwayTeam(teamDao.findOne(form.getAwayTeam()));
         m.setDate(form.getDate());
         m.setSeason(seasonDao.findOne(form.getSeason()));
+
+        //Get original match status
+        MatchStatusEnum originalMatchStatus = m.getStatus();
+        //Set matchstatus
         m.setStatus(form.getStatus());
         m.setStatusText(form.getStatus().equals(MatchStatusEnum.CANCELLED) ? form.getStatusText() : null);
+
+        //If status has changed, check if the motm poll should be added
+        if (!form.getStatus().equals(originalMatchStatus)) {
+            pollService.setMotmPoll(m);
+        }
 
         if (form.getStatus().equals(MatchStatusEnum.PLAYED)) {
             m.getGoals().clear();

@@ -105,7 +105,7 @@ public class AccountController extends AbstractController {
                                        @RequestParam("recaptcha_challenge_field") String challengeField,
                                        @RequestParam("recaptcha_response_field") String responseField,
                                        Model model) {
-        ReCaptchaResponse r = catchPaService.checkResponse(servletRequest, challengeField, responseField);
+        ReCaptchaResponse r = captchaService.checkResponse(servletRequest, challengeField, responseField);
 
         if (r.isValid() && !result.hasErrors()) {
             Account account = accountService.registerAccount(

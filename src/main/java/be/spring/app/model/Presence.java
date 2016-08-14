@@ -7,24 +7,12 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "presences", uniqueConstraints = @UniqueConstraint(columnNames = {"doodle_id", "account_id"}))
-public class Presence {
-    private long id;
+public class Presence extends BaseClass {
     private Account account;
     private boolean present;
 
     public enum PresenceType {
         NOT_PRESENT, PRESENT, NOT_FILLED_IN, ANONYMOUS
-    }
-
-    @Id
-    @GeneratedValue
-    @Column(name= "id")
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     @OneToOne(fetch=FetchType.EAGER)

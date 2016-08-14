@@ -12,7 +12,7 @@ import javax.servlet.ServletRequest;
  * Created by u0090265 on 12/31/14.
  */
 @Service
-public class CatchPaServiceImpl implements CatchPaService {
+public class CaptchaServiceImpl implements CaptchaService {
     @Value("${recatchpa.private}")
     private String privateKey;
 

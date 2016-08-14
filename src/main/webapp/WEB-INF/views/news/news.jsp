@@ -5,11 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <sec:authentication var="principal" property="principal" />
 <div class="row">
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-md-offset-8">
         <div class="input-group">
             <span class="input-group-addon">
   				<span class="glyphicon glyphicon-search blue"></span>
@@ -41,6 +37,7 @@
 <tag:deleteDialog dialogId="delete-modal"/>
 
 <script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
+
 <script type="text/javascript">
 
     (function ($, news) {

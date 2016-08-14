@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -17,8 +16,9 @@ import java.util.Set;
 
 /**
  * Created by u0090265 on 9/11/14.
+ * Depracated in favor of mailgun.
  */
-@Service
+@Deprecated
 public class MailServiceImpl  implements MailService {
     @Autowired
     private JavaMailSenderImpl mailSender;
@@ -86,7 +86,6 @@ public class MailServiceImpl  implements MailService {
             mimeMessage.setFrom(new InternetAddress(from));
             message.setTo(to);
             message.setSubject(subject);
-
             this.mailSender.send(mimeMessage);
             log.debug(String.format("Sending message to %s succeeded", to));
             return true;

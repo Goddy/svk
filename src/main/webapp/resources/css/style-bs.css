@@ -5,6 +5,10 @@ html {
     min-height: 100%;
 }
 
+li.list-group.item {
+    list-style: none;
+}
+
 body {
     /* Margin bottom by footer height */
     margin-bottom: 70px;
@@ -94,6 +98,10 @@ body {
     display: block;
     clear: both;
     padding-bottom: 5px;
+}
+
+.m-t-1 {
+    margin-top: 10px;
 }
 
 

@@ -17,8 +17,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "address")
-public class Address {
-    private long id;
+public class Address extends BaseClass {
     private int postalCode;
     private String address;
     private String city;
@@ -29,17 +28,6 @@ public class Address {
     }
 
     public Address() {
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     @NotNull

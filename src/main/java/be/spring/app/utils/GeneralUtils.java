@@ -1,5 +1,6 @@
 package be.spring.app.utils;
 
+import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -34,5 +35,9 @@ public class GeneralUtils {
 
     public static String trim(String input) {
         return input == null ? "" : input.trim();
+    }
+
+    public static void throwObjectNotFoundException(Object o, Long id, Class expectedClass) {
+        if (o == null) throw new ObjectNotFoundException(String.format("%s %s not found", expectedClass.getName(), id));
     }
 }

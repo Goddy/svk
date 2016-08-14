@@ -38,7 +38,7 @@ public class DoodleServiceImplTest extends JUnitTest {
 
     @Test
     public void testChangePresenceNormalUser() throws Exception {
-        Match m = DataFactory.createMatch();
+        Match m = createTestMatch();
         Account a = DataFactory.createAccount();
         expect(matchesDao.findOne(m.getId())).andReturn(m);
         expect(doodleDao.save(anyObject(Doodle.class))).andReturn(new Doodle());
@@ -55,7 +55,7 @@ public class DoodleServiceImplTest extends JUnitTest {
 
     @Test
     public void testChangePresenceAdminUserMatchPlayed() throws Exception {
-        Match m = DataFactory.createMatch();
+        Match m = createTestMatch();
         m.setStatus(MatchStatusEnum.PLAYED);
         Account a = DataFactory.createAccount();
         a.setRole(Role.ADMIN);
@@ -74,7 +74,7 @@ public class DoodleServiceImplTest extends JUnitTest {
 
     @Test(expected = RuntimeException.class)
     public void testChangePresenceNormalUserMatchPassed() throws Exception {
-        Match m = DataFactory.createMatch();
+        Match m = createTestMatch();
         m.setStatus(MatchStatusEnum.PLAYED);
         Account a = DataFactory.createAccount();
         expect(matchesDao.findOne(m.getId())).andReturn(m);
@@ -86,7 +86,7 @@ public class DoodleServiceImplTest extends JUnitTest {
 
     @Test
     public void testChangePresenceAdminUser() throws Exception {
-        Match m = DataFactory.createMatch();
+        Match m = createTestMatch();
         Account a = DataFactory.createAccount();
         Account b = DataFactory.createAccount();
         a.setRole(Role.ADMIN);
@@ -107,7 +107,7 @@ public class DoodleServiceImplTest extends JUnitTest {
 
     @Test
     public void testChangePresenceNormalUserAlreadyPresent() throws Exception {
-        Match m = DataFactory.createMatch();
+        Match m = createTestMatch();
         Account a = DataFactory.createAccount();
         Presence p = new Presence();
         p.setPresent(true);
@@ -129,7 +129,7 @@ public class DoodleServiceImplTest extends JUnitTest {
 
     @Test
     public void testChangePresenceAdminUserAlreadyPresent() throws Exception {
-        Match m = DataFactory.createMatch();
+        Match m = createTestMatch();
         Account a = DataFactory.createAccount();
         Account b = DataFactory.createAccount();
         a.setRole(Role.ADMIN);
@@ -155,7 +155,7 @@ public class DoodleServiceImplTest extends JUnitTest {
 
     @Test(expected = RuntimeException.class)
     public void testChangePresenceNoAccess() throws Exception {
-        Match m = DataFactory.createMatch();
+        Match m = createTestMatch();
         Account a = DataFactory.createAccount();
         Account b = DataFactory.createAccount();
 
@@ -168,7 +168,7 @@ public class DoodleServiceImplTest extends JUnitTest {
 
     @Test
     public void testSendDoodleNotificationsForSuccess() throws Exception {
-        Match m = DataFactory.createMatch();
+        Match m = createTestMatch();
         Account a = DataFactory.createAccount();
         Account b = DataFactory.createAccount();
         b.getAccountSettings().setSendDoodleNotifications(false);
@@ -187,7 +187,7 @@ public class DoodleServiceImplTest extends JUnitTest {
 
     @Test
     public void testSendDoodleNotificationsForMatchTooFarAway() throws Exception {
-        Match m = DataFactory.createMatch();
+        Match m = createTestMatch();
         m.setDate(DateTime.now().plusDays(14));
         Account a = DataFactory.createAccount();
         a.getAccountSettings().setSendDoodleNotifications(true);
@@ -203,7 +203,7 @@ public class DoodleServiceImplTest extends JUnitTest {
 
     @Test
     public void testSendDoodleNotificationsEnoughPresences() throws Exception {
-        Match m = DataFactory.createMatch();
+        Match m = createTestMatch();
         m.getMatchDoodle().setPresences(Sets.newHashSet(DataFactory.getPresences(13)));
         Account a = DataFactory.createAccount();
         a.getAccountSettings().setSendDoodleNotifications(true);
@@ -216,7 +216,11 @@ public class DoodleServiceImplTest extends JUnitTest {
         verifyAll();
     }
 
-
+    private Match createTestMatch() {
+        Match m = DataFactory.createMatch();
+        m.setId(1L);
+        return m;
+    }
 
     @Override
     protected Object[] getMocks() {

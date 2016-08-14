@@ -40,13 +40,13 @@ public class ContactController extends AbstractController {
 
     @RequestMapping(value = "/contact", method = RequestMethod.POST)
     public String postContact(@Valid @ModelAttribute("form") ContactForm form, BindingResult result,
-                              @RequestParam("recaptcha_challenge_field") String challangeField,
+                              @RequestParam("recaptcha_challenge_field") String challengeField,
                               @RequestParam("recaptcha_response_field") String responseField,
                               Model model,
                               ServletRequest servletRequest,
                               Locale locale) {
 
-        ReCaptchaResponse r = catchPaService.checkResponse(servletRequest, challangeField, responseField);
+        ReCaptchaResponse r = captchaService.checkResponse(servletRequest, challengeField, responseField);
 
         if (r.isValid() && !result.hasErrors()) {
             if (!mailService.sendPreConfiguredMail(String.format("%s</br></br>Van/From: %s", form.getMessage(), form.getEmail()))) {

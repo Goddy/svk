@@ -10,21 +10,8 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "doodle")
-public class Doodle {
-
-    private long id;
+public class Doodle extends BaseClass {
     private Set<Presence> presences;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "id")
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "doodle_id")
