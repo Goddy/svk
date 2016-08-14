@@ -3,7 +3,7 @@
 ##OPENSHIFT DEPLOY
 
 1. Clone the openshift repo, then run the following commands
-´´´
+```
 git rm -rf src/ pom.xml
 git commit -am "removed default files"
 git remote add upstream -m master git://github.com/Goddy/svk.git
