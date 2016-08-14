@@ -10,7 +10,6 @@ import org.springframework.social.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -50,7 +49,7 @@ public class RestExceptionHandler {
     }
 
     private String getRequestURI(HttpServletRequest request) {
-        return (String) request.getAttribute(RequestDispatcher.ERROR_REQUEST_URI);
+        return request.getRequestURI();
     }
 
     private <T extends ErrorDetailDTO> T createErrorDetail(T errorDetail, int status, String title,
