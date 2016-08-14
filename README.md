@@ -8,6 +8,7 @@ git rm -rf src/ pom.xml
 git commit -am "removed default files"
 git remote add upstream -m master git://github.com/Goddy/svk.git
 git pull -s recursive -X theirs upstream master
+git push
 ```
 
 ###Passwords are set by the openshift environment:
