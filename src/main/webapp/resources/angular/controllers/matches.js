@@ -2,6 +2,7 @@
 app.controller('matchCtrl', function ($scope, $http, $sce, pollService, messageService) {
     $scope.cached = {};
     $scope.voteResultMessage = [];
+    $scope.matchWrapper = {};
 
     var getSeasons = function () {
         $http({
@@ -26,7 +27,6 @@ app.controller('matchCtrl', function ($scope, $http, $sce, pollService, messageS
                 url: '/api/v1/matches/season/' + season,
                 method: "GET"
             }).success(function (data, status, headers, config) {
-                $scope.matchWrapper = {};
                 $scope.matchWrapper[season] = data;
                 //Mark as cached
                 $scope.cached[season] = true;
