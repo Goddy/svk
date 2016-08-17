@@ -6,6 +6,7 @@ import be.spring.app.persistence.PollDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * Created by u0090265 on 16/07/16.
@@ -16,6 +17,7 @@ public class PollsTask implements Task {
     @Autowired
     PollDao pollDao;
 
+    @Scheduled(fixedDelay = 900000, zone = "Europe/Brussels")
     @Override
     public void execute() {
         log.info("Execute pollsTask - start");

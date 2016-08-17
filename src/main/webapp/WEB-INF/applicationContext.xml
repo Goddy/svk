@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:p="http://www.springframework.org/schema/p"
+<beans xmlns:p="http://www.springframework.org/schema/p"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:task="http://www.springframework.org/schema/task" xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:cache="http://www.springframework.org/schema/cache" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans.xsd
                             http://www.springframework.org/schema/mvc           http://www.springframework.org/schema/mvc/spring-mvc.xsd
                             http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
@@ -15,6 +15,9 @@
     <import resource="data-context.xml"/>
     <import resource="social-context.xml"/>
     <import resource="security-context.xml"/>
+
+    <!-- scan config -->
+    <context:component-scan base-package="be.spring.app.config"/>
 
     <!-- Caching -->
     <cache:annotation-driven/>
@@ -98,19 +101,4 @@
     <bean id="reCaptchaImpl" class="net.tanesha.recaptcha.ReCaptchaImpl">
         <property name="privateKey" value="${recatchpa.private}"/>
     </bean>
-
-    <!-- Tasks -->
-    <task:scheduled-tasks scheduler="scheduler">
-        <task:scheduled ref="cleanupTask" method="execute" cron="${activationCodeCleanup.cronSchedule}"/>
-        <task:scheduled ref="resetCachesTask" method="execute" fixed-delay="${cleanupCache.delay}"/>
-        <task:scheduled ref="doodleReminderTask" method="execute" cron="${doodleReminderTask.cronSchedule}"/>
-        <task:scheduled ref="pollsTask" method="execute" fixed-delay="${pollsTask.delay}"/>
-    </task:scheduled-tasks>
-
-    <bean id="cleanupTask" class="be.spring.app.tasks.CleanupTask"/>
-    <bean id="resetCachesTask" class="be.spring.app.tasks.ResetCachesTask"/>
-    <bean id="doodleReminderTask" class="be.spring.app.tasks.DoodleReminderTask"/>
-    <bean id="pollsTask" class="be.spring.app.tasks.PollsTask"/>
-
-    <task:scheduler id="scheduler" pool-size="4"/>
 </beans>

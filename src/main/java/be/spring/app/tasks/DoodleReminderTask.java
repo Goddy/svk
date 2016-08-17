@@ -7,6 +7,7 @@ import com.google.common.collect.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * Created by u0090265 on 8/24/15.
@@ -24,6 +25,7 @@ public class DoodleReminderTask implements Task {
     private AccountService accountService;
 
 
+    @Scheduled(cron = "0 0 14 ? * TUE,THU", zone = "Europe/Brussels")
     @Override
     public void execute() {
         log.info("Execute DoodleReminderTask - start");
