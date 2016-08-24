@@ -35,16 +35,12 @@ public class AccountServiceImpl implements AccountService {
 
     private static final String UPDATE_PASSWORD_SQL = "update account set password = ? where id = ?";
     private static final String GET_PASSWORD = "select password from account where id = ?";
-
-    @Value("${base.url}")
-    private String baseUrl;
-
-    @Autowired
-    private AccountDao accountDao;
-
     @Autowired
     MessageSource messageSource;
-
+    @Value("${base.url}")
+    private String baseUrl;
+    @Autowired
+    private AccountDao accountDao;
     @Autowired
     private MailService mailService;
 
@@ -58,7 +54,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account registerAccount(Account account, String password) {
         Account resultAccount = createAccountWithPassword(account, password);
-        mailService.sendPreConfiguredMail(messageSource.getMessage("mail.user.registered", new Object[]{baseUrl, account.getId(), account.getFullName()}, Locale.ENGLISH));
+        mailService.sendPreConfiguredMail(messageSource.getMessage("mail.user.registered", new Object[]{baseUrl,
+                account.getId(), account.toString()}, Locale.ENGLISH));
         return resultAccount;
     }
 
