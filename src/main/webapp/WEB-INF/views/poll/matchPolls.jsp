@@ -55,13 +55,20 @@
                     </div>
                     <security:authorize access="isAuthenticated()">
                         <div class="panel-body" ng-if="value.status == 'OPEN'" >
-                            <select name="group-poll" ng-model="$parent.selectedAccount" ng-init="$parent.selectedAccount='none'">
-                                <option ng-selected="true" value="none"><spring:message code="text.select.player"/></option>
-                                <option ng-repeat="option in value.options" ng-value="option.id">{{option.name}}</option>
-                            </select>
-                            <button ng-click="vote(selectedAccount, value)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/></button>
-                            <div class="m-t-1" ng-if="voteResultMessage[value.id]">
-                                <b>{{voteResultMessage[value.id]}}</b>
+                            <div class="form-inline">
+                                <select class="form-control" name="group-poll" ng-model="$parent.selectedAccount"
+                                        ng-init="$parent.selectedAccount='none'">
+                                    <option ng-selected="true" value="none"><spring:message
+                                            code="text.select.player"/></option>
+                                    <option ng-repeat="option in value.options" ng-value="option.id">{{option.name}}
+                                    </option>
+                                </select>
+                                <button ng-click="vote(selectedAccount, value)" class="btn btn-success btn-sm"><span
+                                        class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/>
+                                </button>
+                                <div class="m-t-1" ng-if="voteResultMessage[value.id]">
+                                    <b>{{voteResultMessage[value.id]}}</b>
+                                </div>
                             </div>
                         </div>
                     </security:authorize>

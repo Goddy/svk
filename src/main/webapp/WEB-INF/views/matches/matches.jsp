@@ -100,13 +100,17 @@
                                         <div class="panel-heading"><spring:message code="title.manOfTheMatchPoll"/> </div>
                                         <security:authorize access="isAuthenticated()">
                                         <div class="panel-body" ng-if="wrapper.object.poll.status == 'OPEN'" >
-                                            <select name="group-poll" ng-model="$parent.selectedAccount" ng-init="$parent.selectedAccount='none'">
+                                            <div class="form-inline">
+                                                <select class="form-control" name="group-poll"
+                                                        ng-model="$parent.selectedAccount"
+                                                        ng-init="$parent.selectedAccount='none'">
                                                 <option ng-selected="true" value="none"><spring:message code="text.select.player"/></option>
                                                 <option ng-repeat="option in wrapper.object.poll.options" ng-value="option.id">{{option.name}}</option>
                                             </select>
                                             <button ng-click="vote(wrapper.object, selectedAccount, wrapper.object.poll.id)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/></button>
                                             <div class="m-t-1" ng-if="voteResultMessage[wrapper.object.poll.id]">
                                                 <b>{{voteResultMessage[wrapper.object.poll.id]}}</b>
+                                            </div>
                                             </div>
                                         </div>
                                         </security:authorize>
