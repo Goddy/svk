@@ -30,12 +30,13 @@ public class PollServiceImpl implements PollService {
     public boolean setMotmPoll(Match match) {
         if (match.getStatus().equals(MatchStatusEnum.PLAYED)) {
             PlayersPoll playersPoll = new PlayersPoll();
-            playersPoll.setOptions(getPlayerOptionsFor(match));
             playersPoll.setStartDate(DateTime.now());
             playersPoll.setEndDate(DateTime.now().plusDays(3));
             playersPoll.setQuestion("Automatically generated: Who will be man of the match?");
             playersPoll.setStatus(PollStatusEnum.OPEN);
             match.setMotmPoll(playersPoll);
+            //Set motm poll options
+            playersPoll.setOptions(getPlayerOptionsFor(match));
             return true;
         }
         return false;
@@ -83,7 +84,7 @@ public class PollServiceImpl implements PollService {
 
     private Set<IdentityOption> getPlayerOptionsFor(Match match) {
         Set<IdentityOption> options = Sets.newConcurrentHashSet();
-        if (match.getMotmPoll() != null) {
+        if (match.getMotmPoll() != null && match.getMatchDoodle() != null) {
             for (Presence p : match.getMatchDoodle().getPresences()) {
                 //Add if player was present
                 if (p.isPresent()) options.add(new IdentityOption(p.getAccount().getId(), match.getMotmPoll()));
