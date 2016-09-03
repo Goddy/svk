@@ -55,16 +55,10 @@
                     </div>
                     <security:authorize access="isAuthenticated()">
                         <div class="panel-body" ng-if="value.status == 'OPEN'" >
-                            <ul class="list-group" ng-repeat="x in value.options">
-                                <li class="list-group item">
-                                    <div class="radio">
-                                        <label>
-                                            <input name="group-poll" ng-value="{{x}}" type="radio"  ng-model="$parent.selectedAccount">
-                                            {{x.name}}
-                                        </label>
-                                    </div>
-                                </li>
-                            </ul>
+                            <select name="group-poll" ng-model="$parent.selectedAccount" ng-init="$parent.selectedAccount='none'">
+                                <option ng-selected="true" value="none"><spring:message code="text.select.player"/></option>
+                                <option ng-repeat="option in value.options" ng-value="option.id">{{option.name}}</option>
+                            </select>
                             <button ng-click="vote(selectedAccount, value)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/></button>
                             <div class="m-t-1" ng-if="voteResultMessage[value.id]">
                                 <b>{{voteResultMessage[value.id]}}</b>
@@ -78,7 +72,7 @@
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="{{getPercentage(x.votes, value.totalVotes)}}"
                                          aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage(x.votes, value.totalVotes) + '%' ) }">
-                                        {{getPercentage(x.votes, value.totalVotes)}}%
+                                         {{x.votes}} <spring:message code="text.votes"/> ({{getPercentage(x.votes, value.totalVotes)}}%)
                                     </div>
                                 </div>
                             </div>

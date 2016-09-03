@@ -35,12 +35,12 @@ app.factory('pollService', function($http) {
             }
         },
 
-        vote: function (selectedAccount, matchPollId) {
-            if (selectedAccount && matchPollId) {
+        vote: function (option, matchPollId) {
+            if (option && matchPollId) {
                 return $http({
                     url: '/api/v1/matchPoll/' + matchPollId + '/vote',
                     method: "POST",
-                    data: {answer: selectedAccount.id}
+                    data: {answer: option}
                 });
             }
         }

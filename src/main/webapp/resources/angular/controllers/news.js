@@ -1,7 +1,7 @@
 'use strict'
 app.controller('newsCtrl', function($scope, $http, $sce, pollService) {
-    $scope.vote = function(account, poll) {
-        pollService.vote(account, poll.id).success(function (data, status, headers, config) {
+    $scope.vote = function(option, poll) {
+        pollService.vote(option, poll.id).success(function (data, status, headers, config) {
             $scope.message = "Vote recorded";
             pollService.getMatchPoll(pollId).success(function(data) {
                 poll = data;

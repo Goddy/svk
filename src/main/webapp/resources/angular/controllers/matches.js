@@ -46,20 +46,22 @@ app.controller('matchCtrl', function ($scope, $http, $sce, pollService, messageS
 
     $scope.getPercentage = pollService.getPercentage;
 
-    $scope.vote = function(matchObject, account, pollId) {
-        pollService.vote(account, pollId).success(function (data, status, headers, config) {
-            $scope.message = "Vote recorded";
-            pollService.getMatchPoll(pollId).success(function(data) {
-                matchObject.poll = data;
+    $scope.vote = function(matchObject, option, pollId) {
+        if (option !== 'none') {
+            pollService.vote(option, pollId).success(function (data, status, headers, config) {
+                $scope.message = "Vote recorded";
+                pollService.getMatchPoll(pollId).success(function (data) {
+                    matchObject.poll.votes = data.votes;
+                    messageService.showMessage(function (message) {
+                        $scope.voteResultMessage[pollId] = message;
+                    }, 'alert.vote.success');
+                });
+            }).error(function (data, status, headers, config) {
                 messageService.showMessage(function (message) {
                     $scope.voteResultMessage[pollId] = message;
-                }, 'alert.vote.success');
+                }, 'alert.vote.fail');
             });
-        }).error(function (data, status, headers, config) {
-            messageService.showMessage(function (message) {
-                $scope.voteResultMessage[pollId] = message;
-            }, 'alert.vote.fail');
-        });
+        }
     };
 
     $scope.init = function () {
