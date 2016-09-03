@@ -78,16 +78,25 @@
                     <div class="panel-footer">
                         <div ng-if="value.totalVotes > 0">
                             <div ng-repeat="x in value.votes">
-                                {{x.account.name}}
-                                <span ng-if="x.votes != 1">({{x.votes}} <spring:message code="text.votes"/>)</span>
-                                <span ng-if="x.votes == 1">({{x.votes}} <spring:message code="text.vote"/>)</span>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{getPercentage(x.votes, value.totalVotes)}}"
-                                         aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage(x.votes, value.totalVotes) + '%' ) }">
-                                        {{getPercentage(x.votes, value.totalVotes)}}%
+                                <div ng-show="$index < 4 || show">
+                                    {{x.account.name}}
+                                    <span ng-if="x.votes != 1">({{x.votes}} <spring:message code="text.votes"/>)</span>
+                                    <span ng-if="x.votes == 1">({{x.votes}} <spring:message code="text.vote"/>)</span>
+
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar"
+                                             aria-valuenow="{{getPercentage(x.votes, value.totalVotes)}}"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             ng-style="{width : ( getPercentage(x.votes, value.totalVotes) + '%' ) }">
+                                            {{getPercentage(x.votes, value.totalVotes)}}%
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <a class="btn" ng-show="!show" ng-click="show=true"><spring:message
+                                    code="text.show.more"/></a>
+                            <a class="btn" ng-show="show" ng-click="show=false"><spring:message
+                                    code="text.show.less"/></a>
                         </div>
                         <div ng-if="value.totalVotes == 0">
                             <spring:message code="text.no.votes"/>
