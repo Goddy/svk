@@ -100,17 +100,26 @@
                                         <div class="panel-heading"><spring:message code="title.manOfTheMatchPoll"/> </div>
                                         <security:authorize access="isAuthenticated()">
                                         <div class="panel-body" ng-if="wrapper.object.poll.status == 'OPEN'" >
-                                            <div class="form-inline">
+                                            <div class="input-group">
                                                 <select class="form-control" name="group-poll"
                                                         ng-model="$parent.selectedAccount"
                                                         ng-init="$parent.selectedAccount='none'">
-                                                <option ng-selected="true" value="none"><spring:message code="text.select.player"/></option>
-                                                <option ng-repeat="option in wrapper.object.poll.options" ng-value="option.id">{{option.name}}</option>
-                                            </select>
-                                            <button ng-click="vote(wrapper.object, selectedAccount, wrapper.object.poll.id)" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-bell"></span> <spring:message code="label.vote"/></button>
+                                                    <option ng-selected="true" value="none"><spring:message
+                                                            code="text.select.player"/></option>
+                                                    <option ng-repeat="option in wrapper.object.poll.options"
+                                                            ng-value="option.id">{{option.name}}
+                                                    </option>
+                                                </select>
+
+                                                <div class="input-group-btn">
+                                                    <button ng-click="vote(wrapper.object, selectedAccount, wrapper.object.poll.id)"
+                                                            class="btn btn-success"><span
+                                                            class="glyphicon glyphicon-bell"></span> <spring:message
+                                                            code="label.vote"/></button>
+                                                </div>
+                                            </div>
                                             <div class="m-t-1" ng-if="voteResultMessage[wrapper.object.poll.id]">
                                                 <b>{{voteResultMessage[wrapper.object.poll.id]}}</b>
-                                            </div>
                                             </div>
                                         </div>
                                         </security:authorize>
@@ -118,10 +127,14 @@
                                             <div ng-if="wrapper.object.poll.totalVotes > 0">
                                                 <div ng-repeat="x in wrapper.object.poll.votes">
                                                     {{x.account.name}}
+                                                    <span ng-if="x.votes != 1">({{x.votes}} <spring:message
+                                                            code="text.votes"/>)</span>
+                                                    <span ng-if="x.votes == 1">({{x.votes}} <spring:message
+                                                            code="text.vote"/>)</span>
                                                     <div class="progress">
                                                         <div class="progress-bar" role="progressbar" aria-valuenow="{{getPercentage(x.votes, wrapper.object.poll.totalVotes)}}"
                                                              aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage(x.votes, wrapper.object.poll.totalVotes) + '%' ) }">
-                                                             {{x.votes}} <spring:message code="text.votes"/> ({{getPercentage(x.votes, wrapper.object.poll.totalVotes)}}%)
+                                                            {{getPercentage(x.votes, wrapper.object.poll.totalVotes)}}%
                                                         </div>
                                                     </div>
                                                 </div>
