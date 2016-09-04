@@ -23,7 +23,8 @@
         $("body").tooltip({selector: '[data-toggle="tooltip"]', container: 'body', html: true});
 
         $("#changeLang").click(function() {
-            document.cookie = "clientlanguage=" + this.text.toLowerCase() + "; path=/";
+            var cookie = "clientlanguage=" + this.text.toLowerCase().trim() + "; path=/";
+            document.cookie = cookie;
             window.location.reload();
         });
 
