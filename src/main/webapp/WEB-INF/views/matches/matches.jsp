@@ -3,11 +3,18 @@
 <%@taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../jspf/header.jspf" %>
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><spring:message code="nav.matches"/>
+        </li>
+    </ul>
+</div>
 
 <c:if test="${not empty nextMatch}">
     <joda:format value="${nextMatch.date}" var="nextMatchDate" pattern="dd-MM-yyyy HH:mm"/>
-    <div class="col-md-12"
-    ">
+    <div class="col-md-12">
     <div class="box">
         <h2><spring:message code="text.next.match"/><c:if test="${nextMatch.status == 'CANCELLED'}">
             <b>(<spring:message code='label.match.status.CANCELLED'/>!)</b>
@@ -30,9 +37,8 @@
     </div>
 </c:if>
 
-<%@ include file="../jspf/resultMessage.jspf" %>
-
 <div class="col-md-12">
+    <%@ include file="../jspf/resultMessage.jspf" %>
     <div class="panel-group" id="accordion" ng-app="soccerApp" ng-controller="matchCtrl" data-ng-init="init()">
         <div class="panel panel-default" ng-repeat="season in seasons">
             <div class="panel-heading">

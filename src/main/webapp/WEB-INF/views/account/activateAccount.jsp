@@ -1,10 +1,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../jspf/header.jspf" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
-<h2><spring:message code="title.activate.account"/></h2>
-<%@ include file="../jspf/resultMessage.jspf" %>
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><a href="/account/overview.html"><spring:message code="nav.accounts"/></a>
+        </li>
+        <li><spring:message code="title.activate.account"/>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12">
+    <%@ include file="../jspf/resultMessage.jspf" %>
+    <div class="box">
         <div class="alert alert-info"><spring:message code="text.activation"
                                                       arguments="${account.firstName}, ${account.lastName}, ${account.username}  "/></div>
         <form:form action="activateAccount.html" modelAttribute="form" cssClass="form-horizontal">
@@ -16,6 +25,7 @@
                 </div>
             </div>
         </form:form>
-</div>
     </div>
+</div>
+
 <%@ include file="../jspf/footer.jspf" %>

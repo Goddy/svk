@@ -1,10 +1,20 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf" %>
-<%@ include file="../jspf/resultMessage.jspf" %>
 
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><spring:message code="nav.profile"/>
+        </li>
+    </ul>
+</div>
+
+<div class="col-md-12">
+    <div class="box">
 <h2><spring:message code="text.userdetails"/></h2>
-<div class="panel panel-default">
+        <%@ include file="../jspf/resultMessage.jspf" %>
 <form:form action="update" modelAttribute="accountProfileForm" cssClass="form-horizontal"
            enctype="multipart/form-data">
     <div class="panel-heading"></div>
@@ -82,19 +92,17 @@
 
 <c:choose>
     <c:when test="${!Account.hasSignInProvider}">
-        <h2><spring:message code="title.social.profiles"/></h2>
+        <div class="box">
+            <h2><spring:message code="title.social.profiles"/></h2>
 
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="row social-button-row">
-                    <div class="col-lg-4">
-                        <!-- Add Facebook connect in button -->
-                        <form action="<c:url value="${pageContext.request.contextPath}/connect/facebook" />"
-                              method="POST">
-                            <button class="btn btn-facebook"><i class="fa fa-facebook"></i> | <spring:message
-                                    code="button.social.signin.add"/></button>
-                        </form>
-                    </div>
+            <div class="row social-button-row">
+                <div class="col-lg-4">
+                    <!-- Add Facebook connect in button -->
+                    <form action="<c:url value="${pageContext.request.contextPath}/connect/facebook" />"
+                          method="POST">
+                        <button class="btn btn-facebook"><i class="fa fa-facebook"></i> | <spring:message
+                                code="button.social.signin.add"/></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -113,10 +121,8 @@
     --%>
 </c:choose>
 
-<h2><spring:message code="text.changepassword"/></h2>
-
-<div class="panel panel-default">
-    <div class="panel-body">
+    <div class="box">
+        <h2><spring:message code="text.changepassword"/></h2>
         <c:choose>
             <c:when test="${Account.hasPassword == true}">
                 <form:form id="changePassword" modelAttribute="changePassword" cssClass="form-horizontal"
@@ -134,7 +140,7 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <button id="btnSubmitPwd" class="btn btn-primary"><spring:message
                                     code='button.change'/></button>
-                        </div>
+                    </div>
                     </div>
                 </form:form>
             </c:when>
@@ -154,12 +160,12 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <button id="btnSubmitSetPwd" class="btn btn-primary"><spring:message
                                     code='button.set'/></button>
-                        </div>
+                    </div>
                     </div>
                 </form:form>
             </c:otherwise>
         </c:choose>
-    </div>
+</div>
 </div>
 <script src="<c:url value='/resources/js/fileinput.min.js'/>"></script>
 <script src="<c:url value='/resources/js/fileinput_locale_nl.js'/>"></script>

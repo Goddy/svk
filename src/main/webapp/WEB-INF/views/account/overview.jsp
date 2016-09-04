@@ -2,10 +2,19 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../jspf/header.jspf" %>
-<div class="alert alert-info"><spring:message code="info.teams"/></div>
-<%@ include file="../jspf/resultMessage.jspf" %>
-<div class="panel-group" id="accordion">
-    <div>
+
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><spring:message code="nav.accounts"/>
+        </li>
+    </ul>
+</div>
+
+<div class="col-md-12" id="accordion">
+    <%@ include file="../jspf/resultMessage.jspf" %>
+    <div class="box">
         <table class="table table-hover rwd-table">
             <tr>
                 <th><spring:message code="label.firstName"/></th>

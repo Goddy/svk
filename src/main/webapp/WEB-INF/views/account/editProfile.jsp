@@ -3,12 +3,22 @@
 <%@ include file="../jspf/header.jspf" %>
 <%@ include file="../jspf/resultMessage.jspf" %>
 
-<h2><spring:message code="text.userdetails"/></h2>
-<div class="panel panel-default">
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><a href="/account/overview.html"><spring:message code="nav.accounts"/></a>
+        </li>
+        <li><spring:message code="text.userdetails"/>
+        </li>
+    </ul>
+</div>
+
+
 <form:form action="adminUpdate" modelAttribute="accountProfileForm" cssClass="form-horizontal"
            enctype="multipart/form-data">
-    <div class="panel-heading"></div>
-    <div class="panel-body">
+    <div class="col-md-12">
+        <div class="box">
         <form:hidden path="removeAvatar"/>
         <form:hidden path="avatarUrl"/>
         <form:hidden path="accountId"/>
@@ -77,7 +87,7 @@
                         code='button.update'/></button>
             </div>
         </div>
-    </div>
+        </div>
     </div>
 </form:form>
 

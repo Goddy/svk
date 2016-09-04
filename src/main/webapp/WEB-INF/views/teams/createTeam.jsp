@@ -13,8 +13,9 @@
         </li>
     </ul>
 </div>
-<%@ include file="../jspf/resultMessage.jspf" %>
+
 <div class="col-md-12">
+    <%@ include file="../jspf/resultMessage.jspf" %>
     <div class="box">
         <form:form action="${action}.html" cssClass="form-horizontal" role="form" modelAttribute="form">
             <form:hidden path="id"/>

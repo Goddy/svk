@@ -11,31 +11,31 @@
     </ul>
 </div>
 <div class="col-md-12">
-<%@ include file="../jspf/resultMessage.jspf" %>
-<div class="panel-group" id="accordion">
-    <div>
-        <table class="table table-hover rwd-table">
-            <tr>
-                <th style="display:none;"></th>
-                <th><spring:message code="label.teamName"/></th>
-                <th><spring:message code="label.address"/></th>
-                <th><spring:message code="text.actions"/></th>
-            </tr>
-            <c:forEach items="${teams}" var="team">
+    <%@ include file="../jspf/resultMessage.jspf" %>
+    <div class="panel-group" id="accordion">
+        <div>
+            <table class="table table-hover rwd-table">
                 <tr>
-                    <td style="display:none;">${team.object.address.googleLink}</td>
-                    <td>
-                        <div>${team.object.name}</div>
-                    </td>
-                    <td data-th="<spring:message code="label.address"/>">
-                        <div>${team.object.address}</div>
-                    </td>
-                    <td data-th="<spring:message code="text.actions"/>">${team.additions['htmlActions']}</td>
+                    <th style="display:none;"></th>
+                    <th><spring:message code="label.teamName"/></th>
+                    <th><spring:message code="label.address"/></th>
+                    <th><spring:message code="text.actions"/></th>
                 </tr>
-            </c:forEach>
-        </table>
+                <c:forEach items="${teams}" var="team">
+                    <tr>
+                        <td style="display:none;">${team.object.address.googleLink}</td>
+                        <td>
+                            <div>${team.object.name}</div>
+                        </td>
+                        <td data-th="<spring:message code="label.address"/>">
+                            <div>${team.object.address}</div>
+                        </td>
+                        <td data-th="<spring:message code="text.actions"/>">${team.additions['htmlActions']}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
     </div>
-</div>
 </div>
 <script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
 <tag:deleteDialog dialogId="delete-team-modal"/>
