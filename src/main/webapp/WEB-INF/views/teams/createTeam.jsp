@@ -3,10 +3,19 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf" %>
 
-<h2>${title}</h2>
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><a href="/teams.html"><spring:message code="nav.teams"/></a>
+        </li>
+        <li>${title}
+        </li>
+    </ul>
+</div>
 <%@ include file="../jspf/resultMessage.jspf" %>
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="col-md-12">
+    <div class="box">
         <form:form action="${action}.html" cssClass="form-horizontal" role="form" modelAttribute="form">
             <form:hidden path="id"/>
             <tag:formField path="teamName" title="label.teamName" label="label.teamName" optional="false" type="input"/>

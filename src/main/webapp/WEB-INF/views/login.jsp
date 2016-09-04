@@ -7,12 +7,18 @@
 If the user is anonymous (not logged in), show the login form
 and social sign in buttons.
 -->
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><spring:message code="title.login"/>
+        </li>
+    </ul>
+</div>
 <sec:authorize access="isAnonymous()">
-
     <!-- Login form -->
-    <h2><spring:message code="title.login"/></h2>
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="col-md-12">
+        <div class="box">
             <!--
                 Error message is shown if login fails.
             -->

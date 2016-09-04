@@ -4,6 +4,7 @@
 <%@ include file="../jspf/header.jspf" %>
 
 <h2><spring:message code="title.createMatch" arguments="${match.description}"/></h2>
+
 <%@ include file="../jspf/resultMessage.jspf" %>
 <div class="panel panel-default">
     <div class="panel-body">

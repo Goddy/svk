@@ -187,11 +187,10 @@ svk.news = (function ($, utils, dd) {
                         $.each(json, function (i, newsItem) {
                             var content = newsItem.content;
 
-                            divContent += '<div class="panel panel-info">' +
-                            '<div class="panel-heading"><a href="/newsItem.html?newsId=' + newsItem.id + '"\">' + newsItem.header + '</a></div>' +
-                                '<div class="panel-body">' +
-                                '<p align="left">' + content + ' </p>' +
-                                '</div></div>';
+                            divContent += '<div class="post">' +
+                                '<h4><a href="/newsItem.html?newsId=' + newsItem.id + '"\">' + newsItem.header + '</a></h4><hr/>' +
+                                '<span align="left">' + content + ' </span>' +
+                                '</div>';
                         });
 
 

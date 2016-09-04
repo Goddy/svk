@@ -21,42 +21,47 @@
     </c:otherwise>
 </c:choose>
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="post">
+            <h4>
+                <c:out value="${newsItem.header}"/>
+                <span style="float: right;">
+                    <a href="comments_${newsItem.id}" class="commentBtn"><spring:message
+                            code="text.reactions"/>&NonBreakingSpace;<span
+                            class="badge">${fn:length(newsItem.comments)}</span></a>
+                </span>
+            </h4>
+            <hr>
+            <span align="left">${newsItem.content}</span>
 
-<div class="panel panel-info">
-    <div class="panel-heading news-heading"><c:out value="${newsItem.header}"/>
-    <div style="float: right;">
-        <a href="comments_${newsItem.id}" class="commentBtn"><spring:message
-                code="text.reactions"/>&NonBreakingSpace;<span class="badge">${fn:length(newsItem.comments)}</span></a>
-    </div>
-</div>
-<div class="panel-body">
-    <p align="left">${newsItem.content}</p>
-
-    <div style="text-align: right"><spring:message code="text.postedby"/> <c:out
-            value="${accountName}"/> <spring:message code="text.on"/>
-        <fmt:formatDate value="${newsItem.postDate}"/>
-        <sec:authorize access="hasRole('ADMIN')">
-            <div class="btn-group">
+            <p class="author-category"><spring:message code="text.postedby"/> <c:out
+                    value="${accountName}"/> <spring:message code="text.on"/>
+                <fmt:formatDate value="${newsItem.postDate}"/>
+                <sec:authorize access="hasRole('ADMIN')">
+            <span class="btn-group">
                 <a href="/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
                    title="<spring:message code="title.editNews"/>"
                    class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
                 <a href="/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
                    title="<spring:message code="title.deleteNews"/>"
                    class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
-            </div>
-        </sec:authorize>
-        <sec:authorize access="hasRole('USER')">
-            <c:if test="${principal.username == newsItem.account.username}">
-                <div class="btn-group">
-                    <a href="/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
-                       title="<spring:message code="title.editNews"/>"
-                       class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
-                    <a href="/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
-                       title="<spring:message code="title.deleteNews"/>"
-                       class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
-                </div>
-            </c:if>
-        </sec:authorize>
+            </span>
+                </sec:authorize>
+                <sec:authorize access="hasRole('USER')">
+                    <c:if test="${principal.username == newsItem.account.username}">
+                    <span class="btn-group">
+                        <a href="/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
+                           title="<spring:message code="title.editNews"/>"
+                           class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
+                        <a href="/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
+                           title="<spring:message code="title.deleteNews"/>"
+                           class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
+                    </span>
+                    </c:if>
+                </sec:authorize>
+            </p>
+            <jsp:doBody/>
+        </div>
     </div>
-</div>
 </div>

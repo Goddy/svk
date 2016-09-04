@@ -11,8 +11,17 @@
 
 <c:set var="update" value="${command == 'updateNews.html' ? true : false }"/>
 
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><spring:message code="${update ? 'nav.update.news' : 'nav.create.news'}"/>
+        </li>
+    </ul>
+</div>
+
+<div class="col-md-12">
+    <div class="box">
         <form:form modelAttribute="form" action="${command}" cssClass="form-horizontal">
         <form:hidden path="id"/>
         <form:hidden path="body"/>

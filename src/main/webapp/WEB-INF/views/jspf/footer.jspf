@@ -1,10 +1,20 @@
 </div>
-<div id="footer">
+</div>
+</div>
+
+<div id="copyright">
     <div class="container">
-        <span class="pull-right">
-            <spring:message code="text.footer"/>
-            <br/>
-        </span>
+        <div class="col-md-6">
+            <p class="pull-left"><spring:message code="text.footer"/><br/>
+                <spring:message code="text.github"/></p>
+
+        </div>
+        <div class="col-md-6">
+            <p class="pull-right">Template by <a href="http://www.bootstrapious.com">Responsive Templates</a> with
+                support from <a href="http://kakusei.cz">Designov&eacute; p&#345;edm&#283;ty</a>
+                <!-- Not removing these links is part of the licence conditions of the template. Thanks for understanding :) -->
+            </p>
+        </div>
     </div>
 </div>
 

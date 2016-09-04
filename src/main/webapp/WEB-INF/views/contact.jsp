@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="jspf/header.jspf" %>
 
-<div class="alert alert-info"><spring:message code="info.contact"/></div>
+<div class="box"><spring:message code="info.contact"/></div>
 <%@ include file="jspf/resultMessage.jspf" %>
 <form:form modelAttribute="form" cssClass="form-horizontal">
     <tag:formField path="email" label="label.email" title="label.email" type="text" optional="false"/>

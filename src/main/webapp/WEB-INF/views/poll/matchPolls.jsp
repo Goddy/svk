@@ -4,7 +4,16 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ include file="../jspf/header.jspf" %>
-
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><a href="/matches.html"><spring:message code="nav.matches"/></a>
+        </li>
+        <li><spring:message code="nav.matchPolls"/>
+        </li>
+    </ul>
+</div>
 <div class="m-t-1" ng-app="soccerApp" ng-controller="matchPollCtrl" data-ng-init="init()">
     <div class="row m-b-1">
         <div class="text-center">

@@ -2,6 +2,13 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../jspf/header.jspf" %>
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><spring:message code="nav.team"/>
+    </ul>
+</div>
 
 <div class="row">
     <div class="col-md-12">

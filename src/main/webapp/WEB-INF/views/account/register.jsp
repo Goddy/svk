@@ -1,19 +1,32 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf" %>
-<div class="alert alert-info">
-    <c:choose>
-        <c:when test="${form.signInProvider == null}">
-            <spring:message code="text.register"/>
-        </c:when>
-        <c:otherwise>
-            <spring:message code="text.register.social"/>
-        </c:otherwise>
-    </c:choose>
-
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><a href="/login.html"><spring:message code="text.login"/></a>
+        </li>
+        <li><spring:message code="button.register"/>
+        </li>
+    </ul>
 </div>
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="col-md-12">
+    <div class="box">
+        <blockquote>
+            <c:choose>
+                <c:when test="${form.signInProvider == null}">
+                    <spring:message code="text.register"/>
+                </c:when>
+                <c:otherwise>
+                    <spring:message code="text.register.social"/>
+                </c:otherwise>
+            </c:choose>
+        </blockquote>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="box">
         <form:form action="register" autocomplete="false" modelAttribute="form" cssClass="form-horizontal">
             <form:hidden path="signInProvider"/>
             <tag:formField path="username" label="label.email" title="title.email" type="input" optional="false"/>

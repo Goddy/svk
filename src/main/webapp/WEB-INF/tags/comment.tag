@@ -23,7 +23,7 @@
         </c:choose>
 
         <fmt:formatDate value="${comment.postDate}" var="postDate"/>
-        <div class="comment">
+        <div class="comment post">
             <p>${comment.content} -
                 <spring:message code="text.commentPostedBy" arguments="${accountName},${postDate}"
                                 argumentSeparator=","/>
@@ -55,12 +55,12 @@
             <a href="/addComment.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
                class="btn btn-primary addComment"><spring:message code="button.add"/></a>
         </div>
-        <a class="btn btn-xs btn-info addCommentBtn addCommentBtn" data-toggle="collapse"
+        <a class="btn btn-xs btn-primary addCommentBtn addCommentBtn" data-toggle="collapse"
            data-target="#comment${newsItem.id}"><spring:message
                 code="button.add.comment"/></a>
     </sec:authorize>
     <sec:authorize access="isAnonymous()">
-        <a class="btn btn-xs btn-info addCommentBtn" href="${baseUrl}/login.html"
+        <a class="btn btn-xs btn-primary addCommentBtn" href="${baseUrl}/login.html"
            data-target="#comment${newsItem.id}"><spring:message
                 code="button.add.comment"/></a></p>
     </sec:authorize>

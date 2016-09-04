@@ -2,7 +2,15 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../jspf/header.jspf" %>
-<div class="alert alert-info"><spring:message code="info.teams"/></div>
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><spring:message code="nav.teams"/>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12">
 <%@ include file="../jspf/resultMessage.jspf" %>
 <div class="panel-group" id="accordion">
     <div>
@@ -28,7 +36,7 @@
         </table>
     </div>
 </div>
-
+</div>
 <script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
 <tag:deleteDialog dialogId="delete-team-modal"/>
 <tag:mapDialog dialogId="map-modal"/>
