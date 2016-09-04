@@ -34,8 +34,9 @@
             <b>(<spring:message code='label.match.status.CANCELLED'/>!)</b></c:if></h3>
         </div>
         <div class="doodle-badge btn-group btn-group-lg">
-            <a class="btn btn-default glyphicon glyphicon-user doodle-users" data-toggle="tooltip" data-container="body"
+            <a class="btn btn-default doodle-users" data-toggle="tooltip" data-container="body"
                title="<spring:message code="title.doodlePresences"/>" aria-hidden="true"><span
+                    class="glyphicon glyphicon-user"></span> <span
                     class="count-badge">${doodle.countPresences()}</span>
             </a>
             <tag:doodlePresence account="${currentAccount}" match="${match}" isAdmin="${isAdmin}"

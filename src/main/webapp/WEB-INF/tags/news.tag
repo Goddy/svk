@@ -42,10 +42,10 @@
             <span class="btn-group">
                 <a href="/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
                    title="<spring:message code="title.editNews"/>"
-                   class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
+                   class="btn btn-default edit"><span class="glyphicon glyphicon-edit"></span></a>
                 <a href="/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
                    title="<spring:message code="title.deleteNews"/>"
-                   class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
+                   class="btn btn-default delete"><span class="glyphicon glyphicon-trash delete"></span></a>
             </span>
                 </sec:authorize>
                 <sec:authorize access="hasRole('USER')">
@@ -53,10 +53,10 @@
                     <span class="btn-group">
                         <a href="/editNews.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
                            title="<spring:message code="title.editNews"/>"
-                           class="btn btn-default glyphicon glyphicon-edit edit"><span class=""></span></a>
+                           class="btn btn-default edit"><span class="glyphicon glyphicon-edit"></span></a>
                         <a href="/deleteItem.html?newsId=${newsItem.id}" data-toggle="tooltip" data-placement="top"
                            title="<spring:message code="title.deleteNews"/>"
-                           class="btn btn-default glyphicon glyphicon-trash delete"><span class="delete"></span></a>
+                           class="btn btn-default delete"><span class="glyphicon glyphicon-trash delete"></span></a>
                     </span>
                     </c:if>
                 </sec:authorize>

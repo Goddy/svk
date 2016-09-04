@@ -37,8 +37,12 @@
         </div>
     </div>
 
-    <div ng-if="!hasMatchPolls" class="alert alert-warning">
-        <spring:message code="text.noMatchPolls"/>
+    <div ng-if="!hasMatchPolls">
+        <div class="col-md-12">
+            <div class="alert alert-warning">
+                <spring:message code="text.noMatchPolls"/>
+            </div>
+        </div>
     </div>
     <div ng-repeat="(key, value) in matchPolls.list">
         <div class="clearfix" ng-if="$index % 2 == 0"></div>

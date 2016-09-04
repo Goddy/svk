@@ -90,30 +90,42 @@
                                             <a href="changeMatch.html?matchId={{wrapper.object.id}}"
                                                title="<spring:message code="title.changeMatchResult"/>"
                                                data-toggle="tooltip" data-placement="top"
-                                               class="btn btn-default glyphicon glyphicon-edit edit "></a>
+                                               class="btn btn-default edit ">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </a>
                                             <a href="deleteMatch.html?matchId={{wrapper.object.id}}"
                                                title="<spring:message code="title.deleteMatch"/>" data-toggle="tooltip"
                                                data-placement="top"
-                                               class="btn btn-default glyphicon glyphicon-trash delete delete"></a>
+                                               class="btn btn-default delete">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </a>
                                         </security:authorize>
                                         <a ng-if="wrapper.object.locationUrl" href="{{wrapper.object.locationUrl}}"
                                            title="" data-toggle="tooltip" data-placement="top"
-                                           class="btn btn-default glyphicon glyphicon-map-marker map"
-                                           data-original-title="Show the match location on a map"></a>
+                                           class="btn btn-default map"
+                                           data-original-title="Show the match location on a map">
+                                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                                        </a>
                                         <a ng-if="wrapper.object.status == 'PLAYED' && wrapper.object.goals.length"
                                            href="details{{wrapper.object.id}}"
                                            title="<spring:message code="title.matchDetails"/>" data-toggle="tooltip"
                                            data-placement="top"
-                                           class="btn btn-default glyphicon glyphicon-eye-open details"></a>
+                                           class="btn btn-default details">
+                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                        </a>
                                         <a ng-if="wrapper.object.hasDoodle"
                                            href="getDoodle.html?matchId={{wrapper.object.id}}"
                                            title="<spring:message code="title.matchDoodle"/>" data-toggle="tooltip"
                                            data-placement="top"
-                                           class="btn btn-default glyphicon glyphicon-th-list doodle"></a>
+                                           class="btn btn-default doodle">
+                                            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                                        </a>
                                         <a ng-if="wrapper.object.poll" href="motm{{wrapper.object.id}}" title=""
                                            data-toggle="tooltip" data-placement="top"
-                                           class="btn btn-default glyphicon glyphicon-user motm"
-                                           data-original-title="<spring:message code="title.manOfTheMatchPoll"/>"></a>
+                                           class="btn btn-default motm"
+                                           data-original-title="<spring:message code="title.manOfTheMatchPoll"/>">
+                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                        </a>
                                     </div>
 
                                 </td>
@@ -222,8 +234,8 @@
         $(document).on('click', 'a[class*="delete"]', function (e) {
             console.log("Clicked delete");
             e.preventDefault();
-            var hTeam = $(this).parents('tr:first').find('td:nth-child(3)').text();
-            var aTeam = $(this).parents('tr:first').find('td:nth-child(4)').text();
+            var hTeam = $(this).parents('tr:first').find('td:nth-child(1)').text();
+            var aTeam = $(this).parents('tr:first').find('td:nth-child(2)').text();
             var href = $(this).attr("href");
             var msg = hTeam + " - " + aTeam;
             dd.showDeleteDialog(deleteMatchModal, msg, deleteTitle, href)

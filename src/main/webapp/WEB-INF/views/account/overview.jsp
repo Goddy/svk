@@ -34,7 +34,9 @@
                         <div>${a.username}</div>
                     </td>
                     <td data-th="<spring:message code="text.actions"/>">
-                        <a href="editProfile.html?id=${a.id}" class="btn btn-default glyphicon glyphicon-edit"></a>
+                        <a href="editProfile.html?id=${a.id}" class="btn btn-default">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a>
                     </td>
                 </tr>
             </c:forEach>

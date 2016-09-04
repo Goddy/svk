@@ -6,10 +6,19 @@
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <%@ include file="../jspf/header.jspf" %>
 
-<h2><spring:message code="title.goals" arguments="${match.description}"/></h2>
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><a href="/matches.html"><spring:message code="nav.matches"/></a>
+        </li>
+        <li><spring:message code="nav.editMatch"/>&nbsp;${match.description}
+        </li>
+    </ul>
+</div>
 
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="col-md-12">
+    <div class="box">
         <form:form id="form" modelAttribute="form" action="changeMatch.html" cssClass="form-horizontal">
             <form:hidden path="matchId"/>
             <tag:formField path="homeTeam" label="text.homeTeam" title="text.homeTeam" type="empty" optional="false">

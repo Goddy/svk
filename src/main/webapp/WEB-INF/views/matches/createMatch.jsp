@@ -3,11 +3,20 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ include file="../jspf/header.jspf" %>
 
-<h2><spring:message code="title.createMatch" arguments="${match.description}"/></h2>
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><a href="/matches.html"><spring:message code="nav.matches"/></a>
+        </li>
+        <li><spring:message code="nav.createMatch"/>
+        </li>
+    </ul>
+</div>
 
-<%@ include file="../jspf/resultMessage.jspf" %>
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="col-md-12">
+    <%@ include file="../jspf/resultMessage.jspf" %>
+    <div class="box">
         <form:form action="createMatch.html" cssClass="form-horizontal" role="form" modelAttribute="form">
             <tag:formField path="homeTeam" label="text.homeTeam" title="text.homeTeam" type="empty" optional="false">
                 <form:select id="homeTeam" path="homeTeam" cssClass="form-control">
