@@ -93,7 +93,7 @@
 
 <script src="<c:url value='/resources/js/fileinput.min.js'/>"></script>
 <script src="<c:url value='/resources/js/fileinput_locale_nl.js'/>"></script>
-<script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
+<script src="<c:url value='/resources/js/svk-ui-1.5.js'/>"></script>
 <script type="text/javascript">
     (function ($, profile) {
         var hasAvatar = ${not empty accountProfileForm.avatarUrl ? 'true' : 'false'};

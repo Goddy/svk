@@ -12,18 +12,13 @@
 
 <div class="col-md-12">
     <div class="box">
-        <tag:faq question="title.faq1" answer="text.faq1"/>
-        <tag:faq question="title.faq2" answer="text.faq2"/>
-        <tag:faq question="title.faq3" answer="text.faq3"/>
-        <tag:faq question="title.faq4" answer="text.faq4"/>
-        <tag:faq question="title.faq5" answer="text.faq5"/>
+        <div class="panel-group" id="accordion">
+            <tag:faq name="faq1"/>
+            <tag:faq name="faq2"/>
+            <tag:faq name="faq3"/>
+            <tag:faq name="faq4"/>
+            <tag:faq name="faq5"/>
+        </div>
     </div>
 </div>
-<script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
-<script type="text/javascript">
-    (function ($, faq) {
-        faq.initialize();
-    })(jQuery, svk.faq)
-</script>
-
 <%@ include file="jspf/footer.jspf" %>

@@ -2,9 +2,10 @@
 <div class="col-md-12">
     <div class="box">
         <h1><spring:message code="title.registration.ok"/></h1>
-        <blockquote>
+
+        <div class="alert alert-info">
             <spring:message code="text.registration.ok"/>
-        </blockquote>
+        </div>
     </div>
 </div>
 

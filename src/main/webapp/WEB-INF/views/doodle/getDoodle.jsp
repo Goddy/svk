@@ -2,17 +2,28 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ include file="../jspf/header.jspf" %>
 
-<h1><spring:message code="nav.doodle"/></h1>
-
 <c:set value="true" var="showUsers"/>
 
-<div class="matchDoodle">
-    <tag:matchDoodle returnUrl="${baseUrl}/getMembersDoodle.html?matchId=${match.id}" match="${match}"
-                     showUsers="${showUsers}"/>
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><a href="/doodle.html"><spring:message code="nav.doodle"/></a>
+        </li>
+        <li><spring:message code="nav.doodle"/> ${match.description}
+        </li>
+    </ul>
+</div>
+
+<div class="col-md-12">
+    <div class="matchDoodle">
+        <tag:matchDoodle returnUrl="${baseUrl}/getMembersDoodle.html?matchId=${match.id}" match="${match}"
+                         showUsers="${showUsers}"/>
+    </div>
 </div>
 
 
-<script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
+<script src="<c:url value='/resources/js/svk-ui-1.5.js'/>"></script>
 <script type="text/javascript">
     (function ($, doodle) {
         $(document).on('click', 'a[class*="presence"]', function (e) {

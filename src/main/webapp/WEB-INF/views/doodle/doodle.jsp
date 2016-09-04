@@ -2,8 +2,20 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ include file="../jspf/header.jspf" %>
 
-<h1><p><spring:message code="nav.doodle"/></h1>
-<div class="alert alert-info"><spring:message code="info.doodle"/></div>
+<div class="col-md-12">
+  <ul class="breadcrumb">
+    <li><a href="/news.html"><spring:message code="nav.home"/></a>
+    </li>
+    <li><spring:message code="nav.doodle"/>
+    </li>
+  </ul>
+</div>
+<div class="col-md-12">
+  <div class="box">
+    <blockquote><spring:message code="info.doodle"/></blockquote>
+  </div>
+</div>
+<div class="col-md-12">
 <c:if test="${empty matches}">
   <spring:message code="text.doodle.none.found"/>
 </c:if>
@@ -13,8 +25,9 @@
   </div>
 </c:forEach>
 <tag:pageComponent first="${first}" previous="${previous}" next="${next}" last="${last}"/>
+</div>
 
-<script src="<c:url value='/resources/js/svk-ui-1.4.js'/>"></script>
+<script src="<c:url value='/resources/js/svk-ui-1.5.js'/>"></script>
 <script type="text/javascript">
   (function ($, doodle) {
     $(document).on('click', 'a[class*="presence"]', function (e) {

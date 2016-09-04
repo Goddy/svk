@@ -347,18 +347,6 @@ svk.doodle = (function ($, utils) {
     }
 })(jQuery, svk.utils);
 
-svk.faq = (function ($, utils) {
-
-    return {
-        initialize: function () {
-            $('a.faq').click(function (e) {
-                e.preventDefault();
-                $(this).next('p').toggle();
-            })
-        }
-    }
-})(jQuery, svk.utils);
-
 svk.profile = (function ($, utils) {
     var currentAvatar = $("#currentAvatarDiv");
     var uploadAvatar = $("#uploadAvatarDiv");
