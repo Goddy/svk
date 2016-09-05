@@ -4,6 +4,14 @@
 <%@ include file="jspf/header.jspf" %>
 
 <div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="/news.html"><spring:message code="nav.home"/></a>
+        </li>
+        <li><spring:message code="nav.contact"/>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12">
     <%@ include file="jspf/resultMessage.jspf" %>
     <div class="box"><spring:message code="info.contact"/></div>
     <form:form modelAttribute="form" cssClass="form-horizontal">
