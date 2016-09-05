@@ -3,9 +3,9 @@
     <div class="box">
         <h1><spring:message code="title.registration.ok"/></h1>
 
-        <div class="alert alert-info">
+        <blockquote>
             <spring:message code="text.registration.ok"/>
-        </div>
+        </blockquote>
     </div>
 </div>
 
