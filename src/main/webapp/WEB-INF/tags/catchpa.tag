@@ -2,14 +2,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ tag import='net.tanesha.recaptcha.ReCaptcha' %>
 <%@ tag import='net.tanesha.recaptcha.ReCaptchaFactory' %>
-<%@ attribute name='privateKey' required='true' %>
-<%@ attribute name='publicKey' required='true' %>
 <div class="form-group">
     <div class="col-sm-2 col-sm-2 control-label"></div>
     <div class="col-sm-10">
         <div id="captcha_paragraph">
             <%
-                ReCaptcha c = ReCaptchaFactory.newSecureReCaptcha(publicKey, privateKey, false);
+                ReCaptcha c = ReCaptchaFactory.newSecureReCaptcha(session.getAttribute("captcha.publicKey").toString(), session.getAttribute("captcha.privateKey").toString(), false);
                 out.print(c.createRecaptchaHtml(null, null));
             %>
             <c:if test="${invalidRecaptcha == true}">

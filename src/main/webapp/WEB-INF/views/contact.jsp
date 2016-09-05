@@ -10,7 +10,7 @@
         <tag:formField path="email" label="label.email" title="label.email" type="text" optional="false"/>
         <tag:formField path="message" label="label.message" title="label.message" type="textarea" optional="false"
                        rows="10"/>
-        <tag:catchpa privateKey="${privateKey}" publicKey="${publicKey}"/>
+        <tag:catchpa/>
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

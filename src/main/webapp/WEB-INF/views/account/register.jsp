@@ -40,7 +40,7 @@
                                type="password" optional="false"/>
             </c:if>
 
-            <tag:catchpa privateKey="${privateKey}" publicKey="${publicKey}"/>
+            <tag:catchpa/>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button id="btnSubmit" type="submit" class="btn btn-primary"><spring:message

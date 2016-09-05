@@ -13,6 +13,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Locale;
 
@@ -33,8 +34,8 @@ public class ContactController extends AbstractController {
     }
 
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
-    public String getContact(@ModelAttribute("form") ContactForm form, Model model) {
-        populateRecatchPa(model, true);
+    public String getContact(@ModelAttribute("form") ContactForm form, Model model, HttpServletRequest request) {
+        populateRecatchPa(request.getSession(), model, true);
         return LANDING_CONTACTFORM;
     }
 
@@ -44,6 +45,7 @@ public class ContactController extends AbstractController {
                               @RequestParam("recaptcha_response_field") String responseField,
                               Model model,
                               ServletRequest servletRequest,
+                              HttpServletRequest request,
                               Locale locale) {
 
         ReCaptchaResponse r = captchaService.checkResponse(servletRequest, challengeField, responseField);
@@ -57,7 +59,7 @@ public class ContactController extends AbstractController {
             model.addAttribute("form", form);
         }
 
-        populateRecatchPa(model, r.isValid());
+        populateRecatchPa(request.getSession(), model, r.isValid());
 
         return LANDING_CONTACTFORM;
     }
