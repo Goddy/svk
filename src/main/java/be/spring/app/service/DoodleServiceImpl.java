@@ -79,12 +79,12 @@ public class DoodleServiceImpl implements DoodleService {
     }
 
     @Override
-    public Presence changePresence(Account account, long accountId, long matchId) {
-        boolean isAdmin = account.getRole().equals(Role.ADMIN);
-        if (account.getId().equals(accountId) || isAdmin) {
+    public Presence changePresence(Account requestingAccount, long accountId, long matchId) {
+        boolean isAdmin = requestingAccount.getRole().equals(Role.ADMIN);
+        if (requestingAccount.getId().equals(accountId) || isAdmin) {
             //Set the account that needs to be changed
-            Account accountInUse = account;
-            if (!account.getId().equals(accountId)) {
+            Account accountInUse = requestingAccount;
+            if (!requestingAccount.getId().equals(accountId)) {
                 accountInUse = accountDao.findOne(accountId);
                 if (accountInUse == null)
                     throw new ObjectNotFoundException(String.format("Account with id %s not found.", accountId));
@@ -105,10 +105,11 @@ public class DoodleServiceImpl implements DoodleService {
             presence = changePresence(d, presence, accountInUse);
             doodleDao.save(d);
 
-            log.info("Account {} changed presence (id:{}, value: {}) for doodle {} for account {}", account.getUsername(), presence.getId(), presence.isPresent(), matchId, accountInUse.getUsername());
+            log.info("Account {} changed presence (id:{}, value: {}) for doodle {} for account {}", requestingAccount
+                    .getUsername(), presence.getId(), presence.isPresent(), matchId, accountInUse.getUsername());
             return presence;
         } else {
-            log.error("Account {} is not entitled to change presence for accountId {}", account.getUsername(), accountId);
+            log.error("Account {} is not entitled to change presence for accountId {}", requestingAccount.getUsername(), accountId);
             throw new RuntimeException("Security error");
         }
     }

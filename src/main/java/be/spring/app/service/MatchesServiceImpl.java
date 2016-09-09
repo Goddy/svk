@@ -14,7 +14,6 @@ import be.spring.app.persistence.AccountDao;
 import be.spring.app.persistence.MatchesDao;
 import be.spring.app.persistence.SeasonDao;
 import be.spring.app.persistence.TeamDao;
-import be.spring.app.utils.Constants;
 import be.spring.app.utils.GeneralUtils;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
@@ -43,27 +42,20 @@ import java.util.concurrent.ExecutionException;
 public class MatchesServiceImpl implements MatchesService {
 
     private static final Logger log = LoggerFactory.getLogger(MatchesService.class);
-
-    @Value("${max.seasons}")
-    private int maxSeasons;
-
-    @Autowired
-    private SeasonDao seasonDao;
-
-    @Autowired
-    private TeamDao teamDao;
-
-    @Autowired
-    private MatchesDao matchesDao;
-
-    @Autowired
-    private AccountDao accountDao;
-
-    @Autowired
-    private CacheAdapter cacheAdapter;
-
     @Autowired
     PollService pollService;
+    @Value("${max.seasons}")
+    private int maxSeasons;
+    @Autowired
+    private SeasonDao seasonDao;
+    @Autowired
+    private TeamDao teamDao;
+    @Autowired
+    private MatchesDao matchesDao;
+    @Autowired
+    private AccountDao accountDao;
+    @Autowired
+    private CacheAdapter cacheAdapter;
 
     @Override
     public Map<Integer, List<Match>> getMatchesForLastSeasons() {
@@ -82,9 +74,11 @@ public class MatchesServiceImpl implements MatchesService {
     }
 
     @Override
-    public Page<Match> getUpcomingMatchesPages(int start) {
+    public Page<Match> getUpcomingMatchesPages(int page, int pageSize, Optional<Sort> sort) {
         DateTime now = DateTime.now();
-        return matchesDao.findByDateAfterOrderByDateAsc(now.minusDays(1), new PageRequest(start, Constants.TEN));
+        Sort s = sort.isPresent() ? sort.get() : new Sort(Sort.Direction.DESC, "date");
+        Pageable pageable = new PageRequest(page, pageSize, s);
+        return matchesDao.findByDateAfterOrderByDateAsc(now.minusDays(1), pageable);
     }
 
     @Override

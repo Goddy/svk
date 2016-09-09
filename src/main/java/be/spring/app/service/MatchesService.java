@@ -25,7 +25,7 @@ public interface MatchesService {
 
     List<Match> getMatchesListForSeason(Season season);
 
-    Page<Match> getUpcomingMatchesPages(int start);
+    Page<Match> getUpcomingMatchesPages(int page, int pageSize, Optional<Sort> sort);
 
     List<ActionWrapperDTO<MatchDTO>> getMatchesWrappersForSeason(long seasonId, Locale locale, Account account);
 

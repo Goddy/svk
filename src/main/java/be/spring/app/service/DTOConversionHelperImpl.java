@@ -4,6 +4,7 @@ import be.spring.app.dto.*;
 import be.spring.app.model.*;
 import be.spring.app.persistence.AccountDao;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -152,6 +153,43 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
             accountDTO.setName(isLoggedIn ? account.toString() : account.getFullName());
             accountDTO.setId(account.getId());
             return accountDTO;
+        }
+        return null;
+    }
+
+    @Override
+    public List<MatchDoodleDTO> convertMatchDoodles(Page<Match> match, boolean isLoggedIn) {
+        List<MatchDoodleDTO> matchDoodleDTOList = Lists.newArrayList();
+        for (Match m : match.getContent()) {
+            matchDoodleDTOList.add(convertMatchDoodle(m, isLoggedIn));
+        }
+        return matchDoodleDTOList;
+    }
+
+    @Override
+    public MatchDoodleDTO convertMatchDoodle(Match match, boolean isLoggedIn) {
+        return new MatchDoodleDTO(
+                convertDoodle(match.getMatchDoodle(), isLoggedIn),
+                match.getStringDate(),
+                match.getDescription());
+    }
+
+    @Override
+    public DoodleDTO convertDoodle(Doodle doodle, boolean isLoggedIn) {
+        if (doodle != null) {
+            Set<PresenceDTO> presenceDTOs = Sets.newConcurrentHashSet();
+            for (Presence p : doodle.getPresences()) {
+                presenceDTOs.add(convertPresence(p, isLoggedIn));
+            }
+            return new DoodleDTO(presenceDTOs, doodle.countPresences());
+        }
+        return null;
+    }
+
+    @Override
+    public PresenceDTO convertPresence(Presence presence, boolean isLoggedIn) {
+        if (presence != null && presence.getAccount().isActive()) {
+            return new PresenceDTO(convertAccount(presence.getAccount(), isLoggedIn), presence.isPresent());
         }
         return null;
     }

@@ -9,9 +9,11 @@ import be.spring.app.service.MatchesService;
 import be.spring.app.service.SeasonService;
 import be.spring.app.utils.Constants;
 import be.spring.app.utils.PageObject;
+import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,19 +27,15 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class DoodleController extends AbstractController {
+    public static final String VN_DOODLE = "/doodle";
     @Autowired
     DoodleService doodleService;
-
     @Autowired
     AccountService accountService;
-
     @Autowired
     MatchesService matchesService;
-
     @Autowired
     SeasonService seasonService;
-
-    public static final String VN_DOODLE = "/doodle";
 
     @ModelAttribute(value = "accounts")
     public List<Account> getActiveAccounts() {
@@ -106,7 +104,7 @@ public class DoodleController extends AbstractController {
     }
 
     private void setPagedDoodle(Model model, int page) {
-        Page<Match> pages = matchesService.getUpcomingMatchesPages(page);
+        Page<Match> pages = matchesService.getUpcomingMatchesPages(page, 10, Optional.<Sort>absent());
         PageObject pageObject = new PageObject(model, pages.getTotalPages(), page, VN_DOODLE);
         pageObject.addAttributes();
         model.addAttribute("matches", Lists.newArrayList(pages.iterator()));
