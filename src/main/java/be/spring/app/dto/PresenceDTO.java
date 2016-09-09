@@ -1,13 +1,15 @@
 package be.spring.app.dto;
 
+import be.spring.app.model.Presence;
+
 /**
  * Created by u0090265 on 09/09/16.
  */
 public class PresenceDTO implements Comparable<PresenceDTO> {
     private AccountDTO account;
-    private boolean present;
+    private Presence.PresenceType present;
 
-    public PresenceDTO(AccountDTO account, boolean present) {
+    public PresenceDTO(AccountDTO account, Presence.PresenceType present) {
         this.account = account;
         this.present = present;
     }
@@ -20,11 +22,11 @@ public class PresenceDTO implements Comparable<PresenceDTO> {
         this.account = account;
     }
 
-    public boolean isPresent() {
+    public Presence.PresenceType isPresent() {
         return present;
     }
 
-    public void setPresent(boolean present) {
+    public void setPresent(Presence.PresenceType present) {
         this.present = present;
     }
 

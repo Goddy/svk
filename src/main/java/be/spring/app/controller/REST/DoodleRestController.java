@@ -30,14 +30,14 @@ public class DoodleRestController extends AbstractRestController {
     private DoodleService doodleService;
 
     @Autowired
-    public DoodleRestController(MatchesService matchesService, DTOConversionHelper dtoConversionHelper, DoodleService
-            doodleService) {
+    public DoodleRestController(MatchesService matchesService, DTOConversionHelper dtoConversionHelper,
+                                DoodleService doodleService) {
         this.matchesService = matchesService;
         this.DTOConversionHelper = dtoConversionHelper;
         this.doodleService = doodleService;
     }
 
-    @RequestMapping(value = "/matchDoodles/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/matchDoodles", method = RequestMethod.GET)
     @ApiOperation(value = "Get matchdoodles", nickname = "matchdoodles")
     public ResponseEntity<List<MatchDoodleDTO>> getMatchDoodles(@RequestParam int page, @RequestParam(required =
             false) int size) {

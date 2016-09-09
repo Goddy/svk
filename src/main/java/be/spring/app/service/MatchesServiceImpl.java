@@ -76,9 +76,9 @@ public class MatchesServiceImpl implements MatchesService {
     @Override
     public Page<Match> getUpcomingMatchesPages(int page, int pageSize, Optional<Sort> sort) {
         DateTime now = DateTime.now();
-        Sort s = sort.isPresent() ? sort.get() : new Sort(Sort.Direction.DESC, "date");
+        Sort s = sort.isPresent() ? sort.get() : new Sort(Sort.Direction.ASC, "date");
         Pageable pageable = new PageRequest(page, pageSize, s);
-        return matchesDao.findByDateAfterOrderByDateAsc(now.minusDays(1), pageable);
+        return matchesDao.findByDateAfter(now.minusDays(1), pageable);
     }
 
     @Override

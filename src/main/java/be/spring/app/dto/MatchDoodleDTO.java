@@ -10,7 +10,8 @@ public class MatchDoodleDTO extends BaseClass {
     private String date;
     private String description;
 
-    public MatchDoodleDTO(DoodleDTO doodle, String date, String description) {
+    public MatchDoodleDTO(long id, DoodleDTO doodle, String date, String description) {
+        this.id = id;
         this.doodle = doodle;
         this.date = date;
         this.description = description;

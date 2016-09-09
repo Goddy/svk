@@ -11,7 +11,8 @@ public class DoodleDTO extends BaseClass {
     private Set<PresenceDTO> presences;
     private int total;
 
-    public DoodleDTO(Set<PresenceDTO> presences, int total) {
+    public DoodleDTO(long id, Set<PresenceDTO> presences, int total) {
+        this.id = id;
         this.presences = presences;
         this.total = total;
     }

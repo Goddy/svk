@@ -168,7 +168,7 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
 
     @Override
     public MatchDoodleDTO convertMatchDoodle(Match match, boolean isLoggedIn) {
-        return new MatchDoodleDTO(
+        return new MatchDoodleDTO(match.getId(),
                 convertDoodle(match.getMatchDoodle(), isLoggedIn),
                 match.getStringDate(),
                 match.getDescription());
@@ -177,19 +177,21 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
     @Override
     public DoodleDTO convertDoodle(Doodle doodle, boolean isLoggedIn) {
         if (doodle != null) {
+            //Run though all active accounts, check if they are present and convert
             Set<PresenceDTO> presenceDTOs = Sets.newConcurrentHashSet();
-            for (Presence p : doodle.getPresences()) {
-                presenceDTOs.add(convertPresence(p, isLoggedIn));
+            for (Account a : accountDao.findAllByActive(true)) {
+                presenceDTOs.add(new PresenceDTO(convertAccount(a, isLoggedIn), doodle.isPresent(a)));
             }
-            return new DoodleDTO(presenceDTOs, doodle.countPresences());
+            return new DoodleDTO(doodle.getId(), presenceDTOs, doodle.countPresences());
         }
         return null;
     }
 
     @Override
     public PresenceDTO convertPresence(Presence presence, boolean isLoggedIn) {
-        if (presence != null && presence.getAccount().isActive()) {
-            return new PresenceDTO(convertAccount(presence.getAccount(), isLoggedIn), presence.isPresent());
+        if (presence != null) {
+            return new PresenceDTO(convertAccount(presence.getAccount(), isLoggedIn), presence.isPresent() ? Presence
+                    .PresenceType.PRESENT : Presence.PresenceType.NOT_PRESENT);
         }
         return null;
     }
