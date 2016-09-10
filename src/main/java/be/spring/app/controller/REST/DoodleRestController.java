@@ -15,7 +15,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -46,11 +49,10 @@ public class DoodleRestController extends AbstractRestController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/doodle/{id}/presence", method = RequestMethod.POST)
+    @RequestMapping(value = "/doodle/{id}/presence/{accountId}", method = RequestMethod.PUT)
     @ApiOperation(value = "Get matchdoodles", nickname = "matchdoodles")
-    public ResponseEntity<PresenceDTO> changePersence(@PathVariable Long id, @RequestBody
-    PresenceDTO presence) {
+    public ResponseEntity<PresenceDTO> changePersence(@PathVariable Long id, @PathVariable Long accountId) {
         return new ResponseEntity<>(DTOConversionHelper.convertPresence(doodleService.changePresence
-                (getAccountFromSecurity(), presence.getAccount().getId(), id), isLoggedIn()), HttpStatus.OK);
+                (getAccountFromSecurity(), accountId, id), isLoggedIn()), HttpStatus.OK);
     }
 }

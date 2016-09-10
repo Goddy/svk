@@ -1,7 +1,7 @@
 'use strict';
 app.controller('matchCtrl', function ($scope, $http, $sce, pollService, messageService) {
     $scope.cached = {};
-    $scope.voteResultMessage = [];
+    $scope.doodleResultMessage = [];
     $scope.matchWrapper = {};
 
     var getSeasons = function () {
@@ -53,12 +53,12 @@ app.controller('matchCtrl', function ($scope, $http, $sce, pollService, messageS
                 pollService.getMatchPoll(pollId).success(function (data) {
                     matchObject.poll.votes = data.votes;
                     messageService.showMessage(function (message) {
-                        $scope.voteResultMessage[pollId] = message;
+                        $scope.doodleResultMessage[pollId] = message;
                     }, 'alert.vote.success');
                 });
             }).error(function (data, status, headers, config) {
                 messageService.showMessage(function (message) {
-                    $scope.voteResultMessage[pollId] = message;
+                    $scope.doodleResultMessage[pollId] = message;
                 }, 'alert.vote.fail');
             });
         }
