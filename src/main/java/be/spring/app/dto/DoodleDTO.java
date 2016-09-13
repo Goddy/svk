@@ -9,12 +9,14 @@ import java.util.Set;
  */
 public class DoodleDTO extends BaseClass {
     private Set<PresenceDTO> presences;
+    private PresenceDTO currentPresence;
     private int total;
 
-    public DoodleDTO(long id, Set<PresenceDTO> presences, int total) {
+    public DoodleDTO(long id, Set<PresenceDTO> presences, PresenceDTO currentPresence, int total) {
         this.id = id;
         this.presences = presences;
         this.total = total;
+        this.currentPresence = currentPresence;
     }
 
     public Set<PresenceDTO> getPresences() {
@@ -31,5 +33,13 @@ public class DoodleDTO extends BaseClass {
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    public PresenceDTO getCurrentPresence() {
+        return currentPresence;
+    }
+
+    public void setCurrentPresence(PresenceDTO currentPresence) {
+        this.currentPresence = currentPresence;
     }
 }

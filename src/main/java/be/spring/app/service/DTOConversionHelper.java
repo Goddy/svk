@@ -34,11 +34,11 @@ public interface DTOConversionHelper {
 
     AccountDTO convertAccount(Account account, boolean isLoggedIn);
 
-    List<MatchDoodleDTO> convertMatchDoodles(Page<Match> match, boolean isLoggedIn);
+    PageDTO<MatchDoodleDTO> convertMatchDoodles(Page<Match> match, Account account, boolean isAdmin);
 
-    MatchDoodleDTO convertMatchDoodle(Match match, boolean isLoggedIn);
+    MatchDoodleDTO convertMatchDoodle(Match match, Account account, boolean isAdmin);
 
-    DoodleDTO convertDoodle(Doodle doodle, boolean isLoggedIn);
+    DoodleDTO convertDoodle(Match match, Account account, boolean isAdmin);
 
     PresenceDTO convertPresence(Presence presence, boolean isLoggedIn);
 }

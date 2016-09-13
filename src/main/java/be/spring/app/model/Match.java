@@ -181,4 +181,9 @@ public class Match extends BaseClass {
     public void setMotmPoll(PlayersPoll motmPoll) {
         this.motmPoll = motmPoll;
     }
+
+    @Transient
+    public boolean isActive() {
+        return this.status.equals(MatchStatusEnum.NOT_PLAYED);
+    }
 }

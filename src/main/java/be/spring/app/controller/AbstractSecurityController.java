@@ -18,4 +18,8 @@ public abstract class AbstractSecurityController {
     public boolean isLoggedIn() {
         return securityUtils.isloggedIn();
     }
+
+    public boolean isAdmin() {
+        return securityUtils.isAdmin(getAccountFromSecurity());
+    }
 }

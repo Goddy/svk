@@ -1,6 +1,7 @@
 package be.spring.app.controller.REST;
 
 import be.spring.app.dto.MatchDoodleDTO;
+import be.spring.app.dto.PageDTO;
 import be.spring.app.dto.PresenceDTO;
 import be.spring.app.model.Match;
 import be.spring.app.service.DTOConversionHelper;
@@ -19,8 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 /**
  * Created by u0090265 on 09/09/16.
@@ -42,10 +41,11 @@ public class DoodleRestController extends AbstractRestController {
 
     @RequestMapping(value = "/matchDoodles", method = RequestMethod.GET)
     @ApiOperation(value = "Get matchdoodles", nickname = "matchdoodles")
-    public ResponseEntity<List<MatchDoodleDTO>> getMatchDoodles(@RequestParam int page, @RequestParam(required =
+    public ResponseEntity<PageDTO<MatchDoodleDTO>> getMatchDoodles(@RequestParam int page, @RequestParam(required =
             false) int size) {
         Page<Match> matches = matchesService.getUpcomingMatchesPages(page, size, Optional.<Sort>absent());
-        return new ResponseEntity<>(DTOConversionHelper.convertMatchDoodles(matches, isLoggedIn()), HttpStatus.OK);
+        return new ResponseEntity<>(DTOConversionHelper.convertMatchDoodles(matches, getAccountFromSecurity(),
+                isAdmin()), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
