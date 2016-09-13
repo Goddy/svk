@@ -76,14 +76,14 @@
                                 class="glyphicon glyphicon-user"></span>&nbsp;<security:authentication
                                 property="principal.firstName"/><b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="${baseUrl}/account/edit.html"><spring:message code="nav.profile"/></a></li>
+                            <li><a href="/account/edit.html"><spring:message code="nav.profile"/></a></li>
                             <li><a href="<c:url value="j_spring_security_logout" />"><spring:message
                                     code="text.logout"/></a></li>
                         </ul>
                     </li>
                 </security:authorize>
                 <security:authorize access="isAnonymous()">
-                    <li><a href="${baseUrl}/login.html"><span
+                    <li><a href="/login.html"><span
                             class="glyphicon glyphicon-user"></span>&nbsp;<spring:message
                             code="text.login"/></a></li>
                 </security:authorize>

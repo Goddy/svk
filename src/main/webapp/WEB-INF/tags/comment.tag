@@ -60,7 +60,7 @@
                 code="button.add.comment"/></a>
     </sec:authorize>
     <sec:authorize access="isAnonymous()">
-        <a class="btn btn-xs btn-primary addCommentBtn" href="${baseUrl}/login.html"
+        <a class="btn btn-xs btn-primary addCommentBtn" href="/login.html"
            data-target="#comment${newsItem.id}"><spring:message
                 code="button.add.comment"/></a></p>
     </sec:authorize>

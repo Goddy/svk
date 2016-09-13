@@ -17,7 +17,7 @@
 
 <div class="col-md-12">
     <div class="matchDoodle">
-        <tag:matchDoodle returnUrl="${baseUrl}/getMembersDoodle.html?matchId=${match.id}" match="${match}"
+        <tag:matchDoodle returnUrl="/getMembersDoodle.html?matchId=${match.id}" match="${match}"
                          showUsers="${showUsers}"/>
     </div>
 </div>

@@ -29,7 +29,7 @@ and social sign in buttons.
                 </div>
             </c:if>
             <!-- Specifies action and HTTP method -->
-            <form action="<c:url value='${baseUrl}/j_spring_security_check' />" method="post" name="login_form">
+            <form action="<c:url value='/j_spring_security_check' />" method="post" name="login_form">
                 <!-- Add CSRF token -->
 
                 <div class="row">
@@ -60,7 +60,7 @@ and social sign in buttons.
                     <div class="form-group col-lg-4">
                         <!-- Add submit button -->
                         <button type="submit" class="btn btn-default"><spring:message code="button.login"/></button>
-                        <a href="${baseUrl}/auth/facebook">
+                        <a href="/auth/facebook">
                             <button type="button" value="facebook" class="btn btn-facebook" data-toggle="tooltip"
                                     data-placement="bottom"
                                     title="<spring:message code="button.facebook.sign.in.info"/>"><i
@@ -84,20 +84,20 @@ and social sign in buttons.
             <div class="row">
                 <div class="form-group col-lg-4">
                     <!-- Add create user account link -->
-                    <a href="${baseUrl}/account/register.html"><spring:message code="button.register"/></a>
+                    <a href="/account/register.html"><spring:message code="button.register"/></a>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-lg-4">
                     <!-- Add create user account link -->
-                    <a href="${baseUrl}/account/getPwdRecoveryCode.html"><spring:message
+                    <a href="/account/getPwdRecoveryCode.html"><spring:message
                             code="button.fogot.password"/></a>
                 </div>
             </div>
             <div class="row social-button-row">
                 <div class="col-lg-4">
                     <!-- Add Facebook sign in button -->
-                    <a href="${baseUrl}/auth/facebook">
+                    <a href="/auth/facebook">
                         <button class="btn btn-facebook"><i class="fa fa-facebook"></i> | <spring:message
                                 code="button.facebook.register.button" text="Facebook sign in"/></button>
                     </a>
