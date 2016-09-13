@@ -31,7 +31,7 @@ app.factory('pollService', function($http) {
                 return 0;
             }
             else {
-                return ((votes / totalVotes) * 100).toFixed(2);
+                return ((votes / totalVotes) * 100).toFixed(1);
             }
         },
 
