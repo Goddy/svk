@@ -39,7 +39,7 @@ public class DoodleRestController extends AbstractRestController {
         this.doodleService = doodleService;
     }
 
-    @RequestMapping(value = "/matchDoodles", method = RequestMethod.GET)
+    @RequestMapping(value = "/matchDoodle", method = RequestMethod.GET)
     @ApiOperation(value = "Get matchdoodles", nickname = "matchdoodles")
     public ResponseEntity<PageDTO<MatchDoodleDTO>> getMatchDoodles(@RequestParam int page, @RequestParam(required =
             false) int size) {
@@ -48,11 +48,28 @@ public class DoodleRestController extends AbstractRestController {
                 isAdmin()), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/matchDoodle/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "Get matchdoodles", nickname = "matchdoodles")
+    public ResponseEntity<MatchDoodleDTO> getMatchDoodle(@PathVariable Long id) {
+        Match m = matchesService.getMatch(id);
+        return new ResponseEntity<>(DTOConversionHelper.convertMatchDoodle(m, getAccountFromSecurity(),
+                isAdmin()), HttpStatus.OK);
+    }
+
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/doodle/{id}/presence/{accountId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/doodle/match/{id}/presence/{accountId}", method = RequestMethod.PUT)
     @ApiOperation(value = "Get matchdoodles", nickname = "matchdoodles")
     public ResponseEntity<PresenceDTO> changePresence(@PathVariable Long id, @PathVariable Long accountId) {
-        return new ResponseEntity<>(DTOConversionHelper.convertPresence(doodleService.changePresence
-                (getAccountFromSecurity(), accountId, id), isLoggedIn()), HttpStatus.OK);
+        doodleService.changePresence(getAccountFromSecurity(), accountId, id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    /**
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/doodle/{id}/presence", method = RequestMethod.PUT)
+    public ResponseEntity<PresenceDTO> refreshMatchPoll(@PathVariable Long id) {
+        return new ResponseEntity<>(DTOConversionHelper.convertPresence(doodleService.changePresence
+                (getAccountFromSecurity(), 1, id), isLoggedIn()), HttpStatus.OK);
+    }
+     **/
 }

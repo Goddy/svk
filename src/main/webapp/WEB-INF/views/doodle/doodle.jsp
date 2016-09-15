@@ -17,10 +17,15 @@
   </div>
 </div>
 <div class="col-md-12" ng-app="soccerApp" ng-controller="doodleCtrl" data-ng-init="init()">
-  <div ng-if="!hasMatchDoodles">
-  <spring:message code="text.doodle.none.found"/>
+  <div ng-show="loading" class="ajax-loading">
+    <img id="ajax-loading-image" src="<c:url value='/resources/images/pacman.gif'/>" alt="Loading..."/>
   </div>
-  <div class="matchDoodle" ng-repeat="(key, value) in matchDoodles.list">
+  <div ng-show="!loading && !hasMatchDoodles">
+    <div class="alert alert-warning">
+      <spring:message code="text.doodles.none.found"/>
+    </div>
+  </div>
+  <div class="matchDoodle" ng-show="hasMatchDoodles" ng-repeat="(key, value) in matchDoodles.list">
     <div class="panel panel-default">
       <div class="panel-heading"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;{{value.date}}
       </div>
@@ -39,7 +44,7 @@
                   class="count-badge">{{value.doodle.total}}</span>
           </a>
           <sec:authorize access="isAuthenticated()">
-            <a ng-click="changePresence(value, value.doodle.currentPresence)" data-toggle="tooltip"
+            <a ng-click="changePresence(value, value.doodle.currentPresence, true)" data-toggle="tooltip"
                data-container="body" title="<spring:message code="title.doodleChange"/>"
                data-placement="top" class="btn btn-default"><span
                     ng-class="getPresenceClass(value.doodle.currentPresence)"
@@ -56,31 +61,24 @@
       <div class="panel-body list">
         <div class="doodle-list" ng-repeat="presence in value.doodle.presences">
             {{presence.account.name}}
-          <a ng-click="changePresence(value, presence)" data-toggle="tooltip"
-             ng-disabled="!presence.isEditable"
-             data-container="body" title="<spring:message code="title.doodleChange"/>"
-             data-placement="top" class="btn btn-default"><span
+          <a ng-click="changePresence(value, presence, presence.editable)" data-toggle="tooltip"
+             ng-disabled="!presence.editable"
+             data-container="body" class="btn btn-default"><span
                   ng-class="getPresenceClass(presence)"
                   aria-hidden="true"></span></a>
           </div>
       </div>
   </div>
-<tag:pageComponent first="${first}" previous="${previous}" next="${next}" last="${last}"/>
 </div>
 
   <script src="<c:url value='/resources/angular/controllers/doodles.js'/>"></script>
-<script src="<c:url value='/resources/js/svk-ui-1.5.js'/>"></script>
   <script type="text/javascript">
-  (function ($, doodle) {
-    $(document).on('click', 'a[class*="presence"]', function (e) {
-      e.preventDefault();
-      doodle.changePresence($(this));
-    });
+    (function ($) {
     $(document).on('click', 'a[class*="doodle-users"]', function (e) {
       e.preventDefault();
       $(this).closest('div.panel').find('div.list').toggle();
     });
 
-  })(jQuery, svk.doodle);
+    })(jQuery);
 </script>
 <%@ include file="../jspf/footer.jspf" %>

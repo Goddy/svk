@@ -179,7 +179,7 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
         Doodle doodle = match.getMatchDoodle();
         if (doodle != null) {
             //Run though all active accounts, check if they are present and convert
-            Set<PresenceDTO> presenceDTOs = Sets.newConcurrentHashSet();
+            Set<PresenceDTO> presenceDTOs = Sets.newTreeSet();
             for (Account a : accountDao.findAllByActive(true)) {
                 presenceDTOs.add(new PresenceDTO(convertAccount(a, account != null), doodle.isPresent(a),
                         isAdmin || (account != null && match.isActive() && a.equals(account))));

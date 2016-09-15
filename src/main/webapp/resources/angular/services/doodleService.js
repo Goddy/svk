@@ -3,16 +3,16 @@ app.factory('doodleService', function ($http) {
 
     return {
         getMatchDoodles: function (page) {
-            return $http.get('/api/v1/matchDoodles?page=' + page + '&size=10');
+            return $http.get('/api/v1/matchDoodle?page=' + page + '&size=10');
         },
 
-        getMatchDoodle: function (doodleId) {
-            return $http.get('/api/v1/matchDoodles/' + doodleId);
+        getMatchDoodle: function (matchId) {
+            return $http.get('/api/v1/matchDoodle/' + matchId);
         },
 
-        changePresence: function (accountId, doodleId) {
-            if (accountId && doodleId) {
-                return $http.put('/api/v1/doodle/' + doodleId + '/presence/' + accountId);
+        changePresence: function (accountId, matchId) {
+            if (accountId && matchId) {
+                return $http.put('/api/v1/doodle/match/' + matchId + '/presence/' + accountId);
             }
         },
         getPresenceClass: function (presence) {
