@@ -17,6 +17,7 @@
   </div>
 </div>
 <div class="col-md-12" ng-app="soccerApp" ng-controller="doodleCtrl" data-ng-init="init()">
+  <tag:pagination/>
   <div ng-show="loading" class="ajax-loading">
     <img id="ajax-loading-image" src="<c:url value='/resources/images/pacman.gif'/>" alt="Loading..."/>
   </div>
@@ -69,6 +70,8 @@
           </div>
       </div>
   </div>
+  </div>
+  <tag:pagination/>
 </div>
 
   <script src="<c:url value='/resources/angular/controllers/doodles.js'/>"></script>

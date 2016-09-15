@@ -9,6 +9,9 @@ app.controller('doodleCtrl', function ($scope, $http, doodleService, messageServ
             $scope.loading = false;
             $scope.matchDoodles = data;
             $scope.currentPage = page;
+            $scope.hasPrevious = data.hasPrevious;
+            $scope.hasNext = data.hasNext;
+            $scope.totalPages = data.totalPages;
             $scope.hasMatchDoodles = data.list.length;
         }).finally(function () {
             $scope.loading = false;
@@ -45,7 +48,7 @@ app.controller('doodleCtrl', function ($scope, $http, doodleService, messageServ
     };
 
     $scope.getPage = function (page) {
-        getMatchDoodles(page)
+        getDoodles(page)
     };
 
     $scope.init = function () {
