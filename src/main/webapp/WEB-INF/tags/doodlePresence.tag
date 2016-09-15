@@ -7,6 +7,27 @@
 <%@ attribute name='isOwnAccount' required='false' %>
 <%@ attribute name='returnUrl' required='true' %>
 
+<c:set var="isPresent" value="${match.matchDoodle.isPresent(account)}"/>
+<c:set var="isNotPlayed" value="${match.status == 'NOT_PLAYED'}"/>
+
+<c:choose>
+    <c:when test="${not empty account}">
+        <c:set var="href" value="/doodle/changePresence.json?id=${account.id}&matchId=${match.id}"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="href" value="${returnUrl}"/>
+    </c:otherwise>
+</c:choose>
+
+<c:choose>
+    <c:when test="${isAdmin || (isOwnAccount && isNotPlayed) || empty account}">
+        <c:set var="disabled" value=""/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="disabled" value="disabled"/>
+    </c:otherwise>
+</c:choose>
+
 <c:choose>
     <c:when test="${isPresent == 'NOT_FILLED_IN'}">
         <c:set var="classes" value="glyphicon glyphicon-question-sign grey"/>
@@ -24,6 +45,6 @@
 <c:set value="${isPresent == 'ANONYMOUS' ? '' : 'presence'}" var="presenceClass"/>
 
 <a href="${href}" data-toggle="tooltip" data-container="body" title="<spring:message code="title.doodleChange"/>"
-   data-placement="top" ${isEditable == } class="btn btn-default ${presenceClass} ${extraClass}"><span
+   data-placement="top" ${disabled} class="btn btn-default ${presenceClass} ${extraClass}"><span
         class="${classes}"
         aria-hidden="true"></span></a>

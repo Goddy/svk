@@ -4,59 +4,32 @@ app.controller('doodleCtrl', function ($scope, $http, doodleService, messageServ
     $scope.actionResultMessage = [];
 
     var getDoodles = function (page) {
-        return pollService.getMatchPollPage(page).success(function (data) {
+        return doodleService.getMatchDoodles(page).success(function (data) {
             $scope.matchDoodles = data;
             $scope.currentPage = page;
             $scope.hasMatchDoodles = data.list.length;
         });
     };
 
-    $scope.changePresence = function (accountId, doodleId) {
-        doodleService.changePresence(accountId, doodleId)
-            .success(function (data, status, headers, config) {
-                pollService.getMatchPoll(poll.id)
-                    .success(function (data) {
-                        poll.votes = data.votes;
-                        poll.totalVotes = data.totalVotes; //update totalvotes as well, to update dom
-                        messageService.showMessage(function (message) {
-                            $scope.doodleResultMessage[poll.id] = message;
-                        }, 'alert.vote.success');
+    $scope.changePresence = function (matchDoodle, presence) {
+        var doodleId = matchDoodle.doodle.id;
+        doodleService.changePresence(presence.account.id, doodleId)
+            .success(function () {
+                doodleService.getMatchDoodle(doodleId).succes(function (data) {
+                    matchDoodle = data;
+                });
 
-                        console.log('voted');
-                    });
+                console.log('changed doodle succesfully');
             }).error(function (data, status, headers, config) {
             messageService.showMessage(function (message) {
-                $scope.doodleResultMessage[poll.id] = message;
+                $scope.doodleResultMessage[doodleId] = message;
             }, 'alert.vote.fail');
             console.log('vote failed');
         });
     };
 
-    $scope.refresh = function (poll) {
-        pollService.refresh(poll)
-            .success(function (data) {
-                poll.options = data;
-                messageService.showMessage(function (message) {
-                    $scope.actionResultMessage[poll.id] = message;
-                }, 'alert.poll.refresh.success');
-            }).error(function () {
-            messageService.showMessage(function (message) {
-                $scope.actionResultMessage[poll.id] = message;
-            }, 'alert.poll.refresh.fail');
-        });
-    };
-
-    $scope.reset = function (poll) {
-        pollService.reset(poll).success(function (data) {
-            poll.totalVotes = 0;
-            messageService.showMessage(function (message) {
-                $scope.actionResultMessage[poll.id] = message;
-            }, 'alert.poll.reset.success');
-        }).error(function () {
-            messageService.showMessage(function (message) {
-                $scope.actionResultMessage[poll.id] = message;
-            }, 'alert.poll.reset.fail');
-        });
+    $scope.getPresenceClass = function (presence) {
+        return doodleService.getPresenceClass(presence);
     };
 
     $scope.getPage = function (page) {
@@ -64,6 +37,6 @@ app.controller('doodleCtrl', function ($scope, $http, doodleService, messageServ
     };
 
     $scope.init = function () {
-        getPolls(0);
+        getDoodles(0);
     };
 });

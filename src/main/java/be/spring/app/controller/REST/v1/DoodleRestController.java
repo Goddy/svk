@@ -1,4 +1,4 @@
-package be.spring.app.controller.REST;
+package be.spring.app.controller.REST.v1;
 
 import be.spring.app.dto.MatchDoodleDTO;
 import be.spring.app.dto.PageDTO;
@@ -51,7 +51,7 @@ public class DoodleRestController extends AbstractRestController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/doodle/{id}/presence/{accountId}", method = RequestMethod.PUT)
     @ApiOperation(value = "Get matchdoodles", nickname = "matchdoodles")
-    public ResponseEntity<PresenceDTO> changePersence(@PathVariable Long id, @PathVariable Long accountId) {
+    public ResponseEntity<PresenceDTO> changePresence(@PathVariable Long id, @PathVariable Long accountId) {
         return new ResponseEntity<>(DTOConversionHelper.convertPresence(doodleService.changePresence
                 (getAccountFromSecurity(), accountId, id), isLoggedIn()), HttpStatus.OK);
     }

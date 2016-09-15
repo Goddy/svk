@@ -16,12 +16,11 @@
     <blockquote><spring:message code="info.doodle"/></blockquote>
   </div>
 </div>
-<div class="col-md-12" ng-app="soccerApp" ng-controller="matchDoodleCtrl" data-ng-init="init()">
+<div class="col-md-12" ng-app="soccerApp" ng-controller="doodleCtrl" data-ng-init="init()">
   <div ng-if="!hasMatchDoodles">
   <spring:message code="text.doodle.none.found"/>
   </div>
   <div class="matchDoodle" ng-repeat="(key, value) in matchDoodles.list">
-    <tag:matchDoodle returnUrl="${baseUrl}/membersDoodle.html" match="${match}" showUsers="${showUsers}"/>
     <div class="panel panel-default">
       <div class="panel-heading"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;{{value.date}}
       </div>
@@ -40,52 +39,38 @@
                   class="count-badge">{{value.doodle.total}}</span>
           </a>
           <sec:authorize access="isAuthenticated()">
-            <a ng-click="changePresence(value.doodle.id, value.doodle.currentPresence)" data-toggle="tooltip"
+            <a ng-click="changePresence(value, value.doodle.currentPresence)" data-toggle="tooltip"
                data-container="body" title="<spring:message code="title.doodleChange"/>"
-               data-placement="top" ng-disabled="value.doodle.currentPresence.isPresent" class="btn btn-default"><span
-                    class=""
+               data-placement="top" class="btn btn-default"><span
+                    ng-class="getPresenceClass(value.doodle.currentPresence)"
                     aria-hidden="true"></span></a>
           </sec:authorize>
           <sec:authorize access="isAnonymous()">
-            <a href="${href}" data-toggle="tooltip" data-container="body"
+            <a href="/membersDoodle.html" data-toggle="tooltip" data-container="body"
                title="<spring:message code="title.doodleChange"/>"
-               data-placement="top" disabled class="btn btn-default"><span class="glyphicon glyphicon-lock grey"
-                                                                           aria-hidden="true"></span></a>
+               data-placement="top" class="btn btn-default"><span class="glyphicon glyphicon-lock grey"
+                                                                  aria-hidden="true"></span></a>
           </sec:authorize>
-          <c:when test="${isPresent == 'NOT_FILLED_IN'}">
-            <c:set var="classes" value="glyphicon glyphicon-question-sign grey"/>
-          </c:when>
-          <c:when test="${isPresent == 'PRESENT'}">
-            <c:set var="classes" value="glyphicon glyphicon-ok green "/>
-          </c:when>
-          <c:when test="${isPresent == 'ANONYMOUS'}">
-            <c:set var="classes" value="glyphicon glyphicon-lock grey"/>
-          </c:when>
-          <c:otherwise>
-            <c:set var="classes" value="glyphicon glyphicon-remove red"/>
-          </c:otherwise>
-          </c:choose>
-          <c:set value="${isPresent == 'ANONYMOUS' ? '' : 'presence'}" var="presenceClass"/>
         </div>
       </div>
-      <div class="panel-body list" style="${display}">
-        <c:forEach items="${accounts}" var="a">
-        <div class="doodle-list" ng-repeat="presence in matchDoodles.presences>
+      <div class="panel-body list">
+        <div class="doodle-list" ng-repeat="presence in value.doodle.presences">
             {{presence.account.name}}
-
-            <tag:doodlePresence account="${a}" isOwnAccount="${a.equals(currentAccount)}" match="${match}"
-                                isAdmin="${isAdmin}" returnUrl="${returnUrl}"/>
+          <a ng-click="changePresence(value, presence)" data-toggle="tooltip"
+             ng-disabled="!presence.isEditable"
+             data-container="body" title="<spring:message code="title.doodleChange"/>"
+             data-placement="top" class="btn btn-default"><span
+                  ng-class="getPresenceClass(presence)"
+                  aria-hidden="true"></span></a>
           </div>
-        </c:forEach>
       </div>
   </div>
 <tag:pageComponent first="${first}" previous="${previous}" next="${next}" last="${last}"/>
 </div>
 
+  <script src="<c:url value='/resources/angular/controllers/doodles.js'/>"></script>
 <script src="<c:url value='/resources/js/svk-ui-1.5.js'/>"></script>
-        <
-        script;
-        type = "text/javascript" >
+  <script type="text/javascript">
   (function ($, doodle) {
     $(document).on('click', 'a[class*="presence"]', function (e) {
       e.preventDefault();

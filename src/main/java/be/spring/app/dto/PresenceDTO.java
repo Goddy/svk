@@ -8,12 +8,20 @@ import be.spring.app.model.Presence;
 public class PresenceDTO implements Comparable<PresenceDTO> {
     private AccountDTO account;
     private boolean isEditable;
-    private Presence.PresenceType present;
+    private Presence.PresenceType type;
 
-    public PresenceDTO(AccountDTO account, Presence.PresenceType present, boolean isEditable) {
+    public PresenceDTO(AccountDTO account, Presence.PresenceType type, boolean isEditable) {
         this.account = account;
-        this.present = present;
+        this.type = type;
         this.isEditable = isEditable;
+    }
+
+    public Presence.PresenceType getType() {
+        return type;
+    }
+
+    public void setType(Presence.PresenceType type) {
+        this.type = type;
     }
 
     public AccountDTO getAccount() {
@@ -22,14 +30,6 @@ public class PresenceDTO implements Comparable<PresenceDTO> {
 
     public void setAccount(AccountDTO account) {
         this.account = account;
-    }
-
-    public Presence.PresenceType isPresent() {
-        return present;
-    }
-
-    public void setPresent(Presence.PresenceType present) {
-        this.present = present;
     }
 
     public boolean isEditable() {
