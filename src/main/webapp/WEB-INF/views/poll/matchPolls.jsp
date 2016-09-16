@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-    <div ng-repeat="(key, value) in matchPolls.list">
+    <div ng-repeat="(key, value) in page.list">
         <div class="clearfix" ng-if="$index % 2 == 0"></div>
         <div class="col-md-6">
             <div class="panel panel-info">
