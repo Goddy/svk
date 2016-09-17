@@ -1,5 +1,6 @@
 package be.spring.app.model;
 
+import be.spring.app.utils.GeneralUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 
@@ -44,6 +45,11 @@ public class News extends BaseClass {
 
     public void setPostDate(Date postDate) {
         this.postDate = postDate;
+    }
+
+    @Transient
+    public String getPostDateString() {
+        return GeneralUtils.convertToStringDate(this.postDate);
     }
 
     @NotNull

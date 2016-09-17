@@ -41,4 +41,10 @@ public interface DTOConversionHelper {
     DoodleDTO convertDoodle(Match match, Account account, boolean isAdmin);
 
     PresenceDTO convertPresence(Presence presence, boolean isLoggedIn);
+
+    PageDTO<NewsDTO> convertNewsPage(Account account, Page<News> page, boolean isAdmin);
+
+    NewsDTO convertNews(Account account, News news, boolean isAdmin);
+
+    CommentDTO convertComment(Account account, Comment comment, boolean isAdmin, boolean isLoggedIn);
 }

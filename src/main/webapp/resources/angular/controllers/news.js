@@ -2,9 +2,18 @@
 app.controller('newsCtrl', function ($scope, $http, $sce, newsService) {
     var getNews = function (page) {
         $scope.loading = true;
-        return newsService.getNews(page).success(function (data) {
+        return newsService.getPagedNews(page).success(function (data) {
             setVars(page, data);
         }).finally(function () {
+            $scope.loading = false;
+        });
+    };
+
+    var getSingleNewsItem = function (news) {
+        newsService.getNews(news.id).success(function (data) {
+            news.comments = data.comments;
+            $scope.loading = false;
+        }).error(function () {
             $scope.loading = false;
         });
     };
@@ -30,20 +39,39 @@ app.controller('newsCtrl', function ($scope, $http, $sce, newsService) {
             $scope.loading = true;
             newsService.editComment(news.id, comment)
                 .success(function () {
-                    doodleService.getMatchDoodle(matchId).success(function (data) {
-                        matchDoodle.doodle = data.doodle;
-                        $scope.loading = false;
-                    }).$error(function (data) {
-                        $scope.loading = false;
-                    });
-
-                    console.log('changed doodle succesfully');
+                    getSingleNewsItem(news);
+                    console.log('changed comment succesfully');
                 }).error(function (data, status, headers, config) {
                 $scope.loading = false;
-                messageService.showMessage(function (message) {
-                    $scope.doodleResultMessage[matchId] = message;
-                }, 'alert.vote.fail');
-                console.log('vote failed');
+                console.log('Change failed');
+            });
+        }
+    };
+
+    $scope.postComment = function (news, comment) {
+        if (comment.editable) {
+            $scope.loading = true;
+            newsService.postComment(news.id, comment)
+                .success(function () {
+                    getSingleNewsItem(news);
+                    console.log('Posted comment succesfully');
+                }).error(function (data, status, headers, config) {
+                $scope.loading = false;
+                console.log('Post failed');
+            });
+        }
+    };
+
+    $scope.deleteComment = function (news, comment) {
+        if (comment.editable) {
+            $scope.loading = true;
+            newsService.deleteComment(news.id, comment.id)
+                .success(function () {
+                    getSingleNewsItem(news);
+                    console.log('Deleted comment succesfully');
+                }).error(function (data, status, headers, config) {
+                $scope.loading = false;
+                console.log('Delete failed');
             });
         }
     };
@@ -55,5 +83,4 @@ app.controller('newsCtrl', function ($scope, $http, $sce, newsService) {
     $scope.init = function () {
         getNews(0);
     };
-
 });

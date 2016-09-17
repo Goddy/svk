@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -27,6 +28,15 @@ public class GeneralUtils {
 
     public static String convertToStringDate(DateTime dateTime) {
         return dateFormatter.print(dateTime);
+    }
+
+    public static String convertToStringDate(Date date) {
+        if (date == null) return null;
+        return dateFormatter.print(new DateTime(date));
+    }
+
+    public static DateTime convertToDate(String date) {
+        return dateFormatter.parseDateTime(date);
     }
 
     public static String convertToStringHour(DateTime dateTime) {

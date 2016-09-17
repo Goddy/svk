@@ -2,8 +2,12 @@
 app.factory('newsService', function ($http) {
 
     return {
-        getNews: function (page) {
+        getPagedNews: function (page) {
             return $http.get('/api/v1/news?page=' + page + '&size=10');
+        },
+
+        getNews: function (newsId) {
+            return $http.get('/api/v1/news/' + newsId);
         },
 
         searchNews: function (term, page) {
@@ -26,8 +30,8 @@ app.factory('newsService', function ($http) {
             });
         },
 
-        deleteComment: function (commentId) {
-            return $http.delete('/api/v1/news/comment/' + commentId);
+        deleteComment: function (newsId, commentId) {
+            return $http.delete('/api/v1/news/' + newsId + '/comment/' + commentId);
         }
     }
 });

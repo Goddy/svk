@@ -7,23 +7,20 @@ import be.spring.app.model.News;
 import be.spring.app.service.NewsService;
 import be.spring.app.utils.Constants;
 import be.spring.app.utils.GeneralUtils;
-import be.spring.app.utils.PageObject;
-import be.spring.app.validators.SanitizeUtils;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * User: Tom De Dobbeleer
@@ -47,14 +44,12 @@ public class NewsController extends AbstractController {
 
     @RequestMapping(value = "news", method = RequestMethod.GET)
     public String getNews(Model model) {
-        setPagedNews(model, Constants.ZERO);
         return VN_NEWS_PAGE;
     }
 
     @RequestMapping(value = "newsItem", method = RequestMethod.GET)
     public String getNewsItem(Model model, @RequestParam long newsId) {
-        News news = newsService.getNewsItem(newsId);
-        model.addAttribute("newsItem", news );
+        model.addAttribute("newsId", newsId);
         return VN_NEWS_ITEM_PAGE;
     }
 
@@ -64,59 +59,6 @@ public class NewsController extends AbstractController {
         newsService.deleteNews(newsId, getAccountFromSecurity());
         log.info(String.format("News item %s was deleted by user %s", newsId, getAccountFromSecurity().getUsername()));
         return Constants.REDIRECT_NEWS_PAGE;
-    }
-
-    @RequestMapping(value = "/news/{page}", method = RequestMethod.GET)
-    public String getPaged(Model model, @PathVariable int page)
-    {
-        setPagedNews(model, page);
-        return VN_NEWS_PAGE;
-    }
-
-    private void setPagedNews(Model model, int page) {
-        Page<News> pages = newsService.getPagedNews(page);
-        PageObject pageObject = new PageObject(model, pages.getTotalPages(), page, VN_NEWS_PAGED_NEWS);
-        pageObject.addAttributes();
-        model.addAttribute("newsList", Lists.newArrayList(pages.iterator()));
-    }
-
-    @RequestMapping(value = "search", method = RequestMethod.GET)
-    public String search(Model model) {
-        return VN_SEARCH_PAGE;
-    }
-
-    @RequestMapping(value = "search", method = RequestMethod.POST)
-    public String searchTerm(Model model, @RequestParam(value="search", required=false) String searchTerm) {
-        model.addAttribute("searchValue", searchTerm);
-        model.addAttribute("newsList", newsService.getSearch(searchTerm));
-        return VN_SEARCH_PAGE;
-    }
-
-    @RequestMapping(value = "getNewsSearch.json", method = RequestMethod.GET)
-    public @ResponseBody List<News> getNews(@RequestParam(value="search", required=false) String searchTerm) {
-        return newsService.getSearch(searchTerm);
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "addComment", method = RequestMethod.POST)
-    public String createCommentNews(@RequestParam(value="newsId") long newsId,
-                                                    @RequestParam(value="comment") String comment, ModelMap model) {
-        model.addAttribute("newsItem", newsService.addNewsComment(newsId, SanitizeUtils.SanitizeHtml(comment), getAccountFromSecurity()));
-        return NEWS_ITEM;
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "editComment", method = RequestMethod.POST)
-    public String editCommentNews(@RequestParam(value = "commentId") long commentId, @RequestParam(value = "comment") String comment, @RequestParam(value = "newsId") long newsId, ModelMap model) {
-        model.addAttribute("newsItem", newsService.changeNewsComment(commentId, newsId, SanitizeUtils.SanitizeHtml(comment), getAccountFromSecurity()));
-        return NEWS_ITEM;
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "deleteComment", method = RequestMethod.POST)
-    public String deleteCommentNews(@RequestParam(value = "commentId") long commentId, @RequestParam(value = "newsId") long newsId, Model model) {
-        model.addAttribute("newsItem", newsService.deleteNewsComment(commentId, newsId, getAccountFromSecurity()));
-        return NEWS_ITEM;
     }
 
     @PreAuthorize("isAuthenticated()")

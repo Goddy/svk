@@ -9,7 +9,7 @@ import be.spring.app.model.NewsComment;
 import be.spring.app.persistence.AccountDao;
 import be.spring.app.persistence.CommentDao;
 import be.spring.app.persistence.NewsDao;
-import be.spring.app.utils.Constants;
+import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.slf4j.Logger;
@@ -120,8 +120,9 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public Page<News> getPagedNews(int start) {
-        return newsDao.findAll((new PageRequest(start, Constants.TEN, Sort.Direction.DESC, "postDate")));
+    public Page<News> getPagedNews(int start, int pageSize, Optional<Sort> sort) {
+        Sort s = sort.isPresent() ? sort.get() : new Sort(Sort.Direction.DESC, "postDate");
+        return newsDao.findAll((new PageRequest(start, pageSize, s)));
     }
 
     @Override
