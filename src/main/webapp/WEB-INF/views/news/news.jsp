@@ -33,7 +33,8 @@
                                 <h4>
                                     <span ng-bind-html="value.header"></span>
                                     <span style="float: right;">
-                                    <a class="commentBtn" data-target="#comments_{{value.id}}" data-toggle="collapse">
+                                    <a class="commentBtn"
+                                       ng-click="showAllComments=!showAllComments; focusOnComments()">
                                         <spring:message
                                             code="text.reactions"/>&NonBreakingSpace;<span
                                             class="badge">{{value.comments.length}}</span></a>
@@ -60,55 +61,54 @@
 
                                 </p>
                                 <hr/>
-                                <div id="comments_{{value.id}}" class="collapse">
+                                <div ng-show="showAllComments" focus-function="focusOnComments">
                                     <div class="comment post" ng-repeat="comment in value.comments">
-                                        <span>{{comment.content}} -
+                                        <span ng-init="showComment=true" ng-show="showComment">{{comment.content}} -
                                             <spring:message code="text.comment.by"/>&nbsp;{{comment.postedBy.name}}&nbsp;<spring:message
                                                     code="text.on"/>&nbsp{{comment.postDate}}
-                                            <a ng-show="comment.editable"
-                                               data-target="#editComment_{{comment.id}}"
-                                               data-toggle="collapse"><spring:message
-                                                    code="button.update"/></a>&NonBreakingSpace;|&NonBreakingSpace;<a
-                                                    ng-click="showConfirmationMessage = true"
-                                                    class="deleteComment" data-toggle="tooltip"
-                                                    data-placement="top"><spring:message
-                                                    code="button.remove"/></a>
-                                                    <span ng-show="showConfirmationMessage">
-                                                        <i><spring:message code="text.delete.comment"/></i>
-                                                        <a ng-click="showConfirmationMessage = false; deleteComment(value, comment)">
-                                                            <i><spring:message code="text.yes"/></i>
-                                                        </a>&nbsp;|&nbsp;
-                                                        <a ng-click="showConfirmationMessage = false">
-                                                            <i><spring:message code="text.no"/></i>
-                                                        </a>
-                                                    </span>
+                                            <span ng-show="comment.editable">
+                                            <a ng-click="showComment=false; showEditComment=true"><spring:message
+                                                    code="button.update"/></a>
+                                                &NonBreakingSpace;|&NonBreakingSpace;
+                                                <a ng-click="showConfirmationMessage = true">
+                                                    <spring:message code="button.remove"/>
+                                                </a>
+                                                <span ng-show="showConfirmationMessage">
+                                                    <i><spring:message code="text.delete.comment"/></i>
+                                                    <a ng-click="showConfirmationMessage = false; deleteComment(value, comment)">
+                                                        <i><spring:message code="text.yes"/></i>
+                                                    </a>&nbsp;|&nbsp;
+                                                    <a ng-click="showConfirmationMessage = false">
+                                                        <i><spring:message code="text.no"/></i>
+                                                    </a>
+                                                </span>
+                                            </span>
                                         </span>
 
-                                        <div id="editComment_{{comment.id}}" class="collapse">
+                                        <div ng-show="showEditComment">
                                             <textarea class="form-control" ng-model="comment.content"></textarea>
-                                            <a ng-click="editComment(comment, value.id)"
-                                               data-toggle="tooltip"
+                                            <a ng-click="changeComment(value, comment);showEditComment=false"
                                                data-placement="top" class="btn btn-primary editComment"><spring:message
                                                     code="button.update"/></a>
                                         </div>
                                     </div>
                                     <sec:authorize access="isAuthenticated()">
-                                        <div class="collapse" id="addComment_{{value.id}}">
-                                            <textarea class="form-control"></textarea>
-                                            <a href="/addComment.html?newsId={{value.id}}" data-toggle="tooltip"
-                                               data-placement="top"
+                                        <div ng-show="showNewComment">
+                                            <textarea class="form-control" ng-model="newComment.content"></textarea>
+                                            <a data-placement="top"
+                                               ng-click="postComment(value, newComment); showNewComment=false; showNewCommentBtn=true"
                                                class="btn btn-primary addComment"><spring:message
                                                     code="button.add"/></a>
                                         </div>
                                         <a class="btn btn-xs btn-primary addCommentBtn addCommentBtn"
-                                           data-toggle="collapse"
-                                           data-target="#addComment_{{value.id}}"><spring:message
+                                           ng-init="showNewCommentBtn=true" ng-show="showNewCommentBtn"
+                                           ng-click="showNewCommentBtn=false; showNewComment=true"><spring:message
                                                 code="button.add.comment"/></a>
                                     </sec:authorize>
                                     <sec:authorize access="isAnonymous()">
-                                        <a class="btn btn-xs btn-primary addCommentBtn" href="/login.html"
-                                           data-target="#comment{{value.id}}"><spring:message
-                                                code="button.add.comment"/></a></p>
+                                        <a class="btn btn-xs btn-primary addCommentBtn"
+                                           href="/login.html"><spring:message
+                                                code="button.add.comment"/></a>
                                     </sec:authorize>
                                 </div>
                             </div>

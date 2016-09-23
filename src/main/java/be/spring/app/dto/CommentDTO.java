@@ -11,6 +11,11 @@ public class CommentDTO extends DTOBaseClass implements Comparable<CommentDTO> {
     private String postDate;
     private boolean editable;
 
+    /**
+     * Default constructor for jackson
+     */
+    public CommentDTO() {}
+
     public CommentDTO(Long id, AccountDTO postedBy, String content, String postDate, boolean editable) {
         super(id);
         this.postedBy = postedBy;

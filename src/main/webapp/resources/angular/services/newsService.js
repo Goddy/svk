@@ -15,19 +15,12 @@ app.factory('newsService', function ($http) {
         },
 
         postComment: function (newsId, comment) {
-            return $http({
-                url: '/api/v1/news/' + newsId + '/comment',
-                method: "POST",
-                data: {content: comment}
-            });
+            return $http.post('/api/v1/news/' + newsId + '/comment', comment);
         },
 
         editComment: function (newsId, comment) {
-            return $http({
-                url: '/api/v1/news/comment/' + comment.id,
-                method: "PUT",
-                data: {content: comment.content}
-            });
+            var json = JSON.stringify(comment);
+            return $http.put('/api/v1/news/' + newsId + '/comment', comment);
         },
 
         deleteComment: function (newsId, commentId) {

@@ -49,17 +49,15 @@ app.controller('newsCtrl', function ($scope, $http, $sce, newsService) {
     };
 
     $scope.postComment = function (news, comment) {
-        if (comment.editable) {
-            $scope.loading = true;
-            newsService.postComment(news.id, comment)
-                .success(function () {
-                    getSingleNewsItem(news);
-                    console.log('Posted comment succesfully');
-                }).error(function (data, status, headers, config) {
-                $scope.loading = false;
-                console.log('Post failed');
-            });
-        }
+        $scope.loading = true;
+        newsService.postComment(news.id, comment)
+            .success(function () {
+                getSingleNewsItem(news);
+                console.log('Posted comment succesfully');
+            }).error(function (data, status, headers, config) {
+            $scope.loading = false;
+            console.log('Post failed');
+        });
     };
 
     $scope.deleteComment = function (news, comment) {
