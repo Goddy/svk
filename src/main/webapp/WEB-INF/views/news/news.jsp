@@ -4,6 +4,7 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <sec:authentication var="principal" property="principal"/>
+<div ng-app="soccerApp" ng-controller="newsCtrl" data-ng-init="init()">
 <div class="row">
     <div class="col-md-12">
         <ul class="breadcrumb">
@@ -14,19 +15,22 @@
 </div>
 <div class="row m-b-1">
     <div class="col-md-4 col-md-offset-8">
-        <div class="input-group">
-            <span class="input-group-addon">
-  				<span class="glyphicon glyphicon-search"></span>
-  			</span>
-            <input id="search" type="text" class="form-control" placeholder="<spring:message code="label.search" />">
-        </div>
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="text" ng-model="searchTerm" class="form-control" id="search"
+                       placeholder="<spring:message code="label.search" />">
+                <button ng-click="searchNews(searchTerm, 0)" class="btn btn-primary"><span
+                        class="glyphicon glyphicon-search"></span></button>
+            </div>
+        </form>
     </div>
 </div>
 <div class="row m-t-1">
     <div class="col-md-12">
+        <tag:pagination/>
         <div id="blog-homepage">
             <div id="default">
-                <div class="news-div" ng-app="soccerApp" ng-controller="newsCtrl" data-ng-init="init()">
+                <div class="news-div">
                     <div class="row" ng-repeat="(key, value) in page.list">
                         <div class="col-md-12">
                             <div class="post">
@@ -34,7 +38,7 @@
                                     <span ng-bind-html="value.header"></span>
                                     <span style="float: right;">
                                     <a class="commentBtn"
-                                       ng-click="showAllComments=!showAllComments; focusOnComments()">
+                                       ng-click="showAllComments=!showAllComments" href="{{'#comments_' + value.id}}">
                                         <spring:message
                                             code="text.reactions"/>&NonBreakingSpace;<span
                                             class="badge">{{value.comments.length}}</span></a>
@@ -52,16 +56,25 @@
                                            title="<spring:message code="title.editNews"/>"
                                            class="btn btn-default edit"><span
                                                 class="glyphicon glyphicon-edit"></span></a>
-                                        <a href="/deleteItem.html?newsId={{value.id}}" data-toggle="tooltip"
+                                        <a ng-click="showDeleteNewsConfirmationMessage = true" data-toggle="tooltip"
                                            data-placement="top"
                                            title="<spring:message code="title.deleteNews"/>"
                                            class="btn btn-default delete"><span
                                                 class="glyphicon glyphicon-trash delete"></span></a>
+                                        <div class="text-center" ng-show="showDeleteNewsConfirmationMessage">
+                                            <i><spring:message code="text.delete.news"/></i>
+                                            <a ng-click="showDeleteNewsConfirmationMessage = false; deleteNews(value, $index)">
+                                                <i><spring:message code="text.yes"/></i>
+                                            </a>&nbsp;|&nbsp;
+                                            <a ng-click="showDeleteNewsConfirmationMessage = false">
+                                                <i><spring:message code="text.no"/></i>
+                                            </a>
+                                        </div>
                                     </span>
 
                                 </p>
                                 <hr/>
-                                <div ng-show="showAllComments" focus-function="focusOnComments">
+                                <div ng-show="showAllComments" id="{{'comments_' + value.id}}">
                                     <div class="comment post" ng-repeat="comment in value.comments">
                                         <span ng-init="showComment=true" ng-show="showComment">{{comment.content}} -
                                             <spring:message code="text.comment.by"/>&nbsp;{{comment.postedBy.name}}&nbsp;<spring:message
@@ -73,7 +86,7 @@
                                                 <a ng-click="showConfirmationMessage = true">
                                                     <spring:message code="button.remove"/>
                                                 </a>
-                                                <span ng-show="showConfirmationMessage">
+                                                <div class="m-t-1" ng-show="showConfirmationMessage">
                                                     <i><spring:message code="text.delete.comment"/></i>
                                                     <a ng-click="showConfirmationMessage = false; deleteComment(value, comment)">
                                                         <i><spring:message code="text.yes"/></i>
@@ -81,7 +94,7 @@
                                                     <a ng-click="showConfirmationMessage = false">
                                                         <i><spring:message code="text.no"/></i>
                                                     </a>
-                                                </span>
+                                                </div>
                                             </span>
                                         </span>
 
@@ -121,10 +134,9 @@
 </div>
 </div>
 
+</div>
 
     <script src="<c:url value='/resources/angular/controllers/news.js'/>"></script>
-
-<tag:deleteDialog dialogId="delete-modal"/>
 
 <%@ include file="../jspf/footer.jspf" %>
 

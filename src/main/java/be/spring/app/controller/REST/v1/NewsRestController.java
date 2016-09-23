@@ -43,12 +43,29 @@ public class NewsRestController extends AbstractRestController {
                 HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/news/search/{term}", method = RequestMethod.GET)
+    @ApiOperation(value = "Search news", nickname = "searchNewsPage")
+    public ResponseEntity<PageDTO<NewsDTO>> searchNewsPage(@PathVariable String term, @RequestParam int page,
+                                                           @RequestParam(required =
+            false) int size) {
+        Page<News> news = newsService.getSearch(term, page, size, Optional.<Sort>absent());
+        return new ResponseEntity<>(dtoConversionHelper.convertNewsPage(getAccountFromSecurity(), news, isAdmin()),
+                HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/news/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "Get news", nickname = "getNews")
     public ResponseEntity<NewsDTO> getNews(@PathVariable Long id) {
         News news = newsService.getNewsItem(id);
         return new ResponseEntity<>(dtoConversionHelper.convertNews(getAccountFromSecurity(), news, isAdmin()),
                 HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/news/{id}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "Delete news", nickname = "deleteNews")
+    public ResponseEntity deleteNews(@PathVariable Long id) {
+        newsService.deleteNews(id, getAccountFromSecurity());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")

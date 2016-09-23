@@ -10,6 +10,10 @@ app.factory('newsService', function ($http) {
             return $http.get('/api/v1/news/' + newsId);
         },
 
+        deleteNews: function (newsId) {
+            return $http.delete('/api/v1/news/' + newsId);
+        },
+
         searchNews: function (term, page) {
             return $http.get('/api/v1/news/search/' + term + '?page=' + page + '&size=10');
         },

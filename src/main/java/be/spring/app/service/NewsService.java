@@ -34,7 +34,7 @@ public interface NewsService {
 
     Page<News> getPagedNews(int start, int pageSize, Optional<Sort> sort);
 
-    List<News> getSearch(String term);
+    Page<News> getSearch(String term, int start, int pageSize, Optional<Sort> sort);
 
     int getNewsCount();
 

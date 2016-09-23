@@ -74,11 +74,50 @@ app.controller('newsCtrl', function ($scope, $http, $sce, newsService) {
         }
     };
 
-    $scope.getPage = function (page) {
-        getNews(page)
+    $scope.deleteNews = function (news, index) {
+        if (news.editable) {
+            $scope.loading = true;
+            newsService.deleteNews(news.id)
+                .success(function () {
+                    if (index !== undefined) {
+                        $scope.page.list.splice(index, 1);
+                    }
+                    console.log('Deleted news succesfully');
+                }).error(function (data, status, headers, config) {
+                $scope.loading = false;
+                console.log('Delete failed');
+            });
+        }
     };
 
-    $scope.init = function () {
+    $scope.searchNews = function (term, page) {
+        if (term !== '' && term !== undefined) {
+            searchNews(term, page);
+        }
+        else {
+            getNews(0);
+        }
+    };
+
+    $scope.getPage = function (page, term) {
+        if (term !== '' && term !== undefined) {
+            searchNews(term, page);
+        }
+        else {
+            getNews(page);
+        }
+    };
+
+    $scope.init = function (newsId) {
         getNews(0);
+    };
+
+    $scope.initSingle = function (newsId) {
+        newsService.getNews(newsId).success(function (data) {
+            $scope.newsItem = data;
+            $scope.loading = false;
+        }).error(function () {
+            $scope.loading = false;
+        });
     };
 });

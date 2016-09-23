@@ -131,8 +131,9 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<News> getSearch(String term) {
-        return newsDao.getSearch("%" + term + "%");
+    public Page<News> getSearch(String term, int start, int pageSize, Optional<Sort> sort) {
+        Sort s = sort.isPresent() ? sort.get() : new Sort(Sort.Direction.DESC, "postDate");
+        return newsDao.getSearch("%" + term + "%", new PageRequest(start, pageSize, s));
     }
 
     @Override
