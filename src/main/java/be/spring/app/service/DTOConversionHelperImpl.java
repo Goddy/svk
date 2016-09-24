@@ -4,6 +4,7 @@ import be.spring.app.dto.*;
 import be.spring.app.model.*;
 import be.spring.app.persistence.AccountDao;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -102,7 +103,7 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
         for (Match m : matches.getContent()) {
             matchPollDTOMap.add(convertMatchPoll(m, isLoggedIn));
         }
-        return new PageDTO<MatchPollDTO>(matchPollDTOMap, matches.getTotalPages(), matches.hasNext(), matches.hasPrevious());
+        return new PageDTO<>(matchPollDTOMap, matches.getTotalPages(), matches.hasNext(), matches.hasPrevious());
 
     }
 
@@ -152,6 +153,51 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
             accountDTO.setName(isLoggedIn ? account.toString() : account.getFullName());
             accountDTO.setId(account.getId());
             return accountDTO;
+        }
+        return null;
+    }
+
+    @Override
+    public PageDTO<MatchDoodleDTO> convertMatchDoodles(Page<Match> match, Account account, boolean isAdmin) {
+        List<MatchDoodleDTO> matchDoodleDTOList = Lists.newLinkedList();
+        for (Match m : match.getContent()) {
+            matchDoodleDTOList.add(convertMatchDoodle(m, account, isAdmin));
+        }
+        return new PageDTO<>(matchDoodleDTOList, match.getTotalPages(), match.hasNext(), match.hasPrevious());
+    }
+
+    @Override
+    public MatchDoodleDTO convertMatchDoodle(Match match, Account account, boolean isAdmin) {
+        return new MatchDoodleDTO(match.getId(),
+                convertDoodle(match, account, isAdmin),
+                match.getStringDate(),
+                match.getDescription());
+    }
+
+    @Override
+    public DoodleDTO convertDoodle(Match match, Account account, boolean isAdmin) {
+        Doodle doodle = match.getMatchDoodle();
+        if (doodle != null) {
+            //Run though all active accounts, check if they are present and convert
+            Set<PresenceDTO> presenceDTOs = Sets.newTreeSet();
+            for (Account a : accountDao.findAllByActive(true)) {
+                presenceDTOs.add(new PresenceDTO(convertAccount(a, account != null), doodle.isPresent(a),
+                        isAdmin || (account != null && match.isActive() && a.equals(account))));
+            }
+            return new DoodleDTO(doodle.getId(),
+                    presenceDTOs,
+                    account == null ? null : new PresenceDTO(convertAccount(account, true), doodle.isPresent(account)
+                            , match.isActive()),
+                    doodle.countPresences());
+        }
+        return null;
+    }
+
+    @Override
+    public PresenceDTO convertPresence(Presence presence, boolean isLoggedIn) {
+        if (presence != null) {
+            return new PresenceDTO(convertAccount(presence.getAccount(), isLoggedIn), presence.isPresent() ? Presence
+                    .PresenceType.PRESENT : Presence.PresenceType.NOT_PRESENT, true);
         }
         return null;
     }

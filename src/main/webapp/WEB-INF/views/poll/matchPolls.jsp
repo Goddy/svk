@@ -16,25 +16,7 @@
 </div>
 <div class="m-t-1" ng-app="soccerApp" ng-controller="matchPollCtrl" data-ng-init="init()">
     <div class="row m-b-1">
-        <div class="text-center">
-            <ul class="pagination blue">
-                <li>
-                    <a ng-click="getPage(currentPage - 1)" ng-if="matchPolls.hasPrevious">
-                        &laquo;
-                    </a>
-                </li>
-                <li ng-repeat="n in [].constructor(matchPolls.totalPages) track by $index" ng-class="{'active': $index==currentPage}">
-                    <a ng-click="getPage($index)">
-                        {{$index + 1}}
-                    </a>
-                </li>
-                <li>
-                    <a ng-click="getPage(currentPage + 1)" ng-if="matchPolls.hasNext">
-                        &raquo;
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <tag:pagination/>
     </div>
 
     <div ng-if="!hasMatchPolls">
@@ -121,25 +103,7 @@
     </div>
     <div class="clearfix"></div>
     <div class="row">
-        <div class="text-center">
-            <ul class="pagination blue">
-                <li>
-                    <a ng-click="getPage(currentPage - 1)" ng-if="matchPolls.hasPrevious">
-                        &laquo;
-                    </a>
-                </li>
-                <li ng-repeat="n in [].constructor(matchPolls.totalPages) track by $index" ng-class="{'active': $index==currentPage}">
-                    <a ng-click="getPage($index)">
-                        {{$index + 1}}
-                    </a>
-                </li>
-                <li>
-                    <a ng-click="getPage(currentPage + 1)" ng-if="matchPolls.hasNext">
-                        &raquo;
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <tag:pagination/>
     </div>
 </div>
 

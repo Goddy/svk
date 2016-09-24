@@ -45,5 +45,6 @@
 <c:set value="${isPresent == 'ANONYMOUS' ? '' : 'presence'}" var="presenceClass"/>
 
 <a href="${href}" data-toggle="tooltip" data-container="body" title="<spring:message code="title.doodleChange"/>"
-   data-placement="top" ${disabled} class="btn btn-default ${presenceClass} ${extraClass}"><span class="${classes}"
-                                                                                                 aria-hidden="true"></span></a>
+   data-placement="top" ${disabled} class="btn btn-default ${presenceClass} ${extraClass}"><span
+        class="${classes}"
+        aria-hidden="true"></span></a>

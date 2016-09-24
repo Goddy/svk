@@ -58,6 +58,7 @@
     <script src="<c:url value='/resources/angular/app.js'/>"></script>
     <script src="<c:url value='/resources/angular/services/pollService.js'/>"></script>
     <script src="<c:url value='/resources/angular/services/messageService.js'/>"></script>
+    <script src="<c:url value='/resources/angular/services/doodleService.js'/>"></script>
 </head>
 <body>
 <!--[if lt IE 10]>

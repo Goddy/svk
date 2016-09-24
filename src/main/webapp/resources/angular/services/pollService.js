@@ -7,7 +7,7 @@ app.factory('pollService', function($http) {
         },
 
         getMatchPollPage: function (page) {
-            return $http.get('/api/v1/matchPoll?page=' + page + '&size=5');
+            return $http.get('/api/v1/matchPoll?page=' + page + '&size=10');
         },
 
         refresh: function(poll) {

@@ -1,4 +1,4 @@
-package be.spring.app.controller.REST;
+package be.spring.app.controller.REST.v1;
 
 import be.spring.app.controller.AbstractSecurityController;
 import org.springframework.web.bind.annotation.RequestMapping;

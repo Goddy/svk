@@ -33,4 +33,12 @@ public interface DTOConversionHelper {
     List<GoalDTO> convertGoals(SortedSet<Goal> goals, boolean isLoggedIn);
 
     AccountDTO convertAccount(Account account, boolean isLoggedIn);
+
+    PageDTO<MatchDoodleDTO> convertMatchDoodles(Page<Match> match, Account account, boolean isAdmin);
+
+    MatchDoodleDTO convertMatchDoodle(Match match, Account account, boolean isAdmin);
+
+    DoodleDTO convertDoodle(Match match, Account account, boolean isAdmin);
+
+    PresenceDTO convertPresence(Presence presence, boolean isLoggedIn);
 }
