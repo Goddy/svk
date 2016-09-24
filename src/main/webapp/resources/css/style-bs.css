@@ -12,6 +12,10 @@ html {
     min-height: 100%;
 }
 
+a:hover {
+    cursor: pointer;
+}
+
 li.list-group.item {
     list-style: none;
 }

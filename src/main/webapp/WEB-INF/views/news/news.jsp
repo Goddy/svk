@@ -14,15 +14,15 @@
     </div>
 </div>
 <div class="row m-b-1">
-    <div class="col-md-4 col-md-offset-8">
-        <form class="form-inline">
-            <div class="form-group">
-                <input type="text" ng-model="searchTerm" class="form-control" id="search"
-                       placeholder="<spring:message code="label.search" />">
-                <button ng-click="searchNews(searchTerm, 0)" class="btn btn-primary"><span
-                        class="glyphicon glyphicon-search"></span></button>
-            </div>
-        </form>
+    <div class="col-md-3 col-md-offset-9">
+        <div class="input-group">
+            <input type="text" ng-model="searchTerm" class="form-control" id="search"
+                   placeholder="<spring:message code="label.search" />">
+            <span class="input-group-btn">
+                    <button ng-click="searchNews(searchTerm, 0)" class="btn btn-primary"><span
+                            class="glyphicon glyphicon-search"></span></button>
+            </span>
+        </div>
     </div>
 </div>
 <div class="row m-t-1">
