@@ -201,4 +201,41 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
         }
         return null;
     }
+
+    @Override
+    public PageDTO<NewsDTO> convertNewsPage(Account account, Page<News> page, boolean isAdmin) {
+        List<NewsDTO> newsDTOList = Lists.newLinkedList();
+        for (News n : page.getContent()) {
+            newsDTOList.add(convertNews(account, n, isAdmin));
+        }
+        return new PageDTO<>(newsDTOList, page.getTotalPages(), page.hasNext(), page.hasPrevious() );
+    }
+
+    @Override
+    public NewsDTO convertNews(Account account, News news, boolean isAdmin) {
+        boolean isLoggedIn = account != null;
+        if (news != null) {
+            Set<CommentDTO> comments = Sets.newTreeSet();
+            for (Comment comment : news.getComments()) {
+                comments.add(convertComment(account, comment, isAdmin, isLoggedIn));
+            }
+            return new NewsDTO(news.getId(),
+                    news.getHeader(),
+                    news.getContent(),
+                    news.getPostDateString(),
+                    convertAccount(news.getAccount(), isLoggedIn),
+                    isAdmin || (isLoggedIn && news.getAccount().equals(account)),
+                    comments);
+        }
+        return null;
+    }
+
+    @Override
+    public CommentDTO convertComment(Account account, Comment comment, boolean isAdmin, boolean isLoggedIn) {
+        if (comment != null) {
+            return new CommentDTO(comment.getId(), convertAccount(comment.getAccount(), isLoggedIn), comment.getContent(), comment.getPostDateString(),
+                    isAdmin || (isLoggedIn && account.equals(comment.getAccount())));
+        }
+        return null;
+    }
 }

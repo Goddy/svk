@@ -3,7 +3,8 @@
 <%@ include file="../jspf/header.jspf" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<sec:authentication var="principal" property="principal" />
+<sec:authentication var="principal" property="principal"/>
+<div ng-app="soccerApp" ng-controller="newsCtrl" data-ng-init="init()">
 <div class="row">
     <div class="col-md-12">
         <ul class="breadcrumb">
@@ -14,56 +15,128 @@
 </div>
 <div class="row m-b-1">
     <div class="col-md-4 col-md-offset-8">
-        <div class="input-group">
-            <span class="input-group-addon">
-  				<span class="glyphicon glyphicon-search"></span>
-  			</span>
-            <input id="search" type="text" class="form-control" placeholder="<spring:message code="label.search" />">
-        </div>
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="text" ng-model="searchTerm" class="form-control" id="search"
+                       placeholder="<spring:message code="label.search" />">
+                <button ng-click="searchNews(searchTerm, 0)" class="btn btn-primary"><span
+                        class="glyphicon glyphicon-search"></span></button>
+            </div>
+        </form>
     </div>
 </div>
 <div class="row m-t-1">
     <div class="col-md-12">
+        <tag:pagination/>
         <div id="blog-homepage">
             <div id="default">
-                <c:choose>
-                    <c:when test="${empty newsList}"><p><spring:message code="text.nomessages"/></p></c:when>
-                    <c:otherwise>
-                        <c:forEach var="newsItem" items="${newsList}">
-                            <div class="news-div">
-                                <tag:news newsItem="${newsItem}">
-                                    <hr/>
-                                    <tag:comment newsItem="${newsItem}"/>
-                                </tag:news>
+                <div class="news-div">
+                    <div class="row" ng-repeat="(key, value) in page.list">
+                        <div class="col-md-12">
+                            <div class="post">
+                                <h4>
+                                    <span ng-bind-html="value.header"></span>
+                                    <span style="float: right;">
+                                    <a class="commentBtn"
+                                       ng-click="showAllComments=!showAllComments" href="{{'#comments_' + value.id}}">
+                                        <spring:message
+                                            code="text.reactions"/>&NonBreakingSpace;<span
+                                            class="badge">{{value.comments.length}}</span></a>
+                                    </span>
+                                </h4>
+                                <hr>
+                                <span align="left" ng-bind-html="value.content"></span>
 
+                                <p class="author-category"><spring:message code="text.postedby"/>
+                                    {{value.postedBy.name}} <spring:message code="text.on"/>
+                                    {{value.postDate}}
+                                    <span class="btn-group" ng-show="value.editable">
+                                        <a href="/editNews.html?newsId={{value.id}}" data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="<spring:message code="title.editNews"/>"
+                                           class="btn btn-default edit"><span
+                                                class="glyphicon glyphicon-edit"></span></a>
+                                        <a ng-click="showDeleteNewsConfirmationMessage = true" data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="<spring:message code="title.deleteNews"/>"
+                                           class="btn btn-default delete"><span
+                                                class="glyphicon glyphicon-trash delete"></span></a>
+                                        <div class="text-center" ng-show="showDeleteNewsConfirmationMessage">
+                                            <i><spring:message code="text.delete.news"/></i>
+                                            <a ng-click="showDeleteNewsConfirmationMessage = false; deleteNews(value, $index)">
+                                                <i><spring:message code="text.yes"/></i>
+                                            </a>&nbsp;|&nbsp;
+                                            <a ng-click="showDeleteNewsConfirmationMessage = false">
+                                                <i><spring:message code="text.no"/></i>
+                                            </a>
+                                        </div>
+                                    </span>
+
+                                </p>
+                                <hr/>
+                                <div ng-show="showAllComments" id="{{'comments_' + value.id}}">
+                                    <div class="comment post" ng-repeat="comment in value.comments">
+                                        <span ng-init="showComment=true" ng-show="showComment">{{comment.content}} -
+                                            <spring:message code="text.comment.by"/>&nbsp;{{comment.postedBy.name}}&nbsp;<spring:message
+                                                    code="text.on"/>&nbsp{{comment.postDate}}
+                                            <span ng-show="comment.editable">
+                                            <a ng-click="showComment=false; showEditComment=true"><spring:message
+                                                    code="button.update"/></a>
+                                                &NonBreakingSpace;|&NonBreakingSpace;
+                                                <a ng-click="showConfirmationMessage = true">
+                                                    <spring:message code="button.remove"/>
+                                                </a>
+                                                <div class="m-t-1" ng-show="showConfirmationMessage">
+                                                    <i><spring:message code="text.delete.comment"/></i>
+                                                    <a ng-click="showConfirmationMessage = false; deleteComment(value, comment)">
+                                                        <i><spring:message code="text.yes"/></i>
+                                                    </a>&nbsp;|&nbsp;
+                                                    <a ng-click="showConfirmationMessage = false">
+                                                        <i><spring:message code="text.no"/></i>
+                                                    </a>
+                                                </div>
+                                            </span>
+                                        </span>
+
+                                        <div ng-show="showEditComment">
+                                            <textarea class="form-control" ng-model="comment.content"></textarea>
+                                            <a ng-click="changeComment(value, comment);showEditComment=false"
+                                               data-placement="top" class="btn btn-primary editComment"><spring:message
+                                                    code="button.update"/></a>
+                                        </div>
+                                    </div>
+                                    <sec:authorize access="isAuthenticated()">
+                                        <div ng-show="showNewComment">
+                                            <textarea class="form-control" ng-model="newComment.content"></textarea>
+                                            <a data-placement="top"
+                                               ng-click="postComment(value, newComment); showNewComment=false; showNewCommentBtn=true"
+                                               class="btn btn-primary addComment"><spring:message
+                                                    code="button.add"/></a>
+                                        </div>
+                                        <a class="btn btn-xs btn-primary addCommentBtn addCommentBtn"
+                                           ng-init="showNewCommentBtn=true" ng-show="showNewCommentBtn"
+                                           ng-click="showNewCommentBtn=false; showNewComment=true"><spring:message
+                                                code="button.add.comment"/></a>
+                                    </sec:authorize>
+                                    <sec:authorize access="isAnonymous()">
+                                        <a class="btn btn-xs btn-primary addCommentBtn"
+                                           href="/login.html"><spring:message
+                                                code="button.add.comment"/></a>
+                                    </sec:authorize>
+                                </div>
                             </div>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
+                            </div>
+                    </div>
 
-                <tag:pageComponent first="${first}" previous="${previous}" next="${next}" last="${last}"/>
+
+                </div>
             </div>
-            <div id="loader" class="text-center"></div>
-            <div id="searchResult" style="display: none;"></div>
-        </div>
 </div>
 </div>
-<script src="<c:url value='/resources/js/svk-ui-1.5.js'/>"></script>
 
-<tag:deleteDialog dialogId="delete-modal"/>
+</div>
 
-<script src="<c:url value='/resources/js/svk-ui-1.5.js'/>"></script>
+    <script src="<c:url value='/resources/angular/controllers/news.js'/>"></script>
 
-<script type="text/javascript">
-
-    (function ($, news) {
-        var newsFunctions = news.initCommentFunctions(
-                ["<spring:message code="text.delete.comment.title"/>", "<spring:message code="text.delete.comment"/>"],
-                ["<spring:message code="text.delete.news.title"/>", "<spring:message code="text.delete.news"/>"]
-        );
-        var searchFunctions = news.initSearchFunctions(["<div class=\"box\"><spring:message code='text.noResults'/></div>"]);
-        newsFunctions.updateButtons();
-    })(jQuery, svk.news);
-</script>
 <%@ include file="../jspf/footer.jspf" %>
 

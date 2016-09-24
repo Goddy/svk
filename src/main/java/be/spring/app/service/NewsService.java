@@ -3,7 +3,9 @@ package be.spring.app.service;
 import be.spring.app.form.NewsForm;
 import be.spring.app.model.Account;
 import be.spring.app.model.News;
+import com.google.common.base.Optional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -30,11 +32,11 @@ public interface NewsService {
 
     List<News> getAll();
 
-    Page<News> getPagedNews(int start);
+    Page<News> getPagedNews(int start, int pageSize, Optional<Sort> sort);
 
-    List<News> getSearch(String term);
+    Page<News> getSearch(String term, int start, int pageSize, Optional<Sort> sort);
 
-    public int getNewsCount();
+    int getNewsCount();
 
     @Transactional(readOnly = false)
     void deleteNews(long id, Account account);

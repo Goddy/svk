@@ -1,5 +1,7 @@
 package be.spring.app.model;
 
+import be.spring.app.utils.GeneralUtils;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -52,5 +54,10 @@ public abstract class Comment extends BaseClass {
 
     public void setPostDate(Date postDate) {
         this.postDate = postDate;
+    }
+
+    @Transient
+    public String getPostDateString() {
+        return GeneralUtils.convertToStringDate(this.postDate);
     }
 }

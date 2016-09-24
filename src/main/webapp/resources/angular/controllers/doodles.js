@@ -7,11 +7,8 @@ app.controller('doodleCtrl', function ($scope, $http, doodleService, messageServ
         $scope.loading = true;
         return doodleService.getMatchDoodles(page).success(function (data) {
             $scope.loading = false;
-            $scope.matchDoodles = data;
+            $scope.page = data;
             $scope.currentPage = page;
-            $scope.hasPrevious = data.hasPrevious;
-            $scope.hasNext = data.hasNext;
-            $scope.totalPages = data.totalPages;
             $scope.hasMatchDoodles = data.list.length;
         }).finally(function () {
             $scope.loading = false;
