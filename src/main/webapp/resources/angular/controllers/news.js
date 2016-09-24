@@ -13,7 +13,7 @@ app.controller('newsCtrl', function ($scope, $http, $sce, newsService) {
         newsService.getNews(news.id).success(function (data) {
             news.comments = data.comments;
             $scope.loading = false;
-        }).error(function () {
+        }).finally(function () {
             $scope.loading = false;
         });
     };
@@ -28,7 +28,6 @@ app.controller('newsCtrl', function ($scope, $http, $sce, newsService) {
     };
 
     var setVars = function (page, data) {
-        $scope.loading = false;
         $scope.page = data;
         $scope.currentPage = page;
         $scope.hasMatchDoodles = data.list.length;
@@ -36,39 +35,33 @@ app.controller('newsCtrl', function ($scope, $http, $sce, newsService) {
 
     $scope.changeComment = function (news, comment) {
         if (comment.editable) {
-            $scope.loading = true;
             newsService.editComment(news.id, comment)
                 .success(function () {
                     getSingleNewsItem(news);
                     console.log('changed comment succesfully');
                 }).error(function (data, status, headers, config) {
-                $scope.loading = false;
                 console.log('Change failed');
             });
         }
     };
 
     $scope.postComment = function (news, comment) {
-        $scope.loading = true;
         newsService.postComment(news.id, comment)
             .success(function () {
                 getSingleNewsItem(news);
                 console.log('Posted comment succesfully');
             }).error(function (data, status, headers, config) {
-            $scope.loading = false;
             console.log('Post failed');
         });
     };
 
     $scope.deleteComment = function (news, comment) {
         if (comment.editable) {
-            $scope.loading = true;
             newsService.deleteComment(news.id, comment.id)
                 .success(function () {
                     getSingleNewsItem(news);
                     console.log('Deleted comment succesfully');
                 }).error(function (data, status, headers, config) {
-                $scope.loading = false;
                 console.log('Delete failed');
             });
         }
@@ -76,7 +69,6 @@ app.controller('newsCtrl', function ($scope, $http, $sce, newsService) {
 
     $scope.deleteNews = function (news, index) {
         if (news.editable) {
-            $scope.loading = true;
             newsService.deleteNews(news.id)
                 .success(function () {
                     if (index !== undefined) {
@@ -84,7 +76,6 @@ app.controller('newsCtrl', function ($scope, $http, $sce, newsService) {
                     }
                     console.log('Deleted news succesfully');
                 }).error(function (data, status, headers, config) {
-                $scope.loading = false;
                 console.log('Delete failed');
             });
         }

@@ -50,6 +50,14 @@ public class MatchesRestController extends AbstractRestController {
         return r;
     }
 
+    @RequestMapping(value = "/matches/next", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    MatchDTO getNextMatch() {
+        Match m = matchesService.getLatestMatch();
+        return DTOConversionHelper.convertMatch(m, isLoggedIn());
+    }
+
     @RequestMapping(value = "/match/{id}/poll", method = RequestMethod.GET)
     @ApiOperation(value = "Get poll for match", nickname = "matchpoll")
     public ResponseEntity<MatchPollDTO> getMatchPoll(@PathVariable Long id) {

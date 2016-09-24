@@ -23,6 +23,7 @@ app.controller('matchCtrl', function ($scope, $http, $sce, pollService, messageS
 
     var getMatches = function (season) {
         if (!$scope.cached[season]) {
+            $scope.loading = true;
             $http({
                 url: '/api/v1/matches/season/' + season,
                 method: "GET"
@@ -32,8 +33,20 @@ app.controller('matchCtrl', function ($scope, $http, $sce, pollService, messageS
                 $scope.cached[season] = true;
             }).error(function (data, status, headers, config) {
                 console.log("Error getting matches")
+            }).finally(function () {
+                $scope.loading = false;
             });
         }
+    };
+
+    var getNextMatch = function () {
+        $http.get('/api/v1/matches/next'
+        ).success(function (data) {
+            $scope.nextMatch = data;
+            $scope.hasNextMatch = data !== undefined || data !== '';
+        }).error(function (data) {
+            console.log("Error getting next match")
+        });
     };
 
     $scope.getMatches = function (season) {
@@ -67,5 +80,6 @@ app.controller('matchCtrl', function ($scope, $http, $sce, pollService, messageS
     $scope.init = function () {
         //Get all seasons
         getSeasons();
+        getNextMatch();
     };
 });

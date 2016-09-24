@@ -3,6 +3,7 @@
 <%@taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../jspf/header.jspf" %>
+<div ng-app="soccerApp" ng-controller="matchCtrl" data-ng-init="init()">
 <div class="col-md-12">
     <ul class="breadcrumb">
         <li><a href="/news.html"><spring:message code="nav.home"/></a>
@@ -12,34 +13,28 @@
     </ul>
 </div>
 
-<c:if test="${not empty nextMatch}">
-    <joda:format value="${nextMatch.date}" var="nextMatchDate" pattern="dd-MM-yyyy HH:mm"/>
-    <div class="col-md-12">
-    <div class="box">
-        <h2><spring:message code="text.next.match"/><c:if test="${nextMatch.status == 'CANCELLED'}">
-            <b>(<spring:message code='label.match.status.CANCELLED'/>!)</b>
-        </c:if></h2>
-        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-        <c:out value="${nextMatchDate}"/><br>
-        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-        <c:out value="${nextMatch.description}"/><br>
-        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-        <c:choose>
-            <c:when test="${not empty nextMatch.homeTeam.address.googleLink}">
-                <a href="${nextMatch.homeTeam.address.googleLink}" class="map"><c:out
-                        value="${nextMatch.homeTeam.address}"/></a>
-            </c:when>
-            <c:otherwise>
-                <c:out value="${nextMatch.homeTeam.address}"/>
-            </c:otherwise>
-        </c:choose>
+    <div class="col-md-12" ng-show="hasNextMatch">
+        <div class="box">
+            <h2><spring:message code="text.next.match"/><b ng-show="nextMatch.status == 'CANCELLED'">(<spring:message
+                    code='label.match.status.CANCELLED'/>!)</b></h2>
+            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            {{nextMatch.date}} {{nextMatch.hour}}<br>
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            {{nextMatch.homeTeam}} - {{nextMatch.awayTeam}}<br>
+            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+            <span ng-show="nextMatch.locationUrl !== ''">
+                <a href="{{nextMatch.locationUrl}}" class="map">{{nextMatch.fullAddress}}</a>
+            </span>
+            <span ng-show="nextMatch.locationUrl == ''">
+                {{nextMatch.fullAddress}}
+            </span>
+        </div>
     </div>
-    </div>
-</c:if>
 
 <div class="col-md-12">
     <%@ include file="../jspf/resultMessage.jspf" %>
-    <div class="panel-group" id="accordion" ng-app="soccerApp" ng-controller="matchCtrl" data-ng-init="init()">
+    <div class="panel-group" id="accordion">
+        <tag:loading/>
         <div class="panel panel-default" ng-repeat="season in seasons">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -63,7 +58,7 @@
                                 <th><spring:message code='text.result'/></th>
                                 <th><spring:message code='text.actions'/></th>
                             </tr>
-                            <tbody ng-hide="!isNull(matchWrapper[season.id])">
+                            <tbody ng-show="!loading && isNull(matchWrapper[season.id])">
                             <tr>
                                 <td colspan="4"><spring:message code='text.noMatches'/></td>
                             </tr>
@@ -213,6 +208,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <script src="<c:url value='/resources/js/svk-ui-1.5.js'/>"></script>
 

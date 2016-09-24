@@ -18,8 +18,8 @@
     <div class="row m-b-1">
         <tag:pagination/>
     </div>
-
-    <div ng-if="!hasMatchPolls">
+    <tag:loading/>
+    <div ng-if="!loading && !hasMatchPolls">
         <div class="col-md-12">
             <div class="alert alert-warning">
                 <spring:message code="text.noMatchPolls"/>

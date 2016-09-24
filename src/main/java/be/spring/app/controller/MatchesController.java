@@ -4,7 +4,10 @@ import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import be.spring.app.dto.ActionWrapperDTO;
 import be.spring.app.dto.MatchDTO;
 import be.spring.app.form.CreateMatchForm;
-import be.spring.app.model.*;
+import be.spring.app.model.Account;
+import be.spring.app.model.Match;
+import be.spring.app.model.Season;
+import be.spring.app.model.Team;
 import be.spring.app.service.AccountService;
 import be.spring.app.service.MatchesService;
 import be.spring.app.service.SeasonService;
@@ -34,18 +37,15 @@ import java.util.Locale;
 @RequestMapping("/")
 public class MatchesController extends AbstractController {
 
-    @Autowired
-    private MatchesService matchesService;
-
-    @Autowired
-    private TeamService teamService;
-
+    private static final Logger log = LoggerFactory.getLogger(MatchesController.class);
     @Autowired
     SeasonService seasonService;
-
     @Autowired
     AccountService accountService;
-
+    @Autowired
+    private MatchesService matchesService;
+    @Autowired
+    private TeamService teamService;
     @Autowired
     private CreateMatchValidator validator;
 
@@ -53,8 +53,6 @@ public class MatchesController extends AbstractController {
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(validator);
     }
-
-    private static final Logger log = LoggerFactory.getLogger(MatchesController.class);
 
     @ModelAttribute("seasons")
     public List<Season> getSeasons() {
@@ -91,9 +89,7 @@ public class MatchesController extends AbstractController {
 
     @RequestMapping(value = "matches", method = RequestMethod.GET)
     public String getMatchesPage(Model model, RedirectAttributes redirectAttributes) {
-        model.addAttribute("nextMatch", matchesService.getLatestMatch());
         return Constants.LANDING_MATCHES_PAGE;
-
     }
 
     @ModelAttribute(value = "loggedIn")

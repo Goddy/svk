@@ -4,10 +4,14 @@ app.controller('matchPollCtrl', function($scope, $http, pollService, messageServ
     $scope.actionResultMessage = [];
 
     var getPolls = function(page) {
+        $scope.loading = true;
         return pollService.getMatchPollPage(page).success(function(data){
             $scope.page = data;
             $scope.currentPage = page;
             $scope.hasMatchPolls=data.list.length;
+            $scope.loading = false;
+        }).finally(function () {
+            $scope.loading = false;
         });
     };
 

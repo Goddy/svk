@@ -18,9 +18,7 @@
 </div>
 <div class="col-md-12" ng-app="soccerApp" ng-controller="doodleCtrl" data-ng-init="init()">
   <tag:pagination/>
-  <div ng-show="loading" class="ajax-loading">
-    <img id="ajax-loading-image" src="<c:url value='/resources/images/pacman.gif'/>" alt="Loading..."/>
-  </div>
+  <tag:loading/>
   <div ng-show="!loading && !hasMatchDoodles">
     <div class="alert alert-warning">
       <spring:message code="text.doodles.none.found"/>

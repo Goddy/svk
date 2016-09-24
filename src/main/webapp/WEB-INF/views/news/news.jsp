@@ -28,6 +28,7 @@
 <div class="row m-t-1">
     <div class="col-md-12">
         <tag:pagination/>
+        <tag:loading/>
         <div id="blog-homepage">
             <div id="default">
                 <div class="news-div">

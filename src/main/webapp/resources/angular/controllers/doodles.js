@@ -17,21 +17,15 @@ app.controller('doodleCtrl', function ($scope, $http, doodleService, messageServ
 
     $scope.changePresence = function (matchDoodle, presence, editable) {
         if (editable) {
-            $scope.loading = true;
             var doodleId = matchDoodle.doodle.id;
             var matchId = matchDoodle.id;
             doodleService.changePresence(presence.account.id, matchId)
                 .success(function () {
                     doodleService.getMatchDoodle(matchId).success(function (data) {
                         matchDoodle.doodle = data.doodle;
-                        $scope.loading = false;
-                    }).$error(function (data) {
-                        $scope.loading = false;
                     });
-
                     console.log('changed doodle succesfully');
                 }).error(function (data, status, headers, config) {
-                $scope.loading = false;
                 messageService.showMessage(function (message) {
                     $scope.doodleResultMessage[matchId] = message;
                 }, 'alert.vote.fail');

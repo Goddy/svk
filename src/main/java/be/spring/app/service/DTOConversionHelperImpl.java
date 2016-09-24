@@ -37,6 +37,7 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
                     convertMatchPoll(m.getMotmPoll(), isLoggedIn),
                     convertGoals(m.getGoals(), isLoggedIn),
                     m.getHomeTeam().getAddress().getGoogleLink(),
+                    m.getHomeTeam().getAddress().getAddress(),
                     m.getMatchDoodle() != null));
         }
         return matchDTOs;
@@ -56,6 +57,7 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
                     convertMatchPoll(match.getMotmPoll(), isLoggedIn),
                     convertGoals(match.getGoals(), isLoggedIn),
                     match.getHomeTeam().getAddress().getGoogleLink(),
+                    match.getHomeTeam().getAddress().getAddress(),
                     match.getMatchDoodle() != null);
         }
         return null;
