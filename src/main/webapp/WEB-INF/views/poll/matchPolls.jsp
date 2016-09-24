@@ -107,6 +107,6 @@
     </div>
 </div>
 
-<script src="<c:url value='/resources/angular/controllers/polls.js'/>"></script>
+<script src="<c:url value='/resources/angular/controllers/polls.js'/>?v=1.0"></script>
 
 <%@ include file="../jspf/footer.jspf" %>

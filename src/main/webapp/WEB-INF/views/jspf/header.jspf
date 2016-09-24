@@ -55,13 +55,13 @@
     <!-- Fallback to local file -->
     <script>window.angular || document.write('<script src="<c:url value='/resources/js/angular.min.js'/>">\x3C/script>')</script>
 
-    <script src="<c:url value='/resources/js/angular-sanitize.min.js'/>"></script>
-    <script src="<c:url value='/resources/js/angular-cookies.min.js'/>"></script>
-    <script src="<c:url value='/resources/angular/app.js'/>"></script>
-    <script src="<c:url value='/resources/angular/services/pollService.js'/>"></script>
-    <script src="<c:url value='/resources/angular/services/messageService.js'/>"></script>
-    <script src="<c:url value='/resources/angular/services/doodleService.js'/>"></script>
-    <script src="<c:url value='/resources/angular/services/newsService.js'/>"></script>
+    <script src="<c:url value='/resources/js/angular-sanitize.min.js'/>?v=1.0"></script>
+    <script src="<c:url value='/resources/js/angular-cookies.min.js'/>?v=1.0"></script>
+    <script src="<c:url value='/resources/angular/app.js'/>?v=1.0"></script>
+    <script src="<c:url value='/resources/angular/services/pollService.js'/>?v=1.0"></script>
+    <script src="<c:url value='/resources/angular/services/messageService.js'/>?v=1.0"></script>
+    <script src="<c:url value='/resources/angular/services/doodleService.js'/>?v=1.0"></script>
+    <script src="<c:url value='/resources/angular/services/newsService.js'/>?v=1.0"></script>
 </head>
 <body>
 <!--[if lt IE 10]>

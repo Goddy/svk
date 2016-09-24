@@ -72,7 +72,7 @@
   <tag:pagination/>
 </div>
 
-<script src="<c:url value='/resources/angular/controllers/doodles.js'/>"></script>
+<script src="<c:url value='/resources/angular/controllers/doodles.js'/>?v=1.0"></script>
 <script type="text/javascript">
   (function ($) {
     $(document).on('click', 'a[class*="doodle-users"]', function (e) {

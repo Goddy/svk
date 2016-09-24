@@ -210,7 +210,7 @@
     </div>
 </div>
 </div>
-<script src="<c:url value='/resources/js/svk-ui-1.5.js'/>"></script>
+<script src="<c:url value='/resources/js/svk-ui-1.5.js'/>?v=1.0"></script>
 
 <script src="<c:url value='/resources/angular/controllers/matches.js'/>"></script>
 
