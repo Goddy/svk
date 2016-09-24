@@ -61,27 +61,27 @@
       </div>
       <div class="panel-body list">
         <div class="doodle-list" ng-repeat="presence in value.doodle.presences">
-            {{presence.account.name}}
+          {{presence.account.name}}
           <a ng-click="changePresence(value, presence, presence.editable)" data-toggle="tooltip"
              ng-disabled="!presence.editable"
              data-container="body" class="btn btn-default"><span
                   ng-class="getPresenceClass(presence)"
                   aria-hidden="true"></span></a>
-          </div>
+        </div>
       </div>
-  </div>
+    </div>
   </div>
   <tag:pagination/>
 </div>
 
-  <script src="<c:url value='/resources/angular/controllers/doodles.js'/>"></script>
-  <script type="text/javascript">
-    (function ($) {
+<script src="<c:url value='/resources/angular/controllers/doodles.js'/>"></script>
+<script type="text/javascript">
+  (function ($) {
     $(document).on('click', 'a[class*="doodle-users"]', function (e) {
       e.preventDefault();
       $(this).closest('div.panel').find('div.list').toggle();
     });
 
-    })(jQuery);
+  })(jQuery);
 </script>
 <%@ include file="../jspf/footer.jspf" %>

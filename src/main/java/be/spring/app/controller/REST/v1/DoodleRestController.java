@@ -63,13 +63,4 @@ public class DoodleRestController extends AbstractRestController {
         doodleService.changePresence(getAccountFromSecurity(), accountId, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    /**
-    @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/doodle/{id}/presence", method = RequestMethod.PUT)
-    public ResponseEntity<PresenceDTO> refreshMatchPoll(@PathVariable Long id) {
-        return new ResponseEntity<>(DTOConversionHelper.convertPresence(doodleService.changePresence
-                (getAccountFromSecurity(), 1, id), isLoggedIn()), HttpStatus.OK);
-    }
-     **/
 }
