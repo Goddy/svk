@@ -38,6 +38,7 @@
         </div>
         <div class="doodle-badge btn-group btn-group-lg">
           <a class="btn btn-default doodle-users" data-toggle="tooltip" data-container="body"
+             ng-click="showUsers = !showUsers"
              title="<spring:message code="title.doodlePresences"/>" aria-hidden="true"><span
                   class="glyphicon glyphicon-user"></span> <span
                   class="count-badge">{{value.doodle.total}}</span>
@@ -57,7 +58,7 @@
           </sec:authorize>
         </div>
       </div>
-      <div class="panel-body list">
+      <div class="panel-body list" ng-show="showUsers">
         <div class="doodle-list" ng-repeat="presence in value.doodle.presences">
           {{presence.account.name}}
           <a ng-click="changePresence(value, presence, presence.editable)" data-toggle="tooltip"
@@ -73,13 +74,5 @@
 </div>
 
 <script src="<c:url value='/resources/angular/controllers/doodles.js'/>?v=1.0"></script>
-<script type="text/javascript">
-  (function ($) {
-    $(document).on('click', 'a[class*="doodle-users"]', function (e) {
-      e.preventDefault();
-      $(this).closest('div.panel').find('div.list').toggle();
-    });
 
-  })(jQuery);
-</script>
 <%@ include file="../jspf/footer.jspf" %>
