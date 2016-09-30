@@ -33,8 +33,8 @@
 
 <div class="col-md-12">
     <%@ include file="../jspf/resultMessage.jspf" %>
+    <tag:loading/>
     <div class="panel-group" id="accordion" ng-show="!loading">
-        <tag:loading/>
         <div class="panel panel-default" ng-repeat="season in seasons">
             <div class="panel-heading">
                 <h4 class="panel-title">
