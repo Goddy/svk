@@ -29,7 +29,7 @@
     <div class="col-md-12">
         <tag:pagination/>
         <tag:loading/>
-        <div id="blog-homepage">
+        <div id="blog-homepage" ng-show="!loading">
             <div id="default">
                 <div class="news-div">
                     <div class="row" ng-repeat="(key, value) in page.list">

@@ -13,7 +13,7 @@
     </ul>
 </div>
 
-    <div class="col-md-12" ng-show="hasNextMatch">
+    <div class="col-md-12" ng-show="hasNextMatch && !loading">
         <div class="box">
             <h2><spring:message code="text.next.match"/><b ng-show="nextMatch.status == 'CANCELLED'">(<spring:message
                     code='label.match.status.CANCELLED'/>!)</b></h2>
@@ -33,7 +33,7 @@
 
 <div class="col-md-12">
     <%@ include file="../jspf/resultMessage.jspf" %>
-    <div class="panel-group" id="accordion">
+    <div class="panel-group" id="accordion" ng-show="!loading">
         <tag:loading/>
         <div class="panel panel-default" ng-repeat="season in seasons">
             <div class="panel-heading">
