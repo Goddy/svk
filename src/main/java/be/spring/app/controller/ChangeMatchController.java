@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.rmi.AccessException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -55,7 +56,9 @@ public class ChangeMatchController extends AbstractController {
 
     @ModelAttribute("players")
     public List<Account> getPerson() {
-        return accountService.getAccountsByActivationStatus(true);
+        List<Account> accounts = accountService.getAllActivateAccounts();
+        Collections.sort(accounts);
+        return accounts;
     }
 
     @ModelAttribute("matchStatus")

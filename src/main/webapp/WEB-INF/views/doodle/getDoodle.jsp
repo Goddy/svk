@@ -2,7 +2,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ include file="../jspf/header.jspf" %>
-
+<script src="<c:url value='/resources/angular/controllers/doodles.js'/>?v=1.0"></script>
 <c:set value="true" var="showUsers"/>
 <div class="col-md-12" ng-app="soccerApp" ng-controller="doodleCtrl" data-ng-init="initSingle(${matchId})">
 <div class="col-md-12">
@@ -69,8 +69,6 @@
                 </div>
 </div>
         </div>
-
-        <script src="<c:url value='/resources/angular/controllers/doodles.js'/>?v=1.0"></script>
 <script src="<c:url value='/resources/js/svk-ui-1.5.js'/>"></script>
 <script type="text/javascript">
     (function ($) {

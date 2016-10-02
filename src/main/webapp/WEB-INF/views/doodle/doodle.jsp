@@ -2,6 +2,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ include file="../jspf/header.jspf" %>
+<script src="<c:url value='/resources/angular/controllers/doodles.js'/>?v=1.0"></script>
 
 <div class="col-md-12">
   <ul class="breadcrumb">
@@ -72,7 +73,5 @@
   </div>
   <tag:pagination/>
 </div>
-
-<script src="<c:url value='/resources/angular/controllers/doodles.js'/>?v=1.0"></script>
 
 <%@ include file="../jspf/footer.jspf" %>

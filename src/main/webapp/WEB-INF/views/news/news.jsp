@@ -4,6 +4,7 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <sec:authentication var="principal" property="principal"/>
+<script src="<c:url value='/resources/angular/controllers/news.js'/>?v=1.0"></script>
 <div ng-app="soccerApp" ng-controller="newsCtrl" data-ng-init="init()">
 <div class="row">
     <div class="col-md-12">
@@ -136,8 +137,6 @@
 </div>
 
 </div>
-
-    <script src="<c:url value='/resources/angular/controllers/news.js'/>?v=1.0"></script>
 
 <%@ include file="../jspf/footer.jspf" %>
 

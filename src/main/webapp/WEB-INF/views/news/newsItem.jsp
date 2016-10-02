@@ -2,6 +2,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="../jspf/header.jspf" %>
+<script src="<c:url value='/resources/angular/controllers/news.js'/>?v=1.0"></script>
+
 <sec:authentication var="principal" property="principal"/>
 <div ng-app="soccerApp" ng-controller="newsCtrl" data-ng-init="initSingle(${newsId})">
     <div class="row">
@@ -124,8 +126,6 @@
         </div>
 
     </div>
-
-    <script src="<c:url value='/resources/angular/controllers/news.js'/>?v=1.0"></script>
 
     <%@ include file="../jspf/footer.jspf" %>
 

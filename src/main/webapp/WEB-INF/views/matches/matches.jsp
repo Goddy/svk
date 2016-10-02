@@ -3,6 +3,7 @@
 <%@taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../jspf/header.jspf" %>
+<script src="<c:url value='/resources/angular/controllers/matches.js'/>?v=1.0"></script>
 <div ng-app="soccerApp" ng-controller="matchCtrl" data-ng-init="init()">
 <div class="col-md-12">
     <ul class="breadcrumb">
@@ -211,8 +212,6 @@
 </div>
 </div>
 <script src="<c:url value='/resources/js/svk-ui-1.5.js'/>"></script>
-
-<script src="<c:url value='/resources/angular/controllers/matches.js'/>?v=1.0"></script>
 
 <tag:deleteDialog dialogId="delete-match-modal"/>
 <tag:calendarDialog dialogId="download-calendar-modal"/>
