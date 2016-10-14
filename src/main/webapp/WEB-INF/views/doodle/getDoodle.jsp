@@ -36,6 +36,7 @@
                     </div>
                     <div class="doodle-badge btn-group btn-group-lg">
                         <a class="btn btn-default doodle-users" data-toggle="tooltip" data-container="body"
+                           ng-click="showUsers = !showUsers" ng-init="showUsers=true"
                            title="<spring:message code="title.doodlePresences"/>" aria-hidden="true"><span
                                 class="glyphicon glyphicon-user"></span> <span
                                 class="count-badge">{{matchDoodle.doodle.total}}</span>
@@ -59,24 +60,33 @@
                 </div>
                 <div class="panel-body list">
                     <div class="doodle-list" ng-repeat="presence in matchDoodle.doodle.presences">
-                        {{presence.account.name}}
+                                    <span class="doodle-list-name">
+                          <div>{{presence.account.name}}</div>
+                          <sec:authorize access="hasRole('ADMIN')">
+                              <div ng-show="presence.modified != null && showModified"><i>(<spring:message
+                                      code="text.modified"/>:
+                                  {{presence.modified}})</i></div>
+                          </sec:authorize>
+                        </span>
+                        <span class="doodle-list-btn">
                         <a ng-click="changePresence(matchDoodle, presence, presence.editable)" data-toggle="tooltip"
                            ng-disabled="!presence.editable"
                            data-container="body" class="btn btn-default"><span
                                 ng-class="getPresenceClass(presence)"
                                 aria-hidden="true"></span></a>
+                        </span>
                     </div>
                 </div>
-</div>
+                <sec:authorize access="hasRole('ADMIN')">
+                    <div class="panel-body" ng-show="showUsers">
+                        <a class="pull-right" data-toggle="tooltip" data-container="body"
+                           ng-click="showModified = !showModified"
+                           title="<spring:message code="title.toggle.doodle.time"/>" aria-hidden="true">
+                            <span ng-show="!showModified"><spring:message code="text.show.dates"/></span>
+                            <span ng-show="showModified"><spring:message code="text.hide.dates"/> </span>
+                        </a>
+                    </div>
+                </sec:authorize>
+            </div>
         </div>
-<script src="<c:url value='/resources/js/svk-ui-1.5.js'/>"></script>
-<script type="text/javascript">
-    (function ($) {
-        $(document).on('click', 'a[class*="doodle-users"]', function (e) {
-            e.preventDefault();
-            $(this).closest('div.panel').find('div.list').toggle();
-        });
-
-    })(jQuery);
-</script>
 <%@ include file="../jspf/footer.jspf" %>

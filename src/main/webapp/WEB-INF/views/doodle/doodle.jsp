@@ -60,8 +60,8 @@
             <span class="doodle-list-name">
               <div>{{presence.account.name}}</div>
               <sec:authorize access="hasRole('ADMIN')">
-                <div ng-show="presence.modified != null && showModified"><b>(<spring:message code="text.modified"/>:
-                  {{presence.modified}})</b></div>
+                <div ng-show="presence.modified != null && showModified"><i>(<spring:message code="text.modified"/>:
+                  {{presence.modified}})</i></div>
               </sec:authorize>
             </span>
             <span class="doodle-list-btn">
