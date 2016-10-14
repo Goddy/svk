@@ -9,11 +9,13 @@ public class PresenceDTO implements Comparable<PresenceDTO> {
     private AccountDTO account;
     private boolean isEditable;
     private Presence.PresenceType type;
+    private String modified;
 
-    public PresenceDTO(AccountDTO account, Presence.PresenceType type, boolean isEditable) {
+    public PresenceDTO(AccountDTO account, Presence.PresenceType type, String modified, boolean isEditable) {
         this.account = account;
         this.type = type;
         this.isEditable = isEditable;
+        this.modified = modified;
     }
 
     public Presence.PresenceType getType() {
@@ -43,5 +45,13 @@ public class PresenceDTO implements Comparable<PresenceDTO> {
     @Override
     public int compareTo(PresenceDTO o) {
         return account.compareTo(o.account);
+    }
+
+    public String getModified() {
+        return modified;
+    }
+
+    public void setModified(String modified) {
+        this.modified = modified;
     }
 }

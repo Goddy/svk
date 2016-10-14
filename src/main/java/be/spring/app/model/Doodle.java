@@ -58,4 +58,14 @@ public class Doodle {
         }
         return i;
     }
+
+    public Presence getPresenceFor(Account account) {
+        if (presences == null) return null;
+        for (Presence p : getPresences()) {
+            if (p.getAccount().equals(account)) {
+                return p;
+            }
+        }
+        return null;
+    }
 }

@@ -183,12 +183,14 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
             //Run though all active accounts, check if they are present and convert
             Set<PresenceDTO> presenceDTOs = Sets.newTreeSet();
             for (Account a : accountDao.findAllByActive(true)) {
-                presenceDTOs.add(new PresenceDTO(convertAccount(a, account != null), doodle.isPresent(a),
+                Presence p = doodle.getPresenceFor(a);
+                presenceDTOs.add(new PresenceDTO(convertAccount(a, account != null), doodle.isPresent(a), p != null ?
+                        p.getStringModfied() : null,
                         isAdmin || (account != null && match.isActive() && a.equals(account))));
             }
             return new DoodleDTO(doodle.getId(),
                     presenceDTOs,
-                    account == null ? null : new PresenceDTO(convertAccount(account, true), doodle.isPresent(account)
+                    account == null ? null : new PresenceDTO(convertAccount(account, true), doodle.isPresent(account), null
                             , match.isActive()),
                     doodle.countPresences());
         }
@@ -199,7 +201,7 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
     public PresenceDTO convertPresence(Presence presence, boolean isLoggedIn) {
         if (presence != null) {
             return new PresenceDTO(convertAccount(presence.getAccount(), isLoggedIn), presence.isPresent() ? Presence
-                    .PresenceType.PRESENT : Presence.PresenceType.NOT_PRESENT, true);
+                    .PresenceType.PRESENT : Presence.PresenceType.NOT_PRESENT, presence.getStringModfied(), true);
         }
         return null;
     }

@@ -14,6 +14,7 @@ import java.util.UUID;
  */
 public class GeneralUtils {
     private static final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("dd/MM/YYYY");
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/YYYY - HH:mm");
     private static final DateTimeFormatter hourFormatter = DateTimeFormat.forPattern("HH:mm");
 
     public static long convertToLong(String element) {
@@ -27,7 +28,13 @@ public class GeneralUtils {
     }
 
     public static String convertToStringDate(DateTime dateTime) {
+        if (dateTime == null) return null;
         return dateFormatter.print(dateTime);
+    }
+
+    public static String convertToStringDateTime(DateTime dateTime) {
+        if (dateTime == null) return null;
+        return dateTimeFormatter.print(dateTime);
     }
 
     public static String convertToStringDate(Date date) {

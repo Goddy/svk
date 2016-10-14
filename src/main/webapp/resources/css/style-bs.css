@@ -106,9 +106,22 @@ body {
 }
 
 .doodle-list {
-    display: block;
+    display: inline-flex;
     clear: both;
     padding-bottom: 5px;
+    align-items: center;
+}
+
+.doodle-list-btn {
+    display: inline;
+    float: right;
+}
+
+.doodle-list-name {
+    display: inline;
+    float: left;
+    padding-right: 5px;
+    text-align: right;
 }
 
 .m-t-1 {

@@ -12,11 +12,7 @@
     </li>
   </ul>
 </div>
-<div class="col-md-12">
-  <div class="box">
-    <blockquote><spring:message code="info.doodle"/></blockquote>
-  </div>
-</div>
+
 <div class="col-md-12" ng-app="soccerApp" ng-controller="doodleCtrl" data-ng-init="init()">
   <tag:pagination/>
   <tag:loading/>
@@ -61,16 +57,35 @@
       </div>
       <div class="panel-body list" ng-show="showUsers">
         <div class="doodle-list" ng-repeat="presence in value.doodle.presences">
-          {{presence.account.name}}
-          <a ng-click="changePresence(value, presence, presence.editable)" data-toggle="tooltip"
-             ng-disabled="!presence.editable"
-             data-container="body" class="btn btn-default"><span
-                  ng-class="getPresenceClass(presence)"
-                  aria-hidden="true"></span></a>
+            <span class="doodle-list-name">
+              <div>{{presence.account.name}}</div>
+              <sec:authorize access="hasRole('ADMIN')">
+                <div ng-show="presence.modified != null && showModified"><b>(<spring:message code="text.modified"/>:
+                  {{presence.modified}})</b></div>
+              </sec:authorize>
+            </span>
+            <span class="doodle-list-btn">
+            <a ng-click="changePresence(value, presence, presence.editable)" data-toggle="tooltip"
+               ng-disabled="!presence.editable"
+               data-container="body" class="btn btn-default"><span
+                    ng-class="getPresenceClass(presence)"
+                    aria-hidden="true"></span></a>
+            </span>
         </div>
-      </div>
     </div>
-  </div>
+
+      <sec:authorize access="hasRole('ADMIN')">
+        <div class="panel-body" ng-show="showUsers">
+          <a class="pull-right" data-toggle="tooltip" data-container="body"
+             ng-click="showModified = !showModified"
+             title="<spring:message code="title.toggle.doodle.time"/>" aria-hidden="true">
+            <span ng-show="!showModified"><spring:message code="text.show.dates"/></span>
+            <span ng-show="showModified"><spring:message code="text.hide.dates"/> </span>
+          </a>
+        </div>
+      </sec:authorize>
+
+    </div>
   <tag:pagination/>
 </div>
 
