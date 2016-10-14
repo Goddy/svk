@@ -86,6 +86,7 @@
       </sec:authorize>
 
     </div>
+  </div>
   <tag:pagination/>
 </div>
 
