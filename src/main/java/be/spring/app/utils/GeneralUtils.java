@@ -3,6 +3,7 @@ package be.spring.app.utils;
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -17,6 +18,8 @@ public class GeneralUtils {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/YYYY - HH:mm");
     private static final DateTimeFormatter hourFormatter = DateTimeFormat.forPattern("HH:mm");
 
+    private static final DateTimeZone defaultTimeZone = DateTimeZone.forID("Europe/Brussels");
+
     public static long convertToLong(String element) {
         return Long.parseLong(element);
     }
@@ -29,17 +32,17 @@ public class GeneralUtils {
 
     public static String convertToStringDate(DateTime dateTime) {
         if (dateTime == null) return null;
-        return dateFormatter.print(dateTime);
+        return dateFormatter.withZone(defaultTimeZone).print(dateTime);
     }
 
     public static String convertToStringDateTime(DateTime dateTime) {
         if (dateTime == null) return null;
-        return dateTimeFormatter.print(dateTime);
+        return dateTimeFormatter.withZone(defaultTimeZone).print(dateTime);
     }
 
     public static String convertToStringDate(Date date) {
         if (date == null) return null;
-        return dateFormatter.print(new DateTime(date));
+        return dateFormatter.withZone(defaultTimeZone).print(new DateTime(date));
     }
 
     public static DateTime convertToDate(String date) {
