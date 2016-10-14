@@ -21,7 +21,7 @@
       <spring:message code="text.doodles.none.found"/>
     </div>
   </div>
-  <div class="matchDoodle" ng-show="hasMatchDoodles" ng-repeat="(key, value) in page.list">
+  <div class="matchDoodle" ng-show="!loading && hasMatchDoodles" ng-repeat="(key, value) in page.list">
     <div class="panel panel-default">
       <div class="panel-heading"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;{{value.date}}
       </div>
