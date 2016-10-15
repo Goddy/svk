@@ -17,7 +17,7 @@ public class ResetCachesTask implements Task {
     @Scheduled(fixedDelay = 3600000, zone = "Europe/Brussels")
     @Override
     public void execute() {
-        cacheAdapter.resetMatchCache();
+        cacheAdapter.resetMatchWrappersCache();
         log.info("Cleaned up the matches.");
     }
 }

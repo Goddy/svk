@@ -2,28 +2,32 @@ package be.spring.app.dto;
 
 import be.spring.app.model.BaseClass;
 
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by u0090265 on 09/09/16.
  */
 public class DoodleDTO extends BaseClass {
-    private Set<PresenceDTO> presences;
+    private List<PresenceDTO> presences;
     private PresenceDTO currentPresence;
     private int total;
 
-    public DoodleDTO(long id, Set<PresenceDTO> presences, PresenceDTO currentPresence, int total) {
+    public DoodleDTO(long id, List<PresenceDTO> presences, PresenceDTO currentPresence, int total) {
         this.id = id;
-        this.presences = presences;
         this.total = total;
         this.currentPresence = currentPresence;
+        setPresences(presences);
     }
 
-    public Set<PresenceDTO> getPresences() {
+    public List<PresenceDTO> getPresences() {
         return presences;
     }
 
-    public void setPresences(Set<PresenceDTO> presences) {
+    public void setPresences(List<PresenceDTO> presences) {
+        if (presences != null) {
+            Collections.sort(presences);
+        }
         this.presences = presences;
     }
 

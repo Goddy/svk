@@ -2,7 +2,6 @@ package be.spring.app.service;
 
 import be.spring.app.dto.*;
 import be.spring.app.model.*;
-import be.spring.app.persistence.AccountDao;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +19,11 @@ import java.util.SortedSet;
 @Service
 public class DTOConversionHelperImpl implements DTOConversionHelper {
     @Autowired
-    AccountDao accountDao;
+    CacheAdapter cacheAdapter;
 
     @Override
     public List<MatchDTO> convertMatches(List<Match> matchList, boolean isLoggedIn) {
+
         List<MatchDTO> matchDTOs = Lists.newArrayList();
         for (Match m : matchList) {
             matchDTOs.add(new MatchDTO(m.getId(),
@@ -113,7 +113,7 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
     public List<AccountDTO> convertIdentityOptions(Set<IdentityOption> identityOptions, boolean isLoggedIn) {
         List<AccountDTO> accountDTOs = Lists.newArrayList();
         for (IdentityOption account : identityOptions) {
-            accountDTOs.add(convertAccount(accountDao.findOne(account.getOption()), isLoggedIn));
+            accountDTOs.add(convertAccount(cacheAdapter.getAccount(account.getOption()), isLoggedIn));
         }
         Collections.sort(accountDTOs);
         return accountDTOs;
@@ -124,7 +124,7 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
         List<VotesDTO> votes = Lists.newArrayList();
         for (Ranking<Long> ranking : rankingList.getRankings()) {
             votes.add(new VotesDTO(
-                    convertAccount(accountDao.findOne(ranking.getOption()), isLoggedIn),
+                    convertAccount(cacheAdapter.getAccount(ranking.getOption()), isLoggedIn),
                     ranking.getPonts()));
         }
         return votes;
@@ -181,8 +181,8 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
         Doodle doodle = match.getMatchDoodle();
         if (doodle != null) {
             //Run though all active accounts, check if they are present and convert
-            Set<PresenceDTO> presenceDTOs = Sets.newTreeSet();
-            for (Account a : accountDao.findAllByActive(true)) {
+            List<PresenceDTO> presenceDTOs = Lists.newArrayList();
+            for (Account a : cacheAdapter.getActiveAccounts()) {
                 Presence p = doodle.getPresenceFor(a);
                 presenceDTOs.add(new PresenceDTO(convertAccount(a, account != null), doodle.isPresent(a), p != null ?
                         p.getStringModfied() : null,

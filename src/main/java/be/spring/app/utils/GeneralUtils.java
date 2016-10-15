@@ -35,7 +35,7 @@ public class GeneralUtils {
         return dateFormatter.print(dateTime);
     }
 
-    public static String convertToStringDateTime(DateTime dateTime) {
+    public static String convertToStringDateTimeWithTimeZone(DateTime dateTime) {
         if (dateTime == null) return null;
         return dateTimeFormatter.withZone(defaultTimeZone).print(dateTime);
     }

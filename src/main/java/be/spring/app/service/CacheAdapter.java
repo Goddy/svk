@@ -15,15 +15,20 @@ import java.util.concurrent.ExecutionException;
  * Created by u0090265 on 11/3/14.
  */
 public interface CacheAdapter {
+    Account getAccount(Long l);
+
+    List<Account> getActiveAccounts();
+
     @Cacheable("matchActionWrappers")
-    List<ActionWrapperDTO<MatchDTO>> getMatchActionWrappers(long seasonId, Locale locale, Account account) throws ExecutionException, InterruptedException;
+    List<ActionWrapperDTO<MatchDTO>> getStatisticsForSeason(long seasonId, Locale locale, Account account) throws
+            ExecutionException, InterruptedException;
 
     @Cacheable("accountStatistics")
-    List<AccountStatistic> getMatchActionWrappers(long seasonId) throws ExecutionException, InterruptedException;
+    List<AccountStatistic> getStatisticsForSeason(long seasonId) throws ExecutionException, InterruptedException;
 
     @CacheEvict(value = {"accountStatistics"}, allEntries = true)
     void resetStatisticsCache();
 
     @CacheEvict(value={"matchActionWrappers"}, allEntries = true)
-    void resetMatchCache();
+    void resetMatchWrappersCache();
 }

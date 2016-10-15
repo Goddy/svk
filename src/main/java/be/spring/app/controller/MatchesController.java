@@ -1,10 +1,7 @@
 package be.spring.app.controller;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
-import be.spring.app.dto.ActionWrapperDTO;
-import be.spring.app.dto.MatchDTO;
 import be.spring.app.form.CreateMatchForm;
-import be.spring.app.model.Account;
 import be.spring.app.model.Match;
 import be.spring.app.model.Season;
 import be.spring.app.model.Team;
@@ -105,14 +102,5 @@ public class MatchesController extends AbstractController {
         setSuccessMessage(redirectAttributes, locale, "text.delete.match.success", null);
         log.info(String.format("Match id %s deleted by user %s", matchId, getAccountFromSecurity().getUsername()));
         return Constants.REDIRECT_MATCHES_PAGE;
-    }
-
-    @RequestMapping(value = "matchesForSeason.json", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<ActionWrapperDTO<MatchDTO>> getMatchesForSeason(@RequestParam long seasonId, Locale locale) {
-        Account account = getAccountFromSecurity();
-        List<ActionWrapperDTO<MatchDTO>> r = matchesService.getMatchesWrappersForSeason(seasonId, locale, getAccountFromSecurity());
-        return r;
     }
 }

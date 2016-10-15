@@ -1,5 +1,6 @@
 package be.spring.app.dto;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -86,6 +87,9 @@ public class MatchPollDTO extends DTOBaseClass {
     }
 
     public void setOptions(List<AccountDTO> options) {
+        if (options != null) {
+            Collections.sort(options);
+        }
         this.options = options;
     }
 }

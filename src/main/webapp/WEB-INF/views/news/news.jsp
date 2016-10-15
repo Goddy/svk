@@ -49,7 +49,8 @@
                                 <hr>
                                 <span align="left" ng-bind-html="value.content"></span>
 
-                                <p class="author-category"><spring:message code="text.postedby"/>
+                                <p class="author-category" id="{{'comments_' + value.id}}"><spring:message
+                                        code="text.postedby"/>
                                     {{value.postedBy.name}} <spring:message code="text.on"/>
                                     {{value.postDate}}
                                     <span class="btn-group" ng-show="value.editable">
@@ -76,7 +77,7 @@
 
                                 </p>
                                 <hr/>
-                                <div ng-show="showAllComments" id="{{'comments_' + value.id}}">
+                                <div ng-show="showAllComments">
                                     <div class="comment post" ng-repeat="comment in value.comments">
                                         <span ng-init="showComment=true" ng-show="showComment">{{comment.content}} -
                                             <spring:message code="text.comment.by"/>&nbsp;{{comment.postedBy.name}}&nbsp;<spring:message

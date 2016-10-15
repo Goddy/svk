@@ -31,7 +31,7 @@ public class VotesDTO implements Comparable<VotesDTO>{
     @Override
     public int compareTo(VotesDTO o) {
         if (this.votes < o.votes) return 1;
-        else if (this.votes == o.votes) return 0;
+        else if (this.votes == o.votes) return this.account.compareTo(o.account);
         else return -1;
     }
 }

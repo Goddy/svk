@@ -16,6 +16,6 @@ public class AccountDTO extends DTOBaseClass implements Comparable<AccountDTO>{
 
     @Override
     public int compareTo(AccountDTO o) {
-        return o.name.compareTo(this.name);
+        return this.name.compareTo(o.name);
     }
 }

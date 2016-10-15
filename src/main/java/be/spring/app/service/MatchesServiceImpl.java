@@ -84,7 +84,7 @@ public class MatchesServiceImpl implements MatchesService {
     @Override
     public List<ActionWrapperDTO<MatchDTO>> getMatchesWrappersForSeason(long seasonId, final Locale locale, Account account) {
         try {
-            return cacheAdapter.getMatchActionWrappers(seasonId, locale, account);
+            return cacheAdapter.getStatisticsForSeason(seasonId, locale, account);
         } catch (InterruptedException | ExecutionException e) {
             log.error("getMatchesWrappersForSeason failed: {}", e.getMessage());
             return Lists.newArrayList();
@@ -140,7 +140,7 @@ public class MatchesServiceImpl implements MatchesService {
         m.setAwayTeam(teamDao.findOne(form.getAwayTeam()));
         matchesDao.save(m);
         log.debug("Match {} created.", m);
-        cacheAdapter.resetMatchCache();
+        cacheAdapter.resetMatchWrappersCache();
         return m;
     }
 
@@ -173,7 +173,7 @@ public class MatchesServiceImpl implements MatchesService {
             m.getGoals().clear();
         }
         matchesDao.save(m);
-        cacheAdapter.resetMatchCache();
+        cacheAdapter.resetMatchWrappersCache();
         cacheAdapter.resetStatisticsCache();
         return m;
     }
@@ -184,7 +184,7 @@ public class MatchesServiceImpl implements MatchesService {
         Match m = matchesDao.findOne(id);
         if (m == null) throw new ObjectNotFoundException(String.format("Match with id %s not found", id));
         matchesDao.delete(id);
-        cacheAdapter.resetMatchCache();
+        cacheAdapter.resetMatchWrappersCache();
     }
 
     private List<Goal> transFormGoals(ChangeResultForm form, Match match) {
