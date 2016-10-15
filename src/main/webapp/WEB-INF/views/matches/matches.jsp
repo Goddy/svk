@@ -133,7 +133,7 @@
                                     <ul>
                                         <li ng-repeat="g in wrapper.object.goals">
                                             <span ng-if="g.scorer">{{g.scorer.name}}</span>
-                                            <span ng-if="!g.scorer"><spring:message code="text.no.player"/></span>
+                                            <span ng-if="!g.scorer"><spring:message code="text.own.goal"/></span>
                                             <span ng-if="g.assist">({{g.assist.name}})</span>
                                         </li>
                                     </ul>

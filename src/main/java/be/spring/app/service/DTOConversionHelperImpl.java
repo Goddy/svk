@@ -4,6 +4,7 @@ import be.spring.app.dto.*;
 import be.spring.app.model.*;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -184,8 +185,8 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
             List<PresenceDTO> presenceDTOs = Lists.newArrayList();
             for (Account a : cacheAdapter.getActiveAccounts()) {
                 Presence p = doodle.getPresenceFor(a);
-                presenceDTOs.add(new PresenceDTO(convertAccount(a, account != null), doodle.isPresent(a), p != null ?
-                        p.getStringModfied() : null,
+                presenceDTOs.add(new PresenceDTO(convertAccount(a, account != null), doodle.isPresent(a),
+                        getModifiedDateIfNeeded(p),
                         isAdmin || (account != null && match.isActive() && a.equals(account))));
             }
             return new DoodleDTO(doodle.getId(),
@@ -195,6 +196,14 @@ public class DTOConversionHelperImpl implements DTOConversionHelper {
                     doodle.countPresences());
         }
         return null;
+    }
+
+    private String getModifiedDateIfNeeded(Presence presence) {
+        if (presence != null)
+            if (presence.getModified() != null && presence.getModified().isAfter(DateTime.now().minusDays(2)))
+                return presence.getStringModfied();
+            else return null;
+        else return null;
     }
 
     @Override
