@@ -32,7 +32,7 @@ public class GeneralUtils {
 
     public static String convertToStringDate(DateTime dateTime) {
         if (dateTime == null) return null;
-        return dateFormatter.withZone(defaultTimeZone).print(dateTime);
+        return dateFormatter.print(dateTime);
     }
 
     public static String convertToStringDateTime(DateTime dateTime) {
@@ -42,7 +42,7 @@ public class GeneralUtils {
 
     public static String convertToStringDate(Date date) {
         if (date == null) return null;
-        return dateFormatter.withZone(defaultTimeZone).print(new DateTime(date));
+        return dateFormatter.print(new DateTime(date));
     }
 
     public static DateTime convertToDate(String date) {
