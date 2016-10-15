@@ -57,7 +57,7 @@
                                 <th><spring:message code='text.date'/></th>
                                 <th><spring:message code='text.match'/></th>
                                 <th><spring:message code='text.result'/></th>
-                                <th><spring:message code='text.actions'/></th>
+                                <th></th>
                             </tr>
                             <tbody ng-show="!loading && isNull(matchWrapper[season.id])">
                             <tr>
@@ -81,49 +81,73 @@
                                             code='label.match.status.CANCELLED'/></b></span>
                                 </td>
                                 <td>
-                                    <div class="btn-group">
-                                        <security:authorize access="hasRole('ADMIN')">
-                                            <a href="changeMatch.html?matchId={{wrapper.object.id}}"
-                                               title="<spring:message code="title.changeMatchResult"/>"
-                                               data-toggle="tooltip" data-placement="top"
-                                               class="btn btn-default edit ">
-                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default dropdown-toggle"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <spring:message code="text.actions"/>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <security:authorize access="hasRole('ADMIN')">
+                                                <li>
+                                                    <a href="changeMatch.html?matchId={{wrapper.object.id}}"
+                                                       title="<spring:message code="title.changeMatchResult"/>"
+                                                       data-toggle="tooltip" data-placement="top"
+                                                       class="edit ">
+                                                        <span class="glyphicon glyphicon-edit"
+                                                              aria-hidden="true"></span>&nbsp;
+                                                        <spring:message code="text.change"/>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="deleteMatch.html?matchId={{wrapper.object.id}}"
+                                                       class="delete">
+                                                        <span class="glyphicon glyphicon-trash"
+                                                              aria-hidden="true"></span>&nbsp;
+                                                        <spring:message code="text.delete"/>
+                                                    </a>
+                                                </li>
+                                            </security:authorize>
+                                            <li>
+                                                <a ng-if="wrapper.object.locationUrl"
+                                                   href="{{wrapper.object.locationUrl}}"
+                                                   class="map">
+                                                    <span class="glyphicon glyphicon-map-marker"
+                                                          aria-hidden="true"></span>&nbsp;
+                                                    <spring:message code="text.location"/>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a ng-if="wrapper.object.status == 'PLAYED' && wrapper.object.goals.length"
+                                                   href="details{{wrapper.object.id}}"
+                                                   title="<spring:message code="title.matchDetails"/>"
+                                                   data-toggle="tooltip"
+                                                   data-placement="top"
+                                                   class="details">
+                                                    <span class="glyphicon glyphicon-eye-open"
+                                                          aria-hidden="true"></span>&nbsp;
+                                                    <spring:message code="text.details"/>
                                             </a>
-                                            <a href="deleteMatch.html?matchId={{wrapper.object.id}}"
-                                               title="<spring:message code="title.deleteMatch"/>" data-toggle="tooltip"
-                                               data-placement="top"
-                                               class="btn btn-default delete">
-                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </li>
+                                            <li>
+                                                <a ng-if="wrapper.object.hasDoodle"
+                                                   href="getDoodle.html?matchId={{wrapper.object.id}}"
+                                                   class="doodle">
+                                                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;
+                                                    <spring:message code="text.doodle"/>
                                             </a>
-                                        </security:authorize>
-                                        <a ng-if="wrapper.object.locationUrl" href="{{wrapper.object.locationUrl}}"
-                                           title="" data-toggle="tooltip" data-placement="top"
-                                           class="btn btn-default map"
-                                           data-original-title="Show the match location on a map">
-                                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                                        </a>
-                                        <a ng-if="wrapper.object.status == 'PLAYED' && wrapper.object.goals.length"
-                                           href="details{{wrapper.object.id}}"
-                                           title="<spring:message code="title.matchDetails"/>" data-toggle="tooltip"
-                                           data-placement="top"
-                                           class="btn btn-default details">
-                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                        </a>
-                                        <a ng-if="wrapper.object.hasDoodle"
-                                           href="getDoodle.html?matchId={{wrapper.object.id}}"
-                                           title="<spring:message code="title.matchDoodle"/>" data-toggle="tooltip"
-                                           data-placement="top"
-                                           class="btn btn-default doodle">
-                                            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                                        </a>
-                                        <a ng-if="wrapper.object.poll" href="motm{{wrapper.object.id}}" title=""
-                                           data-toggle="tooltip" data-placement="top"
-                                           class="btn btn-default motm"
-                                           data-original-title="<spring:message code="title.manOfTheMatchPoll"/>">
-                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                        </a>
+                                            </li>
+                                            <li>
+                                                <a ng-if="wrapper.object.poll" href="motm{{wrapper.object.id}}" title=""
+                                                   data-toggle="tooltip" data-placement="top"
+                                                   class="motm"
+                                                   data-original-title="<spring:message code="title.manOfTheMatchPoll"/>">
+                                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+                                                    <spring:message code="text.manOfTheMatch"/>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
-
                                 </td>
                             </tr>
                             <tr style="display: none" class="active" ng-attr-id="{{'details' + wrapper.object.id}}"
