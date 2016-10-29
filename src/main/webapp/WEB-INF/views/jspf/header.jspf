@@ -58,8 +58,8 @@
     <script src="<c:url value='/resources/js/angular-sanitize.min.js'/>?v=1.0"></script>
     <script src="<c:url value='/resources/js/angular-cookies.min.js'/>?v=1.0"></script>
     <script src="<c:url value='/resources/angular/app.js'/>?v=1.0"></script>
-    <script src="<c:url value='/resources/angular/services/pollService.js'/>?v=1.0"></script>
-    <script src="<c:url value='/resources/angular/services/messageService.js'/>?v=1.0"></script>
+    <script src="<c:url value='/resources/angular/services/pollService.js'/>?v=1.0.1"></script>
+    <script src="<c:url value='/resources/angular/services/messageService.js'/>?v=1.0.1"></script>
     <script src="<c:url value='/resources/angular/services/doodleService.js'/>?v=1.0"></script>
     <script src="<c:url value='/resources/angular/services/newsService.js'/>?v=1.0"></script>
 </head>

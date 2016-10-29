@@ -4,6 +4,7 @@ import be.spring.app.dto.AccountDTO;
 import be.spring.app.dto.MatchPollDTO;
 import be.spring.app.dto.MultipleChoiceVoteDTO;
 import be.spring.app.dto.PageDTO;
+import be.spring.app.model.Account;
 import be.spring.app.model.Match;
 import be.spring.app.model.MultipleChoicePlayerVote;
 import be.spring.app.model.PlayersPoll;
@@ -66,6 +67,11 @@ public class PollRestController extends AbstractRestController {
     MultipleChoiceVoteDTO<Long>
             vote) {
         logger.debug(vote.toString());
+        Account account = getAccountFromSecurity();
+        if (account.getId().equals(vote.getAnswer())) {
+            logger.debug("Teapot, selfvote not allowed");
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        }
         pollService.vote(id, new MultipleChoicePlayerVote(getAccountFromSecurity(), vote.getAnswer()));
         return new ResponseEntity<>(HttpStatus.OK);
     }

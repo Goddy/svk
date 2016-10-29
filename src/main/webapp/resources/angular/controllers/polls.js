@@ -1,6 +1,6 @@
 'use strict';
 app.controller('matchPollCtrl', function($scope, $http, pollService, messageService, $timeout, $parse) {
-    $scope.doodleResultMessage = [];
+    $scope.voteResultMessage = [];
     $scope.actionResultMessage = [];
 
     var getPolls = function(page) {
@@ -26,16 +26,24 @@ app.controller('matchPollCtrl', function($scope, $http, pollService, messageServ
                             poll.votes = data.votes;
                             poll.totalVotes = data.totalVotes; //update totalvotes as well, to update dom
                             messageService.showMessage(function (message) {
-                                $scope.doodleResultMessage[poll.id] = message;
+                                $scope.voteResultMessage[poll.id] = message;
                             }, 'alert.vote.success');
 
                             console.log('voted');
                         });
                 }).error(function (data, status, headers, config) {
-                messageService.showMessage(function (message) {
-                    $scope.doodleResultMessage[poll.id] = message;
-                }, 'alert.vote.fail');
-                console.log('vote failed');
+                if (status == 418) {
+                    messageService.showMessage(function (message) {
+                        $scope.voteResultMessage[poll.id] = message;
+                    }, 'alert.vote.fail.selfvote');
+                    console.log('vote failed: self vote');
+                } else {
+                    messageService.showMessage(function (message) {
+                        $scope.voteResultMessage[poll.id] = message;
+                    }, 'alert.vote.fail');
+                    console.log('vote failed');
+                }
+
             });
         }
     };

@@ -3,6 +3,7 @@ app.factory('messageService', function($http, $cookies, $timeout) {
     var locale_nl = {
         'alert.vote.success' : 'Je stem werd geregistreerd',
         'alert.vote.fail' : 'Het is niet gelukt om een stem uit te brengen',
+        'alert.vote.fail.selfvote': 'Zielig ventje! :) Probeer opnieuw, maar vergeet je ego niet opzij te zetten',
         'alert.poll.reset.success' : 'Poll succesvol gereset',
         'alert.poll.reset.fail' : 'Er heeft zich een fout voorgedaan. De poll werd niet gereset',
         'alert.poll.refresh.success' : 'Poll succesvol vernieuwd',
@@ -12,6 +13,7 @@ app.factory('messageService', function($http, $cookies, $timeout) {
     var locale_en = {
         'alert.vote.success' : 'Your vote was registered',
         'alert.vote.fail' : 'An error has occurred. The vote did not succeed',
+        'alert.vote.fail.selfvote': 'Sad little man! :) Please vote again, but set your ego aside first',
         'alert.poll.reset.success' : 'Poll succesfully reset',
         'alert.poll.reset.fail' : 'An error has occurred. The poll has not been reset',
         'alert.poll.refresh.success' : 'Poll succesfully refreshed',
@@ -34,7 +36,9 @@ app.factory('messageService', function($http, $cookies, $timeout) {
 
         showMessage: function(msgF, messageCode) {
             msgF(getMessage(messageCode));
-            $timeout(function () { msgF("") }, 3000);
+            $timeout(function () {
+                msgF("")
+            }, 5000);
         }
     }
 });
