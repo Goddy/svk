@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@attribute name="newsItem" required="true" type="be.spring.app.model.News" %>
+<%@attribute name="newsItem" required="true" type="be.svk.webapp.model.News" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <sec:authentication var="principal" property="principal"/>
 

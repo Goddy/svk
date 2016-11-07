@@ -14,8 +14,8 @@
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven/>
     <sec:global-method-security pre-post-annotations="enabled"/>
-    <context:component-scan base-package="be.spring.app.validators"/>
-    <context:component-scan base-package="be.spring.app.controller"/>
+    <context:component-scan base-package="be.svk.webapp.validators"/>
+    <context:component-scan base-package="be.svk.webapp.controller"/>
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -27,7 +27,7 @@
     </bean>
 
     <mvc:interceptors>
-        <bean class="be.spring.app.handler.PropertiesAddingHandlerInterceptor"/>
+        <bean class="be.svk.webapp.handler.PropertiesAddingHandlerInterceptor"/>
     </mvc:interceptors>
 
     <!--Enables JSON integration-->
@@ -49,12 +49,12 @@
           autowire="constructor">
         <property name="connectInterceptors">
             <list>
-                <bean class="be.spring.app.interceptors.SetAccountSocialProviderAfterConnectInterceptor" />
+                <bean class="be.svk.webapp.interceptors.SetAccountSocialProviderAfterConnectInterceptor"/>
             </list>
         </property>
         <property name="disconnectInterceptors">
             <list>
-                <bean class="be.spring.app.interceptors.RemoveAccountSocialProviderAfterDisconnectInterceptor" />
+                <bean class="be.svk.webapp.interceptors.RemoveAccountSocialProviderAfterDisconnectInterceptor"/>
             </list>
         </property>
     </bean>

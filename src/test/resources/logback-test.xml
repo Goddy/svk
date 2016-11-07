@@ -8,7 +8,7 @@
     </appender>
 
     <!-- Application Loggers -->
-    <logger name="be.spring.app">
+    <logger name="be.svk.webapp">
         <level value="debug"/>
     </logger>
 

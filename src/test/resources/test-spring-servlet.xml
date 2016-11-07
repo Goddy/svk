@@ -12,8 +12,8 @@
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven/>
     <sec:global-method-security pre-post-annotations="enabled"/>
-    <context:component-scan base-package="be.spring.app.validators"/>
-    <context:component-scan base-package="be.spring.app.controller"/>
+    <context:component-scan base-package="be.svk.webapp.validators"/>
+    <context:component-scan base-package="be.svk.webapp.controller"/>
 
     <!--Enables JSON integration-->
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>

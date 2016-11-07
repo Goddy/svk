@@ -7,7 +7,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@attribute name="returnUrl" required="true" type="java.lang.String" %>
-<%@attribute name="match" required="true" type="be.spring.app.model.Match" %>
+<%@attribute name="match" required="true" type="be.svk.webapp.model.Match" %>
 <%@attribute name="showUsers" required="true" type="java.lang.Boolean" %>
 
 <c:set var="doodle" value="${match.matchDoodle}"/>

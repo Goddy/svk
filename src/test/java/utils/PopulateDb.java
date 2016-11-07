@@ -1,8 +1,8 @@
 package utils;
 
-import be.spring.app.controller.DataFactory;
-import be.spring.app.model.Account;
-import be.spring.app.persistence.AccountDao;
+import be.svk.webapp.controller.DataFactory;
+import be.svk.webapp.model.Account;
+import be.svk.webapp.persistence.AccountDao;
 
 /**
  * Created by u0090265 on 9/26/14.

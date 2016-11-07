@@ -25,7 +25,7 @@
         <security:authentication-provider ref="socialAuthenticationProvider"/>
     </security:authentication-manager>
 
-    <bean id="localeContextFilter" class="be.spring.app.filter.LocaleContextFilter">
+    <bean id="localeContextFilter" class="be.svk.webapp.filter.LocaleContextFilter">
         <property name="localeResolver" ref="localeResolver"/>
         <!-- e.g.: CookieLocaleResolver -->
     </bean>
@@ -58,7 +58,7 @@
         This bean is used to load the user specific data when social sign in
         is used.
     -->
-    <bean id="socialUserDetailsService" class="be.spring.app.persistence.DefaultSocialUserDetailsService"/>
+    <bean id="socialUserDetailsService" class="be.svk.webapp.persistence.DefaultSocialUserDetailsService"/>
 
     <!--
         This bean encrypts the authorization details of the connection. In
@@ -68,7 +68,7 @@
     <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText" />
 
     <!-- This bean is load the user specific data when form login is used. -->
-    <bean id="userDetailsService" class="be.spring.app.persistence.UserDetailsServiceAdapter"/>
+    <bean id="userDetailsService" class="be.svk.webapp.persistence.UserDetailsServiceAdapter"/>
 
     <!--
         This bean determines the account ID of the user. The example application

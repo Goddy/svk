@@ -14,13 +14,13 @@
 
     <!-- Scan persistence package for annotations -->
 
-    <context:component-scan base-package="be.spring.app.persistence"/>
-    <context:component-scan base-package="be.spring.app.service"/>
-    <context:component-scan base-package="be.spring.app.utils"/>
+    <context:component-scan base-package="be.svk.webapp.persistence"/>
+    <context:component-scan base-package="be.svk.webapp.service"/>
+    <context:component-scan base-package="be.svk.webapp.utils"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <data:repositories base-package="be.spring.app.persistence"/>
+    <data:repositories base-package="be.svk.webapp.persistence"/>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource"/>
     <util:properties id="hibernateProperties">
@@ -31,7 +31,7 @@
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
-          p:packagesToScan="be.spring.app.model">
+          p:packagesToScan="be.svk.webapp.model">
         <property name="persistenceProvider">
             <bean class="org.hibernate.jpa.HibernatePersistenceProvider"/>
         </property>

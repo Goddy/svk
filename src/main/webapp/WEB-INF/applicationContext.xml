@@ -16,7 +16,7 @@
     <import resource="security-context.xml"/>
 
     <!-- scan config -->
-    <context:component-scan base-package="be.spring.app.config"/>
+    <context:component-scan base-package="be.svk.webapp.config"/>
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>

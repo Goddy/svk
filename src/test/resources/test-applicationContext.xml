@@ -13,15 +13,15 @@
     </bean>
 
     <bean id="conversionHelper" class="org.easymock.EasyMock" factory-method="createStrictMock" primary="true">
-        <constructor-arg value="be.spring.app.service.DTOConversionHelper"/>
+        <constructor-arg value="be.svk.webapp.service.DTOConversionHelper"/>
     </bean>
 
     <!-- SET default mail properties -->
     <bean id="mailService" class="org.easymock.EasyMock" factory-method="createStrictMock">
-        <constructor-arg value="be.spring.app.service.MailService"/>
+        <constructor-arg value="be.svk.webapp.service.MailService"/>
     </bean>
     <bean id="securityUtils" class="org.easymock.EasyMock" factory-method="createStrictMock">
-        <constructor-arg value="be.spring.app.utils.SecurityUtils"/>
+        <constructor-arg value="be.svk.webapp.utils.SecurityUtils"/>
     </bean>
 
     <!-- recatchpa -->
