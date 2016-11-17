@@ -87,7 +87,7 @@ public class PollServiceImpl implements PollService {
         if (match.getMotmPoll() != null && match.getMatchDoodle() != null) {
             for (Presence p : match.getMatchDoodle().getPresences()) {
                 //Add if player was present
-                if (p.isPresent()) options.add(new IdentityOption(p.getAccount().getId()));
+                if (p.isPresent()) options.add(new IdentityOption(p.getAccount().getId(), match.getMotmPoll()));
             }
         }
         return options;

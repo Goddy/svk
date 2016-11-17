@@ -11,7 +11,8 @@ import javax.persistence.Table;
 public class IdentityOption extends Option<Long> {
     public IdentityOption() {super();}
 
-    public IdentityOption(Long option) {
+    public IdentityOption(Long option, Poll poll) {
         this.setOption(option);
+        this.setPoll(poll);
     }
 }
