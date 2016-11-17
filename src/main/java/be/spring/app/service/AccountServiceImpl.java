@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
     private static final Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
