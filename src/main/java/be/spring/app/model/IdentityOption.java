@@ -10,8 +10,8 @@ import javax.persistence.Table;
 @Table(name = "identity_option")
 public class IdentityOption extends Option<Long> {
     public IdentityOption() {super();}
-    public IdentityOption(Long option, Poll poll) {
+
+    public IdentityOption(Long option) {
         this.setOption(option);
-        this.setPoll(poll);
     }
 }

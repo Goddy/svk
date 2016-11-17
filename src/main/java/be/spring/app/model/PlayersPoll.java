@@ -43,8 +43,7 @@ public class PlayersPoll extends Poll<Long> implements MultipleChoicePoll<Long> 
             )}
     )
     @OrderColumn
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true,
-            mappedBy = "poll")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<IdentityOption> getOptions() {
         return options;
     }
