@@ -89,8 +89,7 @@ public class Account extends BaseClass implements Comparable<Account> {
     public String getFullName() {
         StringBuilder b = new StringBuilder(firstName)
                 .append(" ")
-                .append(GeneralUtils.abbreviateName(lastName))
-                .append(".");
+                .append(GeneralUtils.abbreviateName(lastName));
         return b.toString();
     }
 
