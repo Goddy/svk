@@ -1,6 +1,7 @@
 package be.spring.app.model;
 
 import be.spring.app.data.SocialMediaEnum;
+import be.spring.app.utils.GeneralUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -88,7 +89,7 @@ public class Account extends BaseClass implements Comparable<Account> {
     public String getFullName() {
         StringBuilder b = new StringBuilder(firstName)
                 .append(" ")
-                .append(lastName.substring(0, 1))
+                .append(GeneralUtils.abbreviateName(lastName))
                 .append(".");
         return b.toString();
     }
