@@ -90,6 +90,7 @@
     </div>
 </form:form>
 
+    <%--
 <c:choose>
     <c:when test="${!Account.hasSignInProvider}">
         <div class="box">
@@ -118,13 +119,13 @@
             </form>
         </div>
     </c:otherwise>
-    --%>
 </c:choose>
+    --%>
 
     <div class="box">
         <h2><spring:message code="text.changepassword"/></h2>
         <c:choose>
-            <c:when test="${Account.hasPassword == true}">
+            <c:when test="${accountProfileForm.hasPassword == true}">
                 <form:form id="changePassword" modelAttribute="changePassword" cssClass="form-horizontal"
                            action="changePassword">
                     <tag:formField path="oldPassword" label="label.currentPwd" title="label.currentPwd" type="password"
