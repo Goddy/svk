@@ -1,6 +1,7 @@
 package be.spring.app.utils;
 
 import be.spring.app.controller.exceptions.ObjectNotFoundException;
+import com.google.common.base.Strings;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -59,5 +60,14 @@ public class GeneralUtils {
 
     public static void throwObjectNotFoundException(Object o, Long id, Class expectedClass) {
         if (o == null) throw new ObjectNotFoundException(String.format("%s %s not found", expectedClass.getName(), id));
+    }
+
+    public static String abbreviateName(String name) {
+        if (Strings.isNullOrEmpty(name)) return "";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String p : name.split(" ")) {
+            stringBuilder.append(p.substring(0, 1));
+        }
+        return stringBuilder.toString();
     }
 }

@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
     private static final Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
@@ -52,6 +52,7 @@ public class AccountServiceImpl implements AccountService {
     private ImageService imageService;
 
     @Override
+    @Transactional(readOnly = false)
     public Account registerAccount(Account account, String password) {
         Account resultAccount = createAccountWithPassword(account, password);
         mailService.sendPreConfiguredMail(messageSource.getMessage("mail.user.registered", new Object[]{baseUrl,

@@ -27,8 +27,8 @@ public abstract class Option<T> extends BaseClass {
         this.option = option;
     }
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="poll_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "poll_id")
     @NotNull
     public Poll getPoll() {
         return poll;
