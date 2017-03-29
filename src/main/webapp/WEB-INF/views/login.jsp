@@ -62,7 +62,7 @@ and social sign in buttons.
                         <button type="submit" class="btn btn-default"><spring:message code="button.login"/></button>
                         <a href="/auth/facebook">
                             <button type="button" value="facebook" class="btn btn-facebook" data-toggle="tooltip"
-                                    data-placement="bottom"
+                                    data-placement="bottom" disabled
                                     title="<spring:message code="button.facebook.sign.in.info"/>"><i
                                     class="fa fa-facebook"></i> | <spring:message code="button.facebook.sign.in.button"
                                                                                   text="Facebook sign in"/></button>
@@ -92,15 +92,6 @@ and social sign in buttons.
                     <!-- Add create user account link -->
                     <a href="/account/getPwdRecoveryCode.html"><spring:message
                             code="button.fogot.password"/></a>
-                </div>
-            </div>
-            <div class="row social-button-row">
-                <div class="col-lg-4">
-                    <!-- Add Facebook sign in button -->
-                    <a href="/auth/facebook">
-                        <button class="btn btn-facebook"><i class="fa fa-facebook"></i> | <spring:message
-                                code="button.facebook.register.button" text="Facebook sign in"/></button>
-                    </a>
                 </div>
             </div>
         </div>
