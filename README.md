@@ -39,6 +39,10 @@ cd letsencrypt
 ```bash
 sudo ./letsencrypt-auto certonly -a manual -d voetbal.svk-oh.be --server https://acme-v01.api.letsencrypt.org/directory
 ```
+###Renew Cert
+```bash
+sudo ./letsencrypt-auto renew 
+```
 
 ###Update certcontroller in code with the hashes supplied by the script, then deploy and continue the script
 ###Add the certs to openshift
