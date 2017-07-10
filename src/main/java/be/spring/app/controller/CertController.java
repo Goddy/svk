@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class CertController {
-    @RequestMapping(value = "/.well-known/acme-challenge/wDiXZru4z9ZkmyQ7Q56OGPYOuXgQFkk9U20mWkmENEA", method =
+    @RequestMapping(value = "/.well-known/acme-challenge/xmIx5gsf30sWPNavL7_OQYmAsVyhBHngwAt4RwCTgQk", method =
             RequestMethod.GET)
     @ResponseBody
     public String getCert() {
-        return "wDiXZru4z9ZkmyQ7Q56OGPYOuXgQFkk9U20mWkmENEA.nSuK_iD360mtpO2ZJoMCZU4m0BdFKZZ4o9_oJdhrBMA";
+        return "xmIx5gsf30sWPNavL7_OQYmAsVyhBHngwAt4RwCTgQk.nSuK_iD360mtpO2ZJoMCZU4m0BdFKZZ4o9_oJdhrBMA";
     }
 }
